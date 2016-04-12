@@ -1,0 +1,25 @@
+{
+  "name": "hereweare-frontend",
+  "description": "progetto di rendicontazione ore interno a Sensei",
+  "main": "server/server.js",
+  "authors": [
+    "federico.manganiello <federico.manganiello@senseisrl.it>"
+  ],
+  "license": "UNLICENSED",
+  "moduleType": [],
+  "homepage": "http://localhost:3000",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/vendor",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "angular-resource": "^1.5.3",
+    "angular-ui-router": "^0.2.18",
+    "ng-table": "^0.8.3"
+  }
+}

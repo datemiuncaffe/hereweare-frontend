@@ -1,0 +1,14 @@
+<div class="list-group">	
+	<div ng-controller="GiorniClienteController as oremese">
+	  <h2 class="page-header">Giorni lavorati per cliente nel mese</h2>
+	  <table ng-table="oremese.tableParams" class="table table-bordered table-striped table-condensed">
+		<tr ng-repeat="row in $data">
+		  <td data-title="'anno'" filter="{anno: 'text'}" sortable="'anno'">{{row.anno}}</td>
+		  <td data-title="'mese'" filter="{mese: 'text'}" sortable="'mese'">{{row.mese}}</td>
+		  <td data-title="'idCliente'" filter="{idCliente: 'text'}" sortable="'idCliente'">{{row.idCliente}}</td>
+		  <td data-title="'nomeCliente'" filter="{nomeCliente: 'text'}" sortable="'nomeCliente'">{{row.nomeCliente}}</td>
+		  <td data-title="'giornateMese'" filter="{giornateMese: 'text'}" sortable="'giornateMese'">{{row.giornateMese}}</td>
+		</tr>
+	  </table>
+	</div>
+</div>
