@@ -3,7 +3,7 @@ angular
   .controller('OreMeseController', ['$scope', '$state', 'NgTableParams', '$resource', function($scope, 
 		  $state, NgTableParams, $resource) {
 	var ref = this;
-    console.log('inside OreMeseController ...');      
+	console.log('inside OreMeseController ...');      
     var query = $resource('http://localhost:3000/query_ore_lav_utente_mese');            
     var queryData = {
     	callFun : function (){     	    

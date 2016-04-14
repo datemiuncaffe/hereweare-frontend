@@ -1,6 +1,7 @@
 angular
   .module('app', [
     'lbServices',
+    'hwlog-service',
     'ngResource',
     'ui.router',
     'ngTable'
