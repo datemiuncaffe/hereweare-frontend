@@ -28,7 +28,7 @@
     <script src="js/services/lb-services.js"></script>
     <script src="js/services/hwlog-service.js"></script>
     <script src="js/app.js"></script>
-    <script src="js/controllers/todo.js"></script>
+    <script src="js/controllers/costi.js"></script>
     <script src="js/controllers/note.js"></script>
     <script src="js/controllers/oremese.js"></script>
     <script src="js/controllers/giornicommessautente.js"></script>
@@ -42,7 +42,7 @@
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">LoopBack Angular example</a>
+          <a class="navbar-brand" ui-sref="costi">Budget e consuntivo</a>
         </div>
         <div class="navbar-header">
           <a class="navbar-brand" ui-sref="oremese">Ore mese</a>
@@ -66,7 +66,7 @@
     </div>
 
     <div class="container">
-      <div ui-view="todoview"></div>
+      <div ui-view="costiview"></div>
       <div ui-view="noteview"></div>
       <div ui-view="oremeseview"></div>
       <div ui-view="giornicommessautenteview"></div>

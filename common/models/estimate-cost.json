@@ -1,9 +1,16 @@
 {
-  "name": "Todo",
+  "name": "EstimateCost",
   "base": "PersistedModel",
   "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
   "properties": {
-    "content": {
+    "customer": {
+      "type": "string",
+      "required": true
+    },
+    "project": {
       "type": "string",
       "required": true
     }

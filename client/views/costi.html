@@ -1,0 +1,47 @@
+<h1>Budget e consuntivo costi</h1>
+<hr>
+<section>
+<form name="costiForm" novalidate ng-submit="addTodo()">
+	<fieldset>
+	  <!-- div class="form-group" ng-class="{'has-error': costiForm.content.$invalid && costiForm.content.$dirty}">
+	    <input type="text" class="form-control focus" name="content"
+	        placeholder="Content" autocomplete="off" required
+	        ng-model="newTodo.content">
+	    <span class="has-error control-label" ng-show="
+	        costiForm.content.$invalid && costiForm.content.$dirty">
+	      Content is required.
+	    </span>
+	  </div-->
+	  
+	  <div class="form-group">
+        <label>Nomi dei clienti</label>
+        <select ng-disabled="isDisabled"
+            ng-model="selectedShop"
+            ng-options="shop as shop.name for shop in coffeeShops"></select>
+      </div>
+
+      <!-- div class="form-group">
+        <label>Rating</label>
+        <input type="radio" ng-model="review.rating" value="1">1&#9733;
+        <input type="radio" ng-model="review.rating" value="2">2&#9733;
+        <input type="radio" ng-model="review.rating" value="3">3&#9733;
+        <input type="radio" ng-model="review.rating" value="4">4&#9733;
+        <input type="radio" ng-model="review.rating" value="5">5&#9733;
+      </div>
+
+      <div class="form-group">
+        <label>Comments</label>
+        <textarea ng-model="review.comments"></textarea>
+      </div-->
+	  
+	  
+	  <button class="btn btn-default" ng-disabled="costiForm.$invalid">Add</button>
+  	</fieldset>
+</form>
+<hr>
+<!-- div class="list-group">
+  <a class="list-group-item" ng-repeat="todo in todos">{{todo.content}}&nbsp;
+    <i class="glyphicon glyphicon-remove pull-right"
+        ng-click="removeTodo(todo)"></i></a>
+</div-->
+</section>

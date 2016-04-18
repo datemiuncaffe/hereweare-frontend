@@ -9,16 +9,16 @@ angular
   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider,
       $urlRouterProvider) {
       $stateProvider
-      .state('todo', {
+      .state('costi', {
         url: '',
         views:{
           'noteview': {
              templateUrl: 'views/note.html',
              controller: 'NoteController'
           },
-          'todoview': {
-             templateUrl: 'views/todo.html',
-             controller: 'TodoController'
+          'costiview': {
+             templateUrl: 'views/costi.html',
+             controller: 'CostiController'
           }
         }
       })

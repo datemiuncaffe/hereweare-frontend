@@ -9,16 +9,21 @@
       "type": "string"
     }
   },
+  "validations": [],
+  "relations": {},
+  "acls": [],
   "methods": {
     "greet": {
       "isStatic": true,
-      "accepts": [{
-        "arg": "msg",
-        "type": "string",
-        "http": {
-          "source": "query"
+      "accepts": [
+        {
+          "arg": "msg",
+          "type": "string",
+          "http": {
+            "source": "query"
+          }
         }
-      }],
+      ],
       "returns": {
         "arg": "greeting",
         "type": "string"
