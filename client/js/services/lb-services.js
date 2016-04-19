@@ -661,13 +661,13 @@ module.factory(
 
 /**
  * @ngdoc object
- * @name lbServices.Todo
- * @header lbServices.Todo
+ * @name lbServices.EstimateCost
+ * @header lbServices.EstimateCost
  * @object
  *
  * @description
  *
- * A $resource object for interacting with the `Todo` model.
+ * A $resource object for interacting with the `EstimateCost` model.
  *
  * ## Example
  *
@@ -677,17 +677,17 @@ module.factory(
  *
  */
 module.factory(
-  "Todo",
+  "EstimateCost",
   ['LoopBackResource', 'LoopBackAuth', '$injector', function(Resource, LoopBackAuth, $injector) {
     var R = Resource(
-      urlBase + "/Todos/:id",
+      urlBase + "/EstimateCosts/:id",
       { 'id': '@id' },
       {
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#create
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#create
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -714,18 +714,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Todo` object.)
+         * This usually means the response is a `EstimateCost` object.)
          * </em>
          */
         "create": {
-          url: urlBase + "/Todos",
+          url: urlBase + "/EstimateCosts",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#createMany
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#createMany
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -752,19 +752,19 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Todo` object.)
+         * This usually means the response is a `EstimateCost` object.)
          * </em>
          */
         "createMany": {
           isArray: true,
-          url: urlBase + "/Todos",
+          url: urlBase + "/EstimateCosts",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#upsert
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#upsert
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -791,18 +791,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Todo` object.)
+         * This usually means the response is a `EstimateCost` object.)
          * </em>
          */
         "upsert": {
-          url: urlBase + "/Todos",
+          url: urlBase + "/EstimateCosts",
           method: "PUT"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#exists
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#exists
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -827,14 +827,14 @@ module.factory(
          *  - `exists` – `{boolean=}` - 
          */
         "exists": {
-          url: urlBase + "/Todos/:id/exists",
+          url: urlBase + "/EstimateCosts/:id/exists",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#findById
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#findById
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -858,18 +858,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Todo` object.)
+         * This usually means the response is a `EstimateCost` object.)
          * </em>
          */
         "findById": {
-          url: urlBase + "/Todos/:id",
+          url: urlBase + "/EstimateCosts/:id",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#find
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#find
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -891,19 +891,19 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Todo` object.)
+         * This usually means the response is a `EstimateCost` object.)
          * </em>
          */
         "find": {
           isArray: true,
-          url: urlBase + "/Todos",
+          url: urlBase + "/EstimateCosts",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#findOne
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#findOne
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -925,18 +925,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Todo` object.)
+         * This usually means the response is a `EstimateCost` object.)
          * </em>
          */
         "findOne": {
-          url: urlBase + "/Todos/findOne",
+          url: urlBase + "/EstimateCosts/findOne",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#updateAll
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#updateAll
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -963,14 +963,14 @@ module.factory(
          * The number of instances updated
          */
         "updateAll": {
-          url: urlBase + "/Todos/update",
+          url: urlBase + "/EstimateCosts/update",
           method: "POST"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#deleteById
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#deleteById
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -992,18 +992,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Todo` object.)
+         * This usually means the response is a `EstimateCost` object.)
          * </em>
          */
         "deleteById": {
-          url: urlBase + "/Todos/:id",
+          url: urlBase + "/EstimateCosts/:id",
           method: "DELETE"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#count
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#count
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -1028,14 +1028,14 @@ module.factory(
          *  - `count` – `{number=}` - 
          */
         "count": {
-          url: urlBase + "/Todos/count",
+          url: urlBase + "/EstimateCosts/count",
           method: "GET"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#prototype$updateAttributes
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#prototype$updateAttributes
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -1061,18 +1061,18 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Todo` object.)
+         * This usually means the response is a `EstimateCost` object.)
          * </em>
          */
         "prototype$updateAttributes": {
-          url: urlBase + "/Todos/:id",
+          url: urlBase + "/EstimateCosts/:id",
           method: "PUT"
         },
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#createChangeStream
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#createChangeStream
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -1102,7 +1102,7 @@ module.factory(
          *  - `changes` – `{ReadableStream=}` - 
          */
         "createChangeStream": {
-          url: urlBase + "/Todos/change-stream",
+          url: urlBase + "/EstimateCosts/change-stream",
           method: "POST"
         },
       }
@@ -1112,8 +1112,8 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#updateOrCreate
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#updateOrCreate
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -1140,15 +1140,15 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Todo` object.)
+         * This usually means the response is a `EstimateCost` object.)
          * </em>
          */
         R["updateOrCreate"] = R["upsert"];
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#update
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#update
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -1178,8 +1178,8 @@ module.factory(
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#destroyById
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#destroyById
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -1201,15 +1201,15 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Todo` object.)
+         * This usually means the response is a `EstimateCost` object.)
          * </em>
          */
         R["destroyById"] = R["deleteById"];
 
         /**
          * @ngdoc method
-         * @name lbServices.Todo#removeById
-         * @methodOf lbServices.Todo
+         * @name lbServices.EstimateCost#removeById
+         * @methodOf lbServices.EstimateCost
          *
          * @description
          *
@@ -1231,7 +1231,7 @@ module.factory(
          *
          * <em>
          * (The remote method definition does not provide any description.
-         * This usually means the response is a `Todo` object.)
+         * This usually means the response is a `EstimateCost` object.)
          * </em>
          */
         R["removeById"] = R["deleteById"];
@@ -1239,13 +1239,13 @@ module.factory(
 
     /**
     * @ngdoc property
-    * @name lbServices.Todo#modelName
-    * @propertyOf lbServices.Todo
+    * @name lbServices.EstimateCost#modelName
+    * @propertyOf lbServices.EstimateCost
     * @description
     * The name of the model represented by this $resource,
-    * i.e. `Todo`.
+    * i.e. `EstimateCost`.
     */
-    R.modelName = "Todo";
+    R.modelName = "EstimateCost";
 
 
     return R;

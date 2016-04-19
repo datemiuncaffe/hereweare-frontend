@@ -16,10 +16,6 @@
   "Note": {
     "dataSource": "db"
   },
-  "Todo": {
-    "dataSource": "db",
-    "public": true
-  },
   "EstimateCost": {
     "dataSource": "db",
     "public": true
