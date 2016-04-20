@@ -3,26 +3,26 @@ angular
 	.controller('CostiController', ['$scope', '$resource', '$q', function($scope, $resource, $q) {
 		console.log('inside CostiController...');
 	
-		$scope.estimateCost = {};
-		$scope.isDisabled = false;
+		var customers = [];
+		$scope.isCustomerDisabled = false;
+		$scope.isProjectDisabled = false;
 	
-		var customers_resource = $resource('http://localhost:3000/api/Customers', null, {'query':  {method:'GET', isArray:true}});
-		var projects_resource = $resource('http://localhost:3000/api/Projects', null, {'query':  {method:'GET', isArray:true}});
-	
+		var estimates = $resource('http://localhost:3000/api/customers?filter[include][projects]=budgets', null, {'query':  {method:'GET', isArray:true}});
+		
 		$q
 		.all([
-		    customers_resource.query().$promise,
-		    projects_resource.query().$promise
+		    estimates.query().$promise
 		])
 		.then(
 			function(data) {
 				console.log('data: ' + JSON.stringify(data));
-				var customer = data[0][0];
-				var projects = data[1];				
 				
-				$scope.projects = projects;
-				$scope.selectedProject = projects[0];
-				console.log('projects: ' + projects);
+				var customers = data[0];
+				$scope.customers = customers;
+				$scope.selectedCustomer = customers[0];
+				console.log('customers: ' + JSON.stringify(customers));
+				
+				
 			
 //				var selectedShopIndex = coffeeShops
 //						.map(
@@ -35,14 +35,13 @@ angular
 //				$scope.selectedShop = coffeeShops[selectedShopIndex];
 			});
 	
-		$scope.addProject = function() {
-			console.log('add project button...');
-//			$scope.review.coffeeShopId = $scope.selectedShop.id;
-//			$scope.review.$save().then(function(review) {
-//				$state.go('all-reviews');
-//			});
+		$scope.onCustomerChange = function(customer) {
+			console.log('customer: ' + JSON.stringify(customer));
+			var projects = customer.projects;
+			$scope.projects = projects;
+			$scope.selectedProject = projects[0];
 		};
-	
+		
 		// function getTodos() {
 		// console.log('getTodos');
 		// Todo
@@ -53,18 +52,20 @@ angular
 		// });
 		// }
 		// getTodos();
-		//
-		// $scope.addTodo = function() {
-		// Todo
-		// .create($scope.newTodo)
-		// .$promise
-		// .then(function(todo) {
-		//          $scope.newTodo = '';
-		//          $scope.todoForm.content.$setPristine();
-		//          $('.focus').focus();
-		//          getTodos();
-		//        });
-		//    };
+		
+		$scope.save = function() {
+			
+			console.log('current customer: ' + JSON.stringify($scope.selectedCustomer));
+			
+			var estimatesSave = $resource('http://localhost:3000/api/customers?filter[include][projects]=budgets', null, {'save': {method:'POST'}});
+			
+			$q.all([
+			    estimatesSave.save().$promise
+			])
+			.then(function(response) {
+					console.log('response: ' + response);
+			});
+		};
 	
 		//    $scope.removeTodo = function(item) {
 		//      Todo

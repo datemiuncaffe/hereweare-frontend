@@ -1,7 +1,7 @@
 <h1>Budget e consuntivo costi</h1>
 <hr>
 <section>
-<form name="costiForm" novalidate ng-submit="addProject()">
+<form name="costiForm" novalidate ng-submit="save()">
 	<fieldset>
 	  <!-- div class="form-group" ng-class="{'has-error': costiForm.content.$invalid && costiForm.content.$dirty}">
 	    <input type="text" class="form-control focus" name="content"
@@ -14,22 +14,40 @@
 	  </div-->
 	  
 	  <div class="form-group">
-        <label>Commesse</label>
-        <select ng-disabled="isDisabled"
-            ng-model="selectedProject"
-            ng-options="project as project.name for project in projects"></select>
+        <label>Clienti</label>
+        <select ng-disabled="isCustomerDisabled"
+            ng-model="selectedCustomer"
+            ng-options="customer as customer.name for customer in customers"
+            ng-change="onCustomerChange(selectedCustomer)">
+        </select>
       </div>
-
-      <!-- div class="form-group">
-        <label>Rating</label>
-        <input type="radio" ng-model="review.rating" value="1">1&#9733;
-        <input type="radio" ng-model="review.rating" value="2">2&#9733;
-        <input type="radio" ng-model="review.rating" value="3">3&#9733;
-        <input type="radio" ng-model="review.rating" value="4">4&#9733;
-        <input type="radio" ng-model="review.rating" value="5">5&#9733;
+      
+	  <div class="form-group">
+        <label>Progetti</label>
+        <select ng-disabled="isProjectDisabled"
+            ng-model="selectedProject"
+            ng-options="project as project.name for project in projects"
+            ng-change="onProjectChange(selectedProject)">
+        </select>
       </div>
 
       <div class="form-group">
+        <label>Budgets mensili</label>
+        <div>
+        	<label>Gennaio</label>
+        	<textarea ng-model="selectedProject.budgets[0].amount"></textarea>
+        </div>
+        <div>
+        	<label>Febbraio</label>
+        	<textarea ng-model="selectedProject.budgets[1].amount"></textarea>
+        </div>
+        <div>
+        	<label>Marzo</label>
+        	<textarea ng-model="selectedProject.budgets[2].amount"></textarea>
+        </div>
+      </div>
+
+      <!-- div class="form-group">
         <label>Comments</label>
         <textarea ng-model="review.comments"></textarea>
       </div-->
