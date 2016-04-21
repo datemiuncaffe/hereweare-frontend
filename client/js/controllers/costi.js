@@ -60,7 +60,7 @@ angular
 			var estimatesSave = $resource('http://localhost:3000/api/customers?filter[include][projects]=budgets', null, {'save': {method:'POST'}});
 			
 			$q.all([
-			    estimatesSave.save().$promise
+			    estimatesSave.save($scope.selectedCustomer).$promise
 			])
 			.then(function(response) {
 					console.log('response: ' + response);

@@ -19,6 +19,10 @@ angular
           'costiview': {
              templateUrl: 'views/costi.html',
              controller: 'CostiController'
+          },
+          'budgetview': {
+             templateUrl: 'views/budget.html',
+             controller: 'BudgetController'
           }
         }
       })
