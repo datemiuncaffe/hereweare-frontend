@@ -23,7 +23,11 @@ angular
           'budgetview': {
              templateUrl: 'views/budget.html',
              controller: 'BudgetController'
-          }
+          },
+          'calendarview': {
+              templateUrl: 'views/calendar.html',
+              controller: 'CalendarController'
+           }
         }
       })
       .state('oremese', {

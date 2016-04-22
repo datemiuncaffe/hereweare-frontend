@@ -3,13 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>LoopBack Angular example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">	
+    
+    <title>Sensei reports</title>
 
     <!-- Bootstrap -->
     <link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
     <link href="vendor/ng-table/dist/ng-table.css" rel="stylesheet">
+    <link href="css/calendar/angular.css" rel="stylesheet" type="text/css">
+    <link href="css/calendar/calendar.css" rel="stylesheet" type="text/css">
+    <link href="css/calendar/fontawesome.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,13 +27,19 @@
     <script src="vendor/angular/angular.js"></script>
     <script src="vendor/angular-resource/angular-resource.js"></script>
     <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="vendor/ng-table/dist/ng-table.js"></script>
+    <script src="vendor/ng-table/dist/ng-table.js"></script>    		
+	
+	<!-- script type="text/javascript" src="Angular%20JS%20Calendar%20Demo_files/less.js"></script-->
+	<!-- script type="text/javascript" src="Angular%20JS%20Calendar%20Demo_files/underscore-min.js"></script-->
+	<script src="vendor/moment/moment.js" type="text/javascript"></script>
     
     <script src="js/services/lb-services.js"></script>
     <script src="js/services/hwlog-service.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/directives/calendar.js"></script>
     <script src="js/controllers/costi.js"></script>
     <script src="js/controllers/budget.js"></script>
+    <script src="js/controllers/calendar.js"></script>
     <script src="js/controllers/note.js"></script>
     <script src="js/controllers/oremese.js"></script>
     <script src="js/controllers/giornicommessautente.js"></script>
@@ -67,9 +77,10 @@
     </div>
 
     <div class="container">
-      <div ui-view="costiview"></div>
-      <div ui-view="budgetview"></div>
-      <div ui-view="noteview"></div>
+      <div ui-view="costiview" class="costi"></div>
+      <div ui-view="budgetview" class="budget"></div>
+      <div ui-view="calendarview" class="calendar"></div>
+      <div ui-view="noteview" class="note"></div>
       <div ui-view="oremeseview"></div>
       <div ui-view="giornicommessautenteview"></div>
       <div ui-view="giornicommessaview"></div>
