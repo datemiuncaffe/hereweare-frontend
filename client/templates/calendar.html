@@ -16,7 +16,7 @@
 <div class="week ng-scope" ng-repeat="week in weeks">
 	<!-- ngRepeat: day in week.days -->
 	<span class="day ng-binding ng-scope"
-		ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected) }"
+		ng-class="{ today: day.isToday, 'different-month': !day.isCurrentMonth, selected: day.date.isSame(selected), 'from': from, 'to': to }"
 		ng-click="select(day)" ng-repeat="day in week.days">{{day.number}}</span>
 	<!-- end ngRepeat: day in week.days -->			
 </div>

@@ -13,6 +13,7 @@
 }
 .hereweare_calendar > span {
   color: #888888;
+  border-bottom: 1px solid black;
 }
 .hereweare_calendar > span > b {
   color: black;
@@ -109,8 +110,13 @@ calendar > div.week > span.day.different-month {
   color: #C0C0C0;
 }
 calendar > div.week > span.day.selected {
-  background: #2875c7;
   color: white;
+}
+calendar > div.week > span.day.selected.from {
+  background: #2875c7;
+}
+calendar > div.week > span.day.selected.to {
+  background: #cc3300;
 }
 calendar > div.week.names > span {
   color: #2875c7;

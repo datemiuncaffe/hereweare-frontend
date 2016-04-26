@@ -16,6 +16,21 @@ body {
 	float: left;
 	width: 500px;
 }
+.budget_period > .controls {
+	float: left;
+	width: 180px;
+}
+/*
+.budget_period > .controls > .da {
+	background: red;
+}
+.budget_period > .controls > .a {
+	background: blue;
+}*/
+.budget_period > .calendar {
+	float: left;
+	width: 300px;
+}
 .note {
 	float: left;
 }

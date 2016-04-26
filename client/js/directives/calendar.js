@@ -5,7 +5,11 @@ angular
 	        restrict: "E",
 	        templateUrl: "templates/calendar.html",
 	        scope: {
-	            selected: "="
+	            selected: "=",
+	            from: "=",
+	            to: "=",
+	            dayfrom: "=",
+	            dayto: "="
 	        },
 	        link: function(scope) {
 	            scope.selected = _removeTime(scope.selected || moment());
@@ -18,7 +22,19 @@ angular
 	            _buildMonth(scope, start, scope.month);
 	
 	            scope.select = function(day) {
-	                scope.selected = day.date;  
+//	            	console.log('isFrom: ' + $scope.isFrom + '; isTo: ' + $scope.isTo + '; from: ' + scope.from + '; to: ' + scope.to);
+	            	console.log('from: ' + scope.from + '; to: ' + scope.to);
+//	            	console.log('dayFrom: ' + scope.dayFrom + '; selectedTo: ' + scope.selectedTo);
+	            	console.log('day.date: ' + day.date);
+	                scope.selected = day.date;
+	                if (scope.from) {
+	                	console.log('from: ' + scope.from);
+	                	scope.dayfrom = day.date;
+	                }
+	                if (scope.to) {
+	                	console.log('to: ' + scope.to);
+	                	scope.dayto = day.date;
+	                }
 	            };
 	
 	            scope.next = function() {

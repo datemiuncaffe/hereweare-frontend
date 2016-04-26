@@ -2,16 +2,43 @@
 <hr>
 <section>
 <div class="hereweare_calendar">
-	<span>This page demonstrates the use of a calendar control built
-		in Angular JS. It allows the user to choose a date.
-	</span>
+	
+	<div class="budget_period">
+		<div class="controls">			
+			<h4>Scegli l'intervallo</h4>
+			<button class="btn btn-default" ng-click="getFrom()">Da</button>
+			<button class="btn btn-default" ng-click="getTo()">A</button>
+			<b class="ng-binding">{{dayfrom}}</b>
+			<b class="ng-binding">{{dayto}}</b>
+			
+			<!-- input type="checkbox" ng-model="intervals.from" ng-change="onIntChange()"></input>
+        	<textarea ng-model="from" ng-focus="" ng-blur=""></textarea>
+        	
+        	<p>Da: <input type="text" id="datepicker"></p>
+        	
+        	<label class="a">A:</label>
+        	<input type="checkbox" ng-model="intervals.to" ng-change="onIntChange()"></input>
+        	<textarea ng-model="to" ng-focus="" ng-blur=""></textarea-->
+		</div>
+		<div class="calendar">
+			<!-- calendar class="ng-isolate-scope" selected="day" from="isFrom" to="isTo" count="counter"></calendar-->
+			<calendar class="ng-isolate-scope" selected="day" from="isFrom" to="isTo" dayfrom="dayfrom" dayto="dayto"></calendar>
+		</div>
+	</div>
+	
+	<span></span>
 
-	<calendar class="ng-isolate-scope" selected="day">		
-	</calendar>
+	<div class="budget">
+		<p>Budget totale: <input class="ng-binding" ng-model="budgettot"></input></p>
+	</div>
+	
+	<span></span>
 
-	<span>
-		Selected date: <b class="ng-binding">Sunday, April 17th 2016</b>
-	</span>
+	<div class="budget_distrib">
+		<button class="btn btn-default" ng-click="getBudgets(budgettot,dayfrom,dayto)">Ripartisci il budget sul periodo</button>
+		<p ng-repeat="budget in budgets">{{budget.month}}: <input class="ng-binding" ng-model="budget.amount"></input></p>
+	</div>
+	
 </div>
 <hr>
 </section>
