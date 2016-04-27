@@ -23,6 +23,16 @@ angular
 	    
 	    $scope.getBudgets = function(budgettot, dayfrom, dayto) {
 	    	$scope.budgets = [];
+	    	if (budgettot == null) {
+	    		throw 'ERR: il budget totale non è stato inserito';
+	    	}
+	    	if (dayfrom == null) {
+	    		throw 'ERR: inserire la data iniziale';
+	    	}
+	    	if (dayto == null) {
+	    		throw 'ERR: inserire la data finale';
+	    	}
+	    	
 	    	console.log('budgettot: ' + budgettot);
 	    	console.log('diff in months: ' + dayto.diff(dayfrom, 'months'));	    	
 	    	
