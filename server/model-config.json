@@ -15,9 +15,5 @@
   },
   "Note": {
     "dataSource": "db"
-  },
-  "EstimateCost": {
-    "dataSource": "db",
-    "public": true
   }
 }
