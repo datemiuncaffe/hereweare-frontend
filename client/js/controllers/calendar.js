@@ -1,6 +1,6 @@
 angular
 	.module("app")
-	.controller("CalendarController", function($scope) {
+	.controller("CalendarController", ['$scope', '$resource', '$q', function($scope, $resource, $q) {
 	    $scope.day = moment();
 	    $scope.isFrom = true;
 	    $scope.isTo = false;
@@ -41,6 +41,8 @@ angular
 	    		console.log('totaldays: ' + totaldays);
 	    		if (dayto.diff(dayfrom, 'months') === 0) {
 	    			var budgettot = {
+	    				from: dayfrom.date() + ' ' + moment.months()[dayfrom.month()] + ' ' + dayfrom.year(),
+	    				to: dayfrom.daysInMonth() + ' ' + moment.months()[dayfrom.month()] + ' ' + dayfrom.year(),
     	    			month: moment.months()[dayfrom.month()],
     	    			days: dayfrom.daysInMonth() - dayfrom.date() + 1,
     	    			amount: budgettot
@@ -48,6 +50,8 @@ angular
 	    			$scope.budgets.push(budgettot);
 	    		} else if (dayto.diff(dayfrom, 'months') === 1) {
 	    			var budgetFrom = {
+	    				from: dayfrom.date() + ' ' + moment.months()[dayfrom.month()] + ' ' + dayfrom.year(),
+		    			to: dayfrom.daysInMonth() + ' ' + moment.months()[dayfrom.month()] + ' ' + dayfrom.year(),
     	    			month: moment.months()[dayfrom.month()],
     	    			days: dayfrom.daysInMonth() - dayfrom.date() + 1,
     	    			amount: budgettot * ((dayfrom.daysInMonth() - dayfrom.date() + 1)/totaldays)
@@ -55,6 +59,8 @@ angular
 	    			$scope.budgets.push(budgetFrom);
 	    			
 	    			var budgetTo = {
+	    				from: '1 ' + moment.months()[dayto.month()] + ' ' + dayto.year(),
+		    			to: dayto.date() + ' ' + moment.months()[dayto.month()] + ' ' + dayto.year(),
     	    			month: moment.months()[dayto.month()],
     	    			days: dayto.date(),
     	    			amount: budgettot * (dayto.date()/totaldays)
@@ -63,6 +69,8 @@ angular
 	    			console.log('budgets: ' + JSON.stringify($scope.budgets));
 	    		} else {
 	    			var budgetFrom = {
+	    				from: dayfrom.date() + ' ' + moment.months()[dayfrom.month()] + ' ' + dayfrom.year(),
+		    			to: dayfrom.daysInMonth() + ' ' + moment.months()[dayfrom.month()] + ' ' + dayfrom.year(),
     	    			month: moment.months()[dayfrom.month()],
     	    			days: dayfrom.daysInMonth() - dayfrom.date() + 1,
     	    			amount: budgettot * ((dayfrom.daysInMonth() - dayfrom.date() + 1)/totaldays)
@@ -71,6 +79,8 @@ angular
 	    			
 	    			for (var i = dayfrom.month() + 1; i < dayto.month(); i++) {
 	    	    		var budget = {
+	    	    			from: moment({month: i}).date() + ' ' + moment.months()[i] + ' ' + moment({month: i}).year(),
+	    			    	to: moment({month: i}).daysInMonth() + ' ' + moment.months()[i] + ' ' + moment({month: i}).year(),
 	    	    			month: moment.months()[i],
 	    	    			days: moment({month: i}).daysInMonth(),
 	    	    			amount: budgettot * (moment({month: i}).daysInMonth()/totaldays)
@@ -79,6 +89,8 @@ angular
 	    	    	}
 	    			
 	    			var budgetTo = {
+	    				from: '1 ' + moment.months()[dayto.month()] + ' ' + dayto.year(),
+			    		to: dayto.date() + ' ' + moment.months()[dayto.month()] + ' ' + dayto.year(),
     	    			month: moment.months()[dayto.month()],
     	    			days: dayto.date(),
     	    			amount: budgettot * (dayto.date()/totaldays)
@@ -87,7 +99,24 @@ angular
 	    		}	    		
 	    	} else {
 	    		throw 'data di inizio maggiore di quella finale';
-	    	}
-	    	
+	    	}	    	
 	    };
-	});
+	    
+	    var projectsRes = $resource('http://localhost:3000/api/projects?filter[include]=budgets', null, {'query':  {method:'GET', isArray:true}});
+	    $scope.projects = null;
+		$scope.selectedProject = null;
+		
+		$q
+		.all([
+		    projectsRes.query().$promise
+		])
+		.then(
+			function(data) {
+				console.log('data: ' + JSON.stringify(data));
+				var projects = data[0];
+				console.log('projects: ' + JSON.stringify(projects));
+				$scope.projects = projects;
+				$scope.selectedProject = projects[0];				
+			});
+	    
+	}]);

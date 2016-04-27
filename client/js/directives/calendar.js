@@ -24,7 +24,7 @@ angular
 	            scope.select = function(day) {
 //	            	console.log('isFrom: ' + $scope.isFrom + '; isTo: ' + $scope.isTo + '; from: ' + scope.from + '; to: ' + scope.to);
 	            	console.log('from: ' + scope.from + '; to: ' + scope.to);
-//	            	console.log('dayFrom: ' + scope.dayFrom + '; selectedTo: ' + scope.selectedTo);
+	            	console.log('dayfrom: ' + scope.dayfrom + '; dayto: ' + scope.dayto);
 	            	console.log('day.date: ' + day.date);
 	                scope.selected = day.date;
 	                if (scope.from) {
