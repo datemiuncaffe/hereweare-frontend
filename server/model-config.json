@@ -12,8 +12,5 @@
       "../common/mixins",
       "./mixins"
     ]
-  },
-  "Note": {
-    "dataSource": "db"
   }
 }

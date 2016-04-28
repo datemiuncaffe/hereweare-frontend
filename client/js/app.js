@@ -12,10 +12,6 @@ angular
       .state('costi', {
         url: '',
         views:{
-          'noteview': {
-             templateUrl: 'views/note.html',
-             controller: 'NoteController'
-          },
           'costiview': {
              templateUrl: 'views/costi.html',
              controller: 'CostiController'
