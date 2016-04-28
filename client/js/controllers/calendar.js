@@ -121,14 +121,29 @@ angular
 				$scope.selectedProject = projects[0];				
 			});		
 		
-		var updateRes = $resource('http://localhost:3000/api/projects/:id?filter[include]=budgets', null, {'update': {method:'PUT'}});
+		var resources = {
+			updateProject: 	$resource('http://localhost:3000/api/projects/:id', null, {'update': {method:'PUT'}}),
+			updateBudgets:	$resource('http://localhost:3000/api/budgets/updateAllByProjectId', null, {'update': {method:'PUT'}})
+		};
 		
-		$scope.saveProject = function() {
+		$scope.save = function() {
 			console.log('current project: ' + JSON.stringify($scope.selectedProject));
-			console.log('current project id: ' + JSON.stringify($scope.selectedProject.id));
+			console.log('current project id: ' + JSON.stringify($scope.selectedProject.id));			
 			
 			$q.all([
-			    updateRes.update({ id: $scope.selectedProject.id }, $scope.selectedProject).$promise
+			    resources.updateProject.update({ id: $scope.selectedProject.id }, $scope.selectedProject).$promise
+			])
+			.then(function(response) {
+				console.log('response: ' + response);
+			});
+		};
+		
+		$scope.saveBudgets = function() {
+			console.log('project id: ' + JSON.stringify($scope.selectedProject.id));
+			console.log('budgets: ' + JSON.stringify($scope.selectedProject.budgets));
+			
+			$q.all([
+			    resources.updateBudgets.update({projectId: $scope.selectedProject.id, budgets: $scope.selectedProject.budgets}).$promise
 			])
 			.then(function(response) {
 				console.log('response: ' + response);
