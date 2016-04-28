@@ -1,7 +1,7 @@
 <h1>Calendario</h1>
 <hr>
 <section>
-<form name="calendarForm" novalidate ng-submit="save()">
+<form name="calendarForm" novalidate>
 	<fieldset>
 		<div class="hereweare_calendar">
 		
@@ -21,36 +21,43 @@
 					<h4>Scegli l'intervallo</h4>
 					<button class="btn btn-default" ng-click="getFrom()">Da</button>
 					<button class="btn btn-default" ng-click="getTo()">A</button>
-					<input class="ng-binding" ng-model="dayfrom"></input>
-					<input class="ng-binding" ng-model="dayto"></input>
+					<input class="ng-binding" ng-model="selectedProject.from"></input>
+					<input class="ng-binding" ng-model="selectedProject.to"></input>
 				</div>
 				<div class="calendar">
-					<!-- calendar class="ng-isolate-scope" selected="day" from="isFrom" to="isTo" count="counter"></calendar-->
-					<calendar class="ng-isolate-scope" selected="day" from="isFrom" to="isTo" dayfrom="dayfrom" dayto="dayto"></calendar>
+					<calendar class="ng-isolate-scope" selected="day" from="isFrom" to="isTo" dayfrom="selectedProject.from" dayto="selectedProject.to"></calendar>
 				</div>
 			</div>
 			
 			<span></span>
 		
 			<div class="budget">
-				<p>Budget totale: <input class="ng-binding" ng-model="budgettot"></input></p>
+				<p>Budget totale: <input class="ng-binding" ng-model="selectedProject.budgettot"></input></p>
 			</div>
 			
 			<span></span>
 		
 			<div class="budget_distrib">
-				<button class="btn btn-default" ng-click="getBudgets(budgettot,dayfrom,dayto)">Ripartisci il budget sul periodo</button>
-				<p ng-repeat="budget in budgets">
-					{{budget.month}} 
+				<button class="btn btn-default" ng-click="getBudgets(selectedProject.budgettot,selectedProject.from,selectedProject.to)">Ripartisci il budget sul periodo</button>
+				<p ng-repeat="budget in selectedProject.budgets">
+					{{budget.month}}
 					<span>
 						Da: <input class="ng-binding" ng-model="budget.from"></input>
 					</span>
 					<span>
 						A: <input class="ng-binding" ng-model="budget.to"></input>
-					</span>			
+					</span>
 					<input class="ng-binding" ng-model="budget.amount"></input>
 				</p>
 			</div>
+			
+			<span></span>
+			
+			<div class="form-group">
+				<button class="btn btn-default" ng-click="saveProject()">Salva progetto</button>				
+			</div>
+			
+			<span></span>
 			
 		</div>
 	</fieldset>

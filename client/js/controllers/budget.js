@@ -19,8 +19,7 @@ angular
 				console.log('current budget: ' + JSON.stringify(data));
 				$scope.budget = data[0];
 			});			
-		};
-		
+		};		
 		
 		$scope.saveBudget = function() {
 			console.log('current budget: ' + JSON.stringify($scope.budget));
