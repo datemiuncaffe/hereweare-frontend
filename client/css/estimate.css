@@ -2,7 +2,7 @@ form[name=estimateForm] div.top {
   font-family: Arial;
   font-size: 14px;
   width: 1000px;
-  height: 50px;
+  float: left;
   margin-bottom: 10px;
   border-bottom: 1px solid black;
 }
@@ -20,21 +20,23 @@ form[name=estimateForm] div.top > div.budgettot {
 }
 
 
-form[name=estimateForm] .center {
+form[name=estimateForm] div.center {
   font-family: Arial;
   font-size: 14px;
   width: 1000px;
-  height: 600px;
+  float: left;
   margin-bottom: 10px;
   border-bottom: 1px solid black;
 }
 form[name=estimateForm] .center .budget_period {
 	float: left;
-	width: 500px;
+	width: 480px;
+	margin-right: 20px;
 }
 form[name=estimateForm] .center .budget_period > .controls {
 	float: left;
-	width: 180px;
+	width: 160px;
+	margin-right: 10px;
 }
 form[name=estimateForm] .center .budget_period > .calendar {
 	float: left;
@@ -42,14 +44,16 @@ form[name=estimateForm] .center .budget_period > .calendar {
 }
 form[name=estimateForm] .center .budget_distrib {
 	float: left;
-	width: 500px;
+	width: 480px;
+	margin-right: 20px;
 }
+
 
 form[name=estimateForm] .bottom {
   font-family: Arial;
   font-size: 14px;
-  width: 500px;
-  height: 200px;
+  width: 1000px;
+  float: left;
   margin-bottom: 10px;
   border-bottom: 1px solid black;
 }
