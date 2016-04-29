@@ -1,0 +1,43 @@
+.hereweare_calendar {
+  font-family: Arial;
+  font-size: 14px;
+  height: 400px;
+}
+.hereweare_calendar > span,
+.hereweare_calendar > h1 {
+  float: left;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 10px;
+}
+.hereweare_calendar > span {
+  color: #888888;
+  border-bottom: 1px solid black;
+}
+.hereweare_calendar > span > b {
+  color: black;
+}
+.border-box {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+.calendar {
+	float: left;
+	width: 500px;
+}
+.budget_period > .controls {
+	float: left;
+	width: 180px;
+}
+/*
+.budget_period > .controls > .da {
+	background: red;
+}
+.budget_period > .controls > .a {
+	background: blue;
+}*/
+.budget_period > .calendar {
+	float: left;
+	width: 300px;
+}

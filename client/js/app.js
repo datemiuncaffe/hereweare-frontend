@@ -9,12 +9,12 @@ angular
   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider,
       $urlRouterProvider) {
       $stateProvider
-      .state('costi', {
+      .state('estimate', {
         url: '',
         views:{
-          'calendarview': {
-              templateUrl: 'views/calendar.html',
-              controller: 'CalendarController'
+          'estimateview': {
+              templateUrl: 'views/estimate.html',
+              controller: 'EstimateController'
            }
         }
       })

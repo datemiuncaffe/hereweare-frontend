@@ -1,6 +1,6 @@
 angular
 	.module("app")
-	.controller("CalendarController", ['$scope', '$resource', '$q', function($scope, $resource, $q) {
+	.controller("EstimateController", ['$scope', '$resource', '$q', function($scope, $resource, $q) {
 	    $scope.day = moment();
 	    $scope.isFrom = true;
 	    $scope.isTo = false;
