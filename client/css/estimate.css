@@ -1,43 +1,55 @@
-.hereweare_calendar {
+form[name=estimateForm] div.top {
   font-family: Arial;
   font-size: 14px;
-  height: 400px;
-}
-.hereweare_calendar > span,
-.hereweare_calendar > h1 {
-  float: left;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+  width: 1000px;
+  height: 50px;
   margin-bottom: 10px;
-}
-.hereweare_calendar > span {
-  color: #888888;
   border-bottom: 1px solid black;
 }
-.hereweare_calendar > span > b {
-  color: black;
+form[name=estimateForm] div.top > div.customers {
+  float: left;
+  width: 200px;
 }
-.border-box {
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
+form[name=estimateForm] div.top > div.projects {
+  float: left;
+  width: 300px;
 }
-.calendar {
+form[name=estimateForm] div.top > div.budgettot {
+  float: left;
+  width: 300px;
+}
+
+
+form[name=estimateForm] .center {
+  font-family: Arial;
+  font-size: 14px;
+  width: 1000px;
+  height: 600px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+}
+form[name=estimateForm] .center .budget_period {
 	float: left;
 	width: 500px;
 }
-.budget_period > .controls {
+form[name=estimateForm] .center .budget_period > .controls {
 	float: left;
 	width: 180px;
 }
-/*
-.budget_period > .controls > .da {
-	background: red;
-}
-.budget_period > .controls > .a {
-	background: blue;
-}*/
-.budget_period > .calendar {
+form[name=estimateForm] .center .budget_period > .calendar {
 	float: left;
 	width: 300px;
+}
+form[name=estimateForm] .center .budget_distrib {
+	float: left;
+	width: 500px;
+}
+
+form[name=estimateForm] .bottom {
+  font-family: Arial;
+  font-size: 14px;
+  width: 500px;
+  height: 200px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
 }
