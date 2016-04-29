@@ -4,14 +4,6 @@ body {
 .glyphicon-remove:hover {
   cursor:pointer
 }
-.costi {
-	float: left;
-	width: 300px;
-}
-.budget {
-	float: left;
-	width: 300px;
-}
 .calendar {
 	float: left;
 	width: 500px;

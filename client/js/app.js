@@ -12,14 +12,6 @@ angular
       .state('costi', {
         url: '',
         views:{
-          'costiview': {
-             templateUrl: 'views/costi.html',
-             controller: 'CostiController'
-          },
-          'budgetview': {
-             templateUrl: 'views/budget.html',
-             controller: 'BudgetController'
-          },
           'calendarview': {
               templateUrl: 'views/calendar.html',
               controller: 'CalendarController'

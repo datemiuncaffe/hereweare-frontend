@@ -5,11 +5,23 @@ angular
 	    $scope.isFrom = true;
 	    $scope.isTo = false;
 	    
+	    $scope.selectedCustomer = {
+	    	projects: []	
+	    };
+	    
 	    $scope.selectedProject = {
 	    	from: null,
 	    	to: null,
 	    	budgettot: null,
 	    	budgets: []
+	    };
+	    
+	    $scope.onCustomerChange = function(selectedCustomer) {
+	    	console.log('selectedCustomer.projects: ' + selectedCustomer.projects);
+	    	$scope.selectedProject = null;
+	    	if (selectedCustomer.projects != null && selectedCustomer.projects[0] != null) {
+	    		$scope.selectedProject = selectedCustomer.projects[0];
+	    	}	    		
 	    };
 	    
 	    $scope.getFrom = function() {
@@ -104,9 +116,10 @@ angular
 	    	}	    	
 	    };
 	    
-	    var getRes = $resource('http://localhost:3000/api/projects?filter[include]=budgets', null, {'query':  {method:'GET', isArray:true}});
-	    $scope.projects = null;
-		$scope.selectedProject = null;
+	    var getRes = $resource('http://localhost:3000/api/customers?filter[include][projects]=budgets', null, {'query':  {method:'GET', isArray:true}});
+	    $scope.customers = null;
+	    $scope.selectedCustomer = null;
+	    $scope.selectedProject = null;
 		
 		$q
 		.all([
@@ -115,10 +128,11 @@ angular
 		.then(
 			function(data) {
 				console.log('data: ' + JSON.stringify(data));
-				var projects = data[0];
-				console.log('projects: ' + JSON.stringify(projects));
-				$scope.projects = projects;
-				$scope.selectedProject = projects[0];				
+				var customers = data[0];
+				console.log('customers: ' + JSON.stringify(customers));
+				$scope.customers = customers;
+				$scope.selectedCustomer = customers[0];
+				$scope.selectedProject = $scope.selectedCustomer.projects[0];
 			});		
 		
 		var resources = {

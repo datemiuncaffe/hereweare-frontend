@@ -1,19 +1,37 @@
-<h1>Calendario</h1>
+<h1>Budget e consuntivo costi</h1>
 <hr>
 <section>
 <form name="calendarForm" novalidate>
 	<fieldset>
 		<div class="hereweare_calendar">
 		
+			<!-- div class="form-group" ng-class="{'has-error': costiForm.content.$invalid && costiForm.content.$dirty}">
+			<input type="text" class="form-control focus" name="content"
+			placeholder="Content" autocomplete="off" required
+			ng-model="newTodo.content">
+			<span class="has-error control-label" ng-show="
+			costiForm.content.$invalid && costiForm.content.$dirty">
+			Content is required.
+			</span>
+			</div-->
+
 			<div class="form-group">
-			  <label>Progetti</label>
-			  <select
-			      ng-model="selectedProject"
-			      ng-options="project as project.name for project in projects"
-			      ng-change="onProjectChange(selectedProject)">
-			  </select>
+				<label>Clienti</label>
+				<select
+					ng-model="selectedCustomer"
+					ng-options="customer as customer.name for customer in customers"
+					ng-change="onCustomerChange(selectedCustomer)">
+				</select>
 			</div>
-			
+
+			<div class="form-group">
+				<label>Progetti</label>
+				<select
+					ng-model="selectedProject"
+					ng-options="project as project.name for project in selectedCustomer.projects">
+				</select>
+			</div>
+
 			<span></span>
 			
 			<div class="budget_period">
