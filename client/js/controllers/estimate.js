@@ -71,7 +71,7 @@ angular
 		    			to: from.daysInMonth() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
     	    			month: moment.months()[from.month()],
     	    			days: from.daysInMonth() - from.date() + 1,
-    	    			amount: budgettot * ((from.daysInMonth() - from.date() + 1)/totaldays)
+    	    			amount: parseFloat((budgettot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2))
     	    		};
 	    			$scope.selectedProject.budgets.push(budgetFrom);
 	    			
@@ -80,7 +80,7 @@ angular
 		    			to: to.date() + ' ' + moment.months()[to.month()] + ' ' + to.year(),
     	    			month: moment.months()[to.month()],
     	    			days: to.date(),
-    	    			amount: budgettot * (to.date()/totaldays)
+    	    			amount: parseFloat((budgettot * (to.date()/totaldays)).toFixed(2))
     	    		};	    			
 	    			$scope.selectedProject.budgets.push(budgetTo);
 	    			console.log('budgets: ' + JSON.stringify($scope.selectedProject.budgets));
@@ -90,7 +90,7 @@ angular
 		    			to: from.daysInMonth() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
     	    			month: moment.months()[from.month()],
     	    			days: from.daysInMonth() - from.date() + 1,
-    	    			amount: budgettot * ((from.daysInMonth() - from.date() + 1)/totaldays)
+    	    			amount: parseFloat((budgettot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2))
     	    		};
 	    			$scope.selectedProject.budgets.push(budgetFrom);
 	    			
@@ -100,7 +100,7 @@ angular
 	    			    	to: moment({month: i}).daysInMonth() + ' ' + moment.months()[i] + ' ' + moment({month: i}).year(),
 	    	    			month: moment.months()[i],
 	    	    			days: moment({month: i}).daysInMonth(),
-	    	    			amount: budgettot * (moment({month: i}).daysInMonth()/totaldays)
+	    	    			amount: parseFloat((budgettot * (moment({month: i}).daysInMonth()/totaldays)).toFixed(2))
 	    	    		};
 	    	    		$scope.selectedProject.budgets.push(budget);
 	    	    	}
@@ -110,10 +110,14 @@ angular
 			    		to: to.date() + ' ' + moment.months()[to.month()] + ' ' + to.year(),
     	    			month: moment.months()[to.month()],
     	    			days: to.date(),
-    	    			amount: budgettot * (to.date()/totaldays)
+    	    			amount: parseFloat((budgettot * (to.date()/totaldays)).toFixed(2))
     	    		};	    			
 	    			$scope.selectedProject.budgets.push(budgetTo);
+	    		}
+	    		for (var i in $scope.selectedProject.budgets) {
+	    			console.log('budget amount: ' + $scope.selectedProject.budgets[i].amount + '; type: ' + typeof $scope.selectedProject.budgets[i].amount);
 	    		}	    		
+	    		
 	    	} else {
 	    		throw 'data di inizio maggiore di quella finale';
 	    	}	    	
