@@ -12,19 +12,23 @@ angular
 	            dayto: "="
 	        },
 	        link: function(scope) {
+	        	console.log('calendar selected: ' + scope.selected.format());
 	            scope.selected = _removeTime(scope.selected || moment());
+	            console.log('calendar selected: ' + scope.selected.format());
 	            scope.month = scope.selected.clone();
+	            console.log('calendar month: ' + scope.month.format());
 	
 	            var start = scope.selected.clone();
 	            start.date(1);
+	            console.log('calendar start: ' + start.format());
 	            _removeTime(start.day(0));
-	
+	            console.log('calendar start: ' + start.format());
+	            
 	            _buildMonth(scope, start, scope.month);
 	
 	            scope.select = function(day) {
 //	            	console.log('isFrom: ' + $scope.isFrom + '; isTo: ' + $scope.isTo + '; from: ' + scope.from + '; to: ' + scope.to);
-	            	console.log('from: ' + scope.from + '; to: ' + scope.to);
-	            	console.log('dayfrom: ' + scope.dayfrom + '; dayto: ' + scope.dayto);
+	            	console.log('from: ' + scope.from + '; to: ' + scope.to);	            		            	
 	            	console.log('day.date: ' + day.date);
 	                scope.selected = day.date;
 	                if (scope.from) {
@@ -35,6 +39,9 @@ angular
 	                	console.log('to: ' + scope.to);
 	                	scope.dayto = day.date;
 	                }
+	                if (scope.dayfrom != undefined && scope.dayto != undefined) {
+	            		console.log('dayfrom: ' + scope.dayfrom.format() + '; dayto: ' + scope.dayto.format());
+	            	}
 	            };
 	
 	            scope.next = function() {

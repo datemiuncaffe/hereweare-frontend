@@ -4,6 +4,7 @@ angular
 	    $scope.day = moment();
 	    $scope.isFrom = true;
 	    $scope.isTo = false;
+	    console.log('$scope.day: ' + $scope.day.format());
 	    
 	    $scope.selectedCustomer = {
 	    	projects: []	
