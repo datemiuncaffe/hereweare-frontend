@@ -8,8 +8,8 @@ angular
 	            selected: "=",
 	            from: "=",
 	            to: "=",
-	            dayfrom: "=",
-	            dayto: "="
+	            selectedfrom: "=",
+	            selectedto: "="
 	        },
 	        link: function(scope) {
 	        	console.log('calendar selected: ' + scope.selected.format());
@@ -27,21 +27,18 @@ angular
 	            _buildMonth(scope, start, scope.month);
 	
 	            scope.select = function(day) {
-//	            	console.log('isFrom: ' + $scope.isFrom + '; isTo: ' + $scope.isTo + '; from: ' + scope.from + '; to: ' + scope.to);
 	            	console.log('from: ' + scope.from + '; to: ' + scope.to);	            		            	
-	            	console.log('day.date: ' + day.date);
+	            	console.log('day.dateFormatted: ' + day.dateFormatted);
 	                scope.selected = day.date;
 	                if (scope.from) {
 	                	console.log('from: ' + scope.from);
-	                	scope.dayfrom = day.date;
+	                	scope.selectedfrom = day.dateFormatted;
 	                }
 	                if (scope.to) {
 	                	console.log('to: ' + scope.to);
-	                	scope.dayto = day.date;
+	                	scope.selectedto = day.dateFormatted;
 	                }
-	                if (scope.dayfrom != undefined && scope.dayto != undefined) {
-	            		console.log('dayfrom: ' + scope.dayfrom.format() + '; dayto: ' + scope.dayto.format());
-	            	}
+	                console.log('selectedfrom: ' + scope.selectedfrom + '; selectedto: ' + scope.selectedto);
 	            };
 	
 	            scope.next = function() {
@@ -83,7 +80,8 @@ angular
 	                number: date.date(),
 	                isCurrentMonth: date.month() === month.month(),
 	                isToday: date.isSame(new Date(), "day"),
-	                date: date
+	                date: date,
+	                dateFormatted: date.format("D MMM YYYY")
 	            });
 	            date = date.clone();
 	            date.add(1, "d");
