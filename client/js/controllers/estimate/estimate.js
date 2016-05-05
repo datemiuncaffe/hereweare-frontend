@@ -1,6 +1,6 @@
 angular
 	.module("app")
-	.controller("EstimateController", ['$scope', '$resource', '$q', function($scope, $resource, $q) {
+	.controller("EstimateController", ['$scope', '$resource', '$q', 'crud', function($scope, $resource, $q, crud) {
 	    $scope.day = moment();
 	    $scope.isFrom = true;
 	    $scope.isTo = false;
@@ -122,15 +122,14 @@ angular
 	    		throw 'data di inizio maggiore di quella finale';
 	    	}	    	
 	    };
-	    
-	    var getRes = $resource('http://localhost:3000/api/customers?filter[include][projects]=budgets', null, {'query':  {method:'GET', isArray:true}});
+	    	    
 	    $scope.customers = null;
 	    $scope.selectedCustomer = null;
 	    $scope.selectedProject = null;
 		
 		$q
 		.all([
-		    getRes.query().$promise
+		    crud.getCustomers()
 		])
 		.then(
 			function(data) {
@@ -142,17 +141,12 @@ angular
 				$scope.selectedProject = $scope.selectedCustomer.projects[0];
 			});		
 		
-		var resources = {
-			updateProject: 	$resource('http://localhost:3000/api/projects/:id', null, {'update': {method:'PUT'}}),
-			updateBudgets:	$resource('http://localhost:3000/api/budgets/updateAllByProjectId', null, {'update': {method:'PUT'}})
-		};
-		
 		$scope.save = function() {
 			console.log('current project: ' + JSON.stringify($scope.selectedProject));
 			console.log('current project id: ' + JSON.stringify($scope.selectedProject.id));			
 			
 			$q.all([
-			    resources.updateProject.update({ id: $scope.selectedProject.id }, $scope.selectedProject).$promise
+			    crud.updateProject($scope.selectedProject.id, $scope.selectedProject)
 			])
 			.then(function(response) {
 				console.log('response: ' + response);
@@ -164,7 +158,7 @@ angular
 			console.log('budgets: ' + JSON.stringify($scope.selectedProject.budgets));
 			
 			$q.all([
-			    resources.updateBudgets.update({projectId: $scope.selectedProject.id, budgets: $scope.selectedProject.budgets}).$promise
+			    crud.updateBudgets({projectId: $scope.selectedProject.id, budgets: $scope.selectedProject.budgets})
 			])
 			.then(function(response) {
 				console.log('response: ' + response);

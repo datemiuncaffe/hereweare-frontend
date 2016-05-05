@@ -4,7 +4,8 @@ angular
     'hwlog-service',
     'ngResource',
     'ui.router',
-    'ngTable'
+    'ngTable',
+    'crudService'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider,
       $urlRouterProvider) {
