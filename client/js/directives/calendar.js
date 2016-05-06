@@ -81,7 +81,7 @@ angular
 	                isCurrentMonth: date.month() === month.month(),
 	                isToday: date.isSame(new Date(), "day"),
 	                date: date,
-	                dateFormatted: date.format("D MMM YYYY")
+	                dateFormatted: date.format("DD MMM YYYY")
 	            });
 	            date = date.clone();
 	            date.add(1, "d");

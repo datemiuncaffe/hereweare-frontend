@@ -39,7 +39,7 @@ angular
 	    $scope.getBudgets = function(budgettot, selectedfrom, selectedto) {
 	    	$scope.selectedProject.budgets = [];
 	    	var from = moment(selectedfrom, "D MMM YYYY");
-	    	var to = moment(selectedto, "D MMM YYYY");
+	    	var to = moment(selectedto, "DD MMM YYYY");
 	    	if (budgettot == null) {
 	    		throw 'ERR: il budget totale non è stato inserito';
 	    	}
