@@ -1,0 +1,56 @@
+<h1>Ricerca il progetto</h1>
+<hr>
+<section>
+<form name="ricercaForm" novalidate>
+	<fieldset>
+		<div class="top">		
+			<div class="form-group customers">
+				<label>Clienti</label>
+				<select
+					ng-model="selectedCustomer"
+					ng-options="customer as customer.name for customer in customers"
+					ng-change="onCustomerChange(selectedCustomer)">
+				</select>
+			</div>
+		
+			<div class="form-group projects">
+				<label>Progetti</label>
+				<select
+					ng-model="selectedProject"
+					ng-options="project as project.name for project in selectedCustomer.projects">
+				</select>
+			</div>
+			
+			<div class="form-group action">
+				<button class="btn btn-default" ng-click="search()">Ricerca</button>
+			</div>			
+		</div>
+		<div class="center">
+			<div class="results_table">
+				<h4>Elenco dei progetti</h4>
+				<!-- div class="controls">
+					<button class="btn btn-default" ng-click="getFrom()">Da</button>
+					<button class="btn btn-default" ng-click="getTo()">A</button>
+					<input class="ng-binding" ng-model="selectedProject.from"></input>
+					<input class="ng-binding" ng-model="selectedProject.to"></input>
+				</div-->				
+			</div>			
+			
+			<!-- div class="budget_distrib">
+				<button class="btn btn-default" ng-click="getBudgets(selectedProject.budgettot,selectedProject.from,selectedProject.to)">Ripartisci il budget sul periodo</button>
+				<p ng-repeat="budget in selectedProject.budgets">
+					{{budget.month}}
+					<span>
+						Da: <input class="ng-binding" ng-model="budget.from"></input>
+					</span>
+					<span>
+						A: <input class="ng-binding" ng-model="budget.to"></input>
+					</span>
+					<input class="ng-binding" ng-model="budget.amount"></input>
+				</p>
+			</div-->		
+		</div>
+	</fieldset>
+</form>
+<hr>
+</section>

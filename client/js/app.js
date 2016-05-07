@@ -19,6 +19,15 @@ angular
            }
         }
       })
+      .state('ricerca', {
+        url: '',
+        views:{
+          'ricercaview': {
+              templateUrl: 'views/ricerca.html',
+              controller: 'RicercaController'
+           }
+        }
+      })
       .state('oremese', {
 		url: 'oremese',
 		views:{

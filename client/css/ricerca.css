@@ -1,0 +1,49 @@
+form[name=ricercaForm] div.top {
+  font-family: Arial;
+  font-size: 14px;
+  width: 1000px;
+  float: left;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+}
+form[name=ricercaForm] div.top > div.customers {
+  float: left;
+  width: 200px;
+}
+form[name=ricercaForm] div.top > div.projects {
+  float: left;
+  width: 300px;
+}
+form[name=ricercaForm] div.top > div.budgettot {
+  float: left;
+  width: 300px;
+}
+
+
+form[name=ricercaForm] div.center {
+  font-family: Arial;
+  font-size: 14px;
+  width: 1000px;
+  float: left;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+}
+form[name=ricercaForm] .center .budget_period {
+	float: left;
+	width: 480px;
+	margin-right: 20px;
+}
+form[name=ricercaForm] .center .budget_period > .controls {
+	float: left;
+	width: 160px;
+	margin-right: 10px;
+}
+form[name=ricercaForm] .center .budget_period > .calendar {
+	float: left;
+	width: 300px;
+}
+form[name=ricercaForm] .center .budget_distrib {
+	float: left;
+	width: 480px;
+	margin-right: 20px;
+}
