@@ -10,14 +10,6 @@ form[name=ricercaForm] div.top > div.customers {
   float: left;
   width: 200px;
 }
-form[name=ricercaForm] div.top > div.projects {
-  float: left;
-  width: 300px;
-}
-form[name=ricercaForm] div.top > div.budgettot {
-  float: left;
-  width: 300px;
-}
 
 
 form[name=ricercaForm] div.center {
@@ -28,22 +20,32 @@ form[name=ricercaForm] div.center {
   margin-bottom: 10px;
   border-bottom: 1px solid black;
 }
-form[name=ricercaForm] .center .budget_period {
+form[name=ricercaForm] .center .results_table {
 	float: left;
 	width: 480px;
 	margin-right: 20px;
 }
-form[name=ricercaForm] .center .budget_period > .controls {
-	float: left;
-	width: 160px;
-	margin-right: 10px;
+
+.form-control-small {
+    width: 80%;
 }
-form[name=ricercaForm] .center .budget_period > .calendar {
-	float: left;
-	width: 300px;
+.form-control-small {
+    transition: width 0.5s ease-in-out 0s;
+    width: 72%;
 }
-form[name=ricercaForm] .center .budget_distrib {
-	float: left;
-	width: 480px;
-	margin-right: 20px;
+.form-control {
+    background-color: #ffffff;
+    border-color: #ececec;
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 14px;
+    margin-bottom: 5px;
+    outline: 0 none;
+    padding: 6px;
+    width: 95%;
+}
+
+.highlight {
+    color: #ff0000;
 }

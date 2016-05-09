@@ -21,6 +21,7 @@
     "angular-resource": "^1.5.3",
     "angular-ui-router": "^0.2.18",
     "ng-table": "^0.8.3",
-    "moment": "^2.13.0"
+    "moment": "^2.13.0",
+    "angucomplete-alt": "^2.4.1"
   }
 }

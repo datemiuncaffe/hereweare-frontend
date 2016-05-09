@@ -8,6 +8,7 @@
     "posttest": "nsp check"
   },
   "dependencies": {
+    "angucomplete-alt": "^2.4.1",
     "bunyan": "^1.8.0",
     "compression": "^1.0.3",
     "cors": "^2.5.2",

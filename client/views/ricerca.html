@@ -6,20 +6,25 @@
 		<div class="top">		
 			<div class="form-group customers">
 				<label>Clienti</label>
-				<select
-					ng-model="selectedCustomer"
-					ng-options="customer as customer.name for customer in customers"
-					ng-change="onCustomerChange(selectedCustomer)">
-				</select>
-			</div>
-		
-			<div class="form-group projects">
-				<label>Progetti</label>
-				<select
-					ng-model="selectedProject"
-					ng-options="project as project.name for project in selectedCustomer.projects">
-				</select>
-			</div>
+				<angucomplete-alt 
+					id="customers" 
+					placeholder="Cerca cliente"
+					pause="400"
+					selected-object="selectedCustomer"
+					minlength="1"
+					maxlength="50"					
+					remote-url="http://localhost:3000/api/customers?filter[include][projects]=budgets"
+					
+					remote-url-request-formatter="remoteUrlRequestFn"
+					
+					remote-url-data-field="" 
+					title-field="name"
+					description-field="id"
+					image-field=""				
+					input-class="form-control form-control-small"
+					match-class="highlight"
+				/>
+			</div>			
 			
 			<div class="form-group action">
 				<button class="btn btn-default" ng-click="search()">Ricerca</button>

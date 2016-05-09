@@ -5,13 +5,13 @@ angular
     'ngResource',
     'ui.router',
     'ngTable',
+    'angucomplete-alt',
     'crudService'
   ])
-  .config(['$stateProvider', '$urlRouterProvider', function($stateProvider,
-      $urlRouterProvider) {
+  .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
       $stateProvider
       .state('estimate', {
-        url: '',
+        url: 'estimate',
         views:{
           'estimateview': {
               templateUrl: 'views/estimate.html',
@@ -83,5 +83,5 @@ angular
 		}
       });
 
-//    $urlRouterProvider.otherwise('todo');
+    $urlRouterProvider.otherwise('estimate');
   }]);
