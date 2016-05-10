@@ -13,11 +13,9 @@
 					selected-object="selectedCustomer"
 					minlength="1"
 					maxlength="50"					
-					remote-url="http://localhost:3000/api/customers?filter[include][projects]=budgets"
-					
-					remote-url-request-formatter="remoteUrlRequestFn"
-					
-					remote-url-data-field="" 
+					remote-url="http://localhost:3000/api/customers/autocompleteByName"					
+					remote-url-request-formatter="appendName"					
+					remote-url-data-field="customers"
 					title-field="name"
 					description-field="id"
 					image-field=""				

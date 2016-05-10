@@ -4,6 +4,9 @@ body {
 .glyphicon-remove:hover {
   cursor:pointer
 }
+.centerpage {
+	float: left;
+}
 .menuvert {
 	float: left;
 	width: 250px;

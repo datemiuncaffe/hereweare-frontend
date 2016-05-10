@@ -3,8 +3,8 @@ angular
 	.controller("RicercaController", ['$scope', function($scope) {
 	    $scope.selectedCustomer = null;
 	    
-		$scope.remoteUrlRequestFn = function(str) {
-			return {q: str};
+		$scope.appendName = function(str) {
+			return {name: str};
 		};
 		
 		
@@ -79,11 +79,6 @@ angular
 //	    $scope.requireExample8a = true;
 //	    $scope.requireExample8b = true;
 //		
-		
-		
-		
-		
-		
-		
+				
 		
 	}]);
