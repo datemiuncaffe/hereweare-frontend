@@ -17,6 +17,7 @@ angular
 	    	from: null,
 	    	to: null,
 	    	budgettot: null,
+	    	customerId: null,
 	    	budgets: []
 	    };	    
 	    /* end entities */
@@ -118,17 +119,34 @@ angular
 	    		throw 'data di inizio maggiore di quella finale';
 	    	}	    	
 	    };
+	    
+	    var savecustomer = $resource('http://localhost:3000/api/customers', null, {'save': {method:'POST'}});
+	    var saveproject = $resource('http://localhost:3000/api/projects', null, {'save': {method:'POST'}});
+	    var savebudget = $resource('http://localhost:3000/api/budgets', null, {'save': {method:'POST', isArray:true}});
 	    	    
 	    $scope.save = function() {
 			console.log('current customer: ' + JSON.stringify($scope.customer));
 			console.log('current project: ' + JSON.stringify($scope.project));			
 			
-			$q.all([
-//			    crud.updateProject($scope.project.id, $scope.project)
-			])
-			.then(function(response) {
-				console.log('response: ' + response);
-			});
+			if ($scope.customer.name != null) {
+				savecustomer.save($scope.customer).$promise.then(function(savedcustomer) {
+					console.log('savedcustomer: ' + JSON.stringify(savedcustomer));
+					if (savedcustomer.id != null) {
+						$scope.project.customerId = savedcustomer.id;
+						saveproject.save($scope.project).$promise.then(function(savedproject) {
+							console.log('savedproject: ' + JSON.stringify(savedproject));
+							if (savedproject.id != null) {
+								for (var i = 0; i < $scope.project.budgets.length; i++) {
+									$scope.project.budgets[i].projectId = savedproject.id;									
+								}
+								savebudget.save($scope.project.budgets).$promise.then(function(savedbudgets) {
+									console.log('savedbudgets: ' + JSON.stringify(savedbudgets));
+								});
+							}
+						});
+					}
+				});
+			}			
 		};
 			    
 	}]);
