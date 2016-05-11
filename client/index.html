@@ -12,6 +12,7 @@
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/estimate.css" rel="stylesheet">
     <link href="css/ricerca.css" rel="stylesheet">
+    <link href="css/projectcreate.css" rel="stylesheet">
     <link href="vendor/ng-table/dist/ng-table.css" rel="stylesheet">
     <link href="css/calendar/angular.css" rel="stylesheet" type="text/css">
     <link href="css/calendar/calendar.css" rel="stylesheet" type="text/css">
@@ -41,6 +42,7 @@
     <script src="js/directives/calendar.js"></script>
     <script src="js/controllers/estimate/estimate.js"></script>
     <script src="js/controllers/estimate/ricerca.js"></script>
+    <script src="js/controllers/estimate/projectcreate.js"></script>
     <script src="js/controllers/oremese.js"></script>
     <script src="js/controllers/giornicommessautente.js"></script>
     <script src="js/controllers/giornicommessa.js"></script>
@@ -83,11 +85,15 @@
     	<p>
     		<a ui-sref="ricerca">Ricerca progetto</a>
     	</p>
+    	<p>
+    		<a ui-sref="projectcreate">Nuovo progetto</a>
+    	</p>
     </div>
 
     <div class="container centerpage">
       <div ui-view="estimateview" class="calendar"></div>
-      <div ui-view="ricercaview"></div>      
+      <div ui-view="ricercaview"></div>
+      <div ui-view="projectcreateview"></div>      
       <div ui-view="oremeseview"></div>
       <div ui-view="giornicommessautenteview"></div>
       <div ui-view="giornicommessaview"></div>

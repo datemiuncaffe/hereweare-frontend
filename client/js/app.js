@@ -28,6 +28,15 @@ angular
            }
         }
       })
+      .state('projectcreate', {
+        url: '',
+        views:{
+          'projectcreateview': {
+              templateUrl: 'views/projectcreate.html',
+              controller: 'ProjectCreateController'
+           }
+        }
+      })
       .state('oremese', {
 		url: 'oremese',
 		views:{
