@@ -25,11 +25,11 @@
 			</div>			
 			
 			<div class="form-group action">
-				<button class="btn btn-default" ng-click="search()">Ricerca</button>
+				<button class="btn btn-default" ng-click="search(selectedCustomer.originalObject)">Ricerca</button>
 			</div>			
 		</div>
 		<div class="center">
-			<div class="results_table">
+			<div class="search_results">
 				<h4>Elenco dei progetti</h4>
 				<!-- div class="controls">
 					<button class="btn btn-default" ng-click="getFrom()">Da</button>
@@ -37,21 +37,7 @@
 					<input class="ng-binding" ng-model="selectedProject.from"></input>
 					<input class="ng-binding" ng-model="selectedProject.to"></input>
 				</div-->				
-			</div>			
-			
-			<!-- div class="budget_distrib">
-				<button class="btn btn-default" ng-click="getBudgets(selectedProject.budgettot,selectedProject.from,selectedProject.to)">Ripartisci il budget sul periodo</button>
-				<p ng-repeat="budget in selectedProject.budgets">
-					{{budget.month}}
-					<span>
-						Da: <input class="ng-binding" ng-model="budget.from"></input>
-					</span>
-					<span>
-						A: <input class="ng-binding" ng-model="budget.to"></input>
-					</span>
-					<input class="ng-binding" ng-model="budget.amount"></input>
-				</p>
-			</div-->		
+			</div>
 		</div>
 	</fieldset>
 </form>
