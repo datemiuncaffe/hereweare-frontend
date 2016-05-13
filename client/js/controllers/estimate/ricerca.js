@@ -57,18 +57,40 @@ angular
 				.html(function(d) { return d.value });
 		    
 			// add dynamic link to single project page
-			var tablecells = angular.element(document).find("div.search_results table tbody td");
-			console.log("search div: " + tablecells.html());
-			
-			tablecells.each(function() {
-				var value = $(this).text();
-				$(this).empty();
-				var html = '<a href ng-click="$event.preventDefault(); redirectUrl();">' + value + '</a>';
-				var template = angular
-						.element(html);
-				var linkFn = $compile(template);
-				var element = linkFn($scope);
-				$(this).append(element);
+			var tablerows = angular.element(document).find("div.search_results table tbody tr");
+			tablerows.each(function() {
+				var params = {
+					name: null,
+					code: null,
+					budgettot: null
+				};
+				var rowcells = $(this).find("td"); 
+				
+				rowcells.each(function(index) {
+					console.log( index + ": " + $( this ).text() );
+					if (index == 0) {
+						params.name = $( this ).text();
+					} else if (index == 1) {
+						params.code = $( this ).text();
+					} else if (index == 2) {
+						params.budgettot = $( this ).text();
+					}					
+				});
+				
+				console.log('params: ' + JSON.stringify(params));
+				
+				rowcells.each(function() {
+					var value = $(this).text();
+					// build url to single project page
+					var projectpageurl = '<a ui-sref="projectcreate({name: \'' + params.name + '\'})">' + value + '</a>';
+					console.log('projectpageurl: ' + projectpageurl);
+					var projectpagetemplate = angular.element(projectpageurl);
+					var projectpageFn = $compile(projectpagetemplate);
+					var projectpagelink = projectpageFn($scope);
+					// end build url to single project page
+					$(this).empty();
+					$(this).append(projectpagelink);
+				});				
 			});
 			// end add dynamic link to single project page
 		    

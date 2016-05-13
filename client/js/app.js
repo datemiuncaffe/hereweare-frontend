@@ -11,7 +11,7 @@ angular
   .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
       $stateProvider
       .state('estimate', {
-        url: 'estimate',
+        url: '/estimate',
         views:{
           'estimateview': {
               templateUrl: 'views/estimate.html',
@@ -20,7 +20,7 @@ angular
         }
       })
       .state('ricerca', {
-        url: '',
+        url: '/ricerca',
         views:{
           'ricercaview': {
               templateUrl: 'views/ricerca.html',
@@ -29,7 +29,7 @@ angular
         }
       })
       .state('projectcreate', {
-        url: '',
+        url: '/project?name',
         views:{
           'projectcreateview': {
               templateUrl: 'views/projectcreate.html',
@@ -38,7 +38,7 @@ angular
         }
       })
       .state('oremese', {
-		url: 'oremese',
+		url: '/oremese',
 		views:{
 		  'oremeseview': {
 	         templateUrl: 'views/oremese.html',
@@ -47,7 +47,7 @@ angular
 		}
       })
       .state('giornicommessautente', {
-		url: 'giornicommessautente',
+		url: '/giornicommessautente',
 		views:{
 		  'giornicommessautenteview': {
 	         templateUrl: 'views/giornicommessautente.html',
@@ -56,7 +56,7 @@ angular
 		}
       })
       .state('giornicommessa', {
-		url: 'giornicommessa',
+		url: '/giornicommessa',
 		views:{
 		  'giornicommessaview': {
 	         templateUrl: 'views/giornicommessa.html',
@@ -65,7 +65,7 @@ angular
 		}
       })
       .state('giorni', {
-		url: 'giorni',
+		url: '/giorni',
 		views:{
 		  'giorniview': {
 	         templateUrl: 'views/giorni.html',
@@ -74,7 +74,7 @@ angular
 		}
       })
       .state('giornicliente', {
-		url: 'giornicliente',
+		url: '/giornicliente',
 		views:{
 		  'giorniclienteview': {
 	         templateUrl: 'views/giornicliente.html',
@@ -83,7 +83,7 @@ angular
 		}
       })
       .state('giorniclienteprogetto', {
-		url: 'giorniclienteprogetto',
+		url: '/giorniclienteprogetto',
 		views:{
 		  'giorniclienteprogettoview': {
 	         templateUrl: 'views/giorniclienteprogetto.html',

@@ -1,6 +1,6 @@
 angular
 	.module("app")
-	.controller("ProjectCreateController", ['$scope', '$resource', '$q', 'crud', function($scope, $resource, $q, crud) {
+	.controller("ProjectCreateController", ['$scope', '$resource', '$q', '$stateParams', 'crud', function($scope, $resource, $q, $stateParams, crud) {
 	    $scope.day = moment();
 	    $scope.isFrom = true;
 	    $scope.isTo = false;
@@ -21,6 +21,13 @@ angular
 	    	budgets: []
 	    };	    
 	    /* end entities */
+	    
+	    /* loading state parameters */
+	    if ($stateParams != null && $stateParams.name != null && $stateParams.name.length > 0) {
+	    	console.log('name parameter: ' + $stateParams.name);
+	    	$scope.project.name = $stateParams.name;
+	    }
+	    /* end loading state parameters */
 	    
 	    $scope.getFrom = function() {
 	    	$scope.isFrom = true;
