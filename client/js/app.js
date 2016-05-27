@@ -14,7 +14,7 @@ angular
         url: '/estimate',
         views:{
           'estimateview': {
-              templateUrl: 'views/estimate.html',
+              templateUrl: 'views/estimate/estimate.html',
               controller: 'EstimateController'
            }
         }
@@ -23,7 +23,7 @@ angular
         url: '/ricerca',
         views:{
           'ricercaview': {
-              templateUrl: 'views/ricerca.html',
+              templateUrl: 'views/estimate/ricerca.html',
               controller: 'RicercaController'
            }
         }
@@ -32,8 +32,17 @@ angular
         url: '/project?name',
         views:{
           'projectcreateview': {
-              templateUrl: 'views/projectcreate.html',
+              templateUrl: 'views/estimate/projectcreate.html',
               controller: 'ProjectCreateController'
+           }
+        }
+      })
+      .state('projectdetail', {
+        url: '/projectdetail?name',
+        views:{
+          'projectdetailview': {
+              templateUrl: 'views/estimate/projectdetail.html',
+              controller: 'ProjectDetailController'
            }
         }
       })
@@ -41,7 +50,7 @@ angular
 		url: '/oremese',
 		views:{
 		  'oremeseview': {
-	         templateUrl: 'views/oremese.html',
+	         templateUrl: 'views/ehourqueries/oremese.html',
 	         controller: 'OreMeseController'
 		  }
 		}
@@ -50,7 +59,7 @@ angular
 		url: '/giornicommessautente',
 		views:{
 		  'giornicommessautenteview': {
-	         templateUrl: 'views/giornicommessautente.html',
+	         templateUrl: 'views/ehourqueries/giornicommessautente.html',
 	         controller: 'GiorniCommessaUtenteController'
 		  }
 		}
@@ -59,7 +68,7 @@ angular
 		url: '/giornicommessa',
 		views:{
 		  'giornicommessaview': {
-	         templateUrl: 'views/giornicommessa.html',
+	         templateUrl: 'views/ehourqueries/giornicommessa.html',
 	         controller: 'GiorniCommessaController'
 		  }
 		}
@@ -68,7 +77,7 @@ angular
 		url: '/giorni',
 		views:{
 		  'giorniview': {
-	         templateUrl: 'views/giorni.html',
+	         templateUrl: 'views/ehourqueries/giorni.html',
 	         controller: 'GiorniController'
 		  }
 		}
@@ -77,7 +86,7 @@ angular
 		url: '/giornicliente',
 		views:{
 		  'giorniclienteview': {
-	         templateUrl: 'views/giornicliente.html',
+	         templateUrl: 'views/ehourqueries/giornicliente.html',
 	         controller: 'GiorniClienteController'
 		  }
 		}
@@ -86,7 +95,7 @@ angular
 		url: '/giorniclienteprogetto',
 		views:{
 		  'giorniclienteprogettoview': {
-	         templateUrl: 'views/giorniclienteprogetto.html',
+	         templateUrl: 'views/ehourqueries/giorniclienteprogetto.html',
 	         controller: 'GiorniClienteProgettoController'
 		  }
 		}

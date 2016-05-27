@@ -44,12 +44,13 @@
     <script src="js/controllers/estimate/estimate.js"></script>
     <script src="js/controllers/estimate/ricerca.js"></script>
     <script src="js/controllers/estimate/projectcreate.js"></script>
-    <script src="js/controllers/oremese.js"></script>
-    <script src="js/controllers/giornicommessautente.js"></script>
-    <script src="js/controllers/giornicommessa.js"></script>
-    <script src="js/controllers/giorni.js"></script>
-    <script src="js/controllers/giornicliente.js"></script>
-    <script src="js/controllers/giorniclienteprogetto.js"></script>   
+    <script src="js/controllers/estimate/projectdetail.js"></script>
+    <script src="js/controllers/ehourqueries/oremese.js"></script>
+    <script src="js/controllers/ehourqueries/giornicommessautente.js"></script>
+    <script src="js/controllers/ehourqueries/giornicommessa.js"></script>
+    <script src="js/controllers/ehourqueries/giorni.js"></script>
+    <script src="js/controllers/ehourqueries/giornicliente.js"></script>
+    <script src="js/controllers/ehourqueries/giorniclienteprogetto.js"></script>   
     
   </head>
   <body ng-app="app">
@@ -94,7 +95,8 @@
     <div class="container centerpage">
       <div ui-view="estimateview" class="calendar"></div>
       <div ui-view="ricercaview"></div>
-      <div ui-view="projectcreateview"></div>      
+      <div ui-view="projectcreateview"></div>
+      <div ui-view="projectdetailview"></div>      
       <div ui-view="oremeseview"></div>
       <div ui-view="giornicommessautenteview"></div>
       <div ui-view="giornicommessaview"></div>

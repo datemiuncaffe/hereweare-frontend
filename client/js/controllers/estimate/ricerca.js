@@ -12,7 +12,7 @@ angular
 		var projectsRes = $resource('http://localhost:3000/api/customers/:id?filter[include]=projects', null, {'query':  {method:'GET'}});
 		
 		$scope.search = function(selectedCustomer) {			
-			if (selectedCustomer != null && selectedCustomer.id != null && selectedCustomer.id.length > 0) {
+			if (selectedCustomer != null && selectedCustomer.id != null && selectedCustomer.id > 0) {
 				console.log('searching for selectedCustomer id = ' + selectedCustomer.id);
 				projectsRes.query({ id: selectedCustomer.id }).$promise.then(function(data) {
 					console.log('data: ' + JSON.stringify(data));
@@ -82,7 +82,7 @@ angular
 				rowcells.each(function() {
 					var value = $(this).text();
 					// build url to single project page
-					var projectpageurl = '<a ui-sref="projectcreate({name: \'' + params.name + '\'})">' + value + '</a>';
+					var projectpageurl = '<a ui-sref="projectdetail({name: \'' + params.name + '\'})">' + value + '</a>';
 					console.log('projectpageurl: ' + projectpageurl);
 					var projectpagetemplate = angular.element(projectpageurl);
 					var projectpageFn = $compile(projectpagetemplate);
