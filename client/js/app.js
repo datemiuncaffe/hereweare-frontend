@@ -46,6 +46,15 @@ angular
            }
         }
       })
+      .state('projectmodify', {
+        url: '/projectmodify?name',
+        views:{
+          'projectmodifyview': {
+              templateUrl: 'views/estimate/projectmodify.html',
+              controller: 'ProjectModifyController'
+           }
+        }
+      })
       .state('oremese', {
 		url: '/oremese',
 		views:{
