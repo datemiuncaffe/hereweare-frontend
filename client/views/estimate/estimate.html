@@ -23,6 +23,10 @@
 			
 			<div class="form-group budgettot">
 				<p>Budget totale: <input class="ng-binding" ng-model="selectedProject.budgettot"></input></p>
+			</div>
+			
+			<div class="form-group budgettot">
+				<p>Giorni totali: <input class="ng-binding" ng-model="selectedProject.daystot"></input></p>
 			</div>			
 		</div>
 		<div class="center">
@@ -40,16 +44,23 @@
 			</div>			
 			
 			<div class="budget_distrib">
-				<button class="btn btn-default" ng-click="getBudgets(selectedProject.budgettot,selectedProject.from,selectedProject.to)">Ripartisci il budget sul periodo</button>
+				<button class="btn btn-default" ng-click="getBudgets(selectedProject.budgettot,selectedProject.daystot,selectedProject.from,selectedProject.to)">Ripartisci il budget e i giorni sul periodo</button>
 				<p ng-repeat="budget in selectedProject.budgets">
-					{{budget.month}}
+					<span>
+						{{budget.month}}
+					</span>
 					<span>
 						Da: <input class="ng-binding" ng-model="budget.from"></input>
 					</span>
 					<span>
 						A: <input class="ng-binding" ng-model="budget.to"></input>
 					</span>
-					<input class="ng-binding" ng-model="budget.amount"></input>
+					<span>
+						<input class="ng-binding" ng-model="budget.amount"></input>
+					</span>
+					<span>
+						<input class="ng-binding" ng-model="budget.days"></input>
+					</span>
 				</p>
 			</div>		
 		</div>

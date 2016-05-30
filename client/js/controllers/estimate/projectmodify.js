@@ -17,17 +17,28 @@ angular
 	    	from: null,
 	    	to: null,
 	    	budgettot: null,
+	    	daystot: null,
 	    	customerId: null,
 	    	budgets: []
 	    };	    
 	    /* end entities */
 	    
-	    /* loading state parameters */
-	    if ($stateParams != null && $stateParams.name != null && $stateParams.name.length > 0) {
-	    	console.log('name parameter: ' + $stateParams.name);
-	    	$scope.project.name = $stateParams.name;
+	    /* loading project */
+	    if ($stateParams != null && 
+	    	$stateParams.code != null && $stateParams.code.length > 0 &&
+	    	$stateParams.customerName != null && $stateParams.customerName.length > 0) {
+	    	console.log('Project code: ' + $stateParams.code);
+	    	var queryUrl = 'http://localhost:3000/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + $stateParams.code;
+	    	var projectRes = $resource(queryUrl, null, {'query':  {method:'GET', isArray:true}});
+	    	projectRes.query().$promise.then(function(data) {
+				console.log('project: ' + JSON.stringify(data[0]));
+				
+				$scope.customer.name = $stateParams.customerName;
+				$scope.project = data[0];
+							
+			});
 	    }
-	    /* end loading state parameters */
+	    /* end loading project */
 	    
 	    $scope.getFrom = function() {
 	    	$scope.isFrom = true;
@@ -40,12 +51,15 @@ angular
 	    	console.log('isFrom: ' + $scope.isFrom + '; isTo: ' + $scope.isTo);
 	    };
 	    
-	    $scope.getBudgets = function(budgettot, selectedfrom, selectedto) {
+	    $scope.getBudgets = function(budgettot, daystot, selectedfrom, selectedto) {
 	    	$scope.project.budgets = [];
 	    	var from = moment(selectedfrom, "D MMM YYYY");
 	    	var to = moment(selectedto, "DD MMM YYYY");
 	    	if (budgettot == null) {
 	    		throw 'ERR: il budget totale non è stato inserito';
+	    	}
+	    	if (daystot == null) {
+	    		throw 'ERR: i giorni totali non sono stati inseriti';
 	    	}
 	    	if (from == null) {
 	    		throw 'ERR: inserire la data iniziale';
@@ -65,7 +79,7 @@ angular
 	    				from: from.date() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
 	    				to: from.daysInMonth() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
     	    			month: moment.months()[from.month()],
-    	    			days: from.daysInMonth() - from.date() + 1,
+    	    			days: daystot,
     	    			amount: budgettot
     	    		};
 	    			$scope.project.budgets.push(budgettot);
@@ -74,7 +88,7 @@ angular
 	    				from: from.date() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
 		    			to: from.daysInMonth() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
     	    			month: moment.months()[from.month()],
-    	    			days: from.daysInMonth() - from.date() + 1,
+    	    			days: parseFloat((daystot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2)),
     	    			amount: parseFloat((budgettot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2))
     	    		};
 	    			$scope.project.budgets.push(budgetFrom);
@@ -83,7 +97,7 @@ angular
 	    				from: '1 ' + moment.months()[to.month()] + ' ' + to.year(),
 		    			to: to.date() + ' ' + moment.months()[to.month()] + ' ' + to.year(),
     	    			month: moment.months()[to.month()],
-    	    			days: to.date(),
+    	    			days: parseFloat((daystot * (to.date()/totaldays)).toFixed(2)),
     	    			amount: parseFloat((budgettot * (to.date()/totaldays)).toFixed(2))
     	    		};	    			
 	    			$scope.project.budgets.push(budgetTo);
@@ -93,7 +107,7 @@ angular
 	    				from: from.date() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
 		    			to: from.daysInMonth() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
     	    			month: moment.months()[from.month()],
-    	    			days: from.daysInMonth() - from.date() + 1,
+    	    			days: parseFloat((daystot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2)),
     	    			amount: parseFloat((budgettot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2))
     	    		};
 	    			$scope.project.budgets.push(budgetFrom);
@@ -103,7 +117,7 @@ angular
 	    	    			from: moment({month: i}).date() + ' ' + moment.months()[i] + ' ' + moment({month: i}).year(),
 	    			    	to: moment({month: i}).daysInMonth() + ' ' + moment.months()[i] + ' ' + moment({month: i}).year(),
 	    	    			month: moment.months()[i],
-	    	    			days: moment({month: i}).daysInMonth(),
+	    	    			days: parseFloat((daystot * (moment({month: i}).daysInMonth()/totaldays)).toFixed(2)),
 	    	    			amount: parseFloat((budgettot * (moment({month: i}).daysInMonth()/totaldays)).toFixed(2))
 	    	    		};
 	    	    		$scope.project.budgets.push(budget);
@@ -113,7 +127,7 @@ angular
 	    				from: '1 ' + moment.months()[to.month()] + ' ' + to.year(),
 			    		to: to.date() + ' ' + moment.months()[to.month()] + ' ' + to.year(),
     	    			month: moment.months()[to.month()],
-    	    			days: to.date(),
+    	    			days: parseFloat((daystot * (to.date()/totaldays)).toFixed(2)),
     	    			amount: parseFloat((budgettot * (to.date()/totaldays)).toFixed(2))
     	    		};	    			
 	    			$scope.project.budgets.push(budgetTo);
@@ -132,8 +146,8 @@ angular
 	    var savebudget = $resource('http://localhost:3000/api/budgets', null, {'save': {method:'POST', isArray:true}});
 	    	    
 	    $scope.save = function() {
-			console.log('current customer: ' + JSON.stringify($scope.customer));
-			console.log('current project: ' + JSON.stringify($scope.project));			
+			console.log('saving customer: ' + JSON.stringify($scope.customer));
+			console.log('saving project: ' + JSON.stringify($scope.project));			
 			
 			if ($scope.customer.name != null) {
 				savecustomer.save($scope.customer).$promise.then(function(savedcustomer) {

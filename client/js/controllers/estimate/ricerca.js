@@ -82,7 +82,7 @@ angular
 				rowcells.each(function() {
 					var value = $(this).text();
 					// build url to single project page
-					var projectpageurl = '<a ui-sref="projectdetail({code: \'' + params.code + '\'})">' + value + '</a>';
+					var projectpageurl = '<a ui-sref="projectdetail({customerName: \'' + $scope.selectedCustomer.originalObject.name + '\', code: \'' + params.code + '\'})">' + value + '</a>';
 					console.log('projectpageurl: ' + projectpageurl);
 					var projectpagetemplate = angular.element(projectpageurl);
 					var projectpageFn = $compile(projectpagetemplate);

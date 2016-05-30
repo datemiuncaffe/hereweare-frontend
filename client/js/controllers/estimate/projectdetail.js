@@ -13,6 +13,7 @@ angular
 	    	from: null,
 	    	to: null,
 	    	budgettot: null,
+	    	daystot: null,
 	    	customerId: null,
 	    	budgets: []
 	    };
@@ -21,20 +22,21 @@ angular
 	    var projectRes = $resource('', null, {'query':  {method:'GET'}});
 	    
 	    /* loading project */
-	    if ($stateParams != null && $stateParams.code != null && $stateParams.code.length > 0) {
-	    	console.log('Project code: ' + $stateParams.code);
+	    if ($stateParams != null && 
+	    	$stateParams.code != null && $stateParams.code.length > 0 &&
+	    	$stateParams.customerName != null && $stateParams.customerName.length > 0) {
+	    	console.log('Project code: ' + $stateParams.code + '; customerName: ' + $stateParams.customerName);
 	    	var queryUrl = 'http://localhost:3000/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + $stateParams.code;
 	    	var projectRes = $resource(queryUrl, null, {'query':  {method:'GET', isArray:true}});
 	    	projectRes.query().$promise.then(function(data) {
-				console.log('costs: ' + JSON.stringify(data[0].costs));
+				console.log('project: ' + JSON.stringify(data[0]));
 				
-				$scope.project.name = data[0].name;
-				$scope.project.code = data[0].code;
-				$scope.project.budgettot = data[0].budgettot;
+				$scope.customer.name = $stateParams.customerName;
+				$scope.project = data[0];
 				// render the table
 				tabulate(data[0].costs, 
 						["year", "month", "days"], 
-						["ANNO", "MESE", "GIORNATE"]);				
+						["ANNO", "MESE", "GIORNATE"]);
 			});
 	    }
 	    /* end loading state parameters */
@@ -80,7 +82,7 @@ angular
 			
 			console.log('changing state...');
 			
-			var url = 'http://' + $window.location.host + '/#/projectmodify?name=' + $scope.project.name;
+			var url = 'http://' + $window.location.host + '/#/projectmodify?customerName=' + $scope.customer.name + '&code=' + $scope.project.code;
 	        $log.log(url);
 	        $window.location.href = url;			
 		};

@@ -14,6 +14,7 @@ angular
 	    	from: null,
 	    	to: null,
 	    	budgettot: null,
+	    	daystot: null,
 	    	budgets: []
 	    };
 	    
@@ -36,12 +37,15 @@ angular
 	    	console.log('isFrom: ' + $scope.isFrom + '; isTo: ' + $scope.isTo);
 	    };
 	    
-	    $scope.getBudgets = function(budgettot, selectedfrom, selectedto) {
+	    $scope.getBudgets = function(budgettot, daystot, selectedfrom, selectedto) {
 	    	$scope.selectedProject.budgets = [];
 	    	var from = moment(selectedfrom, "D MMM YYYY");
 	    	var to = moment(selectedto, "DD MMM YYYY");
 	    	if (budgettot == null) {
 	    		throw 'ERR: il budget totale non è stato inserito';
+	    	}
+	    	if (daystot == null) {
+	    		throw 'ERR: i giorni totali non sono stati inseriti';
 	    	}
 	    	if (from == null) {
 	    		throw 'ERR: inserire la data iniziale';
@@ -61,7 +65,7 @@ angular
 	    				from: from.date() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
 	    				to: from.daysInMonth() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
     	    			month: moment.months()[from.month()],
-    	    			days: from.daysInMonth() - from.date() + 1,
+    	    			days: daystot,
     	    			amount: budgettot
     	    		};
 	    			$scope.selectedProject.budgets.push(budgettot);
@@ -70,7 +74,7 @@ angular
 	    				from: from.date() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
 		    			to: from.daysInMonth() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
     	    			month: moment.months()[from.month()],
-    	    			days: from.daysInMonth() - from.date() + 1,
+    	    			days: parseFloat((daystot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2)),
     	    			amount: parseFloat((budgettot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2))
     	    		};
 	    			$scope.selectedProject.budgets.push(budgetFrom);
@@ -79,9 +83,9 @@ angular
 	    				from: '1 ' + moment.months()[to.month()] + ' ' + to.year(),
 		    			to: to.date() + ' ' + moment.months()[to.month()] + ' ' + to.year(),
     	    			month: moment.months()[to.month()],
-    	    			days: to.date(),
+    	    			days: parseFloat((daystot * (to.date()/totaldays)).toFixed(2)),
     	    			amount: parseFloat((budgettot * (to.date()/totaldays)).toFixed(2))
-    	    		};	    			
+    	    		};
 	    			$scope.selectedProject.budgets.push(budgetTo);
 	    			console.log('budgets: ' + JSON.stringify($scope.selectedProject.budgets));
 	    		} else {
@@ -89,7 +93,7 @@ angular
 	    				from: from.date() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
 		    			to: from.daysInMonth() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
     	    			month: moment.months()[from.month()],
-    	    			days: from.daysInMonth() - from.date() + 1,
+    	    			days: parseFloat((daystot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2)),
     	    			amount: parseFloat((budgettot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2))
     	    		};
 	    			$scope.selectedProject.budgets.push(budgetFrom);
@@ -99,7 +103,7 @@ angular
 	    	    			from: moment({month: i}).date() + ' ' + moment.months()[i] + ' ' + moment({month: i}).year(),
 	    			    	to: moment({month: i}).daysInMonth() + ' ' + moment.months()[i] + ' ' + moment({month: i}).year(),
 	    	    			month: moment.months()[i],
-	    	    			days: moment({month: i}).daysInMonth(),
+	    	    			days: parseFloat((daystot * (moment({month: i}).daysInMonth()/totaldays)).toFixed(2)),
 	    	    			amount: parseFloat((budgettot * (moment({month: i}).daysInMonth()/totaldays)).toFixed(2))
 	    	    		};
 	    	    		$scope.selectedProject.budgets.push(budget);
@@ -109,7 +113,7 @@ angular
 	    				from: '1 ' + moment.months()[to.month()] + ' ' + to.year(),
 			    		to: to.date() + ' ' + moment.months()[to.month()] + ' ' + to.year(),
     	    			month: moment.months()[to.month()],
-    	    			days: to.date(),
+    	    			days: parseFloat((daystot * (to.date()/totaldays)).toFixed(2)),
     	    			amount: parseFloat((budgettot * (to.date()/totaldays)).toFixed(2))
     	    		};	    			
 	    			$scope.selectedProject.budgets.push(budgetTo);
