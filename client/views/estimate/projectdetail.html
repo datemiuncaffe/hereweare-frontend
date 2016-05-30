@@ -28,32 +28,9 @@
 			</div>
 		</div>
 		<div class="center">
-			<div class="budget_period">
-				<div class="controls">			
-					<h4>Scegli l'intervallo</h4>
-					<button class="btn btn-default" ng-click="getFrom()">Da</button>
-					<button class="btn btn-default" ng-click="getTo()">A</button>
-					<input class="ng-binding" ng-model="project.from"></input>
-					<input class="ng-binding" ng-model="project.to"></input>
-				</div>
-				<div class="calendar">
-					<calendar class="ng-isolate-scope" selected="day" from="isFrom" to="isTo" selectedfrom="project.from" selectedto="project.to"></calendar>
-				</div>
-			</div>
-			
-			<div class="budget_distrib">
-				<button class="btn btn-default" ng-click="getBudgets(project.budgettot,project.from,project.to)">Ripartisci il budget sul periodo</button>
-				<p ng-repeat="budget in project.budgets">
-					{{budget.month}}
-					<span>
-						Da: <input class="ng-binding" ng-model="budget.from"></input>
-					</span>
-					<span>
-						A: <input class="ng-binding" ng-model="budget.to"></input>
-					</span>
-					<input class="ng-binding" ng-model="budget.amount"></input>
-				</p>
-			</div>		
+			<div class="search_results">
+				<h4>Preventivo e consuntivo per periodo</h4>
+			</div>	
 		</div>
 		<div class="bottom">			
 			<div class="form-group">
