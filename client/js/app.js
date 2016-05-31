@@ -38,7 +38,7 @@ angular
         }
       })
       .state('projectdetail', {
-        url: '/projectdetail?customerName&code',
+        url: '/projectdetail?customer&code',
         views:{
           'projectdetailview': {
               templateUrl: 'views/estimate/projectdetail.html',
@@ -47,7 +47,7 @@ angular
         }
       })
       .state('projectmodify', {
-        url: '/projectmodify?customerName&code',
+        url: '/projectmodify?customer&code',
         views:{
           'projectmodifyview': {
               templateUrl: 'views/estimate/projectmodify.html',
