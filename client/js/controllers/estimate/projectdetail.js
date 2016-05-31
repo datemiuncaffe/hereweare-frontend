@@ -16,7 +16,7 @@ angular
 	    	daystot: null,
 	    	customerId: null,
 	    	budgets: []
-	    };
+	    };	    
 	    /* end entities */
 	    
 	    var projectRes = $resource('', null, {'query':  {method:'GET'}});
@@ -27,16 +27,57 @@ angular
 	    	$stateParams.customer != null && $stateParams.customer.length > 0) {
 	    	console.log('Project code: ' + $stateParams.code + '; customer: ' + decodeURI($stateParams.customer));
 	    	var queryUrl = 'http://localhost:3000/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + $stateParams.code;
+	    	$log.log('queryUrl: ' + queryUrl);
 	    	var projectRes = $resource(queryUrl, null, {'query':  {method:'GET', isArray:true}});
 	    	projectRes.query().$promise.then(function(data) {
 				console.log('project: ' + JSON.stringify(data[0]));
 				
 				$scope.customer = JSON.parse(decodeURI($stateParams.customer));
 				$scope.project = data[0];
+				
+				// prepare data for table
+				var datatable = [];
+				if ($scope.project != null && 
+					(($scope.project.budgets != null && $scope.project.budgets.length > 0) ||
+					($scope.project.costs != null && $scope.project.costs.length > 0))) {
+					$scope.project.budgets.forEach(function(budget){
+						var data = {
+							budgetmonth: budget.month,
+							budgetfrom: budget.from,
+							budgetto: budget.to,
+							budgetamount: budget.amount,
+							budgetdays: budget.days,
+							costyear: null,
+					    	costmonth: null,
+					    	costdays: null
+						};
+						datatable.push(data);
+					});
+					$scope.project.costs.forEach(function(cost, i){
+						if (i < datatable.length) {
+							datatable[i].costyear = cost.year;
+							datatable[i].costmonth = cost.month;
+							datatable[i].costdays = cost.days;
+						} else {
+							var data = {
+								budgetmonth: null,
+								budgetfrom: null,
+								budgetto: null,
+								budgetamount: null,
+								budgetdays: null,
+								costyear: cost.year,
+						    	costmonth: cost.month,
+						    	costdays: cost.days
+							};
+							datatable.push(data);
+						}
+					});
+				}
+				
 				// render the table
-				tabulate(data[0].costs, 
-						["year", "month", "days"], 
-						["ANNO", "MESE", "GIORNATE"]);
+				tabulate(datatable, 
+						['budgetmonth', 'budgetfrom', 'budgetto', 'budgetamount', 'budgetdays', 'costyear', 'costmonth', 'costdays'], 
+						['MESE', 'DA', 'A', 'BUDGET MENSILE', 'GIORNATE PREVISTE', 'ANNO', 'MESE', 'GIORNATE']);
 			});
 	    }
 	    /* end loading state parameters */
