@@ -53,7 +53,7 @@ angular
 	    
 	    $scope.getBudgets = function(budgettot, daystot, selectedfrom, selectedto) {
 	    	$scope.project.budgets = [];
-	    	var from = moment(selectedfrom, "D MMM YYYY");
+	    	var from = moment(selectedfrom, "DD MMM YYYY");
 	    	var to = moment(selectedto, "DD MMM YYYY");
 	    	if (budgettot == null) {
 	    		throw 'ERR: il budget totale non è stato inserito';
@@ -78,6 +78,7 @@ angular
 	    			var budgettot = {
 	    				from: from.date() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
 	    				to: from.daysInMonth() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
+	    				year: from.year(),
     	    			month: moment.months()[from.month()],
     	    			days: daystot,
     	    			amount: budgettot,
@@ -88,6 +89,7 @@ angular
 	    			var budgetFrom = {
 	    				from: from.date() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
 		    			to: from.daysInMonth() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
+		    			year: from.year(),
     	    			month: moment.months()[from.month()],
     	    			days: parseFloat((daystot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2)),
     	    			amount: parseFloat((budgettot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2)),
@@ -98,6 +100,7 @@ angular
 	    			var budgetTo = {
 	    				from: '1 ' + moment.months()[to.month()] + ' ' + to.year(),
 		    			to: to.date() + ' ' + moment.months()[to.month()] + ' ' + to.year(),
+		    			year: to.year(),
     	    			month: moment.months()[to.month()],
     	    			days: parseFloat((daystot * (to.date()/totaldays)).toFixed(2)),
     	    			amount: parseFloat((budgettot * (to.date()/totaldays)).toFixed(2)),
@@ -109,6 +112,7 @@ angular
 	    			var budgetFrom = {
 	    				from: from.date() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
 		    			to: from.daysInMonth() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
+		    			year: from.year(),
     	    			month: moment.months()[from.month()],
     	    			days: parseFloat((daystot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2)),
     	    			amount: parseFloat((budgettot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2)),
@@ -120,6 +124,7 @@ angular
 	    	    		var budget = {
 	    	    			from: moment({month: i}).date() + ' ' + moment.months()[i] + ' ' + moment({month: i}).year(),
 	    			    	to: moment({month: i}).daysInMonth() + ' ' + moment.months()[i] + ' ' + moment({month: i}).year(),
+	    			    	year: moment({month: i}).year(),
 	    	    			month: moment.months()[i],
 	    	    			days: parseFloat((daystot * (moment({month: i}).daysInMonth()/totaldays)).toFixed(2)),
 	    	    			amount: parseFloat((budgettot * (moment({month: i}).daysInMonth()/totaldays)).toFixed(2)),
@@ -131,6 +136,7 @@ angular
 	    			var budgetTo = {
 	    				from: '1 ' + moment.months()[to.month()] + ' ' + to.year(),
 			    		to: to.date() + ' ' + moment.months()[to.month()] + ' ' + to.year(),
+			    		year: to.year(),
     	    			month: moment.months()[to.month()],
     	    			days: parseFloat((daystot * (to.date()/totaldays)).toFixed(2)),
     	    			amount: parseFloat((budgettot * (to.date()/totaldays)).toFixed(2)),
@@ -140,7 +146,7 @@ angular
 	    		}
 	    		for (var i in $scope.project.budgets) {
 	    			console.log('budget amount: ' + $scope.project.budgets[i].amount + '; type: ' + typeof $scope.project.budgets[i].amount);
-	    		}	    		
+	    		}
 	    		
 	    	} else {
 	    		throw 'data di inizio maggiore di quella finale';

@@ -40,8 +40,10 @@ angular
 				if ($scope.project != null && 
 					(($scope.project.budgets != null && $scope.project.budgets.length > 0) ||
 					($scope.project.costs != null && $scope.project.costs.length > 0))) {
+					var map = new Map();
 					$scope.project.budgets.forEach(function(budget){
-						var data = {
+						var value = {
+							budgetyear: budget.year,
 							budgetmonth: budget.month,
 							budgetfrom: budget.from,
 							budgetto: budget.to,
@@ -51,33 +53,45 @@ angular
 					    	costmonth: null,
 					    	costdays: null
 						};
-						datatable.push(data);
+						var key = budget.year + '-' + (moment(budget.month, "MMMM").month() + 1);
+						map.set(key, value);
 					});
-					$scope.project.costs.forEach(function(cost, i){
-						if (i < datatable.length) {
-							datatable[i].costyear = cost.year;
-							datatable[i].costmonth = cost.month;
-							datatable[i].costdays = cost.days;
+					$scope.project.costs.forEach(function(cost){
+						var key = cost.year + '-' + cost.month;
+						var value = {};
+						if (map.has(key)) {
+							value = map.get(key);
+							value.costyear = cost.year;
+							value.costmonth = moment.months()[cost.month - 1];
+							value.costdays = cost.days;
 						} else {
-							var data = {
+							value = {
+								budgetyear: null,
 								budgetmonth: null,
 								budgetfrom: null,
 								budgetto: null,
 								budgetamount: null,
 								budgetdays: null,
 								costyear: cost.year,
-						    	costmonth: cost.month,
+						    	costmonth: moment.months()[cost.month - 1],
 						    	costdays: cost.days
 							};
-							datatable.push(data);
+							map.set(key, value);
 						}
 					});
+					
+					console.log('keys: ' + map.keys());
+					map.forEach(function logMapElements(value, key, map) {
+						console.log('m[' + key + '] = ' + JSON.stringify(value));
+						datatable.push(value);
+					});					
+					
 				}
 				
 				// render the table
 				tabulate(datatable, 
-						['budgetmonth', 'budgetfrom', 'budgetto', 'budgetamount', 'budgetdays', 'costyear', 'costmonth', 'costdays'], 
-						['MESE', 'DA', 'A', 'BUDGET MENSILE', 'GIORNATE PREVISTE', 'ANNO', 'MESE', 'GIORNATE']);
+						['budgetyear', 'budgetmonth', 'budgetfrom', 'budgetto', 'budgetamount', 'budgetdays', 'costyear', 'costmonth', 'costdays'], 
+						['ANNO BUDGET', 'MESE BUDGET', 'DA', 'A', 'BUDGET MENSILE', 'GIORNATE PREVISTE', 'ANNO', 'MESE', 'GIORNATE']);
 			});
 	    }
 	    /* end loading state parameters */
