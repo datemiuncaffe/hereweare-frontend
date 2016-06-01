@@ -19,6 +19,25 @@ angular
 	    };	    
 	    /* end entities */
 	    
+
+		function Padder(len, pad) {
+			if (len === undefined) {
+				len = 1;
+			} else if (pad === undefined) {
+				pad = '0';
+			}
+			
+			var pads = '';
+			while (pads.length < len) {
+				pads += pad;
+			}
+			
+			this.pad = function(what) {
+				var s = what.toString();
+				return pads.substring(0, pads.length - s.length) + s;
+			};
+		}
+	    
 	    var projectRes = $resource('', null, {'query':  {method:'GET'}});
 	    
 	    /* loading project */
@@ -40,6 +59,7 @@ angular
 				if ($scope.project != null && 
 					(($scope.project.budgets != null && $scope.project.budgets.length > 0) ||
 					($scope.project.costs != null && $scope.project.costs.length > 0))) {
+					var zero2 = new Padder(2);					
 					var map = new Map();
 					$scope.project.budgets.forEach(function(budget){
 						var value = {
@@ -53,11 +73,11 @@ angular
 					    	costmonth: null,
 					    	costdays: null
 						};
-						var key = budget.year + '-' + (moment(budget.month, "MMMM").month() + 1);
+						var key = budget.year + '-' + zero2.pad((moment(budget.month, "MMMM").month() + 1));
 						map.set(key, value);
 					});
 					$scope.project.costs.forEach(function(cost){
-						var key = cost.year + '-' + cost.month;
+						var key = cost.year + '-' + zero2.pad(cost.month);
 						var value = {};
 						if (map.has(key)) {
 							value = map.get(key);
@@ -80,12 +100,16 @@ angular
 						}
 					});
 					
-					console.log('keys: ' + map.keys());
-					map.forEach(function logMapElements(value, key, map) {
+					var keys = Array.from(map.keys());
+					console.log('keys: ' + keys);
+					var sortedKeys = keys.sort();
+					console.log('sortedKeys: ' + sortedKeys);
+					sortedKeys.forEach(function(key){
+						var value = map.get(key);
 						console.log('m[' + key + '] = ' + JSON.stringify(value));
-						datatable.push(value);
-					});					
-					
+						datatable.push(value);						
+					});
+										
 				}
 				
 				// render the table
