@@ -102,11 +102,15 @@ angular
 					
 					var keys = Array.from(map.keys());
 					console.log('keys: ' + keys);
+					var firstobj = map.get(keys[0]);
+					for (var field in firstobj) {
+						console.log('typeof field: ' + typeof firstobj[field]);
+					}
 					var sortedKeys = keys.sort();
 					console.log('sortedKeys: ' + sortedKeys);
 					sortedKeys.forEach(function(key){
 						var value = map.get(key);
-						console.log('m[' + key + '] = ' + JSON.stringify(value));
+						console.log('m[' + key + '] = ' + JSON.stringify(value));						
 						datatable.push(value);						
 					});
 										
@@ -115,16 +119,25 @@ angular
 				// render the table
 				tabulate(datatable, 
 						['budgetyear', 'budgetmonth', 'budgetfrom', 'budgetto', 'budgetamount', 'budgetdays', 'costyear', 'costmonth', 'costdays'], 
-						['ANNO BUDGET', 'MESE BUDGET', 'DA', 'A', 'BUDGET MENSILE', 'GIORNATE PREVISTE', 'ANNO', 'MESE', 'GIORNATE']);
+						['ANNO BUDGET', 'MESE BUDGET', 'DA', 'A', 'BUDGET MENSILE', 'GIORNATE PREVISTE', 'ANNO', 'MESE', 'GIORNATE'],
+						['PREVENTIVO', 'CONSUNTIVO']);
 			});
 	    }
 	    /* end loading state parameters */
 	    
 	    // The table generation function
-		function tabulate(data, columns, headers) {
+		function tabulate(data, columns, headers, superheaders) {
 			var table = d3.select("div.search_results").append("table"),
 			    thead = table.append("thead"),
 			    tbody = table.append("tbody");
+			
+			// append the superheader row
+			thead.append("tr")
+			    .selectAll("th")
+			    .data(superheaders)
+			    .enter()
+			    .append("th")
+			        .text(function(column) { return column; });
 			
 			// append the header row
 			thead.append("tr")
@@ -133,6 +146,15 @@ angular
 			    .enter()
 			    .append("th")
 			        .text(function(column) { return column; });
+			
+			// append filter cells
+			thead.append("tr")
+			    .selectAll("th")
+			    .data(headers)
+			    .enter()
+			    .append("th")
+			    .append('input')
+			    .attr('size', 8)
 			
 			// create a row for each object in the data
 			var rows = tbody.selectAll("tr")
