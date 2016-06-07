@@ -63,6 +63,7 @@ angular
 					var map = new Map();
 					$scope.project.budgets.forEach(function(budget){
 						var value = {
+							id: budget.id,
 							budgetyear: budget.year,
 							budgetmonth: budget.month,
 							budgetfrom: budget.from,
@@ -81,11 +82,13 @@ angular
 						var value = {};
 						if (map.has(key)) {
 							value = map.get(key);
+							value.id += '-' + cost.id;
 							value.costyear = cost.year;
 							value.costmonth = moment.months()[cost.month - 1];
 							value.costdays = cost.days;
 						} else {
 							value = {
+								id: '-' + cost.id,
 								budgetyear: null,
 								budgetmonth: null,
 								budgetfrom: null,
@@ -125,11 +128,12 @@ angular
 	    }
 	    /* end loading state parameters */
 	    
+	    var table = d3.select("div.search_results").append("table"),
+	   		thead = table.append("thead"),
+	   		tbody = table.append("tbody");
+	    
 	    // The table generation function
-		function tabulate(data, columns, headers, superheaders) {
-			var table = d3.select("div.search_results").append("table"),
-			    thead = table.append("thead"),
-			    tbody = table.append("tbody");
+		function tabulate(data, columns, headers, superheaders) {			
 			
 			// append the superheader row
 			thead.append("tr")
@@ -155,15 +159,29 @@ angular
 			    .append("th")
 			    .append('input')
 			    .attr('size', 8)
+			    .attr('type', 'text')
+			    .on("input", function(d, i) {
+			    	filterTable(this.value, d, i, data, columns);
+				});
+			
+			renderTable(data, columns);
+		    
+			return table;
+		}
+		
+		function renderTable(data, columns) {
+			var rows = tbody.selectAll("tr").data(data,
+					function(d) {
+						return d.id;
+					});
 			
 			// create a row for each object in the data
-			var rows = tbody.selectAll("tr")
-			    .data(data)
-			    .enter()
-			    .append("tr");
+			var rowsEnter = rows.enter()
+				.insert("tr");
+//			.append("tr");
 			
 			// create a cell in each row for each column
-			var cells = rows.selectAll("td")
+			var cells = rowsEnter.selectAll("td")
 			    .data(function(row) {
 			        return columns.map(function(column) {
 			            return {column: column, value: row[column]};
@@ -171,10 +189,37 @@ angular
 			    })
 			    .enter()
 			    .append("td")
-			    .attr("style", "font-family: Courier") // sets the font style
+//			    .attr("style", "font-family: Courier") // sets the font style
 				.html(function(d) { return d.value });
-		    
-			return table;
+			
+			var rowsUpdate = rows.attr("style", "font-family: Courier"); // sets the font style
+			
+			var rowsExit = rows.exit().remove();
+		}
+		
+		function filterTable(filtervalue, header, index, rows, columns) {
+//			console.log('rows: ' + JSON.stringify(rows, null, '\t'));
+//			console.log('filtervalue: ' + filtervalue + '; header: ' + header + '; index: ' + index);
+			var filteredrows = [];
+			var filterfield = columns[index];
+			rows.forEach(function(row){
+//				console.log(row[filterfield]);
+//				console.log(typeof filtervalue + ' - ' + (row[filterfield] != null ? typeof row[filterfield].toString() : null));
+				if (row[filterfield] != null) {
+					console.log('filtervalue: ' + filtervalue + '; row[filterfield]: ' + row[filterfield]);
+					var regExp = new RegExp(filtervalue, 'g');
+					var res = regExp.exec(row[filterfield].toString());
+//					console.log('matches: ' + JSON.stringify(res, null, '\t'));
+					if (res != null && res.length > 0) {
+						filteredrows.push(row);
+					}
+				} else if (filtervalue != null && filtervalue.length === 0) {
+					console.log('filtervalue: ' + filtervalue + '; row[filterfield]: ' + row[filterfield]);
+					filteredrows.push(row);
+				}
+			});
+			console.log('filteredrows: ' + JSON.stringify(filteredrows, null, '\t'));
+			renderTable(filteredrows, columns);
 		}
 	    	    
 	    $scope.modify = function() {
@@ -185,7 +230,7 @@ angular
 			
 			var url = 'http://' + $window.location.host + '/#/projectmodify?customer=' + encodeURI(JSON.stringify($scope.customer)) + '&code=' + $scope.project.code;
 	        $log.log(url);
-	        $window.location.href = url;			
+	        $window.location.href = url;
 		};
 			    
 	}]);
