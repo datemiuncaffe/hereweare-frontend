@@ -534,6 +534,7 @@ app.factory('NgTableParams', ['$q', '$log', 'ngTableDefaults', 'ngTableGetDataBc
                 });
             } else if (filter === true){
                 var keys = Object.keys(params.filter);
+                console.log('keys: ' + JSON.stringify(keys, null, '\t'));
                 var significantFilter = {};
                 for (var i=0; i < keys.length; i++){
                     var filterValue = params.filter[keys[i]];
@@ -805,9 +806,11 @@ app.factory('NgTableParams', ['$q', '$log', 'ngTableDefaults', 'ngTableGetDataBc
             log('ngTable: reload data');
 
             var oldData = self.data;
+            console.log('oldData: ' + JSON.stringify(oldData, null, '\t'));
             return pData.then(function(data) {
                 settings.$loading = false;
                 self.data = data;
+                console.log('data: ' + JSON.stringify(data, null, '\t'));
                 // note: I think it makes sense to publish this event even when data === oldData
                 // subscribers can always set a filter to only receive the event when data !== oldData
                 ngTableEventsChannel.publishAfterReloadData(self, data, oldData);
@@ -840,6 +843,7 @@ app.factory('NgTableParams', ['$q', '$log', 'ngTableDefaults', 'ngTableGetDataBc
         })();
 
         function runGetData(){
+        	console.log('runGetData');
             var getDataFn = settings.getDataFnAdaptor(settings.getData);
             return $q.when(getDataFn.call(settings, self));
         }
@@ -851,11 +855,13 @@ app.factory('NgTableParams', ['$q', '$log', 'ngTableDefaults', 'ngTableGetDataBc
 
         function runInterceptorPipeline(fetchFn){
             var interceptors = settings.interceptors || [];
-
+            
+            console.log('interceptors: ' + JSON.stringify(interceptors, null, '\t'));
             return interceptors.reduce(function(result, interceptor){
                 var thenFn = (interceptor.response && interceptor.response.bind(interceptor)) || $q.when;
                 var rejectFn = (interceptor.responseError && interceptor.responseError.bind(interceptor)) || $q.reject;
                 return result.then(function(data){
+                	console.log('data: ' + JSON.stringify(data, null, '\t'));
                     return thenFn(data, self);
                 }, function(reason){
                     return rejectFn(reason, self);
@@ -1087,6 +1093,7 @@ function($scope, NgTableParams, $timeout, $parse, $compile, $attrs, $element, ng
             def = $column.filterData($scope, {
                 $column: $column
             });
+            console.log('def: ' + JSON.stringify(def, null, '\t'));
             if (!def) {
                 delete $column.filterData;
                 return;

@@ -48,6 +48,24 @@ angular
 	    	var queryUrl = 'http://localhost:3000/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + $stateParams.code;
 	    	$log.log('queryUrl: ' + queryUrl);
 	    	var projectRes = $resource(queryUrl, null, {'query':  {method:'GET', isArray:true}});
+	    	
+	    	
+	    	$q
+			.all([
+			      projectRes.query().$promise,
+			])
+			.then(
+				function(data) {
+					console.log('data: ' + JSON.stringify(data));
+					var customers = data[0];
+					console.log('customers: ' + JSON.stringify(customers));
+					$scope.customers = customers;
+					$scope.selectedCustomer = customers[0];
+					$scope.selectedProject = $scope.selectedCustomer.projects[0];
+				});	    	
+	    	
+	    	
+	    	
 	    	projectRes.query().$promise.then(function(data) {
 				console.log('project: ' + JSON.stringify(data[0]));
 				
