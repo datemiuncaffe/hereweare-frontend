@@ -1,6 +1,7 @@
 angular
 	.module("app")
-	.controller("ProjectModifyController", ['$scope', '$resource', '$q', '$stateParams', 'crud', function($scope, $resource, $q, $stateParams, crud) {
+	.controller("ProjectModifyController", ['$scope', '$resource', '$q', '$stateParams', 'crud', 'resourceBaseUrl', 
+	                                        function($scope, $resource, $q, $stateParams, crud, resourceBaseUrl) {
 	    $scope.day = moment();
 	    $scope.isFrom = true;
 	    $scope.isTo = false;
@@ -28,7 +29,7 @@ angular
 	    	$stateParams.code != null && $stateParams.code.length > 0 &&
 	    	$stateParams.customer != null && $stateParams.customer.length > 0) {
 	    	console.log('Project code: ' + $stateParams.code + '; customer: ' + decodeURI($stateParams.customer));
-	    	var queryUrl = 'http://localhost:3000/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + $stateParams.code;
+	    	var queryUrl = 'http://' + resourceBaseUrl + '/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + $stateParams.code;
 	    	var projectRes = $resource(queryUrl, null, {'query':  {method:'GET', isArray:true}});
 	    	projectRes.query().$promise.then(function(data) {
 				console.log('project: ' + JSON.stringify(data[0]));
@@ -153,8 +154,8 @@ angular
 	    	}	    	
 	    };
 	    
-	    var updateproject = $resource('http://localhost:3000/api/projects', null, {'update': {method:'PUT'}});
-	    var updatebudget = $resource('http://localhost:3000/api/budgets', null, {'update': {method:'PUT', isArray:true}});
+	    var updateproject = $resource('http://' + resourceBaseUrl + '/api/projects', null, {'update': {method:'PUT'}});
+	    var updatebudget = $resource('http://' + resourceBaseUrl + '/api/budgets', null, {'update': {method:'PUT', isArray:true}});
 	    	    
 	    $scope.save = function() {
 			console.log('current customer: ' + JSON.stringify($scope.customer));

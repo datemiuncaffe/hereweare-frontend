@@ -8,7 +8,7 @@ angular
     'angucomplete-alt',
     'crudService'
   ])
-  .config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+  .config(['$stateProvider', '$urlRouterProvider', '$provide', function($stateProvider, $urlRouterProvider, $provide) {
       $stateProvider
       .state('estimate', {
         url: '/estimate',
@@ -110,5 +110,7 @@ angular
 		}
       });
 
-    $urlRouterProvider.otherwise('estimate');
+      $urlRouterProvider.otherwise('estimate');
+      
+      $provide.value('resourceBaseUrl', 'localhost:3000');
   }]);

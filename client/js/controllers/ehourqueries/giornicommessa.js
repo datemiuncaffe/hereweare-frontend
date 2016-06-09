@@ -1,10 +1,10 @@
 angular
   .module('app')
-  .controller('GiorniCommessaController', ['$scope', '$state', 'NgTableParams', '$resource', function($scope, 
-		  $state, NgTableParams, $resource) {
+  .controller('GiorniCommessaController', ['$scope', '$state', 'NgTableParams', '$resource', 'resourceBaseUrl', function($scope, 
+		  $state, NgTableParams, $resource, resourceBaseUrl) {
 	var ref = this;
     console.log('inside GiorniCommessaController...');      
-    var query = $resource('http://localhost:3000/query_giorni_lav_commessa_mese');
+    var query = $resource('http://' + resourceBaseUrl + '/query_giorni_lav_commessa_mese');
     
     ref.tableParams = new NgTableParams({}, {
 		getData : function(params) {

@@ -1,6 +1,7 @@
 angular
 	.module("app")
-	.controller("ProjectCreateController", ['$scope', '$resource', '$q', '$stateParams', 'crud', function($scope, $resource, $q, $stateParams, crud) {
+	.controller("ProjectCreateController", ['$scope', '$resource', '$q', '$stateParams', 'crud', 'resourceBaseUrl', 
+	                                        function($scope, $resource, $q, $stateParams, crud, resourceBaseUrl) {
 	    $scope.day = moment();
 	    $scope.isFrom = true;
 	    $scope.isTo = false;
@@ -127,9 +128,9 @@ angular
 	    	}	    	
 	    };
 	    
-	    var savecustomer = $resource('http://localhost:3000/api/customers', null, {'save': {method:'POST'}});
-	    var saveproject = $resource('http://localhost:3000/api/projects', null, {'save': {method:'POST'}});
-	    var savebudget = $resource('http://localhost:3000/api/budgets', null, {'save': {method:'POST', isArray:true}});
+	    var savecustomer = $resource('http://' + resourceBaseUrl + '/api/customers', null, {'save': {method:'POST'}});
+	    var saveproject = $resource('http://' + resourceBaseUrl + '/api/projects', null, {'save': {method:'POST'}});
+	    var savebudget = $resource('http://' + resourceBaseUrl + '/api/budgets', null, {'save': {method:'POST', isArray:true}});
 	    	    
 	    $scope.save = function() {
 			console.log('current customer: ' + JSON.stringify($scope.customer));

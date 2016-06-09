@@ -1,7 +1,7 @@
 angular
 	.module("app")
-	.controller("ProjectDetailController", ['$scope', '$window', '$log', '$resource', '$q', '$stateParams', 
-	                                        function($scope, $window, $log, $resource, $q, $stateParams) {	    
+	.controller("ProjectDetailController", ['$scope', '$window', '$log', '$resource', '$q', '$stateParams', 'resourceBaseUrl', 
+	                                        function($scope, $window, $log, $resource, $q, $stateParams, resourceBaseUrl) {	    
 	    /* entities */	    
 	    $scope.customer = {
 	    	name: null
@@ -47,10 +47,10 @@ angular
 	    	$scope.customer = JSON.parse(decodeURI($stateParams.customer));
 	    	
 	    	// query urls
-	    	var queryBudgets = 'http://localhost:3000/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + $stateParams.code;
+	    	var queryBudgets = 'http://' + resourceBaseUrl + '/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + $stateParams.code;
 	    	$log.log('queryBudgets: ' + queryBudgets);
 	    	var budgetRes = $resource(queryBudgets, null, {'query':  {method:'GET', isArray:true}});
-	    	var queryCosts = 'http://localhost:3000/query_costs?projectCode=' + $stateParams.code;
+	    	var queryCosts = 'http://' + resourceBaseUrl + '/query_costs?projectCode=' + $stateParams.code;
 	    	$log.log('queryCosts: ' + queryCosts);
 	    	var costRes = $resource(queryCosts, null, {'query':  {method:'GET', isArray:true}});
 	    	

@@ -12,11 +12,11 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 (function(window, angular, undefined) {'use strict';
 
 	var module = angular.module("crudService",[]);	
-	module.factory('crud', ['$resource', function($resource) {		
+	module.factory('crud', ['$resource', 'resourceBaseUrl', function($resource, resourceBaseUrl) {		
 		var resources = {
-			getCustomers:	$resource('http://localhost:3000/api/customers?filter[include][projects]=budgets', null, {'query':  {method:'GET', isArray:true}}),
-			updateProject: 	$resource('http://localhost:3000/api/projects/:id', null, {'update': {method:'PUT'}}),
-			updateBudgets:	$resource('http://localhost:3000/api/budgets/updateAllByProjectId', null, {'update': {method:'PUT'}})
+			getCustomers:	$resource('http://' + resourceBaseUrl + '/api/customers?filter[include][projects]=budgets', null, {'query':  {method:'GET', isArray:true}}),
+			updateProject: 	$resource('http://' + resourceBaseUrl + '/api/projects/:id', null, {'update': {method:'PUT'}}),
+			updateBudgets:	$resource('http://' + resourceBaseUrl + '/api/budgets/updateAllByProjectId', null, {'update': {method:'PUT'}})
 		};
 		
 		var crud = {

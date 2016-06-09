@@ -1,6 +1,7 @@
 angular
 	.module("app")
-	.controller("RicercaController", ['$scope', '$resource', '$state', '$compile', function($scope, $resource, $state, $compile) {
+	.controller("RicercaController", ['$scope', '$resource', '$state', '$compile', 'resourceBaseUrl', 
+	                                  function($scope, $resource, $state, $compile, resourceBaseUrl) {
 	    $scope.selectedCustomer = null;
 	    
 	    $scope.linktoproject = "http://www.project.page";
@@ -9,7 +10,7 @@ angular
 			return {name: str};
 		};
 		
-		var projectsRes = $resource('http://localhost:3000/api/customers/:id?filter[include]=projects', null, {'query':  {method:'GET'}});
+		var projectsRes = $resource('http://' + resourceBaseUrl + '/api/customers/:id?filter[include]=projects', null, {'query':  {method:'GET'}});
 		
 		$scope.search = function(selectedCustomer) {			
 			if (selectedCustomer != null && selectedCustomer.id != null && selectedCustomer.id > 0) {

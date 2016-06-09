@@ -1,10 +1,10 @@
 angular
   .module('app')
-  .controller('OreMeseController', ['$scope', '$state', 'NgTableParams', '$resource', function($scope, 
-		  $state, NgTableParams, $resource) {
+  .controller('OreMeseController', ['$scope', '$state', 'NgTableParams', '$resource', 'resourceBaseUrl', function($scope, 
+		  $state, NgTableParams, $resource, resourceBaseUrl) {
 	var ref = this;
 	console.log('inside OreMeseController ...');      
-    var query = $resource('http://localhost:3000/query_ore_lav_utente_mese');            
+    var query = $resource('http://' + resourceBaseUrl + '/query_ore_lav_utente_mese');            
     
     ref.tableParams = new NgTableParams({}, {
 		getData : function(params) {
