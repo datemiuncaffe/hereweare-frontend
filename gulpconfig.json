@@ -1,0 +1,24 @@
+{
+	"local": 
+	{
+		"src":
+		[
+			"client/",
+			"server/boot/*",
+			"server/*.js"
+		],
+
+		"dest": "build/local"
+	},
+
+	"test": 
+	{
+		"src": 
+		[
+			"client/",
+			"server/"
+		],
+
+		"dest": "build/test"
+	}
+}
