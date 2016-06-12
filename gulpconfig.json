@@ -1,11 +1,10 @@
 {
 	"local": 
-	{
+	{		
 		"src":
 		[
-			"client/",
-			"server/boot/*",
-			"server/*.js"
+			"/home/federico/Documents/ehour/projects/hereweare-frontend/**",
+			"!/home/federico/Documents/ehour/projects/hereweare-frontend/build"
 		],
 
 		"dest": "build/local"
@@ -15,8 +14,8 @@
 	{
 		"src": 
 		[
-			"client/",
-			"server/"
+			"/home/federico/Documents/ehour/projects/hereweare-frontend/**",
+			"!/home/federico/Documents/ehour/projects/hereweare-frontend/build"
 		],
 
 		"dest": "build/test"
