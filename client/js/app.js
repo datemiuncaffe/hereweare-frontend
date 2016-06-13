@@ -112,5 +112,5 @@ angular
 
       $urlRouterProvider.otherwise('estimate');
       
-      $provide.value('resourceBaseUrl', 'localhost:3000');
+      $provide.value('resourceBaseUrl', '$resourceBaseUrl$');
   }]);
