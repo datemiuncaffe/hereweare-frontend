@@ -7,13 +7,20 @@ body {
 .centerpage {
 	float: left;
 }
+.headers-container {
+	margin-left: 250px;
+    margin-right: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+}
 .menuvert {
 	float: left;
 	width: 250px;
 	height: 800px;
-	margin-left: auto;
+	margin-left: 20px;
 	margin-right: auto;
 	padding-top: 100px;
+	border-right-style: double;
 }
 .menuvert p {
 	margin-top: 5px;	
