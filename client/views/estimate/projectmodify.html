@@ -1,7 +1,7 @@
 <h1>Modifica progetto {{project.name}}</h1>
 <hr>
 <section>
-<form name="projectCreateForm" novalidate>
+<form name="projectModifyForm" novalidate>
 	<fieldset>
 		<div class="top">		
 			<div class="form-group customer">
@@ -34,13 +34,15 @@
 			<div class="budget_period">
 				<div class="controls">			
 					<h4>Scegli l'intervallo</h4>
-					<button class="btn btn-default" ng-click="getFrom()">Da</button>
-					<button class="btn btn-default" ng-click="getTo()">A</button>
-					<input class="ng-binding" ng-model="project.from"></input>
-					<input class="ng-binding" ng-model="project.to"></input>
-				</div>
-				<div class="calendar">
-					<calendar class="ng-isolate-scope" selected="day" from="isFrom" to="isTo" selectedfrom="project.from" selectedto="project.to"></calendar>
+										
+					<label for="datepickerfrom">Da:</label>
+					<br>
+					<input class="ng-binding" id="datepickerfrom" type="text" ng-model="project.from">
+					
+					<label for="datepickerto">A:</label>
+					<br>
+					<input class="ng-binding" id="datepickerto" type="text" ng-model="project.to">
+					
 				</div>
 			</div>
 			

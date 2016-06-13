@@ -2,12 +2,7 @@ angular
 	.module("app")
 	.controller("ProjectModifyController", ['$scope', '$resource', '$q', '$stateParams', 'crud', 'resourceBaseUrl', 
 	                                        function($scope, $resource, $q, $stateParams, crud, resourceBaseUrl) {
-	    $scope.day = moment();
-	    $scope.isFrom = true;
-	    $scope.isTo = false;
-	    console.log('$scope.day: ' + $scope.day.format());
-	    
-	    /* entities */	    
+		/* entities */	    
 	    $scope.customer = {
 	    	name: null
 	    };
@@ -41,21 +36,27 @@ angular
 	    }
 	    /* end loading project */
 	    
-	    $scope.getFrom = function() {
-	    	$scope.isFrom = true;
-	    	$scope.isTo = false;
-	    	console.log('isFrom: ' + $scope.isFrom + '; isTo: ' + $scope.isTo);
-	    };
-	    $scope.getTo = function() {
-	    	$scope.isFrom = false;
-	    	$scope.isTo = true;
-	    	console.log('isFrom: ' + $scope.isFrom + '; isTo: ' + $scope.isTo);
-	    };
+	    /* datepickers */
+		var datepickerfrom = new Pikaday({
+			field : document.getElementById('datepickerfrom'),
+			firstDay : 1,
+			minDate : new Date(2000, 0, 1),
+			maxDate : new Date(2020, 12, 31),
+			yearRange : [ 2000, 2020 ]
+		});
+		var datepickerto = new Pikaday({
+			field : document.getElementById('datepickerto'),
+			firstDay : 1,
+			minDate : new Date(2000, 0, 1),
+			maxDate : new Date(2020, 12, 31),
+			yearRange : [ 2000, 2020 ]
+		});
+		/* end datepickers */
 	    
 	    $scope.getBudgets = function(budgettot, daystot, selectedfrom, selectedto) {
 	    	$scope.project.budgets = [];
-	    	var from = moment(selectedfrom, "DD MMM YYYY");
-	    	var to = moment(selectedto, "DD MMM YYYY");
+	    	var from = moment(selectedfrom, "YYYY-MM-DD");
+	    	var to = moment(selectedto, "YYYY-MM-DD");
 	    	if (budgettot == null) {
 	    		throw 'ERR: il budget totale non è stato inserito';
 	    	}
@@ -77,8 +78,8 @@ angular
 	    		console.log('totaldays: ' + totaldays);
 	    		if (to.diff(from, 'months') === 0) {
 	    			var budgettot = {
-	    				from: from.date() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
-	    				to: from.daysInMonth() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
+	    				from: from.year() + '-' + from.month() + '-' + from.date(),
+	    				to: from.year() + '-' + from.month() + '-' + from.daysInMonth(),
 	    				year: from.year(),
     	    			month: moment.months()[from.month()],
     	    			days: daystot,
@@ -88,8 +89,8 @@ angular
 	    			$scope.project.budgets.push(budgettot);
 	    		} else if (to.diff(from, 'months') === 1) {
 	    			var budgetFrom = {
-	    				from: from.date() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
-		    			to: from.daysInMonth() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
+	    				from: from.year() + '-' + from.month() + '-' + from.date(),
+		    			to: from.year() + '-' + from.month() + '-' + from.daysInMonth(),
 		    			year: from.year(),
     	    			month: moment.months()[from.month()],
     	    			days: parseFloat((daystot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2)),
@@ -99,8 +100,8 @@ angular
 	    			$scope.project.budgets.push(budgetFrom);
 	    			
 	    			var budgetTo = {
-	    				from: '1 ' + moment.months()[to.month()] + ' ' + to.year(),
-		    			to: to.date() + ' ' + moment.months()[to.month()] + ' ' + to.year(),
+	    				from: to.year() + '-' + to.month() + '-01',
+		    			to: to.year() + '-' + to.month() + '-' + to.date(),
 		    			year: to.year(),
     	    			month: moment.months()[to.month()],
     	    			days: parseFloat((daystot * (to.date()/totaldays)).toFixed(2)),
@@ -111,8 +112,8 @@ angular
 	    			console.log('budgets: ' + JSON.stringify($scope.project.budgets));
 	    		} else {
 	    			var budgetFrom = {
-	    				from: from.date() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
-		    			to: from.daysInMonth() + ' ' + moment.months()[from.month()] + ' ' + from.year(),
+	    				from: from.year() + '-' + from.month() + '-' + from.date(),
+		    			to: from.year() + '-' + from.month() + '-' + from.daysInMonth(),
 		    			year: from.year(),
     	    			month: moment.months()[from.month()],
     	    			days: parseFloat((daystot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2)),
@@ -123,8 +124,8 @@ angular
 	    			
 	    			for (var i = from.month() + 1; i < to.month(); i++) {
 	    	    		var budget = {
-	    	    			from: moment({month: i}).date() + ' ' + moment.months()[i] + ' ' + moment({month: i}).year(),
-	    			    	to: moment({month: i}).daysInMonth() + ' ' + moment.months()[i] + ' ' + moment({month: i}).year(),
+	    	    			from: moment({month: i}).year() + '-' + i + '-' + moment({month: i}).date(),
+	    			    	to: moment({month: i}).year() + '-' + i + '-' + moment({month: i}).daysInMonth(),
 	    			    	year: moment({month: i}).year(),
 	    	    			month: moment.months()[i],
 	    	    			days: parseFloat((daystot * (moment({month: i}).daysInMonth()/totaldays)).toFixed(2)),
@@ -135,8 +136,8 @@ angular
 	    	    	}
 	    			
 	    			var budgetTo = {
-	    				from: '1 ' + moment.months()[to.month()] + ' ' + to.year(),
-			    		to: to.date() + ' ' + moment.months()[to.month()] + ' ' + to.year(),
+	    				from: to.year() + '-' + to.month() + '-01',
+			    		to: to.year() + '-' + to.month() + '-' + to.date(),
 			    		year: to.year(),
     	    			month: moment.months()[to.month()],
     	    			days: parseFloat((daystot * (to.date()/totaldays)).toFixed(2)),
