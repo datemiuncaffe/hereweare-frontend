@@ -156,8 +156,8 @@ angular
 	    };
 	    
 	    var updateproject = $resource('http://' + resourceBaseUrl + '/api/projects', null, {'update': {method:'PUT'}});
-	    var updatebudget = $resource('http://' + resourceBaseUrl + '/api/budgets', null, {'update': {method:'PUT', isArray:true}});
-	    	    
+	    var updatebudgets = $resource('http://' + resourceBaseUrl + '/api/budgets/updateAllByProjectId', null, {'update': {method:'PUT'}});
+
 	    $scope.save = function() {
 			console.log('current customer: ' + JSON.stringify($scope.customer));
 			console.log('updating project: ' + JSON.stringify($scope.project));			
@@ -165,7 +165,7 @@ angular
 			$scope.project.customerId = $scope.customer.id;
 			updateproject.update($scope.project).$promise.then(function(updatedproject) {
 				console.log('updatedproject: ' + JSON.stringify(updatedproject));
-				updatebudget.update($scope.project.budgets).$promise.then(function(updatedbudgets) {
+				updatebudgets.update({projectId: $scope.project.id, budgets: $scope.project.budgets}).$promise.then(function(updatedbudgets) {
 					console.log('updatedbudgets: ' + JSON.stringify(updatedbudgets));
 				});
 			});
