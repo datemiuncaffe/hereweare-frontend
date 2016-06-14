@@ -54,26 +54,26 @@ angular
 		/* end datepickers */
 	    
 	    $scope.getBudgets = function(budgettot, daystot, selectedfrom, selectedto) {
-	    	$scope.project.budgets = [];
-	    	var from = moment(selectedfrom, "YYYY-MM-DD");
-	    	var to = moment(selectedto, "YYYY-MM-DD");
 	    	if (budgettot == null) {
 	    		throw 'ERR: il budget totale non è stato inserito';
 	    	}
+	    	console.log('budgettot: ' + budgettot);
 	    	if (daystot == null) {
 	    		throw 'ERR: i giorni totali non sono stati inseriti';
 	    	}
-	    	if (from == null) {
+	    	if (selectedfrom == null) {
 	    		throw 'ERR: inserire la data iniziale';
 	    	}
-	    	if (to == null) {
+	    	if (selectedto == null) {
 	    		throw 'ERR: inserire la data finale';
 	    	}
 	    	
-	    	console.log('budgettot: ' + budgettot);
+	    	var from = moment(selectedfrom, "YYYY-MM-DD");
+	    	var to = moment(selectedto, "YYYY-MM-DD");	    	
 	    	console.log('diff in months: ' + to.diff(from, 'months'));	    	
 	    	
 	    	if (from.isBefore(to)) {
+	    		$scope.project.budgets = [];
 	    		var totaldays = to.diff(from, 'days') + 1;
 	    		console.log('totaldays: ' + totaldays);
 	    		if (to.diff(from, 'months') === 0) {

@@ -464,6 +464,7 @@
 
         self._onChange = function(e)
         {
+        	console.log('_onChange');
             e = e || window.event;
             var target = e.target || e.srcElement;
             if (!target) {
@@ -479,6 +480,7 @@
 
         self._onKeyChange = function(e)
         {
+        	console.log('_onKeyChange');
             e = e || window.event;
 
             if (self.isVisible()) {
@@ -507,6 +509,7 @@
 
         self._onInputChange = function(e)
         {
+        	console.log('_onInputChange');
             var date;
 
             if (e.firedBy === self) {
@@ -539,6 +542,7 @@
 
         self._onInputBlur = function()
         {
+        	console.log('_onInputBlur');
             // IE allows pika div to gain focus; catch blur the input field
             var pEl = document.activeElement;
             do {
@@ -554,10 +558,12 @@
                 }, 50);
             }
             self._c = false;
+            console.log('_onInputBlurEnd');
         };
 
         self._onClick = function(e)
         {
+        	console.log('_onClick');
             e = e || window.event;
             var target = e.target || e.srcElement,
                 pEl = target;

@@ -37,17 +37,16 @@
 										
 					<label for="datepickerfrom">Da:</label>
 					<br>
-					<input class="ng-binding" id="datepickerfrom" type="text" ng-model="project.from">
+					<input class="ng-binding" id="datepickerfrom" type="text" ng-model="project.from" ng-blur="getBudgets(project.budgettot, project.daystot, project.from, project.to)">
 					
 					<label for="datepickerto">A:</label>
 					<br>
-					<input class="ng-binding" id="datepickerto" type="text" ng-model="project.to">
+					<input class="ng-binding" id="datepickerto" type="text" ng-model="project.to" ng-blur="getBudgets(project.budgettot, project.daystot, project.from, project.to)">
 					
 				</div>
 			</div>
 			
 			<div class="budget_distrib">
-				<button class="btn btn-default" ng-click="getBudgets(project.budgettot,project.daystot,project.from,project.to)">Ripartisci il budget sul periodo</button>
 				<p ng-repeat="budget in project.budgets">
 					<span>
 						{{budget.month}}
@@ -67,10 +66,10 @@
 				</p>
 			</div>		
 		</div>
-		<div class="bottom">			
+		<div class="bottom">
 			<div class="form-group">
 				<button class="btn btn-default" ng-click="save()">Salva progetto</button>		
-			</div>		
+			</div>
 		</div>
 	</fieldset>
 </form>
