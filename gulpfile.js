@@ -4,7 +4,9 @@ var rename = require("gulp-rename");
 var replace = require('gulp-replace');
 var runSequence = require('run-sequence');
 var del = require('del');
+var shipitCaptain = require('shipit-captain');
 var config = require('./gulpconfig.json');
+var shipitConfig = require('./config/shipit').config;
 
 // Clean build folder function:
 function cleanBuildFn() {
@@ -48,6 +50,13 @@ function modifyTestFn() {
     .pipe(gulp.dest('/home/federico/Documents/ehour/projects/hereweare-frontend/build/test/client/views/estimate'));
 }
 
+gulp.task('clean:build:deploy', function() {
+	runSequence('clean',
+				['build:local', 'build:test'],
+				['modify:local', 'modify:test'],
+				'deploy');
+});
+
 gulp.task('clean:build', function() {
 	runSequence('clean',
 				['build:local', 'build:test'],
@@ -64,6 +73,17 @@ gulp.task('build:test', buildTestFn);
 // Modify tasks:
 gulp.task('modify:local', modifyLocalFn);
 gulp.task('modify:test', modifyTestFn);
+
+// Deploy task
+var options = {
+  init: require('./config/shipit').init,
+  run: ['deploy'],
+  targetEnv: 'staging',
+}
+
+gulp.task('deploy', function(cb) {
+  shipitCaptain(shipitConfig, options, cb);
+});
 
 // Default task: Check configuration
 gulp.task('default', function() {
