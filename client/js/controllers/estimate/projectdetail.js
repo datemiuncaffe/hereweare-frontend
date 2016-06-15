@@ -1,12 +1,12 @@
 angular
 	.module("app")
-	.controller("ProjectDetailController", ['$scope', '$window', '$log', '$resource', '$q', '$stateParams', 'resourceBaseUrl', 
-	                                        function($scope, $window, $log, $resource, $q, $stateParams, resourceBaseUrl) {	    
-	    /* entities */	    
+	.controller("ProjectDetailController", ['$scope', '$window', '$log', '$resource', '$q', '$stateParams', 'resourceBaseUrl',
+	                                        function($scope, $window, $log, $resource, $q, $stateParams, resourceBaseUrl) {
+	    /* entities */
 	    $scope.customer = {
 	    	name: null
 	    };
-	    
+
 	    $scope.project = {
 	    	name: null,
 	    	code: null,
@@ -16,9 +16,9 @@ angular
 	    	daystot: null,
 	    	customerId: null,
 	    	budgets: []
-	    };	    
+	    };
 	    /* end entities */
-	    
+
 
 		function Padder(len, pad) {
 			if (len === undefined) {
@@ -26,26 +26,26 @@ angular
 			} else if (pad === undefined) {
 				pad = '0';
 			}
-			
+
 			var pads = '';
 			while (pads.length < len) {
 				pads += pad;
 			}
-			
+
 			this.pad = function(what) {
 				var s = what.toString();
 				return pads.substring(0, pads.length - s.length) + s;
 			};
 		}
-	    
+
 	    /* loading data */
-	    if ($stateParams != null && 
+	    if ($stateParams != null &&
 	    	$stateParams.code != null && $stateParams.code.length > 0 &&
 	    	$stateParams.customer != null && $stateParams.customer.length > 0) {
 	    	console.log('Project code: ' + $stateParams.code + '; customer: ' + decodeURI($stateParams.customer));
-	    	
+
 	    	$scope.customer = JSON.parse(decodeURI($stateParams.customer));
-	    	
+
 	    	// query urls
 	    	var queryBudgets = 'http://' + resourceBaseUrl + '/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + $stateParams.code;
 	    	$log.log('queryBudgets: ' + queryBudgets);
@@ -53,7 +53,7 @@ angular
 	    	var queryCosts = 'http://' + resourceBaseUrl + '/query_costs?projectCode=' + $stateParams.code;
 	    	$log.log('queryCosts: ' + queryCosts);
 	    	var costRes = $resource(queryCosts, null, {'query':  {method:'GET', isArray:true}});
-	    	
+
 	    	// perform queries
 	    	$q
 			.all([
@@ -62,25 +62,25 @@ angular
 			])
 			.then(
 				function(data) {
-					showData(data);					
+					showData(data);
 				});
 	    }
 	    /* end loading data */
-	    
+
 	    function showData(data) {
 //	    	console.log('data: ' + JSON.stringify(data, null, '\t'));
 	    	$scope.project = data[0][0];
-	    	
+
 			var budgets = data[0][0].budgets;
 			console.log('budgets: ' + JSON.stringify(budgets, null, '\t'));
 			var costs = data[1];
-			console.log('costs: ' + JSON.stringify(costs, null, '\t'));			
-						
+			console.log('costs: ' + JSON.stringify(costs, null, '\t'));
+
 			// prepare data for table
 			var datatable = [];
 			if ((budgets != null && budgets.length > 0) ||
 				(costs != null && costs.length > 0)) {
-				var zero2 = new Padder(2);					
+				var zero2 = new Padder(2);
 				var map = new Map();
 				budgets.forEach(function(budget){
 					var value = {
@@ -123,7 +123,7 @@ angular
 						map.set(key, value);
 					}
 				});
-				
+
 				var keys = Array.from(map.keys());
 				console.log('keys: ' + keys);
 				var firstobj = map.get(keys[0]);
@@ -134,35 +134,40 @@ angular
 				console.log('sortedKeys: ' + sortedKeys);
 				sortedKeys.forEach(function(key){
 					var value = map.get(key);
-					console.log('m[' + key + '] = ' + JSON.stringify(value));						
-					datatable.push(value);						
+					console.log('m[' + key + '] = ' + JSON.stringify(value));
+					datatable.push(value);
 				});
-									
+
 			}
-			
+
 			// render the table
-			tabulate(datatable, 
-					['budgetyear', 'budgetmonth', 'budgetfrom', 'budgetto', 'budgetamount', 'budgetdays', 'costyear', 'costmonth', 'costdays'], 
+			tabulate(datatable,
+					['budgetyear', 'budgetmonth', 'budgetfrom', 'budgetto', 'budgetamount', 'budgetdays', 'costyear', 'costmonth', 'costdays'],
 					['ANNO BUDGET', 'MESE BUDGET', 'DA', 'A', 'BUDGET MENSILE', 'GIORNATE PREVISTE', 'ANNO', 'MESE', 'GIORNATE'],
 					['PREVENTIVO', 'CONSUNTIVO']);
-		
-	    }    
-	    
+
+	    }
+
 	    var table = d3.select("div.search_results").append("table"),
 	   		thead = table.append("thead"),
 	   		tbody = table.append("tbody");
-	    
+
 	    // The table generation function
-		function tabulate(data, columns, headers, superheaders) {			
-			
+		function tabulate(data, columns, headers, superheaders) {
+
 			// append the superheader row
 			thead.append("tr")
 			    .selectAll("th")
-			    .data(superheaders)
+			    .data([{header: superheaders[0], colspan: 6}, {header: superheaders[1], colspan: 3}])
 			    .enter()
 			    .append("th")
-			        .text(function(column) { return column; });
-			
+					.attr('colspan', function(d) {
+						return d.colspan;
+					})
+					.text(function(d) {
+						return d.header;
+					});
+
 			// append the header row
 			thead.append("tr")
 			    .selectAll("th")
@@ -170,7 +175,7 @@ angular
 			    .enter()
 			    .append("th")
 			        .text(function(column) { return column; });
-			
+
 			// append filter cells
 			thead.append("tr")
 			    .selectAll("th")
@@ -183,23 +188,23 @@ angular
 			    .on("input", function(d, i) {
 			    	filterTable(this.value, d, i, data, columns);
 				});
-			
+
 			renderTable(data, columns);
-		    
+
 			return table;
 		}
-		
+
 		function renderTable(data, columns) {
 			var rows = tbody.selectAll("tr").data(data,
 					function(d) {
 						return d.id;
 					});
-			
+
 			// create a row for each object in the data
 			var rowsEnter = rows.enter()
 				.insert("tr");
 //			.append("tr");
-			
+
 			// create a cell in each row for each column
 			var cells = rowsEnter.selectAll("td")
 			    .data(function(row) {
@@ -211,12 +216,12 @@ angular
 			    .append("td")
 //			    .attr("style", "font-family: Courier") // sets the font style
 				.html(function(d) { return d.value });
-			
+
 			var rowsUpdate = rows.attr("style", "font-family: Courier"); // sets the font style
-			
+
 			var rowsExit = rows.exit().remove();
 		}
-		
+
 		function filterTable(filtervalue, header, index, rows, columns) {
 //			console.log('rows: ' + JSON.stringify(rows, null, '\t'));
 //			console.log('filtervalue: ' + filtervalue + '; header: ' + header + '; index: ' + index);
@@ -241,16 +246,16 @@ angular
 			console.log('filteredrows: ' + JSON.stringify(filteredrows, null, '\t'));
 			renderTable(filteredrows, columns);
 		}
-	    	    
+
 	    $scope.modify = function() {
 			console.log('current customer: ' + JSON.stringify($scope.customer));
-			console.log('current project: ' + JSON.stringify($scope.project));			
-			
+			console.log('current project: ' + JSON.stringify($scope.project));
+
 			console.log('changing state...');
-			
+
 			var url = 'http://' + $window.location.host + '/#/projectmodify?customer=' + encodeURI(JSON.stringify($scope.customer)) + '&code=' + $scope.project.code;
 	        $log.log(url);
 	        $window.location.href = url;
 		};
-			    
+
 	}]);
