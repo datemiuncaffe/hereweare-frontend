@@ -3,30 +3,30 @@
 <section>
 <form name="ricercaForm" novalidate>
 	<fieldset>
-		<div class="top">		
+		<div class="top">
 			<div class="form-group customers">
 				<label>Clienti</label>
-				<angucomplete-alt 
-					id="customers" 
+				<angucomplete-alt
+					id="customers"
 					placeholder="Cerca cliente"
 					pause="400"
 					selected-object="selectedCustomer"
 					minlength="1"
-					maxlength="50"					
-					remote-url="http://$resourceBaseUrl$/api/customers/autocompleteByName"					
-					remote-url-request-formatter="appendName"					
+					maxlength="50"
+					remote-url="http://$resourceBaseUrl$/api/customers/autocompleteByName"
+					remote-url-request-formatter="appendName"
 					remote-url-data-field="customers"
 					title-field="name"
 					description-field="id"
-					image-field=""				
+					image-field=""
 					input-class="form-control form-control-small"
 					match-class="highlight"
 				/>
-			</div>			
-			
+			</div>
+
 			<div class="form-group action">
 				<button class="btn btn-default" ng-click="search(selectedCustomer.originalObject)">Ricerca</button>
-			</div>			
+			</div>
 		</div>
 		<div class="center">
 			<div class="search_results">

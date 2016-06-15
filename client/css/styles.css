@@ -8,10 +8,17 @@ body {
 	float: left;
 }
 .headers-container {
-	margin-left: 250px;
-    margin-right: auto;
-    padding-left: 15px;
-    padding-right: 15px;
+  margin-left: 250px;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.headers-container > div {
+  border-left-color: cyan;
+  border-left-width: medium;
+  border-left-style: solid;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .menuvert {
 	float: left;
@@ -23,7 +30,7 @@ body {
 	border-right-style: double;
 }
 .menuvert p {
-	margin-top: 5px;	
+	margin-top: 5px;
 }
 .menuvert a {
 	font-size: 20px;
