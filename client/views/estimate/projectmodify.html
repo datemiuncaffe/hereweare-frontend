@@ -3,7 +3,7 @@
 <section>
 <form name="projectModifyForm" novalidate>
 	<fieldset>
-		<div class="top">		
+		<div class="top">
 			<div class="form-group customer">
 				<span>
 					Nome cliente: <input class="ng-binding" ng-model="customer.name"></input>
@@ -21,7 +21,7 @@
 					Codice progetto: <input class="ng-binding" ng-model="project.code"></input>
 				</span>
 			</div>
-		</div>	
+		</div>
 		<div class="top">
 			<div class="form-group budgettot">
 				<p>Budget totale: <input class="ng-binding" ng-model="project.budgettot"></input></p>
@@ -32,25 +32,28 @@
 		</div>
 		<div class="center">
 			<div class="budget_period">
-				<div class="controls">			
-					<h4>Scegli l'intervallo</h4>
-										
+				<h4>Scegli l'intervallo</h4>
+				<div class="datepickerfrom">
 					<label for="datepickerfrom">Da:</label>
-					<br>
-					<input class="ng-binding" id="datepickerfrom" type="text" ng-model="project.from" ng-blur="getBudgets(project.budgettot, project.daystot, project.from, project.to)">
-					
+					<input class="ng-binding" id="datepickerfrom" type="text"
+								ng-model="project.from" size="10"
+								ng-blur="getBudgets(project.budgettot, project.daystot, project.from, project.to)">
+					<img src="./../../img/datepik.gif"></img>
+				</div>
+				<div class="datepickerto">
 					<label for="datepickerto">A:</label>
-					<br>
-					<input class="ng-binding" id="datepickerto" type="text" ng-model="project.to" ng-blur="getBudgets(project.budgettot, project.daystot, project.from, project.to)">
-					
+					<input class="ng-binding" id="datepickerto" type="text"
+								ng-model="project.to" size="10"
+								ng-blur="getBudgets(project.budgettot, project.daystot, project.from, project.to)">
+					<img src="./../../img/datepik.gif"></img>
 				</div>
 			</div>
-			
+
 			<div class="budget_distrib">
 				<p ng-repeat="budget in project.budgets">
 					<span>
 						{{budget.month}}
-					</span>					
+					</span>
 					<span>
 						Da: <input class="ng-binding" ng-model="budget.from"></input>
 					</span>
@@ -64,11 +67,11 @@
 						<input class="ng-binding" ng-model="budget.days"></input>
 					</span>
 				</p>
-			</div>		
+			</div>
 		</div>
 		<div class="bottom">
 			<div class="form-group">
-				<button class="btn btn-default" ng-click="save()">Salva progetto</button>		
+				<button class="btn btn-default" ng-click="save()">Salva progetto</button>
 			</div>
 		</div>
 	</fieldset>

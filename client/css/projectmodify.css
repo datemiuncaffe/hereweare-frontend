@@ -33,9 +33,14 @@ form[name=projectModifyForm] .center .budget_period {
 	width: 480px;
 	margin-right: 20px;
 }
-form[name=projectModifyForm] .center .budget_period > .controls {
+form[name=projectModifyForm] .center .budget_period > .datepickerfrom {
 	float: left;
-	width: 160px;
+	width: 220px;
+	margin-right: 10px;
+}
+form[name=projectModifyForm] .center .budget_period > .datepickerto {
+	float: left;
+	width: 220px;
 	margin-right: 10px;
 }
 
