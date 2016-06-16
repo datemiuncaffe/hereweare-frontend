@@ -85,15 +85,13 @@ angular
 				budgets.forEach(function(budget){
 					var value = {
 						id: budget.id,
-						budgetyear: budget.year,
-						budgetmonth: budget.month,
+						year: budget.year,
+						month: budget.month,
 						budgetfrom: budget.from,
 						budgetto: budget.to,
 						budgetamount: budget.amount,
 						budgetdays: budget.days,
-						costyear: null,
-				    	costmonth: null,
-				    	costdays: null
+				    costdays: null
 					};
 					var key = budget.year + '-' + zero2.pad((moment(budget.month, "MMMM").month() + 1));
 					map.set(key, value);
@@ -104,21 +102,17 @@ angular
 					if (map.has(key)) {
 						value = map.get(key);
 						value.id += '-' + (cost.id + cost.mese);
-						value.costyear = cost.anno;
-						value.costmonth = moment.months()[cost.mese - 1];
 						value.costdays = cost.giornateMese;
 					} else {
 						value = {
 							id: '-' + (cost.id + cost.mese),
-							budgetyear: null,
-							budgetmonth: null,
+							year: cost.anno,
+							month: moment.months()[cost.mese - 1],
 							budgetfrom: null,
 							budgetto: null,
 							budgetamount: null,
 							budgetdays: null,
-							costyear: cost.anno,
-					    	costmonth: moment.months()[cost.mese - 1],
-					    	costdays: cost.giornateMese
+					    costdays: cost.giornateMese
 						};
 						map.set(key, value);
 					}
@@ -142,9 +136,9 @@ angular
 
 			// render the table
 			tabulate(datatable,
-					['budgetyear', 'budgetmonth', 'budgetfrom', 'budgetto', 'budgetamount', 'budgetdays', 'costyear', 'costmonth', 'costdays'],
-					['ANNO BUDGET', 'MESE BUDGET', 'DA', 'A', 'BUDGET MENSILE', 'GIORNATE PREVISTE', 'ANNO', 'MESE', 'GIORNATE'],
-					['PREVENTIVO', 'CONSUNTIVO']);
+					['year', 'month', 'budgetfrom', 'budgetto', 'budgetamount', 'budgetdays', 'costdays'],
+					['ANNO', 'MESE', 'DETTAGLIO \r\n DA', 'DETTAGLIO \r\n A', 'BUDGET MENSILE', 'GIORNATE PREVISTE', 'GIORNATE EROGATE'],
+					['', '', 'PREVENTIVO', 'CONSUNTIVO']);
 
 	    }
 
@@ -158,11 +152,19 @@ angular
 			// append the superheader row
 			thead.append("tr")
 			    .selectAll("th")
-			    .data([{header: superheaders[0], colspan: 6}, {header: superheaders[1], colspan: 3}])
+			    .data([
+						{header: superheaders[0], colspan: 1, border: 'none'},
+						{header: superheaders[1], colspan: 1, border: 'none'},
+						{header: superheaders[2], colspan: 4, border: '1px solid black'},
+						{header: superheaders[3], colspan: 1, border: '1px solid black'}
+					])
 			    .enter()
 			    .append("th")
 					.attr('colspan', function(d) {
 						return d.colspan;
+					})
+					.style('border', function(d) {
+						return d.border;
 					})
 					.text(function(d) {
 						return d.header;
