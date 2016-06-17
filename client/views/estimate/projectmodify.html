@@ -38,14 +38,14 @@
 					<input class="ng-binding" id="datepickerfrom" type="text"
 								ng-model="project.from" size="10"
 								ng-blur="getBudgets(project.budgettot, project.daystot, project.from, project.to)">
-					<img src="./../../img/datepik.gif"></img>
+					<img src="./../../img/datepik.gif" ng-click="datepickerfrom.show()"></img>
 				</div>
 				<div class="datepickerto">
 					<label for="datepickerto">A:</label>
 					<input class="ng-binding" id="datepickerto" type="text"
 								ng-model="project.to" size="10"
 								ng-blur="getBudgets(project.budgettot, project.daystot, project.from, project.to)">
-					<img src="./../../img/datepik.gif"></img>
+					<img src="./../../img/datepik.gif" ng-click="datepickerto.show()"></img>
 				</div>
 			</div>
 
