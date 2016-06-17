@@ -50,23 +50,19 @@
 			</div>
 
 			<div class="budget_distrib">
-				<p ng-repeat="budget in project.budgets">
-					<span>
-						{{budget.month}}
+				<div class="budgetvalues" ng-repeat="budget in project.budgets">
+					<span class="month">
+						<b>{{budget.month}}</b>
 					</span>
-					<span>
-						Da: <input class="ng-binding" ng-model="budget.from"></input>
+					<span class="dateinterval">
+						<span>Da: <b>{{budget.from}}</b></span>
+						<span>A: <b>{{budget.to}}</b></span>
 					</span>
-					<span>
-						A: <input class="ng-binding" ng-model="budget.to"></input>
+					<span class="budgetvalues">
+						<span>Budget mensile: <b>{{budget.amount}}</b></span>
+						<span>Giornate previste: <b>{{budget.days}}</b></span>
 					</span>
-					<span>
-						<input class="ng-binding" ng-model="budget.amount"></input>
-					</span>
-					<span>
-						<input class="ng-binding" ng-model="budget.days"></input>
-					</span>
-				</p>
+				</div>
 			</div>
 		</div>
 		<div class="bottom">

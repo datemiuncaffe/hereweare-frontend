@@ -537,6 +537,7 @@
 
         self._onInputClick = function()
         {
+          console.log('_onInputClick');
             self.show();
         };
 

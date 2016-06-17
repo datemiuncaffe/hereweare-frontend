@@ -19,7 +19,6 @@ form[name=projectModifyForm] div.top > div.budgettot {
   width: 300px;
 }
 
-
 form[name=projectModifyForm] div.center {
   font-family: Arial;
   font-size: 14px;
@@ -44,17 +43,34 @@ form[name=projectModifyForm] .center .budget_period > .datepickerto {
 	margin-right: 10px;
 }
 
-/*
-form[name=projectModifyForm] .center .budget_period > .calendar {
-	float: left;
-	width: 300px;
-}
-*/
-
 form[name=projectModifyForm] .center .budget_distrib {
 	float: left;
 	width: 480px;
 	margin-right: 20px;
+}
+form[name=projectModifyForm] .center .budget_distrib div.budgetvalues {
+	float: left;
+	width: 450px;
+	margin-right: 20px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+}
+form[name=projectModifyForm] .center .budget_distrib span.month {
+	float: left;
+  clear: both;
+  font-size: 18px;
+  padding-bottom: 10px;
+}
+form[name=projectModifyForm] .center .budget_distrib span.dateinterval {
+	float: left;
+  clear: both;
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+form[name=projectModifyForm] .center .budget_distrib span.budgetvalues {
+	float: left;
+  font-size: 16px;
+  padding-bottom: 10px;
 }
 
 form[name=projectModifyForm] .bottom {
