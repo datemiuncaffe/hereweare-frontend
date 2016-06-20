@@ -18,6 +18,13 @@ form[name=projectModifyForm] div.top > div.budgettot {
   float: left;
   width: 300px;
 }
+form[name=projectModifyForm] div.top p {
+  width: 100px;
+  display: inline-block;
+}
+form[name=projectModifyForm] div.top input {
+  display: inline-block;
+}
 
 form[name=projectModifyForm] div.center {
   font-family: Arial;
@@ -31,6 +38,7 @@ form[name=projectModifyForm] .center .budget_period {
 	float: left;
 	width: 480px;
 	margin-right: 20px;
+  margin-bottom: 10px;
 }
 form[name=projectModifyForm] .center .budget_period > .datepickerfrom {
 	float: left;
@@ -96,5 +104,6 @@ form[name=projectModifyForm] .bottom {
   width: 1000px;
   float: left;
   margin-bottom: 10px;
+  margin-top: 10px;
   border-bottom: 1px solid black;
 }

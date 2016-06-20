@@ -1,4 +1,4 @@
-form[name=estimateForm] div.top {
+form[name=projectDetailForm] div.top {
   font-family: Arial;
   font-size: 14px;
   width: 1000px;
@@ -6,30 +6,27 @@ form[name=estimateForm] div.top {
   margin-bottom: 10px;
   border-bottom: 1px solid black;
 }
-form[name=estimateForm] div.top > div.customers {
+form[name=projectDetailForm] div.top > div.customer {
   float: left;
-  width: 400px;
+  width: 300px;
 }
-form[name=estimateForm] div.top > div.projects {
+form[name=projectDetailForm] div.top > div.project {
   float: left;
-  width: 400px;
+  width: 300px;
 }
-form[name=estimateForm] div.top > div.budgettot {
+form[name=projectDetailForm] div.top > div.budgettot {
   float: left;
-  width: 400px;
+  width: 300px;
 }
-form[name=estimateForm] div.top p {
+form[name=projectDetailForm] div.top p {
   width: 100px;
   display: inline-block;
 }
-form[name=estimateForm] div.top input {
-  display: inline-block;
-}
-form[name=estimateForm] div.top select {
+form[name=projectDetailForm] div.top input {
   display: inline-block;
 }
 
-form[name=estimateForm] div.center {
+form[name=projectDetailForm] div.center {
   font-family: Arial;
   font-size: 14px;
   width: 1000px;
@@ -38,7 +35,7 @@ form[name=estimateForm] div.center {
   border-bottom: 1px solid black;
 }
 
-form[name=estimateForm] .bottom {
+form[name=projectDetailForm] .bottom {
   font-family: Arial;
   font-size: 14px;
   width: 1000px;

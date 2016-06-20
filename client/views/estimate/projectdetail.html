@@ -1,9 +1,9 @@
 <h1>Dati del progetto {{project.name}}</h1>
 <hr>
 <section>
-<form name="projectCreateForm" novalidate>
+<form name="projectDetailForm" novalidate>
 	<fieldset>
-		<div class="top">		
+		<div class="top">
 			<div class="form-group customer">
 				<span>
 					Nome cliente: <input class="ng-binding" ng-model="customer.name"></input>
@@ -21,7 +21,7 @@
 					Codice progetto: <input class="ng-binding" ng-model="project.code"></input>
 				</span>
 			</div>
-		</div>	
+		</div>
 		<div class="top">
 			<div class="form-group budgettot">
 				<p>Budget totale: <input class="ng-binding" ng-model="project.budgettot"></input></p>
@@ -33,12 +33,12 @@
 		<div class="center">
 			<div class="search_results">
 				<h4>Preventivo e consuntivo per periodo</h4>
-			</div>	
+			</div>
 		</div>
-		<div class="bottom">			
+		<div class="bottom">
 			<div class="form-group">
-				<button class="btn btn-default" ng-click="modify()">Modifica progetto</button>		
-			</div>		
+				<button class="btn btn-default" ng-click="modify()">Modifica progetto</button>
+			</div>
 		</div>
 	</fieldset>
 </form>

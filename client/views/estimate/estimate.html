@@ -3,72 +3,44 @@
 <section>
 <form name="estimateForm" novalidate>
 	<fieldset>
-		<div class="top">		
+		<div class="top">
 			<div class="form-group customers">
-				<label>Clienti</label>
+				<p>Clienti</p>
 				<select
 					ng-model="selectedCustomer"
 					ng-options="customer as customer.name for customer in customers"
 					ng-change="onCustomerChange(selectedCustomer)">
 				</select>
 			</div>
-		
+
 			<div class="form-group projects">
-				<label>Progetti</label>
+				<p>Progetti</p>
 				<select
 					ng-model="selectedProject"
-					ng-options="project as project.name for project in selectedCustomer.projects">
+					ng-options="project as project.name for project in selectedCustomer.projects"
+					ng-change="onProjectChange(selectedProject)">
 				</select>
 			</div>
-			
+		</div>
+		<div class="top">
 			<div class="form-group budgettot">
-				<p>Budget totale: <input class="ng-binding" ng-model="selectedProject.budgettot"></input></p>
+				<p>Budget totale:</p>
+				<input class="ng-binding" ng-model="selectedProject.budgettot"></input>
 			</div>
-			
 			<div class="form-group budgettot">
-				<p>Giorni totali: <input class="ng-binding" ng-model="selectedProject.daystot"></input></p>
-			</div>			
+				<p>Giorni totali:</p>
+				<input class="ng-binding" ng-model="selectedProject.daystot"></input>
+			</div>
 		</div>
 		<div class="center">
-			<div class="budget_period">
-				<div class="controls">			
-					<h4>Scegli l'intervallo</h4>
-					<button class="btn btn-default" ng-click="getFrom()">Da</button>
-					<button class="btn btn-default" ng-click="getTo()">A</button>
-					<input class="ng-binding" ng-model="selectedProject.from"></input>
-					<input class="ng-binding" ng-model="selectedProject.to"></input>
-				</div>
-				<div class="calendar">
-					<calendar class="ng-isolate-scope" selected="day" from="isFrom" to="isTo" selectedfrom="selectedProject.from" selectedto="selectedProject.to"></calendar>
-				</div>
-			</div>			
-			
-			<div class="budget_distrib">
-				<button class="btn btn-default" ng-click="getBudgets(selectedProject.budgettot,selectedProject.daystot,selectedProject.from,selectedProject.to)">Ripartisci il budget e i giorni sul periodo</button>
-				<p ng-repeat="budget in selectedProject.budgets">
-					<span>
-						{{budget.month}}
-					</span>
-					<span>
-						Da: <input class="ng-binding" ng-model="budget.from"></input>
-					</span>
-					<span>
-						A: <input class="ng-binding" ng-model="budget.to"></input>
-					</span>
-					<span>
-						<input class="ng-binding" ng-model="budget.amount"></input>
-					</span>
-					<span>
-						<input class="ng-binding" ng-model="budget.days"></input>
-					</span>
-				</p>
-			</div>		
+			<div class="search_results">
+				<h4>Preventivo e consuntivo per periodo</h4>
+			</div>
 		</div>
-		<div class="bottom">			
+		<div class="bottom">
 			<div class="form-group">
-				<button class="btn btn-default" ng-click="save()">Salva progetto</button>
-				<button class="btn btn-default" ng-click="saveBudgets()">Salva budgets</button>				
-			</div>		
+				<button class="btn btn-default" ng-click="modify()">Modifica progetto</button>
+			</div>
 		</div>
 	</fieldset>
 </form>

@@ -3,62 +3,71 @@
 <section>
 <form name="projectCreateForm" novalidate>
 	<fieldset>
-		<div class="top">		
+		<div class="top">
 			<div class="form-group customer">
-				<span>
-					Nome cliente: <input class="ng-binding" ng-model="customer.name"></input>
-				</span>
+				<p>Nome cliente:</p>
+				<input class="ng-binding" ng-model="customer.name"></input>
 			</div>
 		</div>
 		<div class="top">
 			<div class="form-group project">
-				<span>
-					Nome progetto: <input class="ng-binding" ng-model="project.name"></input>
-				</span>
+				<p>Nome progetto:</p>
+				<input class="ng-binding" ng-model="project.name"></input>
 			</div>
 			<div class="form-group project">
-				<span>
-					Codice progetto: <input class="ng-binding" ng-model="project.code"></input>
-				</span>
+				<p>Codice progetto:</p>
+				<input class="ng-binding" ng-model="project.code"></input>
 			</div>
-		</div>	
+		</div>
 		<div class="top">
 			<div class="form-group budgettot">
-				<p>Budget totale: <input class="ng-binding" ng-model="project.budgettot"></input></p>
+				<p>Budget totale:</p>
+				<input class="ng-binding" ng-model="project.budgettot"></input>
+			</div>
+			<div class="form-group budgettot">
+				<p>Giorni totali:</p>
+				<input class="ng-binding" ng-model="project.daystot"></input>
 			</div>
 		</div>
 		<div class="center">
 			<div class="budget_period">
-				<div class="controls">			
-					<h4>Scegli l'intervallo</h4>
-					<button class="btn btn-default" ng-click="getFrom()">Da</button>
-					<button class="btn btn-default" ng-click="getTo()">A</button>
-					<input class="ng-binding" ng-model="project.from"></input>
-					<input class="ng-binding" ng-model="project.to"></input>
+				<h4>Scegli l'intervallo</h4>
+				<div class="datepickerfrom">
+					<label for="datepickerfrom">Da:</label>
+					<input class="ng-binding" id="datepickerfrom" type="text"
+								ng-model="project.from" size="10"
+								ng-blur="getBudgets(project.budgettot, project.daystot, project.from, project.to)">
+					<img src="./../../img/datepik.gif" ng-click="datepickerfrom.show()"></img>
 				</div>
-				<div class="calendar">
-					<calendar class="ng-isolate-scope" selected="day" from="isFrom" to="isTo" selectedfrom="project.from" selectedto="project.to"></calendar>
+				<div class="datepickerto">
+					<label for="datepickerto">A:</label>
+					<input class="ng-binding" id="datepickerto" type="text"
+								ng-model="project.to" size="10"
+								ng-blur="getBudgets(project.budgettot, project.daystot, project.from, project.to)">
+					<img src="./../../img/datepik.gif" ng-click="datepickerto.show()"></img>
 				</div>
 			</div>
-			
+
 			<div class="budget_distrib">
-				<button class="btn btn-default" ng-click="getBudgets(project.budgettot,project.from,project.to)">Ripartisci il budget sul periodo</button>
-				<p ng-repeat="budget in project.budgets">
-					{{budget.month}}
-					<span>
-						Da: <input class="ng-binding" ng-model="budget.from"></input>
+				<div class="budgetvalues" ng-repeat="budget in project.budgets">
+					<span class="month">
+						<b>{{budget.month}}</b>
 					</span>
-					<span>
-						A: <input class="ng-binding" ng-model="budget.to"></input>
+					<span class="dateinterval">
+						<span>Da: <b>{{budget.from}}</b></span>
+						<span>A: <b>{{budget.to}}</b></span>
 					</span>
-					<input class="ng-binding" ng-model="budget.amount"></input>
-				</p>
-			</div>		
+					<span class="budgetvalues">
+						<span>Budget mensile: <b>{{budget.amount}}</b></span>
+						<span>Giornate previste: <b>{{budget.days}}</b></span>
+					</span>
+				</div>
+			</div>
 		</div>
-		<div class="bottom">			
+		<div class="bottom">
 			<div class="form-group">
-				<button class="btn btn-default" ng-click="save()">Salva progetto</button>		
-			</div>		
+				<button class="btn btn-default" ng-click="save()">Salva progetto</button>
+			</div>
 		</div>
 	</fieldset>
 </form>
