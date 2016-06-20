@@ -1,10 +1,30 @@
 angular
 	.module("app")
-	.controller("RicercaController", ['$scope', '$resource', '$state', '$compile', 'resourceBaseUrl',
-	                                  function($scope, $resource, $state, $compile, resourceBaseUrl) {
-	    $scope.selectedCustomer = null;
+	.controller("RicercaController", ['$scope', '$resource', '$state', '$compile', 'resourceBaseUrl', 'crud', '$q',
+	                                  function($scope, $resource, $state, $compile, resourceBaseUrl, crud, $q) {
+		$scope.customers = null;
+		$scope.selectedCustomer = {
+			projects: []
+		};
 
-	    $scope.linktoproject = "http://www.project.page";
+		$q
+		.all([
+				crud.getCustomers()
+		])
+		.then(
+			function(data) {
+//				console.log('data: ' + JSON.stringify(data));
+				var customers = data[0];
+//				console.log('customers: ' + JSON.stringify(customers));
+				$scope.customers = customers;
+				$scope.selectedCustomer = customers[0];
+				$scope.search($scope.selectedCustomer);
+			});
+
+		$scope.onCustomerChange = function(selectedCustomer) {
+			console.log('selectedCustomer name: ' + selectedCustomer.name);
+			$scope.search(selectedCustomer);
+		};
 
 		$scope.appendName = function(str) {
 			return {name: str};
@@ -97,7 +117,8 @@ angular
 				rowcells.each(function() {
 					var value = $(this).text();
 					// build url to single project page
-					var projectpageurl = '<a ui-sref="projectdetail({customer: \'' + encodeURI(JSON.stringify($scope.selectedCustomer.originalObject)) + '\', code: \'' + params.code + '\'})">' + value + '</a>';
+//					var projectpageurl = '<a ui-sref="projectdetail({customer: \'' + encodeURI(JSON.stringify($scope.selectedCustomer.originalObject)) + '\', code: \'' + params.code + '\'})">' + value + '</a>';
+					var projectpageurl = '<a ui-sref="projectdetail({customer: \'' + encodeURI(JSON.stringify($scope.selectedCustomer)) + '\', code: \'' + params.code + '\'})">' + value + '</a>';
 					console.log('projectpageurl: ' + projectpageurl);
 					var projectpagetemplate = angular.element(projectpageurl);
 					var projectpageFn = $compile(projectpagetemplate);

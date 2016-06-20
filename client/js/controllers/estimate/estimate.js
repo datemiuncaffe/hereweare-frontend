@@ -5,27 +5,17 @@ angular
 	    $scope.isFrom = true;
 	    $scope.isTo = false;
 	    console.log('$scope.day: ' + $scope.day.format());
-	    
+
 	    $scope.selectedCustomer = {
-	    	projects: []	
+	    	projects: []
 	    };
-	    
-	    $scope.selectedProject = {
-	    	from: null,
-	    	to: null,
-	    	budgettot: null,
-	    	daystot: null,
-	    	budgets: []
-	    };
-	    
+
 	    $scope.onCustomerChange = function(selectedCustomer) {
 	    	console.log('selectedCustomer.projects: ' + selectedCustomer.projects);
-	    	$scope.selectedProject = null;
-	    	if (selectedCustomer.projects != null && selectedCustomer.projects[0] != null) {
-	    		$scope.selectedProject = selectedCustomer.projects[0];
-	    	}	    		
+
+				  		
 	    };
-	    
+
 	    $scope.getFrom = function() {
 	    	$scope.isFrom = true;
 	    	$scope.isTo = false;
@@ -36,7 +26,7 @@ angular
 	    	$scope.isTo = true;
 	    	console.log('isFrom: ' + $scope.isFrom + '; isTo: ' + $scope.isTo);
 	    };
-	    
+
 	    $scope.getBudgets = function(budgettot, daystot, selectedfrom, selectedto) {
 	    	$scope.selectedProject.budgets = [];
 	    	var from = moment(selectedfrom, "D MMM YYYY");
@@ -53,10 +43,10 @@ angular
 	    	if (to == null) {
 	    		throw 'ERR: inserire la data finale';
 	    	}
-	    	
+
 	    	console.log('budgettot: ' + budgettot);
-	    	console.log('diff in months: ' + to.diff(from, 'months'));	    	
-	    	
+	    	console.log('diff in months: ' + to.diff(from, 'months'));
+
 	    	if (from.isBefore(to)) {
 	    		var totaldays = to.diff(from, 'days') + 1;
 	    		console.log('totaldays: ' + totaldays);
@@ -78,7 +68,7 @@ angular
     	    			amount: parseFloat((budgettot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2))
     	    		};
 	    			$scope.selectedProject.budgets.push(budgetFrom);
-	    			
+
 	    			var budgetTo = {
 	    				from: '1 ' + moment.months()[to.month()] + ' ' + to.year(),
 		    			to: to.date() + ' ' + moment.months()[to.month()] + ' ' + to.year(),
@@ -97,7 +87,7 @@ angular
     	    			amount: parseFloat((budgettot * ((from.daysInMonth() - from.date() + 1)/totaldays)).toFixed(2))
     	    		};
 	    			$scope.selectedProject.budgets.push(budgetFrom);
-	    			
+
 	    			for (var i = from.month() + 1; i < to.month(); i++) {
 	    	    		var budget = {
 	    	    			from: moment({month: i}).date() + ' ' + moment.months()[i] + ' ' + moment({month: i}).year(),
@@ -108,29 +98,29 @@ angular
 	    	    		};
 	    	    		$scope.selectedProject.budgets.push(budget);
 	    	    	}
-	    			
+
 	    			var budgetTo = {
 	    				from: '1 ' + moment.months()[to.month()] + ' ' + to.year(),
 			    		to: to.date() + ' ' + moment.months()[to.month()] + ' ' + to.year(),
     	    			month: moment.months()[to.month()],
     	    			days: parseFloat((daystot * (to.date()/totaldays)).toFixed(2)),
     	    			amount: parseFloat((budgettot * (to.date()/totaldays)).toFixed(2))
-    	    		};	    			
+    	    		};
 	    			$scope.selectedProject.budgets.push(budgetTo);
 	    		}
 	    		for (var i in $scope.selectedProject.budgets) {
 	    			console.log('budget amount: ' + $scope.selectedProject.budgets[i].amount + '; type: ' + typeof $scope.selectedProject.budgets[i].amount);
-	    		}	    		
-	    		
+	    		}
+
 	    	} else {
 	    		throw 'data di inizio maggiore di quella finale';
-	    	}	    	
+	    	}
 	    };
-	    	    
+
 	    $scope.customers = null;
 	    $scope.selectedCustomer = null;
 	    $scope.selectedProject = null;
-		
+
 		$q
 		.all([
 		    crud.getCustomers()
@@ -143,12 +133,12 @@ angular
 				$scope.customers = customers;
 				$scope.selectedCustomer = customers[0];
 				$scope.selectedProject = $scope.selectedCustomer.projects[0];
-			});		
-		
+			});
+
 		$scope.save = function() {
 			console.log('current project: ' + JSON.stringify($scope.selectedProject));
-			console.log('current project id: ' + JSON.stringify($scope.selectedProject.id));			
-			
+			console.log('current project id: ' + JSON.stringify($scope.selectedProject.id));
+
 			$q.all([
 			    crud.updateProject($scope.selectedProject.id, $scope.selectedProject)
 			])
@@ -156,11 +146,11 @@ angular
 				console.log('response: ' + response);
 			});
 		};
-		
+
 		$scope.saveBudgets = function() {
 			console.log('project id: ' + JSON.stringify($scope.selectedProject.id));
 			console.log('budgets: ' + JSON.stringify($scope.selectedProject.budgets));
-			
+
 			$q.all([
 			    crud.updateBudgets({projectId: $scope.selectedProject.id, budgets: $scope.selectedProject.budgets})
 			])
@@ -168,5 +158,5 @@ angular
 				console.log('response: ' + response);
 			});
 		};
-	    
+
 	}]);

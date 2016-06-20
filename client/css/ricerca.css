@@ -10,7 +10,10 @@ form[name=ricercaForm] div.top > div.customers {
   float: left;
   width: 200px;
 }
-
+form[name=ricercaForm] div.top > div.customers_search {
+  float: left;
+  width: 400px;
+}
 
 form[name=ricercaForm] div.center {
   font-family: Arial;
