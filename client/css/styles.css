@@ -24,7 +24,7 @@ body {
   display: inline-block;
 }
 .headers-container a {
-	font-size: 18px;
+	font-size: 20px;
   color: #9d9d9d;
   height: 50px;
   line-height: 20px;
@@ -38,10 +38,10 @@ body {
 
 .menuvert {
 	width: 250px;
-	height: 800px;
 	margin-right: auto;
 	padding-top: 100px;
-	border-right-style: double;
+  background-color: #222;
+  border-color: #080808;
   box-sizing: content-box;
   display: inline-block;
   float: left;
@@ -50,7 +50,7 @@ body {
 	margin-top: 5px;
 }
 .menuvert a {
-	font-size: 18px;
+	font-size: 20px;
   color: #9d9d9d;
   height: 50px;
   line-height: 20px;
@@ -65,5 +65,6 @@ body {
 .centerpage {
   width: 1250px;
   padding-left: 40px;
+  border-left-style: double;
   display: inline-block;
 }
