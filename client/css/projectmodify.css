@@ -37,10 +37,27 @@ form[name=projectModifyForm] .center .budget_period > .datepickerfrom {
 	width: 220px;
 	margin-right: 10px;
 }
+form[name=projectModifyForm] .center .budget_period > .datepickerfrom label {
+  margin-top: 10px;
+}
+form[name=projectModifyForm] .center .budget_period > .datepickerfrom img {
+  margin-bottom: 3px;
+  width: 26px;
+	height: 26px;
+}
+
 form[name=projectModifyForm] .center .budget_period > .datepickerto {
 	float: left;
 	width: 220px;
 	margin-right: 10px;
+}
+form[name=projectModifyForm] .center .budget_period > .datepickerto label {
+  margin-top: 10px;
+}
+form[name=projectModifyForm] .center .budget_period > .datepickerto img {
+  margin-bottom: 3px;
+  width: 26px;
+	height: 26px;
 }
 
 form[name=projectModifyForm] .center .budget_distrib {
