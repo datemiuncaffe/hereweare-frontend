@@ -45,7 +45,9 @@ angular
 			}
 		};
 
-		var table = d3.select("div.search_results").append("table"),
+		var table = d3.select("div.search_results")
+									.append("table")
+									.attr("style", "width:1000px; table-layout:fixed;"),
 				thead = table.append("thead"),
 				tbody = table.append("tbody");
 
@@ -55,6 +57,7 @@ angular
 				.data(["NOME PROGETTO", "CODICE PROGETTO", "BUDGET COMPLESSIVO", "DATA DI INIZIO", "DATA DI FINE"])
 				.enter()
 				.append("th")
+				.attr("style", "width:100px; word-wrap:break-word;")
 				.text(function(column) { return column; });
 
 		// The table generation function
@@ -80,7 +83,7 @@ angular
 			    })
 			    .enter()
 			    .append("td")
-			    .attr("style", "font-family: Courier") // sets the font style
+			    .attr("style", "font-family: Courier; width:100px; word-wrap:break-word;") // sets the font style
 				.html(function(d) { return d.value });
 
 			var rowsExit = rows.exit().remove();

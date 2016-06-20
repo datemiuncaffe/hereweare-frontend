@@ -1,12 +1,12 @@
-<div class="list-group">	
+<div class="list-group">
 	<div ng-controller="OreMeseController as oremese">
-	  <h2 class="page-header">Ore lavorate nel mese per dipendente</h2>
+	  <h1>Ore lavorate nel mese per dipendente</h1>
 	  <table ng-table="oremese.tableParams" class="table table-bordered table-striped table-condensed" show-filter="true">
 		<tr ng-repeat="row in $data">
 		  <td data-title="'anno'" filter="{anno: 'number'}" sortable="'anno'">{{row.anno}}</td>
 		  <td data-title="'mese'" filter="{mese: 'number'}" sortable="'mese'">{{row.mese}}</td>
 		  <td data-title="'nomeDipendente'" filter="{nomeDipendente: 'text'}" sortable="'nomeDipendente'">{{row.nomeDipendente}}</td>
-		  <td data-title="'oreMese'" filter="{oreMese: 'number'}" sortable="'oreMese'">{{row.oreMese}}</td>		  
+		  <td data-title="'oreMese'" filter="{oreMese: 'number'}" sortable="'oreMese'">{{row.oreMese}}</td>
 		</tr>
 	  </table>
 	</div>

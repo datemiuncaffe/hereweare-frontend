@@ -1,6 +1,6 @@
-<div class="list-group">	
+<div class="list-group">
 	<div ng-controller="GiorniClienteProgettoController as oremese">
-	  <h2 class="page-header">Giorni lavorati per cliente e per progetto nel mese</h2>
+	  <h1>Giorni lavorati per cliente e per progetto nel mese</h1>
 	  <table ng-table="oremese.tableParams" class="table table-bordered table-striped table-condensed" show-filter="true">
 		<tr ng-repeat="row in $data">
 		  <td data-title="'nomeCliente'" filter="{nomeCliente: 'text'}" sortable="'nomeCliente'">{{row.nomeCliente}}</td>
