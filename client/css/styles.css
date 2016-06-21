@@ -19,6 +19,10 @@ body {
   border-left-color: cyan;
   border-left-width: medium;
   border-left-style: solid;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
   margin-top: 10px;
   margin-bottom: 10px;
   display: inline-block;
@@ -26,9 +30,6 @@ body {
 .headers-container a {
 	font-size: 20px;
   color: #9d9d9d;
-  height: 50px;
-  line-height: 20px;
-  padding: 15px;
 }
 .headers-container a:hover, .headers-container a:focus {
   background-color: transparent;
@@ -47,14 +48,13 @@ body {
   float: left;
 }
 .menuvert p {
-	margin-top: 5px;
+	margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 15px;
 }
 .menuvert a {
 	font-size: 20px;
   color: #9d9d9d;
-  height: 50px;
-  line-height: 20px;
-  padding: 15px;
 }
 .menuvert a:hover, .menuvert a:focus {
   background-color: transparent;
