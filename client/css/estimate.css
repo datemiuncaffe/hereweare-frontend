@@ -9,17 +9,20 @@ form[name=estimateForm] div.top {
 form[name=estimateForm] div.top > div.customers {
   float: left;
   width: 400px;
+  margin-right: 20px;
 }
 form[name=estimateForm] div.top > div.projects {
   float: left;
   width: 400px;
+  margin-right: 20px;
 }
 form[name=estimateForm] div.top > div.budgettot {
   float: left;
   width: 400px;
+  margin-right: 20px;
 }
 form[name=estimateForm] div.top p {
-  width: 100px;
+  width: 120px;
   display: inline-block;
 }
 form[name=estimateForm] div.top input {
@@ -36,6 +39,9 @@ form[name=estimateForm] div.center {
   float: left;
   margin-bottom: 10px;
   border-bottom: 1px solid black;
+}
+form[name=estimateForm] div.center table {
+  margin-top: 20px;
 }
 
 form[name=estimateForm] .bottom {

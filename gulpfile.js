@@ -58,6 +58,12 @@ gulp.task('clean:build:deploy', function() {
 });
 
 gulp.task('clean:build', function() {
+	// gulp.watch(config.test.src, ['build']);
+
+	// gulp.watch(config.test.src, function(event) {
+  // 	console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
+	// });
+
 	runSequence('clean',
 				['build:local', 'build:test'],
 				['modify:local', 'modify:test']);

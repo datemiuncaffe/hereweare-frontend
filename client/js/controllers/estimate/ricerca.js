@@ -83,7 +83,7 @@ angular
 			    })
 			    .enter()
 			    .append("td")
-			    .attr("style", "font-family: Courier; width:100px; word-wrap:break-word;") // sets the font style
+			    .attr("style", "width:100px; word-wrap:break-word;") // sets the font style
 				.html(function(d) { return d.value });
 
 			var rowsExit = rows.exit().remove();

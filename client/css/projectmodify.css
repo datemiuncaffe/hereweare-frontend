@@ -8,18 +8,20 @@ form[name=projectModifyForm] div.top {
 }
 form[name=projectModifyForm] div.top > div.customer {
   float: left;
-  width: 300px;
+  width: 350px;
 }
 form[name=projectModifyForm] div.top > div.project {
   float: left;
-  width: 300px;
+  width: 350px;
+  margin-right: 20px;
 }
 form[name=projectModifyForm] div.top > div.budgettot {
   float: left;
-  width: 300px;
+  width: 350px;
+  margin-right: 20px;
 }
 form[name=projectModifyForm] div.top p {
-  width: 100px;
+  width: 120px;
   display: inline-block;
 }
 form[name=projectModifyForm] div.top input {

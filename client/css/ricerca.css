@@ -23,10 +23,8 @@ form[name=ricercaForm] div.center {
   margin-bottom: 10px;
   border-bottom: 1px solid black;
 }
-form[name=ricercaForm] .center .results_table {
-	float: left;
-	width: 480px;
-	margin-right: 20px;
+form[name=ricercaForm] div.center table {
+  margin-top: 20px;
 }
 
 .form-control-small {

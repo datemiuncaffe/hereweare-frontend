@@ -195,7 +195,7 @@ angular
 //			    .attr("style", "font-family: Courier") // sets the font style
 				.html(function(d) { return d.value });
 
-			var rowsUpdate = rows.attr("style", "font-family: Courier"); // sets the font style
+			// var rowsUpdate = rows.attr("style", "font-family: Courier"); // sets the font style
 
 			var rowsExit = rows.exit().remove();
 		}
