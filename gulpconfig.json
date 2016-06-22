@@ -1,21 +1,31 @@
 {
-	"local": 
-	{		
+	"local":
+	{
 		"src":
 		[
 			"/home/federico/Documents/ehour/projects/hereweare-frontend/**",
-			"!/home/federico/Documents/ehour/projects/hereweare-frontend/build"
+			"!**/vendor",
+			"!**/node_modules",
+			"!**/build",
+			"!**/vendor/**",
+			"!**/node_modules/**",
+			"!**/build/**"
 		],
 
 		"dest": "build/local"
 	},
 
-	"test": 
+	"test":
 	{
-		"src": 
+		"src":
 		[
 			"/home/federico/Documents/ehour/projects/hereweare-frontend/**",
-			"!/home/federico/Documents/ehour/projects/hereweare-frontend/build"
+			"!**/vendor",
+			"!**/node_modules",
+			"!**/build",
+			"!**/vendor/**",
+			"!**/node_modules/**",
+			"!**/build/**"
 		],
 
 		"dest": "build/test"

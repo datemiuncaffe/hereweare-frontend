@@ -4,6 +4,8 @@ var rename = require("gulp-rename");
 var replace = require('gulp-replace');
 var runSequence = require('run-sequence');
 var del = require('del');
+var changed = require('gulp-changed');
+
 var shipitCaptain = require('shipit-captain');
 var config = require('./gulpconfig.json');
 var shipitConfig = require('./config/shipit').config;
@@ -17,12 +19,14 @@ function cleanBuildFn() {
 // Build local
 function buildLocalFn() {
 	return gulp.src(config.local.src)
+		.pipe(changed(config.local.dest))
     .pipe(gulp.dest(config.local.dest));
 }
 
 // Build test
 function buildTestFn() {
 	return gulp.src(config.test.src)
+		.pipe(changed(config.test.dest))
     .pipe(gulp.dest(config.test.dest));
 }
 
@@ -50,23 +54,21 @@ function modifyTestFn() {
     .pipe(gulp.dest('/home/federico/Documents/ehour/projects/hereweare-frontend/build/test/client/views/estimate'));
 }
 
-gulp.task('clean:build:deploy', function() {
-	runSequence('clean',
-				['build:local', 'build:test'],
-				['modify:local', 'modify:test'],
-				'deploy');
+gulp.task('build:deploy', function() {
+	runSequence(['build:local', 'build:test'],
+							['modify:local', 'modify:test'],
+							'deploy');
 });
 
-gulp.task('clean:build', function() {
+gulp.task('build', function() {
 	// gulp.watch(config.test.src, ['build']);
 
 	// gulp.watch(config.test.src, function(event) {
   // 	console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
 	// });
 
-	runSequence('clean',
-				['build:local', 'build:test'],
-				['modify:local', 'modify:test']);
+	runSequence(['build:local', 'build:test'],
+							['modify:local', 'modify:test']);
 });
 
 // Clean tasks:
