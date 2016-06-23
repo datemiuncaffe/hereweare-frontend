@@ -5,8 +5,12 @@
 	<fieldset>
 		<div class="top">
 			<div class="form-group customer">
-				<p>Nome cliente:</p>
-				<input class="ng-binding" ng-model="customer.name"></input>
+				<p>Clienti</p>
+				<select
+					ng-model="selectedCustomer"
+					ng-options="customer as customer.name for customer in customers"
+					ng-change="onCustomerChange(selectedCustomer)">
+				</select>
 			</div>
 		</div>
 		<div class="top">

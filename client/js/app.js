@@ -29,7 +29,7 @@ angular
         }
       })
       .state('projectcreate', {
-        url: '/project?name',
+        url: '/projectcreate',
         views:{
           'projectcreateview': {
               templateUrl: 'views/estimate/projectcreate.html',
@@ -111,6 +111,6 @@ angular
       });
 
       $urlRouterProvider.otherwise('estimate');
-      
+
       $provide.value('resourceBaseUrl', '$resourceBaseUrl$');
   }]);

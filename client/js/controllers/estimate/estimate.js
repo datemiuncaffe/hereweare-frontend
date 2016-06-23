@@ -8,7 +8,7 @@ angular
 
     $q
 		.all([
-		    crud.getCustomers()
+		    crud.getCustomersAndProjects()
 		])
 		.then(
 			function(data) {

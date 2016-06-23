@@ -11,26 +11,30 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 
 (function(window, angular, undefined) {'use strict';
 
-	var module = angular.module("crudService",[]);	
-	module.factory('crud', ['$resource', 'resourceBaseUrl', function($resource, resourceBaseUrl) {		
+	var module = angular.module("crudService",[]);
+	module.factory('crud', ['$resource', 'resourceBaseUrl', function($resource, resourceBaseUrl) {
 		var resources = {
-			getCustomers:	$resource('http://' + resourceBaseUrl + '/api/customers?filter[include][projects]=budgets', null, {'query':  {method:'GET', isArray:true}}),
-			updateProject: 	$resource('http://' + resourceBaseUrl + '/api/projects/:id', null, {'update': {method:'PUT'}}),
+			getCustomersAndProjects:	$resource('http://' + resourceBaseUrl + '/api/customers?filter[include][projects]=budgets', null, {'query':  {method:'GET', isArray:true}}),
+      getCustomers:	$resource('http://' + resourceBaseUrl + '/api/customers', null, {'query':  {method:'GET', isArray:true}}),
+			updateProject: 	$resource('http://' + resourceBaseUrl + '/api/projects', null, {'update': {method:'PUT'}}),
 			updateBudgets:	$resource('http://' + resourceBaseUrl + '/api/budgets/updateAllByProjectId', null, {'update': {method:'PUT'}})
 		};
-		
+
 		var crud = {
-			getCustomers: function(){
+			getCustomersAndProjects: function(){
+				return resources.getCustomersAndProjects.query().$promise;
+			},
+      getCustomers: function(){
 				return resources.getCustomers.query().$promise;
 			},
-			updateProject: function(projectId, project){
-				return resources.updateProject.update({ id: projectId }, project).$promise;
+			updateProject: function(project){
+				return resources.updateProject.update(project).$promise;
 			},
 			updateBudgets: function(data){
 				return resources.updateBudgets.update(data).$promise;
 			}
 		};
-		
+
 		return crud;
 	}]);
 

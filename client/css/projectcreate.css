@@ -27,6 +27,9 @@ form[name=projectCreateForm] div.top p {
 form[name=projectCreateForm] div.top input {
   display: inline-block;
 }
+form[name=projectCreateForm] div.top select {
+  display: inline-block;
+}
 
 form[name=projectCreateForm] div.center {
   font-family: Arial;
