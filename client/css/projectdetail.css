@@ -24,7 +24,7 @@ form[name=projectDetailForm] div.top p {
   width: 120px;
   display: inline-block;
 }
-form[name=projectDetailForm] div.top input {
+form[name=projectDetailForm] div.top span {
   display: inline-block;
 }
 

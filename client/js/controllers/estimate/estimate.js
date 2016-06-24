@@ -241,17 +241,6 @@ angular
 			}
 		};
 
-		$scope.modify = function() {
-			console.log('current customer: ' + JSON.stringify($scope.selectedCustomer));
-			console.log('current project: ' + JSON.stringify($scope.selectedProject));
-
-			var url = 'http://' + $window.location.host + '/#/projectmodify?customer=' +
-					encodeURI(JSON.stringify($scope.selectedCustomer)) + '&code=' + $scope.selectedProject.code;
-
-			$log.log(url);
-			$window.location.href = url;
-		};
-
 		function Padder(len, pad) {
 			if (len === undefined) {
 				len = 1;

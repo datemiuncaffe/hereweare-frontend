@@ -25,21 +25,16 @@
 		<div class="top">
 			<div class="form-group budgettot">
 				<p>Budget totale:</p>
-				<input class="ng-binding" ng-model="selectedProject.budgettot"></input>
+				<span>{{selectedProject.budgettot}}</span>
 			</div>
 			<div class="form-group budgettot">
 				<p>Giorni totali:</p>
-				<input class="ng-binding" ng-model="selectedProject.daystot"></input>
+				<span>{{selectedProject.daystot}}</span>
 			</div>
 		</div>
 		<div class="center">
 			<div class="search_results">
 				<h4>Preventivo e consuntivo per periodo</h4>
-			</div>
-		</div>
-		<div class="bottom">
-			<div class="form-group">
-				<button class="btn btn-default" ng-click="modify()">Modifica progetto</button>
 			</div>
 		</div>
 	</fieldset>

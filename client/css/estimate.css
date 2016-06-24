@@ -25,7 +25,7 @@ form[name=estimateForm] div.top p {
   width: 120px;
   display: inline-block;
 }
-form[name=estimateForm] div.top input {
+form[name=estimateForm] div.top span {
   display: inline-block;
 }
 form[name=estimateForm] div.top select {
