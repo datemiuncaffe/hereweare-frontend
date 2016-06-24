@@ -157,21 +157,18 @@ angular
 	    	}
 	    };
 
-	    var updateproject = $resource('http://' + resourceBaseUrl + '/api/projects', null, {'update': {method:'PUT'}});
-	    var updatebudgets = $resource('http://' + resourceBaseUrl + '/api/budgets/updateAllByProjectId', null, {'update': {method:'PUT'}});
-
 	    $scope.save = function() {
-			console.log('current customer: ' + JSON.stringify($scope.customer));
-			console.log('updating project: ' + JSON.stringify($scope.project));
+				console.log('current customer: ' + JSON.stringify($scope.customer));
+				console.log('updating project: ' + JSON.stringify($scope.project));
 
-			$scope.project.customerId = $scope.customer.id;
-			updateproject.update($scope.project).$promise.then(function(updatedproject) {
-				console.log('updatedproject: ' + JSON.stringify(updatedproject));
-				updatebudgets.update({projectId: $scope.project.id, budgets: $scope.project.budgets}).$promise.then(function(updatedbudgets) {
-					console.log('updatedbudgets: ' + JSON.stringify(updatedbudgets));
+				$scope.project.customerId = $scope.customer.id;
+				crud.updateProject($scope.project).then(function(updatedProject) {
+					console.log('updatedProject: ' + JSON.stringify(updatedProject));
+					crud.updateBudgets({projectId: $scope.project.id, budgets: $scope.project.budgets}).then(function(updatedBudgets) {
+						console.log('updatedBudgets: ' + JSON.stringify(updatedBudgets));
+					});
 				});
-			});
-
-		};
+				
+			};
 
 	}]);

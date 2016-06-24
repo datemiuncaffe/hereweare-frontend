@@ -17,7 +17,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 			getCustomersAndProjects:	$resource('http://' + resourceBaseUrl + '/api/customers?filter[include][projects]=budgets', null, {'query':  {method:'GET', isArray:true}}),
       getCustomers:	$resource('http://' + resourceBaseUrl + '/api/customers', null, {'query':  {method:'GET', isArray:true}}),
 			updateProject: 	$resource('http://' + resourceBaseUrl + '/api/projects', null, {'update': {method:'PUT'}}),
-			updateBudgets:	$resource('http://' + resourceBaseUrl + '/api/budgets/updateAllByProjectId', null, {'update': {method:'PUT'}})
+      createProject:  $resource('http://' + resourceBaseUrl + '/api/projects/createAndIncrementId', null, {'save': {method:'POST'}}),
+      updateBudgets:	$resource('http://' + resourceBaseUrl + '/api/budgets/updateAllByProjectId', null, {'update': {method:'PUT'}})
 		};
 
 		var crud = {
@@ -29,6 +30,9 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 			},
 			updateProject: function(project){
 				return resources.updateProject.update(project).$promise;
+			},
+      createProject: function(project){
+				return resources.createProject.save(project).$promise;
 			},
 			updateBudgets: function(data){
 				return resources.updateBudgets.update(data).$promise;

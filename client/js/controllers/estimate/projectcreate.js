@@ -139,12 +139,12 @@ angular
 				console.log('updating project: ' + JSON.stringify($scope.project));
 
 				$scope.project.customerId = $scope.selectedCustomer.id;
-				crud.updateProject($scope.project).then(function(updatedProject) {
-					console.log('updatedProject: ' + JSON.stringify(updatedProject));
+				crud.createProject({project:$scope.project}).then(function(res) {
+					console.log('createdProject: ' + JSON.stringify(res.createdProject));
 					$scope.project.budgets.forEach(function(budget, i){
-						budget.projectId = updatedProject.id;
+						budget.projectId = res.createdProject.id;
 					});
-					crud.updateBudgets({projectId: updatedProject.id, budgets: $scope.project.budgets}).then(function(updatedBudgets) {
+					crud.updateBudgets({projectId: res.createdProject.id, budgets: $scope.project.budgets}).then(function(updatedBudgets) {
 						console.log('updatedBudgets: ' + JSON.stringify(updatedBudgets));
 					});
 				});
