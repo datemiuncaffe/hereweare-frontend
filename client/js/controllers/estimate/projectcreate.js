@@ -152,6 +152,7 @@ angular
 	    		$scope.project.budgets = [];
 					var cyear = from.year();
 
+					var zero2 = new Padder(2);
 					var bdays = getBusinessDays(from, to);
 					var daystot = getDaysTot(bdays);
 					$scope.project.daystot = daystot;
@@ -178,8 +179,8 @@ angular
 						});
 
 						var budget = {
-	    				from: cyear + '-' + cmonth + '-' + firstDay,
-	    				to: cyear + '-' + cmonth + '-' + lastDay,
+	    				from: cyear + '-' + zero2.pad(cmonth + 1) + "-" + zero2.pad(firstDay),
+	    				to: cyear + '-' + zero2.pad(cmonth + 1) + "-" + zero2.pad(lastDay),
 	    				year: cyear,
     	    		month: moment.months()[cmonth],
 							days: monthdays,
