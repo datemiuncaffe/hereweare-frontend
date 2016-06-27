@@ -24,6 +24,9 @@ form[name=projectModifyForm] div.top p {
   width: 120px;
   display: inline-block;
 }
+form[name=projectModifyForm] div.top span {
+  display: inline-block;
+}
 form[name=projectModifyForm] div.top input {
   display: inline-block;
 }

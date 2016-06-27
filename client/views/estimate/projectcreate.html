@@ -30,7 +30,8 @@
 			</div>
 			<div class="form-group budgettot">
 				<p>Giorni totali:</p>
-				<input class="ng-binding" ng-model="project.daystot"></input>
+				<span>{{project.daystot}}</span>
+				<!--input class="ng-binding" ng-model="project.daystot"></input-->
 			</div>
 		</div>
 		<div class="center">
@@ -40,14 +41,14 @@
 					<label for="datepickerfrom">Da:</label>
 					<input class="ng-binding" id="datepickerfrom" type="text"
 								ng-model="project.from" size="10"
-								ng-blur="getBudgets(project.budgettot, project.daystot, project.from, project.to)">
+								ng-blur="getBudgets(project.budgettot, project.from, project.to)">
 					<img src="./../../img/datepik.gif" ng-click="datepickerfrom.show()"></img>
 				</div>
 				<div class="datepickerto">
 					<label for="datepickerto">A:</label>
 					<input class="ng-binding" id="datepickerto" type="text"
 								ng-model="project.to" size="10"
-								ng-blur="getBudgets(project.budgettot, project.daystot, project.from, project.to)">
+								ng-blur="getBudgets(project.budgettot, project.from, project.to)">
 					<img src="./../../img/datepik.gif" ng-click="datepickerto.show()"></img>
 				</div>
 			</div>
