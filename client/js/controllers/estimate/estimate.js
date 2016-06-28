@@ -126,6 +126,7 @@ angular
 
 		// append the superheader row
 		thead.append("tr")
+				.attr('class', 'tablesuperheaders')
 				.selectAll("th")
 				.data([
 					{header: superheaders[0], colspan: 1, border: 'none'},
@@ -147,27 +148,28 @@ angular
 
 		// append the header row
 		thead.append("tr")
+				.attr('class', 'tableheaders')
 				.selectAll("th")
 				.data(headers)
 				.enter()
 				.append("th")
 						.text(function(column) { return column; });
 
-		// append filter cells
-		thead.append("tr")
-				.selectAll("th")
-				.data(headers)
-				.enter()
-				.append("th")
-				.append('input')
-				.attr('size', 8)
-				.attr('type', 'text')
-				.on("input", function(d, i) {
-					filterTable(this.value, d, i, data, columns);
-				});
-
 		// The table generation function
 		function tabulate(data, columns) {
+			// append filter cells
+			thead.append("tr")
+					.attr('class', 'tablefilters')
+					.selectAll("th")
+					.data(headers)
+					.enter()
+					.append("th")
+					.append('input')
+					.attr('size', 8)
+					.attr('type', 'text')
+					.on("input", function(d, i) {
+						filterTable(data, columns);
+					});
 			renderTable(data, columns);
 			return table;
 		}
@@ -200,26 +202,43 @@ angular
 			var rowsExit = rows.exit().remove();
 		}
 
-		function filterTable(filtervalue, header, index, rows, columns) {
-//			console.log('rows: ' + JSON.stringify(rows, null, '\t'));
-//			console.log('filtervalue: ' + filtervalue + '; header: ' + header + '; index: ' + index);
+		function filterTable(rows, columns) {
+			var filtervalues = [];
+
+			// get filter values
+			var tablefilters = d3.select("tr.tablefilters").selectAll("th");
+			tablefilters.each(function(p, i) {
+				var inputfilter = d3.select(this).select("input");
+				filtervalues.push(inputfilter.property("value"));
+			});
+			console.log('filtervalues: ' + filtervalues);
+
 			var filteredrows = [];
-			var filterfield = columns[index];
 			rows.forEach(function(row){
-//				console.log(row[filterfield]);
-//				console.log(typeof filtervalue + ' - ' + (row[filterfield] != null ? typeof row[filterfield].toString() : null));
-				if (row[filterfield] != null) {
-					console.log('filtervalue: ' + filtervalue + '; row[filterfield]: ' + row[filterfield]);
-					var regExp = new RegExp(filtervalue, 'g');
-					var res = regExp.exec(row[filterfield].toString());
-//					console.log('matches: ' + JSON.stringify(res, null, '\t'));
-					if (res != null && res.length > 0) {
-						filteredrows.push(row);
+				console.log('row: ' + JSON.stringify(row));
+
+				var failures = 0;
+				columns.forEach(function(column, i){
+					if (row[column] != null) {
+						var regExp = new RegExp(filtervalues[i], 'g');
+						var res = regExp.exec(row[column].toString());
+						console.log(column + '-' + row[column].toString() + '; filtervalue: ' + filtervalues[i] + '; res: ' + res);
+						if (res == null) {
+							failures++;
+						}
+					} else {
+						console.log('filtervalue: ' + filtervalues[i]);
+						if (filtervalues[i] != null && filtervalues[i].length > 0) {
+							failures++;
+						}
 					}
-				} else if (filtervalue != null && filtervalue.length === 0) {
-					console.log('filtervalue: ' + filtervalue + '; row[filterfield]: ' + row[filterfield]);
+				});
+
+				console.log('failures = ' + failures);
+				if (failures == 0) {
 					filteredrows.push(row);
 				}
+
 			});
 			console.log('filteredrows: ' + JSON.stringify(filteredrows, null, '\t'));
 			renderTable(filteredrows, columns);
