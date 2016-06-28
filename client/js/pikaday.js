@@ -609,22 +609,28 @@
             if (!opts.defaultDate) {
                 if (hasMoment && opts.field.value) {
                     opts.defaultDate = moment(opts.field.value, opts.format).toDate();
+                    console.log('hasMoment defaultDate: ' + opts.defaultDate);
                 } else {
+                  console.log(opts.field.value);
                     opts.defaultDate = new Date(Date.parse(opts.field.value));
+                    console.log('not hasMoment defaultDate: ' + opts.defaultDate);
                 }
                 opts.setDefaultDate = true;
             }
         }
 
+        console.log('defaultDate: ' + opts.defaultDate.toString());
         var defDate = opts.defaultDate;
 
         if (isDate(defDate)) {
+            console.log('isDate(defDate)');
             if (opts.setDefaultDate) {
                 self.setDate(defDate, true);
             } else {
                 self.gotoDate(defDate);
             }
         } else {
+            console.log('not isDate(defDate)');
             self.gotoDate(new Date());
         }
 

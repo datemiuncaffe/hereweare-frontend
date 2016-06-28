@@ -42,13 +42,28 @@ angular
 				minDate : new Date(2000, 0, 1),
 				maxDate : new Date(2020, 12, 31),
 				yearRange : [ 2000, 2020 ]
+				// defaultDate : moment($scope.project.from, "YYYY-MM-DD").toDate()
 			});
 			var datepickerto = new Pikaday({
 				field : document.getElementById('datepickerto'),
 				firstDay : 1,
 				minDate : new Date(2000, 0, 1),
 				maxDate : new Date(2020, 12, 31),
-				yearRange : [ 2000, 2020 ]
+				yearRange : [ 2000, 2020 ],
+				// setDefaultDate : true,
+				// defaultDate : moment($scope.project.to, "YYYY-MM-DD").toDate(),
+				// startRange : moment($scope.project.from, "YYYY-MM-DD").toDate(),
+				// startRange : new Date(2016, 5, 10),
+				// endRange : moment($scope.project.to, "YYYY-MM-DD").toDate(),
+				onSelect: function(bdays) {
+						console.log(this.getMoment().format('Do MMMM YYYY'));
+						// this.gotoDate(new Date(2016, 1));
+						// var years = Array.from(bdays.keys());
+						// console.log('years: ' + years);
+				},
+				onOpen: function() {
+					console.log(this._o.defaultDate);
+				}
 			});
 			$scope.datepickerfrom = datepickerfrom;
 			$scope.datepickerto = datepickerto;
@@ -241,6 +256,8 @@ angular
 		    			$scope.project.budgets.push(budget);
 						});
 					});
+
+					// datepickerto._o.onSelect(bdays);
 
 	    		for (var i in $scope.project.budgets) {
 	    			console.log('budget amount: ' + $scope.project.budgets[i].amount + '; type: ' + typeof $scope.project.budgets[i].amount);
