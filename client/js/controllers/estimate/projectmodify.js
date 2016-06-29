@@ -19,17 +19,25 @@ angular
 	    };
 	    /* end entities */
 
+			console.log('$stateParams.code: ' + $stateParams.code);
+			console.log('$stateParams.customerId: ' + $stateParams.customerId);
+			console.log('$stateParams.customerName: ' + $stateParams.customerName);
+
 	    /* loading project */
 	    if ($stateParams != null &&
 	    	$stateParams.code != null && $stateParams.code.length > 0 &&
-	    	$stateParams.customer != null && $stateParams.customer.length > 0) {
-		    	console.log('Project code: ' + $stateParams.code + '; customer: ' + decodeURI($stateParams.customer));
+	    	$stateParams.customerId != null && $stateParams.customerId.length > 0 &&
+				$stateParams.customerName != null && $stateParams.customerName.length > 0) {
+		    	console.log('Project code: ' + $stateParams.code +
+											'; customerId: ' + $stateParams.customerId +
+											'; customerName: ' + $stateParams.customerName);
 		    	var queryUrl = 'http://' + resourceBaseUrl + '/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + $stateParams.code;
 		    	var projectRes = $resource(queryUrl, null, {'query':  {method:'GET', isArray:true}});
 		    	projectRes.query().$promise.then(function(data) {
 					console.log('project: ' + JSON.stringify(data[0]));
 
-					$scope.customer = JSON.parse(decodeURI($stateParams.customer));
+					$scope.customer.id = $stateParams.customerId;
+					$scope.customer.name = $stateParams.customerName;
 					$scope.project = data[0];
 				});
 	    }

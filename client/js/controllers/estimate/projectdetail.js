@@ -2,23 +2,22 @@ angular
 	.module("app")
 	.controller("ProjectDetailController", ['$scope', '$window', '$log', '$resource', '$q', '$stateParams', 'resourceBaseUrl',
 	                                        function($scope, $window, $log, $resource, $q, $stateParams, resourceBaseUrl) {
-	    /* entities */
-	    $scope.customer = {
-	    	name: null
-	    };
+    /* entities */
+    $scope.customer = {
+    	name: null
+    };
 
-	    $scope.project = {
-	    	name: null,
-	    	code: null,
-	    	from: null,
-	    	to: null,
-	    	budgettot: null,
-	    	daystot: null,
-	    	customerId: null,
-	    	budgets: []
-	    };
-	    /* end entities */
-
+    $scope.project = {
+    	name: null,
+    	code: null,
+    	from: null,
+    	to: null,
+    	budgettot: null,
+    	daystot: null,
+    	customerId: null,
+    	budgets: []
+    };
+    /* end entities */
 
 		function Padder(len, pad) {
 			if (len === undefined) {
@@ -38,34 +37,41 @@ angular
 			};
 		}
 
-	    /* loading data */
-	    if ($stateParams != null &&
-	    	$stateParams.code != null && $stateParams.code.length > 0 &&
-	    	$stateParams.customer != null && $stateParams.customer.length > 0) {
-	    	console.log('Project code: ' + $stateParams.code + '; customer: ' + decodeURI($stateParams.customer));
+		console.log('$stateParams.code: ' + $stateParams.code);
+		console.log('$stateParams.customerId: ' + $stateParams.customerId);
+		console.log('$stateParams.customerName: ' + $stateParams.customerName);
 
-	    	$scope.customer = JSON.parse(decodeURI($stateParams.customer));
+    /* loading data */
+    if ($stateParams != null &&
+    	$stateParams.code != null && $stateParams.code.length > 0 &&
+			$stateParams.customerId != null && $stateParams.customerId.length > 0 &&
+			$stateParams.customerName != null && $stateParams.customerName.length > 0) {
+	    	console.log('Project code: ' + $stateParams.code +
+										'; customerId: ' + $stateParams.customerId +
+										'; customerName: ' + $stateParams.customerName);
 
-	    	// query urls
-	    	var queryBudgets = 'http://' + resourceBaseUrl + '/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + $stateParams.code;
-	    	$log.log('queryBudgets: ' + queryBudgets);
-	    	var budgetRes = $resource(queryBudgets, null, {'query':  {method:'GET', isArray:true}});
-	    	var queryCosts = 'http://' + resourceBaseUrl + '/query_costs?projectCode=' + $stateParams.code;
-	    	$log.log('queryCosts: ' + queryCosts);
-	    	var costRes = $resource(queryCosts, null, {'query':  {method:'GET', isArray:true}});
+			$scope.customer.id = $stateParams.customerId;
+			$scope.customer.name = $stateParams.customerName;
 
-	    	// perform queries
-	    	$q
-			.all([
-			      budgetRes.query().$promise,
-			      costRes.query().$promise
-			])
-			.then(
-				function(data) {
-					showData(data);
-				});
-	    }
-	    /* end loading data */
+    	// query urls
+    	var queryBudgets = 'http://' + resourceBaseUrl + '/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + $stateParams.code;
+    	$log.log('queryBudgets: ' + queryBudgets);
+    	var budgetRes = $resource(queryBudgets, null, {'query':  {method:'GET', isArray:true}});
+    	var queryCosts = 'http://' + resourceBaseUrl + '/query_costs?projectCode=' + $stateParams.code;
+    	$log.log('queryCosts: ' + queryCosts);
+    	var costRes = $resource(queryCosts, null, {'query':  {method:'GET', isArray:true}});
+
+    	// perform queries
+    	$q.all([
+		      budgetRes.query().$promise,
+		      costRes.query().$promise
+				])
+				.then(
+					function(data) {
+						showData(data);
+					});
+    }
+    /* end loading data */
 
 	    function showData(data) {
 //	    	console.log('data: ' + JSON.stringify(data, null, '\t'));
@@ -288,9 +294,11 @@ angular
 
 			console.log('changing state...');
 
-			var url = 'http://' + $window.location.host + '/#/projectmodify?customer=' + encodeURI(JSON.stringify($scope.customer)) + '&code=' + $scope.project.code;
-	        $log.log(url);
-	        $window.location.href = url;
+			var url = 'http://' + $window.location.host + '/#/projectmodify' +
+					'?customerId=' + $scope.customer.id + '&customerName=' + $scope.customer.name +
+					'&code=' + $scope.project.code;
+	    $log.log(url);
+	    $window.location.href = url;
 		};
 
 	}]);

@@ -121,7 +121,9 @@ angular
 					var value = $(this).text();
 					// build url to single project page
 //					var projectpageurl = '<a ui-sref="projectdetail({customer: \'' + encodeURI(JSON.stringify($scope.selectedCustomer.originalObject)) + '\', code: \'' + params.code + '\'})">' + value + '</a>';
-					var projectpageurl = '<a ui-sref="projectdetail({customer: \'' + encodeURI(JSON.stringify($scope.selectedCustomer)) + '\', code: \'' + params.code + '\'})">' + value + '</a>';
+					var projectpageurl = '<a ui-sref="projectdetail({customerId: \'' + $scope.selectedCustomer.id +
+															'\', customerName: \'' + $scope.selectedCustomer.name +
+															'\', code: \'' + params.code + '\'})">' + value + '</a>';
 					console.log('projectpageurl: ' + projectpageurl);
 					var projectpagetemplate = angular.element(projectpageurl);
 					var projectpageFn = $compile(projectpagetemplate);
