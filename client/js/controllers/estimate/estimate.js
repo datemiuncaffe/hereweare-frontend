@@ -155,23 +155,38 @@ angular
 				.append("th")
 						.text(function(column) { return column; });
 
+		// append filter cells
+		thead.append("tr")
+				.attr('class', 'tablefilters')
+				.selectAll("th")
+				.data(headers)
+				.enter()
+				.append("th")
+				.append('input')
+				.attr('size', 8)
+				.attr('type', 'text');
+
 		// The table generation function
 		function tabulate(data, columns) {
-			// append filter cells
-			thead.append("tr")
-					.attr('class', 'tablefilters')
-					.selectAll("th")
-					.data(headers)
-					.enter()
-					.append("th")
-					.append('input')
-					.attr('size', 8)
-					.attr('type', 'text')
-					.on("input", function(d, i) {
-						filterTable(data, columns);
-					});
-			renderTable(data, columns);
+			setFilters(data, columns);
+			var filtereddata = filterTable(data, columns);
+			renderTable(filtereddata, columns);
 			return table;
+		}
+
+		function setFilters(data, columns) {
+			var tablefilters = d3.select("tr.tablefilters")
+					.selectAll("input")
+					.attr("value", function(d, i) {
+						if (d == 'ANNO') {
+							return '2016';
+						}
+						return '';
+					})
+					.on("input", function(d, i) {
+						var filtereddata = filterTable(data, columns);
+						renderTable(filtereddata, columns);
+					});
 		}
 
 		function renderTable(data, columns) {
@@ -241,7 +256,7 @@ angular
 
 			});
 			console.log('filteredrows: ' + JSON.stringify(filteredrows, null, '\t'));
-			renderTable(filteredrows, columns);
+			return filteredrows;
 		}
 
 		$scope.onCustomerChange = function(selectedCustomer) {
