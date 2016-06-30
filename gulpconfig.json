@@ -1,6 +1,12 @@
 {
 	"local":
 	{
+		"srcall":
+		[
+			"/home/federico/Documents/ehour/projects/hereweare-frontend/**",
+			"!**/build",
+			"!**/build/**"
+		],
 		"src":
 		[
 			"/home/federico/Documents/ehour/projects/hereweare-frontend/**",
@@ -11,12 +17,17 @@
 			"!**/node_modules/**",
 			"!**/build/**"
 		],
-
 		"dest": "build/local"
 	},
 
 	"test":
 	{
+		"srcall":
+		[
+			"/home/federico/Documents/ehour/projects/hereweare-frontend/**",
+			"!**/build",
+			"!**/build/**"
+		],
 		"src":
 		[
 			"/home/federico/Documents/ehour/projects/hereweare-frontend/**",
@@ -27,7 +38,6 @@
 			"!**/node_modules/**",
 			"!**/build/**"
 		],
-
 		"dest": "build/test"
 	}
 }

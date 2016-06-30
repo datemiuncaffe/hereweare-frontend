@@ -14,19 +14,22 @@
 			</div>
 		</div>
 		<div class="top">
-			<div class="form-group project">
+			<div class="form-group project" ng-class="{'has-error' : projectCreateForm.projectname.$invalid && submitted}">
 				<p>Nome progetto:</p>
-				<input class="ng-binding" ng-model="project.name"></input>
+				<input class="ng-binding" ng-model="project.name" name="projectname" required></input>
+				<p ng-show="projectCreateForm.projectname.$invalid && submitted" class="errormessage">Il nome del progetto è necessario</p>
 			</div>
-			<div class="form-group project">
+			<div class="form-group project" ng-class="{'has-error' : projectCreateForm.projectcode.$invalid && submitted}">
 				<p>Codice progetto:</p>
-				<input class="ng-binding" ng-model="project.code"></input>
+				<input class="ng-binding" ng-model="project.code" name="projectcode" required></input>
+				<p ng-show="projectCreateForm.projectcode.$invalid && submitted" class="errormessage">Il codice del progetto è necessario</p>
 			</div>
 		</div>
 		<div class="top">
-			<div class="form-group budgettot">
+			<div class="form-group budgettot" ng-class="{'has-error' : projectCreateForm.projectbudgettot.$invalid && submitted}">
 				<p>Budget totale:</p>
-				<input class="ng-binding" ng-model="project.budgettot"></input>
+				<input class="ng-binding" ng-model="project.budgettot" name="projectbudgettot" required></input>
+				<p ng-show="projectCreateForm.projectbudgettot.$invalid && submitted" class="errormessage">Il budget totale del progetto è necessario</p>
 			</div>
 			<div class="form-group budgettot">
 				<p>Giorni totali:</p>
@@ -40,16 +43,20 @@
 				<div class="datepickerfrom">
 					<label for="datepickerfrom">Da:</label>
 					<input class="ng-binding" id="datepickerfrom" type="text"
-								ng-model="project.from" size="10"
-								ng-blur="getBudgets(project.budgettot, project.from, project.to)">
+								ng-model="project.from" size="10" name="datepickerfrom"
+								ng-blur="getBudgets(project.budgettot, project.from, project.to)" required>
 					<img src="./../../img/datepik.gif" ng-click="datepickerfrom.show()"></img>
+					<p ng-show="projectCreateForm.datepickerfrom.$invalid && submitted" class="errormessage">
+						Inserisci la data di inizio progetto</p>
 				</div>
 				<div class="datepickerto">
 					<label for="datepickerto">A:</label>
 					<input class="ng-binding" id="datepickerto" type="text"
-								ng-model="project.to" size="10"
-								ng-blur="getBudgets(project.budgettot, project.from, project.to)">
+								ng-model="project.to" size="10" name="datepickerto"
+								ng-blur="getBudgets(project.budgettot, project.from, project.to)" required>
 					<img src="./../../img/datepik.gif" ng-click="datepickerto.show()"></img>
+					<p ng-show="projectCreateForm.datepickerto.$invalid && submitted" class="errormessage">
+						Inserisci la data di fine progetto</p>
 				</div>
 			</div>
 
@@ -71,7 +78,7 @@
 		</div>
 		<div class="bottom">
 			<div class="form-group">
-				<button class="btn btn-default" ng-click="save()">Salva progetto</button>
+				<button class="btn btn-default" ng-click="save(projectCreateForm.$valid)">Salva progetto</button>
 			</div>
 		</div>
 	</fieldset>

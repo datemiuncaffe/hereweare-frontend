@@ -22,11 +22,19 @@ function buildLocalFn() {
 		.pipe(changed(config.local.dest))
     .pipe(gulp.dest(config.local.dest));
 }
+function buildCompleteLocalFn() {
+	return gulp.src(config.local.srcall)
+    .pipe(gulp.dest(config.local.dest));
+}
 
 // Build test
 function buildTestFn() {
 	return gulp.src(config.test.src)
 		.pipe(changed(config.test.dest))
+    .pipe(gulp.dest(config.test.dest));
+}
+function buildCompleteTestFn() {
+	return gulp.src(config.test.srcall)
     .pipe(gulp.dest(config.test.dest));
 }
 
@@ -60,6 +68,11 @@ gulp.task('build:deploy', function() {
 							'deploy');
 });
 
+gulp.task('buildcomplete', function() {
+	runSequence(['buildcomplete:local', 'buildcomplete:test'],
+							['modify:local', 'modify:test']);
+});
+
 gulp.task('build', function() {
 	// gulp.watch(config.test.src, ['build']);
 
@@ -77,6 +90,8 @@ gulp.task('clean', cleanBuildFn);
 // Build tasks:
 gulp.task('build:local', buildLocalFn);
 gulp.task('build:test', buildTestFn);
+gulp.task('buildcomplete:local', buildCompleteLocalFn);
+gulp.task('buildcomplete:test', buildCompleteTestFn);
 
 // Modify tasks:
 gulp.task('modify:local', modifyLocalFn);

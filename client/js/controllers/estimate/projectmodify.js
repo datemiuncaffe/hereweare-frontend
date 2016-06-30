@@ -276,17 +276,22 @@ angular
 	    	}
 	    };
 
-	    $scope.save = function() {
-				console.log('current customer: ' + JSON.stringify($scope.customer));
-				console.log('updating project: ' + JSON.stringify($scope.project));
+	    $scope.save = function(isFormValid) {
+				$scope.submitted = true;
+	      console.log('isFormValid: ' + isFormValid);
+	      // check to make sure the form is completely valid
+	      if (isFormValid) {
+					console.log('current customer: ' + JSON.stringify($scope.customer));
+					console.log('updating project: ' + JSON.stringify($scope.project));
 
-				$scope.project.customerId = $scope.customer.id;
-				crud.updateProject($scope.project).then(function(updatedProject) {
-					console.log('updatedProject: ' + JSON.stringify(updatedProject));
-					crud.updateBudgets({projectId: $scope.project.id, budgets: $scope.project.budgets}).then(function(updatedBudgets) {
-						console.log('updatedBudgets: ' + JSON.stringify(updatedBudgets));
+					$scope.project.customerId = $scope.customer.id;
+					crud.updateProject($scope.project).then(function(updatedProject) {
+						console.log('updatedProject: ' + JSON.stringify(updatedProject));
+						crud.updateBudgets({projectId: $scope.project.id, budgets: $scope.project.budgets}).then(function(updatedBudgets) {
+							console.log('updatedBudgets: ' + JSON.stringify(updatedBudgets));
+						});
 					});
-				});
+	      }
 			};
 
 			function Padder(len, pad) {
