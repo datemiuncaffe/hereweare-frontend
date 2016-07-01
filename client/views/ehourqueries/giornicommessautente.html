@@ -1,15 +1,15 @@
 <div class="list-group">
 	<div ng-controller="GiorniCommessaUtenteController as oremese">
-	  <h1>Giorni lavorati per commessa e per dipendente nel mese</h1>
+	  <h1>Giornate erogate per commessa e per dipendente</h1>
 	  <table ng-table="oremese.tableParams" class="table table-bordered table-striped table-condensed" show-filter="true">
 		<tr ng-repeat="row in $data">
-		  <td data-title="'anno'" filter="{anno: 'text'}" sortable="'anno'">{{row.anno}}</td>
-		  <td data-title="'mese'" filter="{mese: 'text'}" sortable="'mese'">{{row.mese}}</td>
-		  <td data-title="'nomeCliente'" filter="{nomeCliente: 'text'}" sortable="'nomeCliente'">{{row.nomeCliente}}</td>
-		  <td data-title="'codiceProgetto'" filter="{codiceProgetto: 'text'}" sortable="'codiceProgetto'">{{row.codiceProgetto}}</td>
-		  <td data-title="'nomeProgetto'" filter="{nomeProgetto: 'text'}" sortable="'nomeProgetto'">{{row.nomeProgetto}}</td>
-		  <td data-title="'nomeDipendente'" filter="{nomeDipendente: 'text'}" sortable="'nomeDipendente'">{{row.nomeDipendente}}</td>
-		  <td data-title="'giornateMese'" filter="{giornateMese: 'text'}" sortable="'giornateMese'">{{row.giornateMese}}</td>
+		  <td data-title="'ANNO'" filter="{anno: 'text'}" sortable="'anno'">{{row.anno}}</td>
+		  <td data-title="'MESE'" filter="{mese: 'text'}" sortable="'mese'">{{row.mese}}</td>
+		  <td data-title="'CLIENTE'" filter="{nomeCliente: 'text'}" sortable="'nomeCliente'">{{row.nomeCliente}}</td>
+		  <td data-title="'CODICE PROGETTO'" filter="{codiceProgetto: 'text'}" sortable="'codiceProgetto'">{{row.codiceProgetto}}</td>
+		  <td data-title="'PROGETTO'" filter="{nomeProgetto: 'text'}" sortable="'nomeProgetto'">{{row.nomeProgetto}}</td>
+		  <td data-title="'DIPENDENTE'" filter="{nomeDipendente: 'text'}" sortable="'nomeDipendente'">{{row.nomeDipendente}}</td>
+		  <td data-title="'GIORNATE EROGATE'" filter="{giornateMese: 'text'}" sortable="'giornateMese'">{{row.giornateMese}}</td>
 		</tr>
 	  </table>
 	</div>
