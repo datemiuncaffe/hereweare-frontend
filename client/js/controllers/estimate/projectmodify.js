@@ -256,7 +256,7 @@ angular
 								from: budgetyear + '-' + zero2.pad(budgetmonth + 1) + "-" + zero2.pad(firstDay),
 		    				to: budgetyear + '-' + zero2.pad(budgetmonth + 1) + "-" + zero2.pad(lastDay),
 		    				year: budgetyear,
-	    	    		month: moment.months()[budgetmonth],
+	    	    		month: datepickerto._o.i18n.months[budgetmonth],
 								days: monthdays,
 								amount: parseFloat((budgettot * (monthdays/daystot)).toFixed(2)),
 	    	    		projectId: $scope.project.id

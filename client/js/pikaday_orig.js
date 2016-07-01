@@ -247,19 +247,12 @@
         container: undefined,
 
         // internationalization
-        // i18n: {
-        //     previousMonth : 'Previous Month',
-        //     nextMonth     : 'Next Month',
-        //     months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
-        //     weekdays      : ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
-        //     weekdaysShort : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
-        // },
         i18n: {
-            previousMonth : 'Mese Precedente',
-            nextMonth     : 'Mese Successivo',
-            months        : ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'],
-            weekdays      : ['Domenica','Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato'],
-            weekdaysShort : ['Dom','Lun','Mar','Mer','Gio','Ven','Sab']
+            previousMonth : 'Previous Month',
+            nextMonth     : 'Next Month',
+            months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
+            weekdays      : ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+            weekdaysShort : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
         },
 
         // Theme Classname
