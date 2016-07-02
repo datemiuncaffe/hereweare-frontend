@@ -209,8 +209,8 @@ angular
 	    		throw 'ERR: inserire la data finale';
 	    	}
 
-	    	var from = moment(selectedfrom, "YYYY-MM-DD");
-	    	var to = moment(selectedto, "YYYY-MM-DD");
+	    	var from = moment(selectedfrom, "DD/MM/YYYY");
+	    	var to = moment(selectedto, "DD/MM/YYYY");
 	    	console.log('diff in months: ' + to.diff(from, 'months'));
 
 	    	if (from.isBefore(to)) {
@@ -253,8 +253,8 @@ angular
 							});
 
 							var budget = {
-								from: budgetyear + '-' + zero2.pad(budgetmonth + 1) + "-" + zero2.pad(firstDay),
-		    				to: budgetyear + '-' + zero2.pad(budgetmonth + 1) + "-" + zero2.pad(lastDay),
+								from: zero2.pad(firstDay) + '/' + zero2.pad(budgetmonth + 1) + "/" + budgetyear,
+		    				to: zero2.pad(lastDay) + '/' + zero2.pad(budgetmonth + 1) + "/" + budgetyear,
 		    				year: budgetyear,
 	    	    		month: datepickerto._o.i18n.months[budgetmonth],
 								days: monthdays,

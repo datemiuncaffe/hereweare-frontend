@@ -191,7 +191,7 @@
         reposition: true,
 
         // the default output format for `.toString()` and `field` value
-        format: 'YYYY-MM-DD',
+        format: 'DD/MM/YYYY',
 
         // the initial date to view when first opened
         defaultDate: null,
