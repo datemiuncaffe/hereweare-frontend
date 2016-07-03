@@ -71,7 +71,10 @@ angular
 								budgetdays: budget.days,
 								costdays: null
 							};
-							var key = budget.year + '-' + zero2.pad((moment(budget.month, "MMMM").month() + 1));
+							var months = ['Gennaio','Febbraio','Marzo','Aprile','Maggio',
+							'Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+							var key = budget.year + '-' +
+								zero2.pad((months.indexOf(budget.month) + 1));
 							map.set(key, value);
 						});
 						costs.forEach(function(cost){

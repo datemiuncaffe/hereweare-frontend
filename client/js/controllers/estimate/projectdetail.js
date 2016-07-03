@@ -77,72 +77,77 @@ angular
 //	    	console.log('data: ' + JSON.stringify(data, null, '\t'));
 	    	$scope.project = data[0][0];
 
-			var budgets = data[0][0].budgets;
-			console.log('budgets: ' + JSON.stringify(budgets, null, '\t'));
-			var costs = data[1];
-			console.log('costs: ' + JSON.stringify(costs, null, '\t'));
+				var budgets = data[0][0].budgets;
+				console.log('budgets: ' + JSON.stringify(budgets, null, '\t'));
+				var costs = data[1];
+				console.log('costs: ' + JSON.stringify(costs, null, '\t'));
 
-			// prepare data for table
-			var datatable = [];
-			if ((budgets != null && budgets.length > 0) ||
-				(costs != null && costs.length > 0)) {
-				var zero2 = new Padder(2);
-				var map = new Map();
-				budgets.forEach(function(budget){
-					var value = {
-						id: budget.id,
-						year: budget.year,
-						month: budget.month,
-						budgetfrom: budget.from,
-						budgetto: budget.to,
-						budgetamount: budget.amount,
-						budgetdays: budget.days,
-				    costdays: null
-					};
-					var key = budget.year + '-' + zero2.pad((moment(budget.month, "MMMM").month() + 1));
-					map.set(key, value);
-				});
-				costs.forEach(function(cost){
-					var key = cost.anno + '-' + zero2.pad(cost.mese);
-					var value = {};
-					if (map.has(key)) {
-						value = map.get(key);
-						value.id += '-' + (cost.id + cost.mese);
-						value.costdays = cost.giornateMese;
-					} else {
-						value = {
-							id: '-' + (cost.id + cost.mese),
-							year: cost.anno,
-							month: moment.months()[cost.mese - 1],
-							budgetfrom: null,
-							budgetto: null,
-							budgetamount: null,
-							budgetdays: null,
-					    costdays: cost.giornateMese
+				// prepare data for table
+				var datatable = [];
+				if ((budgets != null && budgets.length > 0) ||
+					(costs != null && costs.length > 0)) {
+					var zero2 = new Padder(2);
+					var map = new Map();
+					budgets.forEach(function(budget){
+						var value = {
+							id: budget.id,
+							year: budget.year,
+							month: budget.month,
+							budgetfrom: budget.from,
+							budgetto: budget.to,
+							budgetamount: budget.amount,
+							budgetdays: budget.days,
+					    costdays: null
 						};
+
+						var months = ['Gennaio','Febbraio','Marzo','Aprile','Maggio',
+						'Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+						// var key = budget.year + '-' + zero2.pad((moment(budget.month, "MMMM").month() + 1));
+						var key = budget.year + '-' +
+							zero2.pad((months.indexOf(budget.month) + 1));
 						map.set(key, value);
+					});
+					costs.forEach(function(cost){
+						var key = cost.anno + '-' + zero2.pad(cost.mese);
+						var value = {};
+						if (map.has(key)) {
+							value = map.get(key);
+							value.id += '-' + (cost.id + cost.mese);
+							value.costdays = cost.giornateMese;
+						} else {
+							value = {
+								id: '-' + (cost.id + cost.mese),
+								year: cost.anno,
+								month: moment.months()[cost.mese - 1],
+								budgetfrom: null,
+								budgetto: null,
+								budgetamount: null,
+								budgetdays: null,
+						    costdays: cost.giornateMese
+							};
+							map.set(key, value);
+						}
+					});
+
+					var keys = Array.from(map.keys());
+					console.log('keys: ' + keys);
+					var firstobj = map.get(keys[0]);
+					for (var field in firstobj) {
+						console.log('typeof field: ' + typeof firstobj[field]);
 					}
-				});
+					var sortedKeys = keys.sort();
+					console.log('sortedKeys: ' + sortedKeys);
+					sortedKeys.forEach(function(key){
+						var value = map.get(key);
+						console.log('m[' + key + '] = ' + JSON.stringify(value));
+						datatable.push(value);
+					});
 
-				var keys = Array.from(map.keys());
-				console.log('keys: ' + keys);
-				var firstobj = map.get(keys[0]);
-				for (var field in firstobj) {
-					console.log('typeof field: ' + typeof firstobj[field]);
 				}
-				var sortedKeys = keys.sort();
-				console.log('sortedKeys: ' + sortedKeys);
-				sortedKeys.forEach(function(key){
-					var value = map.get(key);
-					console.log('m[' + key + '] = ' + JSON.stringify(value));
-					datatable.push(value);
-				});
 
-			}
-
-			// render the table
-			tabulate(datatable,
-					['year', 'month', 'budgetfrom', 'budgetto', 'budgetamount', 'budgetdays', 'costdays']);
+				// render the table
+				tabulate(datatable,
+						['year', 'month', 'budgetfrom', 'budgetto', 'budgetamount', 'budgetdays', 'costdays']);
 
 	    }
 

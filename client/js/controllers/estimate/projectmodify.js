@@ -34,12 +34,12 @@ angular
 		    	var queryUrl = 'http://' + resourceBaseUrl + '/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + $stateParams.code;
 		    	var projectRes = $resource(queryUrl, null, {'query':  {method:'GET', isArray:true}});
 		    	projectRes.query().$promise.then(function(data) {
-					console.log('project: ' + JSON.stringify(data[0]));
+						console.log('project: ' + JSON.stringify(data[0]));
 
-					$scope.customer.id = $stateParams.customerId;
-					$scope.customer.name = $stateParams.customerName;
-					$scope.project = data[0];
-				});
+						$scope.customer.id = parseInt($stateParams.customerId);
+						$scope.customer.name = $stateParams.customerName;
+						$scope.project = data[0];
+					});
 	    }
 	    /* end loading project */
 
