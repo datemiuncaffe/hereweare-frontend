@@ -38,6 +38,25 @@ angular
 			$scope.datepickerto = datepickerto;
 			/* end datepickers */
 
+			// set budgets days
+			function setBudgetsDays() {
+				var zero2 = new Padder(2);
+				var budgetsdays = [];
+				$scope.project.budgets.forEach(function(budget){
+					if (budget.businessdays != null) {
+						var bdays = JSON.parse(budget.businessdays);
+						bdays.forEach(function(bday){
+							var budgetmonth = datepickerto._o.i18n.months.indexOf(budget.month);
+							var formattedDate = zero2.pad(bday) + '/' + zero2.pad(budgetmonth + 1) + "/" + budget.year;
+							console.log('formattedDate: ' + formattedDate);
+							budgetsdays.push(moment(formattedDate, "DD/MM/YYYY").toDate());
+						});
+					}
+				});
+				datepickerfrom.setBudgetsDays(budgetsdays);
+				datepickerto.setBudgetsDays(budgetsdays);
+			};
+
 			var holidays = [
 				{date: "XXXX-01-01",description: "capodanno"},
 				{date: "XXXX-01-06",description: "epifania"},
@@ -208,9 +227,15 @@ angular
 							}
 
 							var monthdays = 0;
+							var businessdays = [];
+							var businessdaysnum = 0;
 							weeks.forEach(function(week){
 								var days = weeksmap.get(week);
 								monthdays += days.length;
+								days.forEach(function(day){
+									businessdays[businessdaysnum] = day;
+									businessdaysnum++;
+								});
 							});
 
 							var budget = {
@@ -219,12 +244,16 @@ angular
 		    				year: budgetyear,
 	    	    		month: datepickerto._o.i18n.months[budgetmonth],
 								days: monthdays,
+								businessdays: JSON.stringify(businessdays),
 								amount: parseFloat((budgettot * (monthdays/daystot)).toFixed(2)),
 	    	    		projectId: $scope.project.id
 	    	    	};
 		    			$scope.project.budgets.push(budget);
 						});
 					});
+
+					// set budgets days
+					setBudgetsDays();
 
 	    		for (var i in $scope.project.budgets) {
 	    			console.log('budget amount: ' + $scope.project.budgets[i].amount + '; type: ' + typeof $scope.project.budgets[i].amount);
