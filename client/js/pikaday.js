@@ -315,8 +315,8 @@
         if (opts.isEndRange) {
             arr.push('is-endrange');
         }
-        if (opts.isBudgetDay) {
-            arr.push('is-selected');
+        if (opts.isBudgetDay && !opts.isSelected) {
+            arr.push('is-budgetday');
             ariaSelected = 'true';
         }
         return '<td data-day="' + opts.day + '" class="' + arr.join(' ') + '" aria-selected="' + ariaSelected + '">' +

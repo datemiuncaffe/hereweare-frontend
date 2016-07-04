@@ -40,36 +40,8 @@ angular
 						$scope.customer.name = $stateParams.customerName;
 						$scope.project = data[0];
 
-						// set business days
-						var zero2 = new Padder(2);
-						var budgetsdays = [];
-						$scope.project.budgets.forEach(function(budget){
-							if (budget.businessdays != null) {
-								var bdays = JSON.parse(budget.businessdays);
-								bdays.forEach(function(bday){
-									var budgetmonth = datepickerto._o.i18n.months.indexOf(budget.month);
-									var formattedDate = zero2.pad(bday) + '/' + zero2.pad(budgetmonth + 1) + "/" + budget.year;
-									console.log('formattedDate: ' + formattedDate);
-									budgetsdays.push(moment(formattedDate, "DD/MM/YYYY").toDate());
-								});
-							}
-						});
-						datepickerfrom.setBudgetsDays(budgetsdays);
-						datepickerto.setBudgetsDays(budgetsdays);
-
-						// check
-						// var checkday = new Date("2016", "7", "10");
-						// console.log("checkday: " + checkday.toString());
-						// console.log("businessdays: " + JSON.stringify(businessdays.toString()));
-						// businessdays.forEach(function(bday){
-						// 	var isBusinessDay = false;
-						// 	if (bday.getTime() === checkday.getTime()) {
-						// 		isBusinessDay = true;
-						// 	}
-						// 	console.log("isBusinessDay: " + isBusinessDay);
-						// });
-						// var isBusinessDay = businessdays.indexOf(checkday) >= 0 ? true : false;
-						// console.log("isBusinessDay: " + isBusinessDay);
+						// set budgets days
+						setBudgetsDays();
 
 						// set datepickers default dates
 						datepickerfrom.setDate(moment($scope.project.from, "DD/MM/YYYY").toDate());
@@ -77,6 +49,25 @@ angular
 					});
 	    }
 	    /* end loading project */
+
+			// set budgets days
+			function setBudgetsDays() {
+				var zero2 = new Padder(2);
+				var budgetsdays = [];
+				$scope.project.budgets.forEach(function(budget){
+					if (budget.businessdays != null) {
+						var bdays = JSON.parse(budget.businessdays);
+						bdays.forEach(function(bday){
+							var budgetmonth = datepickerto._o.i18n.months.indexOf(budget.month);
+							var formattedDate = zero2.pad(bday) + '/' + zero2.pad(budgetmonth + 1) + "/" + budget.year;
+							console.log('formattedDate: ' + formattedDate);
+							budgetsdays.push(moment(formattedDate, "DD/MM/YYYY").toDate());
+						});
+					}
+				});
+				datepickerfrom.setBudgetsDays(budgetsdays);
+				datepickerto.setBudgetsDays(budgetsdays);
+			};
 
 	    /* datepickers */
 			var datepickerfrom = new Pikaday({
@@ -307,7 +298,8 @@ angular
 						});
 					});
 
-					// datepickerto._o.onSelect(bdays);
+					// set budgets days
+					setBudgetsDays();
 
 	    		for (var i in $scope.project.budgets) {
 	    			console.log('budget amount: ' + $scope.project.budgets[i].amount + '; type: ' + typeof $scope.project.budgets[i].amount);
