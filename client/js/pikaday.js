@@ -315,6 +315,10 @@
         if (opts.isEndRange) {
             arr.push('is-endrange');
         }
+        if (opts.isBudgetDay) {
+            arr.push('is-selected');
+            ariaSelected = 'true';
+        }
         return '<td data-day="' + opts.day + '" class="' + arr.join(' ') + '" aria-selected="' + ariaSelected + '">' +
                  '<button class="pika-button pika-day" type="button" ' +
                     'data-pika-year="' + opts.year + '" data-pika-month="' + opts.month + '" data-pika-day="' + opts.day + '">' +
@@ -957,6 +961,30 @@
         },
 
         /**
+         * set budgets days
+         */
+        setBudgetsDays: function(budgetsdays)
+        {
+            this._budgetsdays = budgetsdays;
+        },
+
+        /**
+         * is a budget day
+         */
+        checkBudgetDay: function(day)
+        {
+          var isBudgetDay = false;
+          if (this._budgetsdays != null) {
+            this._budgetsdays.forEach(function(budgetday){
+              if (budgetday.getTime() === day.getTime()) {
+                isBudgetDay = true;
+              }
+            });
+          }
+          return isBudgetDay;
+        },
+
+        /**
          * refresh the HTML
          */
         draw: function(force)
@@ -1100,6 +1128,7 @@
                     isStartRange = opts.startRange && compareDates(opts.startRange, day),
                     isEndRange = opts.endRange && compareDates(opts.endRange, day),
                     isInRange = opts.startRange && opts.endRange && opts.startRange < day && day < opts.endRange,
+                    isBudgetDay = this.checkBudgetDay(day),
                     isDisabled = (opts.minDate && day < opts.minDate) ||
                                  (opts.maxDate && day > opts.maxDate) ||
                                  (opts.disableWeekends && isWeekend(day)) ||
@@ -1128,6 +1157,7 @@
                         isStartRange: isStartRange,
                         isEndRange: isEndRange,
                         isInRange: isInRange,
+                        isBudgetDay: isBudgetDay,
                         showDaysInNextAndPreviousMonths: opts.showDaysInNextAndPreviousMonths
                     };
 

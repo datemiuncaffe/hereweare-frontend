@@ -40,6 +40,37 @@ angular
 						$scope.customer.name = $stateParams.customerName;
 						$scope.project = data[0];
 
+						// set business days
+						var zero2 = new Padder(2);
+						var budgetsdays = [];
+						$scope.project.budgets.forEach(function(budget){
+							if (budget.businessdays != null) {
+								var bdays = JSON.parse(budget.businessdays);
+								bdays.forEach(function(bday){
+									var budgetmonth = datepickerto._o.i18n.months.indexOf(budget.month);
+									var formattedDate = zero2.pad(bday) + '/' + zero2.pad(budgetmonth + 1) + "/" + budget.year;
+									console.log('formattedDate: ' + formattedDate);
+									budgetsdays.push(moment(formattedDate, "DD/MM/YYYY").toDate());
+								});
+							}
+						});
+						datepickerfrom.setBudgetsDays(budgetsdays);
+						datepickerto.setBudgetsDays(budgetsdays);
+
+						// check
+						// var checkday = new Date("2016", "7", "10");
+						// console.log("checkday: " + checkday.toString());
+						// console.log("businessdays: " + JSON.stringify(businessdays.toString()));
+						// businessdays.forEach(function(bday){
+						// 	var isBusinessDay = false;
+						// 	if (bday.getTime() === checkday.getTime()) {
+						// 		isBusinessDay = true;
+						// 	}
+						// 	console.log("isBusinessDay: " + isBusinessDay);
+						// });
+						// var isBusinessDay = businessdays.indexOf(checkday) >= 0 ? true : false;
+						// console.log("isBusinessDay: " + isBusinessDay);
+
 						// set datepickers default dates
 						datepickerfrom.setDate(moment($scope.project.from, "DD/MM/YYYY").toDate());
 						datepickerto.setDate(moment($scope.project.to, "DD/MM/YYYY").toDate());
@@ -251,9 +282,15 @@ angular
 							}
 
 							var monthdays = 0;
+							var businessdays = [];
+							var businessdaysnum = 0;
 							weeks.forEach(function(week){
 								var days = weeksmap.get(week);
 								monthdays += days.length;
+								days.forEach(function(day){
+									businessdays[businessdaysnum] = day;
+									businessdaysnum++;
+								});
 							});
 
 							var budget = {
@@ -262,6 +299,7 @@ angular
 		    				year: budgetyear,
 	    	    		month: datepickerto._o.i18n.months[budgetmonth],
 								days: monthdays,
+								businessdays: JSON.stringify(businessdays),
 								amount: parseFloat((budgettot * (monthdays/daystot)).toFixed(2)),
 	    	    		projectId: $scope.project.id
 	    	    	};
