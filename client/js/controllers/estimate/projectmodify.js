@@ -39,6 +39,10 @@ angular
 						$scope.customer.id = parseInt($stateParams.customerId);
 						$scope.customer.name = $stateParams.customerName;
 						$scope.project = data[0];
+
+						// set datepickers default dates
+						datepickerfrom.setDate(moment($scope.project.from, "DD/MM/YYYY").toDate());
+						datepickerto.setDate(moment($scope.project.to, "DD/MM/YYYY").toDate());
 					});
 	    }
 	    /* end loading project */

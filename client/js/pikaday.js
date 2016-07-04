@@ -428,6 +428,7 @@
 
         self._onMouseDown = function(e)
         {
+          console.log('_onMouseDown');
             if (!self._v) {
                 return;
             }
@@ -884,12 +885,14 @@
         {
             this.calendars[0].month++;
             this.adjustCalendars();
+            console.log('datepicker calendars: ' + JSON.stringify(this.calendars, null, '\t'));
         },
 
         prevMonth: function()
         {
             this.calendars[0].month--;
             this.adjustCalendars();
+            console.log('datepicker calendars: ' + JSON.stringify(this.calendars, null, '\t'));
         },
 
         /**
