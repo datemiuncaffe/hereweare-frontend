@@ -1,7 +1,7 @@
 angular
 	.module("app")
-	.controller("ProjectModifyController", ['$scope', '$resource', '$q', '$stateParams', 'crud', 'resourceBaseUrl',
-	                                        function($scope, $resource, $q, $stateParams, crud, resourceBaseUrl) {
+	.controller("ProjectModifyController", ['$scope', '$resource', '$q', '$stateParams', 'crud',
+	                                        function($scope, $resource, $q, $stateParams, crud) {
 			/* entities */
 	    $scope.customer = {
 	    	name: null
@@ -28,12 +28,15 @@ angular
 	    	$stateParams.code != null && $stateParams.code.length > 0 &&
 	    	$stateParams.customerId != null && $stateParams.customerId.length > 0 &&
 				$stateParams.customerName != null && $stateParams.customerName.length > 0) {
-		    	console.log('Project code: ' + $stateParams.code +
+
+					console.log('Project code: ' + $stateParams.code +
 											'; customerId: ' + $stateParams.customerId +
 											'; customerName: ' + $stateParams.customerName);
-		    	var queryUrl = 'http://' + resourceBaseUrl + '/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + $stateParams.code;
-		    	var projectRes = $resource(queryUrl, null, {'query':  {method:'GET', isArray:true}});
-		    	projectRes.query().$promise.then(function(data) {
+		    	var projectparams = {};
+					projectparams['filter[include]'] = 'costs';
+					projectparams['filter[where][code]'] = $stateParams.code;
+
+					crud.getProject(projectparams).then(function(data) {
 						console.log('project: ' + JSON.stringify(data[0]));
 
 						$scope.customer.id = parseInt($stateParams.customerId);

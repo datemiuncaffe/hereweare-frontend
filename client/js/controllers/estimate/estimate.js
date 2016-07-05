@@ -1,7 +1,7 @@
 angular
 	.module("app")
-	.controller("EstimateController", ['$scope', '$resource', '$q', 'crud', '$window', '$log', 'resourceBaseUrl',
-																		function($scope, $resource, $q, crud, $window, $log, resourceBaseUrl) {
+	.controller("EstimateController", ['$scope', '$resource', '$q', 'crud', '$window', '$log',
+																		function($scope, $resource, $q, crud, $window, $log) {
 		$scope.customers = null;
 		$scope.selectedCustomer = null;
 		$scope.selectedProject = null;
@@ -12,9 +12,7 @@ angular
 		])
 		.then(
 			function(data) {
-//				console.log('data: ' + JSON.stringify(data));
 				var customers = data[0];
-//				console.log('customers: ' + JSON.stringify(customers));
 				$scope.customers = customers;
 				$scope.selectedCustomer = customers[0];
 				$scope.selectedProject = $scope.selectedCustomer.projects[0];
@@ -27,18 +25,14 @@ angular
 	    		selectedProject.code != null && selectedProject.code.length > 0) {
 	    		console.log('Project code: ' + selectedProject.code);
 
-	    		// query urls
-	    		var queryBudgets = 'http://' + resourceBaseUrl + '/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + selectedProject.code;
-	    		$log.log('queryBudgets: ' + queryBudgets);
-	    		var budgetRes = $resource(queryBudgets, null, {'query':  {method:'GET', isArray:true}});
-	    		var queryCosts = 'http://' + resourceBaseUrl + '/query_costs?projectCode=' + selectedProject.code;
-	    		$log.log('queryCosts: ' + queryCosts);
-	    		var costRes = $resource(queryCosts, null, {'query':  {method:'GET', isArray:true}});
+					var budgetparams = {};
+					budgetparams['filter[include]'] = 'budgets';
+					budgetparams['filter[where][code]'] = selectedProject.code;
 
-	    		// perform queries
+					// perform queries
 	    		$q.all([
-			      budgetRes.query().$promise,
-			      costRes.query().$promise
+			      crud.getBudgets(budgetparams),
+			      crud.getCosts({projectCode: selectedProject.code})
 					])
 					.then(
 						function(data) {
@@ -48,7 +42,6 @@ angular
 		};
 
 		function showData(data) {
-//	    	console.log('data: ' + JSON.stringify(data, null, '\t'));
 			var budgets = data[0][0].budgets;
 			console.log('budgets: ' + JSON.stringify(budgets, null, '\t'));
 			var costs = data[1];

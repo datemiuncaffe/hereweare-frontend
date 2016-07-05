@@ -1,7 +1,7 @@
 angular
 	.module("app")
-	.controller("ProjectDetailController", ['$scope', '$window', '$log', '$resource', '$q', '$stateParams', 'resourceBaseUrl',
-	                                        function($scope, $window, $log, $resource, $q, $stateParams, resourceBaseUrl) {
+	.controller("ProjectDetailController", ['$scope', '$window', '$log', '$resource', '$q', '$stateParams', 'crud',
+	                                        function($scope, $window, $log, $resource, $q, $stateParams, crud) {
     /* entities */
     $scope.customer = {
     	name: null
@@ -53,18 +53,14 @@ angular
 			$scope.customer.id = $stateParams.customerId;
 			$scope.customer.name = $stateParams.customerName;
 
-    	// query urls
-    	var queryBudgets = 'http://' + resourceBaseUrl + '/api/projects?filter[include]=budgets&filter[include]=costs&filter[where][code]=' + $stateParams.code;
-    	$log.log('queryBudgets: ' + queryBudgets);
-    	var budgetRes = $resource(queryBudgets, null, {'query':  {method:'GET', isArray:true}});
-    	var queryCosts = 'http://' + resourceBaseUrl + '/query_costs?projectCode=' + $stateParams.code;
-    	$log.log('queryCosts: ' + queryCosts);
-    	var costRes = $resource(queryCosts, null, {'query':  {method:'GET', isArray:true}});
+    	var budgetparams = {};
+			budgetparams['filter[include]'] = 'budgets';
+			budgetparams['filter[where][code]'] = $stateParams.code;
 
     	// perform queries
     	$q.all([
-		      budgetRes.query().$promise,
-		      costRes.query().$promise
+					crud.getBudgets(budgetparams),
+					crud.getCosts({projectCode: $stateParams.code})
 				])
 				.then(
 					function(data) {

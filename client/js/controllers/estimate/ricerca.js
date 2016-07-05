@@ -30,13 +30,11 @@ angular
 			return {name: str};
 		};
 
-		var projectsRes = $resource('http://' + resourceBaseUrl + '/api/customers/:id?filter[include]=projects', null, {'query':  {method:'GET'}});
-
 		$scope.search = function(selectedCustomer) {
 			console.log('selectedCustomer: ' + JSON.stringify(selectedCustomer, null, '\t'));
 			if (selectedCustomer != null && selectedCustomer.id != null && selectedCustomer.id > 0) {
 				console.log('searching for selectedCustomer id = ' + selectedCustomer.id);
-				projectsRes.query({ id: selectedCustomer.id }).$promise.then(function(data) {
+				crud.getProjectById({ id: selectedCustomer.id }).then(function(data) {
 					console.log('data: ' + JSON.stringify(data));
 					// render the table
 					tabulate(data.projects,
