@@ -12,9 +12,7 @@ angular
 			])
 			.then(
 				function(data) {
-	//				console.log('data: ' + JSON.stringify(data));
 					var customers = data[0];
-	//				console.log('customers: ' + JSON.stringify(customers));
 					$scope.customers = customers;
 					$scope.selectedCustomer = customers[0];
 				});

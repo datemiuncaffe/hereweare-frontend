@@ -37,30 +37,49 @@ angular
 			};
 		}
 
-		console.log('$stateParams.code: ' + $stateParams.code);
 		console.log('$stateParams.customerId: ' + $stateParams.customerId);
 		console.log('$stateParams.customerName: ' + $stateParams.customerName);
 
+		if ($stateParams.customerId != null && $stateParams.customerId > 0) {
+			$scope.customer.id = $stateParams.customerId;
+		}
+		if ($stateParams.customerName != null && $stateParams.customerName.length > 0) {
+			$scope.customer.name = $stateParams.customerName;
+		}
+
+		if ($stateParams.projectId != null && $stateParams.projectId > 0) {
+			$scope.project.id = $stateParams.projectId;
+		}
+		if ($stateParams.projectName != null && $stateParams.projectName.length > 0) {
+			$scope.project.name = $stateParams.projectName;
+		}
+		if ($stateParams.projectBudgettot != null && $stateParams.projectBudgettot > 0) {
+			$scope.project.budgettot = $stateParams.projectBudgettot;
+		}
+		if ($stateParams.projectDaystot != null && $stateParams.projectDaystot > 0) {
+			$scope.project.daystot = $stateParams.projectDaystot;
+		}
+		if ($stateParams.projectFrom != null && $stateParams.projectFrom.length > 0) {
+			$scope.project.from = $stateParams.projectFrom;
+		}
+		if ($stateParams.projectTo != null && $stateParams.projectTo.length > 0) {
+			$scope.project.to = $stateParams.projectTo;
+		}
+
     /* loading data */
     if ($stateParams != null &&
-    	$stateParams.code != null && $stateParams.code.length > 0 &&
-			$stateParams.customerId != null && $stateParams.customerId.length > 0 &&
-			$stateParams.customerName != null && $stateParams.customerName.length > 0) {
-	    	console.log('Project code: ' + $stateParams.code +
-										'; customerId: ' + $stateParams.customerId +
-										'; customerName: ' + $stateParams.customerName);
-
-			$scope.customer.id = $stateParams.customerId;
-			$scope.customer.name = $stateParams.customerName;
+    		$stateParams.projectCode != null && $stateParams.projectCode.length > 0) {
+	    console.log('Project code: ' + $stateParams.projectCode);
+			$scope.project.code = $stateParams.projectCode;
 
     	var budgetparams = {};
 			budgetparams['filter[include]'] = 'budgets';
-			budgetparams['filter[where][code]'] = $stateParams.code;
+			budgetparams['filter[where][code]'] = $stateParams.projectCode;
 
     	// perform queries
     	$q.all([
 					crud.getBudgets(budgetparams),
-					crud.getCosts({projectCode: $stateParams.code})
+					crud.getCosts({projectCode: $stateParams.projectCode})
 				])
 				.then(
 					function(data) {
@@ -69,83 +88,85 @@ angular
     }
     /* end loading data */
 
-	    function showData(data) {
-//	    	console.log('data: ' + JSON.stringify(data, null, '\t'));
-	    	$scope.project = data[0][0];
-
-				var budgets = data[0][0].budgets;
+    function showData(data) {
+			var budgets = [];
+			if (data[0].length > 0 && data[0][0].budgets != null) {
+				budgets = data[0][0].budgets;
 				console.log('budgets: ' + JSON.stringify(budgets, null, '\t'));
-				var costs = data[1];
+			}
+			var costs = [];
+			if (data[1].length > 0) {
+				costs = data[1];
 				console.log('costs: ' + JSON.stringify(costs, null, '\t'));
+			}
 
-				// prepare data for table
-				var datatable = [];
-				if ((budgets != null && budgets.length > 0) ||
-					(costs != null && costs.length > 0)) {
-					var zero2 = new Padder(2);
-					var map = new Map();
-					budgets.forEach(function(budget){
-						var value = {
-							id: budget.id,
-							year: budget.year,
-							month: budget.month,
-							budgetfrom: budget.from,
-							budgetto: budget.to,
-							budgetamount: budget.amount,
-							budgetdays: budget.days,
-					    costdays: null
+			// prepare data for table
+			var datatable = [];
+			if (budgets.length > 0 || costs.length > 0) {
+				var zero2 = new Padder(2);
+				var map = new Map();
+				budgets.forEach(function(budget){
+					var value = {
+						id: budget.id,
+						year: budget.year,
+						month: budget.month,
+						budgetfrom: budget.from,
+						budgetto: budget.to,
+						budgetamount: budget.amount,
+						budgetdays: budget.days,
+				    costdays: null
+					};
+
+					var months = ['Gennaio','Febbraio','Marzo','Aprile','Maggio',
+					'Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+					// var key = budget.year + '-' + zero2.pad((moment(budget.month, "MMMM").month() + 1));
+					var key = budget.year + '-' +
+						zero2.pad((months.indexOf(budget.month) + 1));
+					map.set(key, value);
+				});
+				costs.forEach(function(cost){
+					var key = cost.anno + '-' + zero2.pad(cost.mese);
+					var value = {};
+					if (map.has(key)) {
+						value = map.get(key);
+						value.id += '-' + (cost.id + cost.mese);
+						value.costdays = cost.giornateMese;
+					} else {
+						value = {
+							id: '-' + (cost.id + cost.mese),
+							year: cost.anno,
+							month: moment.months()[cost.mese - 1],
+							budgetfrom: null,
+							budgetto: null,
+							budgetamount: null,
+							budgetdays: null,
+					    costdays: cost.giornateMese
 						};
-
-						var months = ['Gennaio','Febbraio','Marzo','Aprile','Maggio',
-						'Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
-						// var key = budget.year + '-' + zero2.pad((moment(budget.month, "MMMM").month() + 1));
-						var key = budget.year + '-' +
-							zero2.pad((months.indexOf(budget.month) + 1));
 						map.set(key, value);
-					});
-					costs.forEach(function(cost){
-						var key = cost.anno + '-' + zero2.pad(cost.mese);
-						var value = {};
-						if (map.has(key)) {
-							value = map.get(key);
-							value.id += '-' + (cost.id + cost.mese);
-							value.costdays = cost.giornateMese;
-						} else {
-							value = {
-								id: '-' + (cost.id + cost.mese),
-								year: cost.anno,
-								month: moment.months()[cost.mese - 1],
-								budgetfrom: null,
-								budgetto: null,
-								budgetamount: null,
-								budgetdays: null,
-						    costdays: cost.giornateMese
-							};
-							map.set(key, value);
-						}
-					});
-
-					var keys = Array.from(map.keys());
-					console.log('keys: ' + keys);
-					var firstobj = map.get(keys[0]);
-					for (var field in firstobj) {
-						console.log('typeof field: ' + typeof firstobj[field]);
 					}
-					var sortedKeys = keys.sort();
-					console.log('sortedKeys: ' + sortedKeys);
-					sortedKeys.forEach(function(key){
-						var value = map.get(key);
-						console.log('m[' + key + '] = ' + JSON.stringify(value));
-						datatable.push(value);
-					});
+				});
 
+				var keys = Array.from(map.keys());
+				console.log('keys: ' + keys);
+				var firstobj = map.get(keys[0]);
+				for (var field in firstobj) {
+					console.log('typeof field: ' + typeof firstobj[field]);
 				}
+				var sortedKeys = keys.sort();
+				console.log('sortedKeys: ' + sortedKeys);
+				sortedKeys.forEach(function(key){
+					var value = map.get(key);
+					console.log('m[' + key + '] = ' + JSON.stringify(value));
+					datatable.push(value);
+				});
 
-				// render the table
-				tabulate(datatable,
-						['year', 'month', 'budgetfrom', 'budgetto', 'budgetamount', 'budgetdays', 'costdays']);
+			}
 
-	    }
+			// render the table
+			tabulate(datatable,
+					['year', 'month', 'budgetfrom', 'budgetto', 'budgetamount', 'budgetdays', 'costdays']);
+
+    }
 
     var table = d3.select("div.search_results").append("table"),
    		thead = table.append("thead"),
@@ -297,7 +318,10 @@ angular
 
 			var url = 'http://' + $window.location.host + '/#/projectmodify' +
 					'?customerId=' + $scope.customer.id + '&customerName=' + $scope.customer.name +
-					'&code=' + $scope.project.code;
+					'&projectId=' + $scope.project.id +
+					'&projectCode=' + $scope.project.code + '&projectName=' + $scope.project.name +
+					'&projectBudgettot=' + $scope.project.budgettot + '&projectDaystot=' + $scope.project.daystot +
+					'&projectFrom=' + $scope.project.from + '&projectTo=' + $scope.project.to;
 	    $log.log(url);
 	    $window.location.href = url;
 		};

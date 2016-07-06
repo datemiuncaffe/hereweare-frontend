@@ -1,6 +1,6 @@
 angular
 	.module("app")
-	.controller("EstimateController", ['$scope', '$resource', '$q', 'crud', '$window', '$log',
+	.controller("OverviewController", ['$scope', '$resource', '$q', 'crud', '$window', '$log',
 																		function($scope, $resource, $q, crud, $window, $log) {
 		$scope.customers = null;
 		$scope.selectedCustomer = null;
@@ -8,14 +8,14 @@ angular
 
     $q
 		.all([
-		    crud.getCustomersAndProjects()
+		    crud.getCustomers()
 		])
 		.then(
 			function(data) {
 				var customers = data[0];
 				$scope.customers = customers;
 				$scope.selectedCustomer = customers[0];
-				$scope.selectedProject = $scope.selectedCustomer.projects[0];
+				$scope.searchProjects($scope.selectedCustomer);
 				loadingProject($scope.selectedProject);
 			});
 
@@ -42,15 +42,20 @@ angular
 		};
 
 		function showData(data) {
-			var budgets = data[0][0].budgets;
-			console.log('budgets: ' + JSON.stringify(budgets, null, '\t'));
-			var costs = data[1];
-			console.log('costs: ' + JSON.stringify(costs, null, '\t'));
+			var budgets = [];
+			if (data[0].length > 0 && data[0][0].budgets != null) {
+				budgets = data[0][0].budgets;
+				console.log('budgets: ' + JSON.stringify(budgets, null, '\t'));
+			}
+			var costs = [];
+			if (data[1].length > 0) {
+				costs = data[1];
+				console.log('costs: ' + JSON.stringify(costs, null, '\t'));
+			}
 
 			// prepare data for table
 			var datatable = [];
-			if ((budgets != null && budgets.length > 0) ||
-					(costs != null && costs.length > 0)) {
+			if (budgets.length > 0 || costs.length > 0) {
 						var zero2 = new Padder(2);
 						var map = new Map();
 						budgets.forEach(function(budget){
@@ -255,14 +260,23 @@ angular
 			return filteredrows;
 		}
 
+		$scope.searchProjects = function(selectedCustomer) {
+			console.log('selectedCustomer: ' + JSON.stringify(selectedCustomer, null, '\t'));
+			if (selectedCustomer != null && selectedCustomer.id != null && selectedCustomer.id > 0) {
+				console.log('searching for selectedCustomer id = ' + selectedCustomer.id);
+				crud.getProjectsByCustomerId({ customerId: selectedCustomer.id }).then(function(data) {
+					console.log('data: ' + JSON.stringify(data));
+					$scope.selectedCustomer.projects = data;
+					$scope.selectedProject = data[0];
+				});
+			}
+		};
+
 		$scope.onCustomerChange = function(selectedCustomer) {
-			if (selectedCustomer != null &&
-					selectedCustomer.projects != null &&
-					selectedCustomer.projects.length > 0) {
-						console.log('selectedCustomer.projects: ' + selectedCustomer.projects);
-						$scope.selectedProject = selectedCustomer.projects[0];
-						loadingProject($scope.selectedProject);
-					}
+			if (selectedCustomer != null) {
+				$scope.searchProjects(selectedCustomer);
+				loadingProject($scope.selectedProject);
+			}
 	  };
 
 		$scope.onProjectChange = function(selectedProject) {

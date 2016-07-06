@@ -10,12 +10,12 @@ angular
   ])
   .config(['$stateProvider', '$urlRouterProvider', '$provide', function($stateProvider, $urlRouterProvider, $provide) {
       $stateProvider
-      .state('estimate', {
-        url: '/estimate',
+      .state('overview', {
+        url: '/overview',
         views:{
-          'estimateview': {
-              templateUrl: 'views/estimate/estimate.html',
-              controller: 'EstimateController'
+          'overviewview': {
+              templateUrl: 'views/estimate/overview.html',
+              controller: 'OverviewController'
            }
         }
       })
@@ -38,7 +38,7 @@ angular
         }
       })
       .state('projectdetail', {
-        url: '/projectdetail?customerId&customerName&code',
+        url: '/projectdetail?customerId&customerName&projectId&projectName&projectCode&projectBudgettot&projectDaystot&projectFrom&projectTo',
         views:{
           'projectdetailview': {
               templateUrl: 'views/estimate/projectdetail.html',
@@ -47,7 +47,7 @@ angular
         }
       })
       .state('projectmodify', {
-        url: '/projectmodify?customerId&customerName&code',
+        url: '/projectmodify?customerId&customerName&projectId&projectName&projectCode&projectBudgettot&projectDaystot&projectFrom&projectTo',
         views:{
           'projectmodifyview': {
               templateUrl: 'views/estimate/projectmodify.html',
@@ -110,7 +110,7 @@ angular
 		}
       });
 
-      $urlRouterProvider.otherwise('estimate');
+      $urlRouterProvider.otherwise('overview');
 
       $provide.value('resourceBaseUrl', '$resourceBaseUrl$');
   }]);

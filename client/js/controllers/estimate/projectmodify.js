@@ -23,32 +23,58 @@ angular
 			console.log('$stateParams.customerId: ' + $stateParams.customerId);
 			console.log('$stateParams.customerName: ' + $stateParams.customerName);
 
+			if ($stateParams.customerId != null && $stateParams.customerId > 0) {
+				$scope.customer.id = $stateParams.customerId;
+			}
+			if ($stateParams.customerName != null && $stateParams.customerName.length > 0) {
+				$scope.customer.name = $stateParams.customerName;
+			}
+
+			if ($stateParams.projectId != null && $stateParams.projectId > 0) {
+				$scope.project.id = $stateParams.projectId;
+			}
+			if ($stateParams.projectName != null && $stateParams.projectName.length > 0) {
+				$scope.project.name = $stateParams.projectName;
+			}
+			if ($stateParams.projectBudgettot != null && $stateParams.projectBudgettot > 0) {
+				$scope.project.budgettot = $stateParams.projectBudgettot;
+			}
+			if ($stateParams.projectDaystot != null && $stateParams.projectDaystot > 0) {
+				$scope.project.daystot = $stateParams.projectDaystot;
+			}
+			if ($stateParams.projectFrom != null && $stateParams.projectFrom.length > 0) {
+				$scope.project.from = $stateParams.projectFrom;
+			}
+			if ($stateParams.projectTo != null && $stateParams.projectTo.length > 0) {
+				$scope.project.to = $stateParams.projectTo;
+			}
+
 	    /* loading project */
 	    if ($stateParams != null &&
-	    	$stateParams.code != null && $stateParams.code.length > 0 &&
-	    	$stateParams.customerId != null && $stateParams.customerId.length > 0 &&
-				$stateParams.customerName != null && $stateParams.customerName.length > 0) {
+	    	$stateParams.projectCode != null && $stateParams.projectCode.length > 0) {
+					console.log('Project code: ' + $stateParams.projectCode);
+					$scope.project.code = $stateParams.projectCode;
 
-					console.log('Project code: ' + $stateParams.code +
-											'; customerId: ' + $stateParams.customerId +
-											'; customerName: ' + $stateParams.customerName);
 		    	var projectparams = {};
-					projectparams['filter[include]'] = 'costs';
-					projectparams['filter[where][code]'] = $stateParams.code;
+					projectparams['filter[include]'] = 'budgets';
+					projectparams['filter[where][code]'] = $stateParams.projectCode;
 
 					crud.getProject(projectparams).then(function(data) {
-						console.log('project: ' + JSON.stringify(data[0]));
-
-						$scope.customer.id = parseInt($stateParams.customerId);
-						$scope.customer.name = $stateParams.customerName;
-						$scope.project = data[0];
-
-						// set budgets days
-						setBudgetsDays();
-
+						if (data != null && data.length > 0) {
+							console.log('project: ' + JSON.stringify(data[0]));
+							if (data[0].budgets.length > 0) {
+								$scope.project.budgets = data[0].budgets;
+								// set budgets days
+								setBudgetsDays();
+							}
+						}
 						// set datepickers default dates
-						datepickerfrom.setDate(moment($scope.project.from, "DD/MM/YYYY").toDate());
-						datepickerto.setDate(moment($scope.project.to, "DD/MM/YYYY").toDate());
+						if ($scope.project.from != null) {
+							datepickerfrom.setDate(moment($scope.project.from, "DD/MM/YYYY").toDate());
+						}
+						if ($scope.project.to != null) {
+							datepickerto.setDate(moment($scope.project.to, "DD/MM/YYYY").toDate());
+						}
 					});
 	    }
 	    /* end loading project */

@@ -10,7 +10,7 @@
     <!-- Bootstrap -->
     <link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
-    <link href="css/estimate.css" rel="stylesheet">
+    <link href="css/overview.css" rel="stylesheet">
     <link href="css/ricerca.css" rel="stylesheet">
     <link href="css/projectcreate.css" rel="stylesheet">
     <link href="css/projectdetail.css" rel="stylesheet">
@@ -45,7 +45,7 @@
     <script src="js/app.js"></script>
     <script src="js/pikaday.js"></script>
     <script src="js/directives/calendar.js"></script>
-    <script src="js/controllers/estimate/estimate.js"></script>
+    <script src="js/controllers/estimate/overview.js"></script>
     <script src="js/controllers/estimate/ricerca.js"></script>
     <script src="js/controllers/estimate/projectcreate.js"></script>
     <script src="js/controllers/estimate/projectdetail.js"></script>
@@ -62,7 +62,7 @@
     <div class="headers" role="navigation">
       <div class="headers-container">
         <div>
-          <a ui-sref="estimate">Overview</a>
+          <a ui-sref="overview">Overview</a>
         </div>
         <div>
           <a ui-sref="oremese">Ore mese</a>
@@ -88,18 +88,18 @@
     <div class="bodycontent">
       <div class="menuvert">
       	<p>
-      		<a ui-sref="estimate">Overview</a>
+      		<a ui-sref="overview">Overview</a>
       	</p>
       	<p>
       		<a ui-sref="ricerca">Ricerca progetto</a>
       	</p>
-      	<p>
+      	<!--p>
       		<a ui-sref="projectcreate">Nuovo progetto</a>
-      	</p>
+      	</p-->
       </div>
 
       <div class="centerpage">
-        <div ui-view="estimateview" class="calendar"></div>
+        <div ui-view="overviewview" class="calendar"></div>
         <div ui-view="ricercaview"></div>
         <div ui-view="projectcreateview"></div>
         <div ui-view="projectdetailview"></div>
