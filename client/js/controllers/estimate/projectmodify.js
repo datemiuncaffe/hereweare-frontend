@@ -102,19 +102,19 @@ angular
 
 			function showData(data) {
 				if (data[0] != null) {
-					if (data[0].projectBudgettot != null && data[0].projectBudgettot > 0) {
-						$scope.project.budgettot = data[0].projectBudgettot;
+					if (data[0].budgettot != null && data[0].budgettot > 0) {
+						$scope.project.budgettot = data[0].budgettot;
 					}
-					if (data[0].projectDaystot != null && data[0].projectDaystot > 0) {
-						$scope.project.daystot = data[0].projectDaystot;
+					if (data[0].daystot != null && data[0].daystot > 0) {
+						$scope.project.daystot = data[0].daystot;
 					}
-					if (data[0].projectFrom != null && data[0].projectFrom.length > 0) {
-						$scope.project.from = data[0].projectFrom;
+					if (data[0].from != null && data[0].from.length > 0) {
+						$scope.project.from = data[0].from;
 						// set datepickers default dates
 						datepickerfrom.setDate(moment($scope.project.from, "DD/MM/YYYY").toDate());
 					}
-					if (data[0].projectTo != null && data[0].projectTo.length > 0) {
-						$scope.project.to = data[0].projectTo;
+					if (data[0].to != null && data[0].to.length > 0) {
+						$scope.project.to = data[0].to;
 						// set datepickers default dates
 						datepickerto.setDate(moment($scope.project.to, "DD/MM/YYYY").toDate());
 					}
