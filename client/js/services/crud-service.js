@@ -39,7 +39,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
       GET: {
         LOCAL: {
           getCustomersAndProjects:	$resource(queries.GET.LOCAL.getCustomersAndProjects, null, {'query':  {method:'GET', isArray:true}}),
-          getBudgets: $resource(queries.GET.LOCAL.getBudgets, null, {'query':  {method:'GET', isArray:true}})
+          getBudgets: $resource(queries.GET.LOCAL.getBudgets, null, {'query':  {method:'GET'}})
         },
         EHOUR: {
           getCustomers:	$resource(queries.GET.EHOUR.getCustomers, null, {'query':  {method:'GET', isArray:true}}),

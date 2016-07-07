@@ -101,25 +101,25 @@ angular
 	    /* end loading data */
 
 			function showData(data) {
-				if (data[0][0] != null) {
-					if (data[0][0].projectBudgettot != null && data[0][0].projectBudgettot > 0) {
-						$scope.project.budgettot = data[0][0].projectBudgettot;
+				if (data[0] != null) {
+					if (data[0].projectBudgettot != null && data[0].projectBudgettot > 0) {
+						$scope.project.budgettot = data[0].projectBudgettot;
 					}
-					if (data[0][0].projectDaystot != null && data[0][0].projectDaystot > 0) {
-						$scope.project.daystot = data[0][0].projectDaystot;
+					if (data[0].projectDaystot != null && data[0].projectDaystot > 0) {
+						$scope.project.daystot = data[0].projectDaystot;
 					}
-					if (data[0][0].projectFrom != null && data[0][0].projectFrom.length > 0) {
-						$scope.project.from = data[0][0].projectFrom;
+					if (data[0].projectFrom != null && data[0].projectFrom.length > 0) {
+						$scope.project.from = data[0].projectFrom;
 						// set datepickers default dates
 						datepickerfrom.setDate(moment($scope.project.from, "DD/MM/YYYY").toDate());
 					}
-					if (data[0][0].projectTo != null && data[0][0].projectTo.length > 0) {
-						$scope.project.to = data[0][0].projectTo;
+					if (data[0].projectTo != null && data[0].projectTo.length > 0) {
+						$scope.project.to = data[0].projectTo;
 						// set datepickers default dates
 						datepickerto.setDate(moment($scope.project.to, "DD/MM/YYYY").toDate());
 					}
-					if (data[0][0].budgets != null) {
-						$scope.project.budgets = data[0][0].budgets;
+					if (data[0].budgets != null) {
+						$scope.project.budgets = data[0].budgets;
 						// set budgets days
 						setBudgetsDays();
 						console.log('budgets: ' + JSON.stringify($scope.project.budgets, null, '\t'));
