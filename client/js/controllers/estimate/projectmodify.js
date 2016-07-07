@@ -19,86 +19,7 @@ angular
 	    };
 	    /* end entities */
 
-			console.log('$stateParams.code: ' + $stateParams.code);
-			console.log('$stateParams.customerId: ' + $stateParams.customerId);
-			console.log('$stateParams.customerName: ' + $stateParams.customerName);
-
-			if ($stateParams.customerId != null && $stateParams.customerId > 0) {
-				$scope.customer.id = $stateParams.customerId;
-			}
-			if ($stateParams.customerName != null && $stateParams.customerName.length > 0) {
-				$scope.customer.name = $stateParams.customerName;
-			}
-
-			if ($stateParams.projectId != null && $stateParams.projectId > 0) {
-				$scope.project.id = $stateParams.projectId;
-			}
-			if ($stateParams.projectName != null && $stateParams.projectName.length > 0) {
-				$scope.project.name = $stateParams.projectName;
-			}
-			if ($stateParams.projectBudgettot != null && $stateParams.projectBudgettot > 0) {
-				$scope.project.budgettot = $stateParams.projectBudgettot;
-			}
-			if ($stateParams.projectDaystot != null && $stateParams.projectDaystot > 0) {
-				$scope.project.daystot = $stateParams.projectDaystot;
-			}
-			if ($stateParams.projectFrom != null && $stateParams.projectFrom.length > 0) {
-				$scope.project.from = $stateParams.projectFrom;
-			}
-			if ($stateParams.projectTo != null && $stateParams.projectTo.length > 0) {
-				$scope.project.to = $stateParams.projectTo;
-			}
-
-	    /* loading project */
-	    if ($stateParams != null &&
-	    	$stateParams.projectCode != null && $stateParams.projectCode.length > 0) {
-					console.log('Project code: ' + $stateParams.projectCode);
-					$scope.project.code = $stateParams.projectCode;
-
-		    	var projectparams = {};
-					projectparams['filter[include]'] = 'budgets';
-					projectparams['filter[where][code]'] = $stateParams.projectCode;
-
-					crud.getProject(projectparams).then(function(data) {
-						if (data != null && data.length > 0) {
-							console.log('project: ' + JSON.stringify(data[0]));
-							if (data[0].budgets.length > 0) {
-								$scope.project.budgets = data[0].budgets;
-								// set budgets days
-								setBudgetsDays();
-							}
-						}
-						// set datepickers default dates
-						if ($scope.project.from != null) {
-							datepickerfrom.setDate(moment($scope.project.from, "DD/MM/YYYY").toDate());
-						}
-						if ($scope.project.to != null) {
-							datepickerto.setDate(moment($scope.project.to, "DD/MM/YYYY").toDate());
-						}
-					});
-	    }
-	    /* end loading project */
-
-			// set budgets days
-			function setBudgetsDays() {
-				var zero2 = new Padder(2);
-				var budgetsdays = [];
-				$scope.project.budgets.forEach(function(budget){
-					if (budget.businessdays != null) {
-						var bdays = JSON.parse(budget.businessdays);
-						bdays.forEach(function(bday){
-							var budgetmonth = datepickerto._o.i18n.months.indexOf(budget.month);
-							var formattedDate = zero2.pad(bday) + '/' + zero2.pad(budgetmonth + 1) + "/" + budget.year;
-							console.log('formattedDate: ' + formattedDate);
-							budgetsdays.push(moment(formattedDate, "DD/MM/YYYY").toDate());
-						});
-					}
-				});
-				datepickerfrom.setBudgetsDays(budgetsdays);
-				datepickerto.setBudgetsDays(budgetsdays);
-			};
-
-	    /* datepickers */
+			/* datepickers */
 			var datepickerfrom = new Pikaday({
 				field : document.getElementById('datepickerfrom'),
 				firstDay : 1,
@@ -131,6 +52,99 @@ angular
 			$scope.datepickerfrom = datepickerfrom;
 			$scope.datepickerto = datepickerto;
 			/* end datepickers */
+
+			console.log('$stateParams.customerId: ' + $stateParams.customerId);
+			console.log('$stateParams.customerName: ' + $stateParams.customerName);
+
+			if ($stateParams.customerId != null && $stateParams.customerId > 0) {
+				$scope.customer.id = parseInt($stateParams.customerId);
+			}
+			if ($stateParams.customerName != null && $stateParams.customerName.length > 0) {
+				$scope.customer.name = $stateParams.customerName;
+			}
+
+			if ($stateParams.projectId != null && $stateParams.projectId > 0) {
+				$scope.project.id = parseInt($stateParams.projectId);
+			}
+			if ($stateParams.projectName != null && $stateParams.projectName.length > 0) {
+				$scope.project.name = $stateParams.projectName;
+			}
+			if ($stateParams.projectCode != null && $stateParams.projectCode.length > 0) {
+				$scope.project.code = $stateParams.projectCode;
+			}
+
+			/* loading data */
+	    if ($scope.project.id != null && $scope.project.id > 0) {
+	    	var projectId = {id:$scope.project.id};
+	    	// perform queries
+	    	$q.all([
+					crud.getBudgets(projectId)
+							.then(function(res){
+								console.log('success res: ' + JSON.stringify(res, null, '\t'));
+								return res;
+							}, function(error){
+								var res = {
+									status: error.status,
+									statusText: error.statusText
+								}
+								console.log('error: ' + JSON.stringify(res, null, '\t'));
+								return res;
+							})
+				])
+				.then(function(data) {
+					console.log('data: ' + JSON.stringify(data, null, '\t'));
+					showData(data);
+				}, function(error){
+					console.log('error: ' + JSON.stringify(error, null, '\t'));
+				});
+	    }
+	    /* end loading data */
+
+			function showData(data) {
+				if (data[0][0] != null) {
+					if (data[0][0].projectBudgettot != null && data[0][0].projectBudgettot > 0) {
+						$scope.project.budgettot = data[0][0].projectBudgettot;
+					}
+					if (data[0][0].projectDaystot != null && data[0][0].projectDaystot > 0) {
+						$scope.project.daystot = data[0][0].projectDaystot;
+					}
+					if (data[0][0].projectFrom != null && data[0][0].projectFrom.length > 0) {
+						$scope.project.from = data[0][0].projectFrom;
+						// set datepickers default dates
+						datepickerfrom.setDate(moment($scope.project.from, "DD/MM/YYYY").toDate());
+					}
+					if (data[0][0].projectTo != null && data[0][0].projectTo.length > 0) {
+						$scope.project.to = data[0][0].projectTo;
+						// set datepickers default dates
+						datepickerto.setDate(moment($scope.project.to, "DD/MM/YYYY").toDate());
+					}
+					if (data[0][0].budgets != null) {
+						$scope.project.budgets = data[0][0].budgets;
+						// set budgets days
+						setBudgetsDays();
+						console.log('budgets: ' + JSON.stringify($scope.project.budgets, null, '\t'));
+					}
+				}
+			};
+
+			// set budgets days
+			function setBudgetsDays() {
+				var zero2 = new Padder(2);
+				var budgetsdays = [];
+				$scope.project.budgets.forEach(function(budget){
+					if (budget.businessdays != null) {
+						var bdays = JSON.parse(budget.businessdays);
+						bdays.forEach(function(bday){
+							var budgetmonth = datepickerto._o.i18n.months.indexOf(budget.month);
+							var formattedDate = zero2.pad(bday) + '/' + zero2.pad(budgetmonth + 1) + "/" + budget.year;
+							console.log('formattedDate: ' + formattedDate);
+							budgetsdays.push(moment(formattedDate, "DD/MM/YYYY").toDate());
+						});
+					}
+				});
+				datepickerfrom.setBudgetsDays(budgetsdays);
+				datepickerto.setBudgetsDays(budgetsdays);
+			};
 
 			var holidays = [
 				{date: "XXXX-01-01",description: "capodanno"},

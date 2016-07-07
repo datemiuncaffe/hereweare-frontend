@@ -10,11 +10,10 @@
     <!-- Bootstrap -->
     <link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
-    <link href="css/overview.css" rel="stylesheet">
-    <link href="css/ricerca.css" rel="stylesheet">
-    <link href="css/projectcreate.css" rel="stylesheet">
-    <link href="css/projectdetail.css" rel="stylesheet">
-    <link href="css/projectmodify.css" rel="stylesheet">
+    <link href="css/estimate/overview.css" rel="stylesheet">
+    <link href="css/estimate/ricerca.css" rel="stylesheet">
+    <link href="css/estimate/projectdetail.css" rel="stylesheet">
+    <link href="css/estimate/projectmodify.css" rel="stylesheet">
     <link href="vendor/ng-table/dist/ng-table.css" rel="stylesheet">
     <link href="vendor/angucomplete-alt/angucomplete-alt.css" rel="stylesheet">
     <link href="css/calendar/angular.css" rel="stylesheet" type="text/css">
@@ -47,7 +46,6 @@
     <script src="js/directives/calendar.js"></script>
     <script src="js/controllers/estimate/overview.js"></script>
     <script src="js/controllers/estimate/ricerca.js"></script>
-    <script src="js/controllers/estimate/projectcreate.js"></script>
     <script src="js/controllers/estimate/projectdetail.js"></script>
     <script src="js/controllers/estimate/projectmodify.js"></script>
     <script src="js/controllers/ehourqueries/oremese.js"></script>
@@ -93,15 +91,11 @@
       	<p>
       		<a ui-sref="ricerca">Ricerca progetto</a>
       	</p>
-      	<!--p>
-      		<a ui-sref="projectcreate">Nuovo progetto</a>
-      	</p-->
       </div>
 
       <div class="centerpage">
         <div ui-view="overviewview" class="calendar"></div>
         <div ui-view="ricercaview"></div>
-        <div ui-view="projectcreateview"></div>
         <div ui-view="projectdetailview"></div>
         <div ui-view="projectmodifyview"></div>
         <div ui-view="oremeseview"></div>

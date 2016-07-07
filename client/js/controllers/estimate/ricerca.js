@@ -34,36 +34,28 @@ angular
 				console.log('searching for selectedCustomer id = ' + selectedCustomer.id);
 
 				// query ehour
-				crud.getProjectsByCustomerId({ customerId: selectedCustomer.id }).then(function(data) {
-					console.log('data: ' + JSON.stringify(data));
-
-					var projects = [];
-					data.forEach(function(d){
-						var project = {};
-						project.id = d.id;
-						project.name = d.name;
-						project.code = d.code;
-
-						var projectparams = {};
-						projectparams['filter[include]'] = 'budgets';
-						projectparams['filter[where][code]'] = d.code;
-
-						// query locale
-						crud.getProject(projectparams).then(function(proj) {
-							if (proj.length > 0) {
-								project.from = proj.from;
-								project.to = proj.to;
-								project.budgettot = proj.budgettot;
-								project.daystot = proj.daystot;
-							}							
-							projects.push(project);
-						});
-					});
-
+				crud.getProjectsByCustomerId({ customerId: selectedCustomer.id }).then(function(projects) {
 					console.log('projects: ' + JSON.stringify(projects));
+
+					// sorting projects
+					projects.sort(function(a, b) {
+					  var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+					  var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+
+						if (nameA < nameB) {
+					    return -1;
+					  }
+					  if (nameA > nameB) {
+					    return 1;
+					  }
+					  // names must be equal
+					  return 0;
+					});
+					console.log('sorted projects: ' + JSON.stringify(projects));
+
 					// render the table
 					tabulate(projects,
-							["name", "code", "budgettot", "from", "to"]);
+							["id", "name", "code", "customerId"]);
 				});
 			}
 		};
@@ -77,7 +69,7 @@ angular
 		// append the header row
 		thead.append("tr")
 				.selectAll("th")
-				.data(["NOME PROGETTO", "CODICE PROGETTO", "BUDGET COMPLESSIVO", "DATA DI INIZIO", "DATA DI FINE"])
+				.data(["ID PROGETTO", "NOME PROGETTO", "CODICE PROGETTO", "ID CLIENTE"])
 				.enter()
 				.append("th")
 				.attr("style", "width:100px; word-wrap:break-word;")
@@ -89,23 +81,12 @@ angular
 			// create a row for each object in the data
 			var rows = tbody.selectAll("tr")
 					.data(data,	function(d) {
-						var link = "projectdetail({" +
-											 "customerId: " + $scope.selectedCustomer.id + "," +
-											 "customerName: '" + $scope.selectedCustomer.name + "'," +
-									 	 	 "projectId: " + d.id + "," +
-											 "projectName: '" + d.name + "'," +
-											 "projectCode: '" + d.code + "'," +
-											 "projectBudgettot: " + d.budgettot + "," +
-											 "projectFrom: '" + d.from + "'," +
-											 "projectTo: '" + d.to + "'"
-											 "})";
-						return link;
+						return d.id;
 					});
 
 			// create a row for each object in the data
 			var rowsEnter = rows.enter()
 				.insert("tr");
-//			.append("tr");
 
 			// create a cell in each row for each column
 			var cells = rowsEnter.selectAll("td")
@@ -126,8 +107,8 @@ angular
 		  return table;
 		}
 
+		// add dynamic link to single project page
 		function addTableLinks() {
-			// add dynamic link to single project page
 			var tablerows = angular.element(document).find("div.search_results table tbody tr");
 			var rowlinks = [];
 			tbody.selectAll("tr").each(function(d){
@@ -136,58 +117,26 @@ angular
 									 "customerName: '" + $scope.selectedCustomer.name + "'," +
 									 "projectId: " + d.id + "," +
 									 "projectName: '" + d.name + "'," +
-									 "projectCode: '" + d.code + "'," +
-									 "projectBudgettot: " + d.budgettot + "," +
-									 "projectDaystot: " + d.daystot + "," +
-									 "projectFrom: '" + d.from + "'," +
-									 "projectTo: '" + d.to + "'" +
+									 "projectCode: '" + d.code + "'" +
 									 "})";
 				rowlinks.push(link);
 			});
 			console.log('rowlinks = ' + JSON.stringify(rowlinks));
 			tablerows.each(function(index) {
-				// var params = {
-				// 	name: null,
-				// 	code: null,
-				// 	budgettot: null
-				// };
 				var rowcells = $(this).find("td");
-
-				// rowcells.each(function(index) {
-				// 	console.log( index + ": " + $( this ).text() );
-				// 	if (index == 0) {
-				// 		params.name = $( this ).text();
-				// 	} else if (index == 1) {
-				// 		params.code = $( this ).text();
-				// 	} else if (index == 2) {
-				// 		params.budgettot = $( this ).text();
-				// 	}
-				// });
-
-				// console.log('params: ' + JSON.stringify(params));
-
 				rowcells.each(function() {
 					var value = $(this).text();
-					// build url to single project page
-//					var projectpageurl = '<a ui-sref="projectdetail({customer: \'' + encodeURI(JSON.stringify($scope.selectedCustomer.originalObject)) + '\', code: \'' + params.code + '\'})">' + value + '</a>';
-					// var projectpageurl = '<a ui-sref="projectdetail({customerId: \'' + $scope.selectedCustomer.id +
-					// 										'\', customerName: \'' + $scope.selectedCustomer.name +
-					// 										'\', projectName: \'' + params.name +
-					// 										'\', projectCode: \'' + params.code +
-					// 										'\', projectBudgettot: \'' + params.budgettot +
-					// 										'\'})">' + value + '</a>';
 					var projectpageurl = '<a ui-sref="' + rowlinks[index] + '">' + value + '</a>';
 					console.log('projectpageurl: ' + projectpageurl);
 					var projectpagetemplate = angular.element(projectpageurl);
 					var projectpageFn = $compile(projectpagetemplate);
 					var projectpagelink = projectpageFn($scope);
-					// end build url to single project page
 					$(this).empty();
 					$(this).append(projectpagelink);
 				});
 			});
-			// end add dynamic link to single project page
 		}
+		// end add dynamic link to single project page
 
 		$scope.getLinkUrl = function(){
 		  return $state.href('oremese', {someParam: $scope.selectedCustomer});

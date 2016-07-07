@@ -18,10 +18,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
       GET: {
         LOCAL: {
           getCustomersAndProjects:	'http://' + resourceBaseUrl + '/api/customers?filter[include][projects]=budgets',
-          getCustomers: 'http://' + resourceBaseUrl + '/api/customers',
-          getProject: 'http://' + resourceBaseUrl + '/api/projects',            //loc
-          getProjectsByCustomerId: 'http://' + resourceBaseUrl + '/api/customers/:id?filter[include]=projects',
-          getBudgets: 'http://' + resourceBaseUrl + '/api/projects'                                    //loc
+          getBudgets: 'http://' + resourceBaseUrl + '/api/projects/:id?filter[include]=budgets'                                    //loc
         },
         EHOUR: {
           getCustomers: 'http://' + resourceBaseUrl + '/query_customers',
@@ -42,9 +39,6 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
       GET: {
         LOCAL: {
           getCustomersAndProjects:	$resource(queries.GET.LOCAL.getCustomersAndProjects, null, {'query':  {method:'GET', isArray:true}}),
-          getCustomers:	$resource(queries.GET.LOCAL.getCustomers, null, {'query':  {method:'GET', isArray:true}}),
-          getProject: $resource(queries.GET.LOCAL.getProject, null, {'query':  {method:'GET', isArray:true}}),
-          getProjectsByCustomerId: $resource(queries.GET.LOCAL.getProjectsByCustomerId, null, {'query':  {method:'GET', isArray:true}}),
           getBudgets: $resource(queries.GET.LOCAL.getBudgets, null, {'query':  {method:'GET', isArray:true}})
         },
         EHOUR: {
@@ -69,14 +63,11 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
       getCustomers: function(){
 				return resources.GET.EHOUR.getCustomers.query().$promise;
 			},
-      getProject: function(projectparams) {
-        return resources.GET.LOCAL.getProject.query(projectparams).$promise;
-      },
       getProjectsByCustomerId: function(idObj) {
         return resources.GET.EHOUR.getProjectsByCustomerId.query(idObj).$promise;
       },
-      getBudgets: function(budgetparams) {
-        return resources.GET.LOCAL.getBudgets.query(budgetparams).$promise;
+      getBudgets: function(projectId) {
+        return resources.GET.LOCAL.getBudgets.query(projectId).$promise;
       },
       getCosts: function(projectCode) {
         return resources.GET.EHOUR.getCosts.query(projectCode).$promise;
