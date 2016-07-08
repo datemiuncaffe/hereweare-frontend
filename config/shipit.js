@@ -7,7 +7,8 @@ var config = {
 	// ignores: ['.git', 'node_modules'],
 	// keepReleases: 2,
 	// deleteOnRollback: false,
-	  key: '/home/federico/.ssh/id_rsa_sensei'
+	  key: '/home/federico/.ssh/id_rsa_sensei',
+		branch: 'ehourcall'
 	// shallowClone: true
 	},
 	staging: {
@@ -18,9 +19,9 @@ module.exports.config = config;
 module.exports.init = function(shipit) {
 	require('shipit-shared')(shipit);
 	require('shipit-deploy')(shipit);
-	
+
 	shipit.initConfig(config);
-	
+
 	shipit.task('pwd', function () {
 		return shipit.remote('pwd');
 	});
