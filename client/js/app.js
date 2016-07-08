@@ -10,6 +10,15 @@ angular
   ])
   .config(['$stateProvider', '$urlRouterProvider', '$provide', function($stateProvider, $urlRouterProvider, $provide) {
       $stateProvider
+      .state('activeprojects', {
+        url: '/activeprojects',
+        views:{
+          'activeprojectsview': {
+              templateUrl: 'views/estimate/activeprojects.html',
+              controller: 'ActiveProjectsController'
+           }
+        }
+      })
       .state('overview', {
         url: '/overview',
         views:{
