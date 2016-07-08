@@ -16,36 +16,70 @@ angular
 				$scope.customers = customers;
 				$scope.selectedCustomer = customers[0];
 				$scope.searchProjects($scope.selectedCustomer);
-				loadingProject($scope.selectedProject);
 			});
 
 		/* loading project data */
  		function loadingProject(selectedProject) {
-	    if (selectedProject != null &&
-	    		selectedProject.code != null && selectedProject.code.length > 0) {
-	    		console.log('Project code: ' + selectedProject.code);
+			console.log('selectedProject: ' + JSON.stringify(selectedProject));
+			if (selectedProject != null &&
+	    		selectedProject.id != null && selectedProject.id > 0) {
+    		console.log('Project id: ' + selectedProject.id);
 
-					var budgetparams = {};
-					budgetparams['filter[include]'] = 'budgets';
-					budgetparams['filter[where][code]'] = selectedProject.code;
-
-					// perform queries
-	    		$q.all([
-			      crud.getBudgets(budgetparams),
-			      crud.getCosts({projectCode: selectedProject.code})
-					])
-					.then(
-						function(data) {
-							showData(data);
-						});
+				// perform queries
+	    	$q.all([
+					crud.getBudgets({id:selectedProject.id})
+							.then(function(res){
+								console.log('success res: ' + JSON.stringify(res, null, '\t'));
+								return res;
+							}, function(error){
+								var res = {
+									status: error.status,
+									statusText: error.statusText
+								}
+								console.log('error: ' + JSON.stringify(res, null, '\t'));
+								return res;
+							}),
+					crud.getCosts({projectId: selectedProject.id})
+							.then(function(res){
+								console.log('success res: ' + JSON.stringify(res, null, '\t'));
+								return res;
+							}, function(res){
+								var res = {
+									status: error.status,
+									statusText: error.statusText
+								}
+								console.log('error: ' + JSON.stringify(res, null, '\t'));
+								return res;
+							})
+				])
+				.then(function(data) {
+					console.log('data: ' + JSON.stringify(data, null, '\t'));
+					showData(data);
+				}, function(error){
+					console.log('error: ' + JSON.stringify(error, null, '\t'));
+				});
 	    }
 		};
 
 		function showData(data) {
 			var budgets = [];
-			if (data[0].length > 0 && data[0][0].budgets != null) {
-				budgets = data[0][0].budgets;
-				console.log('budgets: ' + JSON.stringify(budgets, null, '\t'));
+			if (data[0] != null) {
+				if (data[0].budgettot != null && data[0].budgettot > 0) {
+					$scope.selectedProject.budgettot = parseInt(data[0].budgettot);
+				}
+				if (data[0].daystot != null && data[0].daystot > 0) {
+					$scope.selectedProject.daystot = parseInt(data[0].daystot);
+				}
+				if (data[0].from != null && data[0].from.length > 0) {
+					$scope.selectedProject.from = data[0].from;
+				}
+				if (data[0].to != null && data[0].to.length > 0) {
+					$scope.selectedProject.to = data[0].to;
+				}
+				if (data[0].budgets != null) {
+					budgets = data[0].budgets;
+					console.log('budgets: ' + JSON.stringify(budgets, null, '\t'));
+				}
 			}
 			var costs = [];
 			if (data[1].length > 0) {
@@ -268,6 +302,7 @@ angular
 					console.log('data: ' + JSON.stringify(data));
 					$scope.selectedCustomer.projects = data;
 					$scope.selectedProject = data[0];
+					loadingProject($scope.selectedProject);
 				});
 			}
 		};
@@ -275,7 +310,6 @@ angular
 		$scope.onCustomerChange = function(selectedCustomer) {
 			if (selectedCustomer != null) {
 				$scope.searchProjects(selectedCustomer);
-				loadingProject($scope.selectedProject);
 			}
 	  };
 

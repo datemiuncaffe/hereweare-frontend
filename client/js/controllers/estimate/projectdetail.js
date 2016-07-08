@@ -59,10 +59,9 @@ angular
 
     /* loading data */
     if ($scope.project.id != null && $scope.project.id > 0) {
-    	var projectId = {id:$scope.project.id};
     	// perform queries
     	$q.all([
-				crud.getBudgets(projectId)
+				crud.getBudgets({id:$scope.project.id})
 						.then(function(res){
 							console.log('success res: ' + JSON.stringify(res, null, '\t'));
 							return res;
@@ -74,7 +73,7 @@ angular
 							console.log('error: ' + JSON.stringify(res, null, '\t'));
 							return res;
 						}),
-				crud.getCosts({projectId: $stateParams.projectId})
+				crud.getCosts({projectId: $scope.project.id})
 						.then(function(res){
 							console.log('success res: ' + JSON.stringify(res, null, '\t'));
 							return res;
