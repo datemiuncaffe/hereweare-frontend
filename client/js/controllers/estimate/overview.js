@@ -92,6 +92,8 @@ angular
 			if (budgets.length > 0 || costs.length > 0) {
 						var zero2 = new Padder(2);
 						var map = new Map();
+						var months = ['Gennaio','Febbraio','Marzo','Aprile','Maggio',
+						'Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
 						budgets.forEach(function(budget){
 							var value = {
 								id: budget.id,
@@ -103,8 +105,6 @@ angular
 								budgetdays: budget.days,
 								costdays: null
 							};
-							var months = ['Gennaio','Febbraio','Marzo','Aprile','Maggio',
-							'Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
 							var key = budget.year + '-' +
 								zero2.pad((months.indexOf(budget.month) + 1));
 							map.set(key, value);
@@ -120,7 +120,7 @@ angular
 								value = {
 									id: '-' + (cost.id + cost.mese),
 									year: cost.anno,
-									month: moment.months()[cost.mese - 1],
+									month: months[cost.mese - 1],
 									budgetfrom: null,
 									budgetto: null,
 									budgetamount: null,
