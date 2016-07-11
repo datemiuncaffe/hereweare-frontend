@@ -105,9 +105,21 @@
       </div>
     </div>
 
-    <div class="bodycontent" ng-controller="HomeCtrl as vm">
-      <div class="menuvert">
+    <div class="bodycontent">
 
+      <!--div class="menuvert">
+        <p>
+          <a ui-sref="activeprojects">Progetti attivi</a>
+        </p>
+        <p>
+          <a ui-sref="overview">Overview</a>
+        </p>
+        <p>
+          <a ui-sref="ricerca">Ricerca progetto</a>
+        </p>
+      </div-->
+
+      <div class="menuvert" ng-controller="HomeCtrl as vm">
         <md-sidenav class="md-sidenav-left md-whiteframe-z1 menuvert-container"
           md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
           <md-content role="navigation" class="menuvert-content">
@@ -124,7 +136,6 @@
             </ul>
           </md-content>
         </md-sidenav>
-
       </div>
 
       <div class="centerpage">

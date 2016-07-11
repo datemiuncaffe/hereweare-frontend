@@ -152,7 +152,7 @@ angular
 
 		}
 
-		var table = d3.select("div.search_results").append("table"),
+		var table = d3.select("form[name=estimateForm] div.search_results").append("table"),
 			thead = table.append("thead"),
 			tbody = table.append("tbody");
 

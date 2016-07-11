@@ -60,7 +60,7 @@ angular
 			}
 		};
 
-		var table = d3.select("div.search_results")
+		var table = d3.select("form[name=ricercaForm] div.search_results")
 									.append("table")
 									.attr("style", "width:1000px; table-layout:fixed;"),
 				thead = table.append("thead"),
@@ -110,6 +110,8 @@ angular
 		// add dynamic link to single project page
 		function addTableLinks() {
 			var tablerows = angular.element(document).find("div.search_results table tbody tr");
+			console.log('tablerows is array = ' + tablerows instanceof Array);
+			console.log('tablerows = ' + tablerows);
 			var rowlinks = [];
 			tbody.selectAll("tr").each(function(d){
 				var link = "projectdetail({" +
@@ -124,8 +126,10 @@ angular
 			console.log('rowlinks = ' + JSON.stringify(rowlinks));
 			tablerows.each(function(index) {
 				var rowcells = $(this).find("td");
+				console.log('rowcells: ' + rowcells);
 				rowcells.each(function() {
 					var value = $(this).text();
+					console.log('value: ' + value);
 					var projectpageurl = '<a ui-sref="' + rowlinks[index] + '">' + value + '</a>';
 					console.log('projectpageurl: ' + projectpageurl);
 					var projectpagetemplate = angular.element(projectpageurl);
