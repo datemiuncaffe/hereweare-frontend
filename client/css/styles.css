@@ -47,6 +47,20 @@ body {
   display: inline-block;
   float: left;
 }
+
+.menuvert .menuvert-container {
+  min-width: inherit;
+  max-width: none;
+  width: auto;
+  background-color: #222;
+  border-color: #080808;
+}
+
+.menuvert .menuvert-container .menuvert-content {
+  background-color: #222;
+  border-color: #080808;
+}
+
 .menuvert p {
   border-bottom-color: cyan;
   border-bottom-width: medium;
