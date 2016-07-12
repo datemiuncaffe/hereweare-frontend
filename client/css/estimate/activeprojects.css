@@ -1,3 +1,12 @@
+section[id=activeprojects] div.top {
+  font-family: Arial;
+  font-size: 14px;
+  width: 1000px;
+  float: left;
+  margin-bottom: 10px;
+  /*border-bottom: 1px solid black;*/
+}
+
 section[id=activeprojects] div.center {
   font-family: Arial;
   font-size: 14px;
@@ -5,6 +14,12 @@ section[id=activeprojects] div.center {
   float: left;
   margin-bottom: 10px;
   border-bottom: 1px solid black;
+}
+section[id=activeprojects] div.center .customer {
+  margin-bottom: 10px;
+  border-bottom-width: 1px;
+  border-bottom-style: ridge;
+  border-bottom-color: gray;
 }
 section[id=activeprojects] div.center table {
   margin-top: 20px;

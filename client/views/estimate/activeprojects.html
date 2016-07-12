@@ -1,13 +1,14 @@
-<h1>Progetti attivi</h1>
+<h1>Progetti attivi per cliente</h1>
 <hr>
 <section id="activeprojects">
+	<div class="top">
+	</div>
 	<div class="center">
-		<h4>Elenco dei progetti attivi per ciascun cliente</h4>
-		<div class="activecustomer" ng-repeat="customer in customers">
+		<div class="customer" data-customer-id="{{customer.id}}" ng-repeat="customer in customers" on-last-repeat>
 			<span class="name">
 				<h4>{{customer.name}}</h4>
 			</span>
-			<div class="projects">
+			<div class="activeprojects">
 			</div>
 		</div>
 	</div>
