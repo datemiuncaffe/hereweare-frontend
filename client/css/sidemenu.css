@@ -71,6 +71,8 @@ md-sidenav {
 .side-menu .md-button {
   border-radius: 0;
   /*color: inherit;*/
+  font-size: 20px;
+  color: #9d9d9d;
   cursor: pointer;
   font-weight: 400;
   line-height: 40px;
@@ -83,9 +85,15 @@ md-sidenav {
   white-space: normal;
   width: 100%;
 }
+.side-menu .md-button:hover,
+.side-menu .md-button:focus {
+  background-color: transparent;
+  color: #fff;
+  text-decoration: none;
+}
 
 .menu-toggle-list {
-  background: #fff;
+  /*background: #fff;*/
   max-height: 1300px;
   overflow: hidden;
   position: relative;
