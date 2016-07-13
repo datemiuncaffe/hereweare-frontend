@@ -12,6 +12,11 @@ angular
 	.controller("ActiveProjectsController",
 							['$scope', '$q', 'crud', '$log',
 							function($scope, $q, crud, $log) {
+		var now = moment();
+		var currentmonth = now.month();
+		var months = ['Gennaio','Febbraio','Marzo','Aprile','Maggio',
+									'Giugno','Luglio','Agosto','Settembre','Ottobre',
+									'Novembre','Dicembre'];
 		$scope.customers = null;
 
     $q.all([
@@ -161,8 +166,6 @@ angular
 			if (budgets.length > 0 || costs.length > 0) {
 				var zero2 = new Padder(2);
 				var map = new Map();
-				var months = ['Gennaio','Febbraio','Marzo','Aprile','Maggio',
-				'Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
 				budgets.forEach(function(budget){
 					var value = {
 						id: budget.id,
@@ -257,6 +260,9 @@ angular
 					.attr("value", function(d, i) {
 						if (d == 'ANNO') {
 							return '2016';
+						}
+						if (d == 'MESE') {
+							return months[currentmonth];
 						}
 						return '';
 					})
