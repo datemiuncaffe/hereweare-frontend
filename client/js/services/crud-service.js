@@ -16,6 +16,9 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 
     var queries = {
       GET: {
+        BOTH: {
+          getBudgetsCostsByCustomerId: 'http://' + resourceBaseUrl + '/query_budgets_costs_by_customer_id'
+        },
         LOCAL: {
           getCustomersAndProjects:	'http://' + resourceBaseUrl + '/api/customers?filter[include][projects]=budgets',
           getBudgets: 'http://' + resourceBaseUrl + '/api/projects/:id?filter[include]=budgets'                                    //loc
@@ -37,6 +40,9 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 
     var resources = {
       GET: {
+        BOTH: {
+          getBudgetsCostsByCustomerId: $resource(queries.GET.BOTH.getBudgetsCostsByCustomerId, null, {'query':  {method:'GET', isArray:true}})
+        },
         LOCAL: {
           getCustomersAndProjects:	$resource(queries.GET.LOCAL.getCustomersAndProjects, null, {'query':  {method:'GET', isArray:true}}),
           getBudgets: $resource(queries.GET.LOCAL.getBudgets, null, {'query':  {method:'GET'}})
@@ -65,6 +71,9 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 			},
       getProjectsByCustomerId: function(idObj) {
         return resources.GET.EHOUR.getProjectsByCustomerId.query(idObj).$promise;
+      },
+      getBudgetsCostsByCustomerId: function(idObj) {
+        return resources.GET.BOTH.getBudgetsCostsByCustomerId.query(idObj).$promise;
       },
       getBudgets: function(projectId) {
         return resources.GET.LOCAL.getBudgets.query(projectId).$promise;
