@@ -1,7 +1,8 @@
 angular
   .module('app')
-  .controller('GiorniCommessaUtenteController', ['$scope', '$state', 'NgTableParams', '$resource', 'resourceBaseUrl', function($scope,
-		  $state, NgTableParams, $resource, resourceBaseUrl) {
+  .controller('GiorniCommessaUtenteController',
+      ['$scope', '$state', 'NgTableParams', '$resource', 'resourceBaseUrl', '$stateParams',
+      function($scope, $state, NgTableParams, $resource, resourceBaseUrl, $stateParams) {
 	  var ref = this;
 
     var now = moment();
@@ -9,13 +10,28 @@ angular
     var currentMonth = now.month();
     console.log('inside GiorniCommessaUtenteController: year = ' + currentYear + '; month = ' + currentMonth);
 
+    // set table filter
+    var tablefilter = {
+      anno: currentYear,
+      mese: currentMonth,
+      codiceProgetto: null
+    };
+
+    if ($stateParams.year != null && $stateParams.year.length > 0) {
+			tablefilter.anno = $stateParams.year;
+		}
+    if ($stateParams.month != null && $stateParams.month.length > 0) {
+			tablefilter.mese = $stateParams.month;
+		}
+    if ($stateParams.projectCode != null && $stateParams.projectCode.length > 0) {
+			tablefilter.codiceProgetto = $stateParams.projectCode;
+		}
+    console.log('tablefilter = ' + JSON.stringify(tablefilter, null, '\t'));
+
     var query = $resource('http://' + resourceBaseUrl + '/query_giorni_lav_commessa_utente_mese');
 
     ref.tableParams = new NgTableParams({
-        filter: {
-          anno: currentYear,
-          mese: currentMonth
-        }
+        filter: tablefilter
       },
       {
     		getData : function(params) {

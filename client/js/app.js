@@ -69,7 +69,7 @@ angular
     		}
       })
       .state('giornicommessautente', {
-    		url: '/giornicommessautente',
+    		url: '/giornicommessautente?year&month&projectCode',
     		views:{
     		  'giornicommessautenteview': {
     	         templateUrl: 'views/ehourqueries/giornicommessautente.html',

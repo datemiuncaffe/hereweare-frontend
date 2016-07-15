@@ -10,8 +10,8 @@ angular
 		};
 	})
 	.controller("ActiveProjectsController",
-							['$scope', '$q', 'crud', '$log',
-							function($scope, $q, crud, $log) {
+							['$scope', '$q', 'crud', '$log', '$window', '$compile',
+							function($scope, $q, crud, $log, $window, $compile) {
 		var now = moment();
 		var currentmonth = now.month();
 		var months = ['Gennaio','Febbraio','Marzo','Aprile','Maggio',
@@ -30,14 +30,16 @@ angular
 		$scope.$on('onRepeatLast', function(event, element, attrs){
 			$(element).parent()
 								.find("div.customer")
-								.each(function() {
+								.each(function(index) {
 									var element = $(this);
 									var customerId = $(this).attr("data-customer-id");
 									console.log('customerId = ' + customerId);
-									// if (customerId == '22') {
+									// if (customerId == '19' || customerId == '16') {
 									// 	getActiveProjectsByCustomerId(customerId, element, showData);
 									// }
-									getActiveProjectsByCustomerId(customerId, element, showData);
+									setTimeout(function() {
+					          getActiveProjectsByCustomerId(customerId, element, showData);
+					        }, index * 1500);
 								});
 		});
 
@@ -54,7 +56,7 @@ angular
 		function showData(id, element, datatable) {
 			var table = insertTable(id, element);
 			// render the table
-			tabulate(table, datatable,
+			tabulate(id, table, datatable,
 					['projectname', 'projectcode', 'year', 'month', 'budgetdays', 'costdays', 'costhours']);
 		};
 
@@ -112,13 +114,13 @@ angular
 		};
 
 		// The table generation function
-		function tabulate(table, data, columns) {
-			setFilters(table, data, columns);
+		function tabulate(id, table, data, columns) {
+			setFilters(id, table, data, columns);
 			var filtereddata = filterTable(table, data, columns);
-			renderTable(table, filtereddata, columns);
+			renderTable(id, table, filtereddata, columns);
 		};
 
-		function setFilters(table, data, columns) {
+		function setFilters(id, table, data, columns) {
 			console.log('filters length: ' + table.select("tr.tablefilters").length);
 			var tablefilters = table.select("tr.tablefilters")
 					.selectAll("input")
@@ -133,11 +135,11 @@ angular
 					})
 					.on("input", function(d, i) {
 						var filtereddata = filterTable(table, data, columns);
-						renderTable(table, filtereddata, columns);
+						renderTable(id, table, filtereddata, columns);
 					});
 		};
 
-		function renderTable(table, data, columns) {
+		function renderTable(id, table, data, columns) {
 			var rows = table.select("tbody").selectAll("tr").data(data,
 				function(d) {
 					return d.id;
@@ -145,7 +147,10 @@ angular
 
 			// create a row for each object in the data
 			var rowsEnter = rows.enter()
-				.insert("tr");
+				.insert("tr")
+				.on("click", function(d, i) {
+					console.log("row number: " + i);
+				});
 //			.append("tr");
 
 			// create a cell in each row for each column
@@ -163,6 +168,8 @@ angular
 			// var rowsUpdate = rows.attr("style", "font-family: Courier"); // sets the font style
 
 			var rowsExit = rows.exit().remove();
+
+			addPopover(id);
 		};
 
 		function filterTable(table, rows, columns) {
@@ -205,6 +212,46 @@ angular
 			});
 			console.log('filteredrows: ' + JSON.stringify(filteredrows, null, '\t'));
 			return filteredrows;
+		};
+
+		function addPopover(id) {
+			console.log('adding popover');
+			var tablerows = $("section[id=activeprojects] div[data-customer-id='" + id + "']" +
+												" div.activeprojects tbody tr");
+			tablerows.each(function() {
+				var rowcells = $(this).find("td");
+				var year = rowcells.eq(2).text();
+				var month = rowcells.eq(3).text();
+				var projectCode = rowcells.eq(1).text();
+				console.log('year: ' + year + '; month: ' + month + '; projectCode: ' + projectCode);
+
+				var popovercontent = "<button class=\"btn btn-default\" ng-click=\"goToDettaglio" +
+									"({year:" + year + ",month:'" + month + "',projectCode:'" +
+									projectCode + "'});\">Dettaglio</button>";
+				// var popovercontent = "<button class=\"btn btn-default\" ng-click=\"goToDettaglio({year:2016,month:" + month + ",projectCode:" + projectCode + "});\">Dettaglio</button>";
+				var popovercontenttemplate = angular.element(popovercontent);
+				var popovercontentFn = $compile(popovercontenttemplate);
+				var popovercontentcompiled = popovercontentFn($scope);
+
+				$(this).popover({
+					trigger:	"click",
+					html: true,
+					content:	popovercontentcompiled
+				});
+			});
+		};
+
+		$scope.goToDettaglio = function(params) {
+			console.log('params: ' + JSON.stringify(params, null, '\t'));
+			console.log('go to giornicommessautente with year = ' +
+									params.year + ', month = ' + params.month +
+									', projectCode = ' + params.projectCode);
+
+			var url = 'http://' + $window.location.host + '/#/giornicommessautente' +
+					'?year=' + params.year + '&month=' + (months.indexOf(params.month)+1) +
+					'&projectCode=' + params.projectCode;
+	    $log.log(url);
+	    $window.location.href = url;
 		};
 
 	}]);
