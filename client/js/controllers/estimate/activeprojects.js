@@ -23,9 +23,69 @@ angular
 		  crud.getCustomers()
 		])
 		.then(function(data) {
-			var customers = data[0];
-			$scope.customers = customers;
+			if (data[0].length > 0) {
+				insertGeneralFilters();
+				var customers = data[0];
+				$scope.customers = customers;
+			}
 		});
+
+		function insertGeneralFilters() {
+			var table = d3.select("section[id=activeprojects] div.top div.generalfilters")
+										.append("table"),
+				thead = table.append("thead"),
+				tbody = table.append("tbody");
+
+			var filterheaders = ['NOME PROGETTO', 'CODICE PROGETTO', 'ANNO', 'MESE'],
+					filtertypes = [{id:'input1',type:'input'},
+												 {id:'input2',type:'input'},
+												 {id:'select1',type:'select'},
+												 {id:'select2',type:'select'}];
+
+			// append the header row
+			thead.append("tr")
+					.selectAll("th")
+					.data(filterheaders)
+					.enter()
+					.append("th")
+							.text(function(column) { return column; });
+
+			// append filter cells
+			thead.append("tr")
+					.attr('class', 'generalfiltersrow')
+					.selectAll("th")
+					.data(filtertypes)
+					.enter()
+					.append("th")
+					.append(function(d){
+						return document.createElement(d.type);
+					})
+					.attr('data-filterId', function(d){
+						return d.id;
+					});
+
+
+
+					// .attr('size', 8)
+					// .attr('type', 'text');
+					//
+					// var tablefilters = table.select("tr.tablefilters")
+					// 		.selectAll("input")
+					// 		.attr("value", function(d, i) {
+					// 			if (d == 'ANNO') {
+					// 				return '2016';
+					// 			}
+					// 			if (d == 'MESE') {
+					// 				return months[currentmonth];
+					// 			}
+					// 			return '';
+					// 		})
+					// 		.on("input", function(d, i) {
+					// 			var filtereddata = filterTable(table, data, columns);
+					// 			renderTable(id, table, filtereddata, columns);
+					// 		});
+
+		};
 
 		$scope.$on('onRepeatLast', function(event, element, attrs){
 			$(element).parent()
@@ -143,7 +203,7 @@ angular
 			var rows = table.select("tbody").selectAll("tr").data(data,
 				function(d) {
 					return d.id;
-				});
+è				});
 
 			// create a row for each object in the data
 			var rowsEnter = rows.enter()
