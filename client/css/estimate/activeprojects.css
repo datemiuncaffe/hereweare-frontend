@@ -1,7 +1,7 @@
 section[id=activeprojects] div.top {
   font-family: Arial;
   font-size: 14px;
-  width: 1000px;
+  width: 1200px;
   float: left;
   margin-bottom: 10px;
   /*border-bottom: 1px solid black;*/
@@ -19,7 +19,7 @@ section[id=activeprojects] div.top th {
 section[id=activeprojects] div.center {
   font-family: Arial;
   font-size: 14px;
-  width: 1000px;
+  width: 1200px;
   float: left;
   margin-bottom: 10px;
   border-bottom: 1px solid black;

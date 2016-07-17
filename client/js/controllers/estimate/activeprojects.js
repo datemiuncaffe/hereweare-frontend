@@ -48,7 +48,10 @@ angular
 					.data(filterheaders)
 					.enter()
 					.append("th")
-							.text(function(column) { return column; });
+					.attr("width", 150)
+					.text(function(column) {
+						return column;
+					});
 
 			// append filter cells
 			thead.append("tr")
@@ -57,17 +60,20 @@ angular
 					.data(filtertypes)
 					.enter()
 					.append("th")
-					.append(function(d){
+					.attr("width", 150)
+					.append(function(d) {
 						return document.createElement(d.type);
 					})
 					.attr('data-filterId', function(d){
 						return d.id;
 					});
 
+			thead.select("tr.generalfiltersrow")
+					.selectAll("input")
+					.attr('size', 8)
+					.attr('type', 'text');
 
 
-					// .attr('size', 8)
-					// .attr('type', 'text');
 					//
 					// var tablefilters = table.select("tr.tablefilters")
 					// 		.selectAll("input")
@@ -157,7 +163,10 @@ angular
 					.data(headers)
 					.enter()
 					.append("th")
-							.text(function(column) { return column; });
+					.attr("width", 150)
+					.text(function(column) {
+						return column;
+					});
 
 			// append filter cells
 			thead.append("tr")
@@ -166,6 +175,7 @@ angular
 					.data(headers)
 					.enter()
 					.append("th")
+					.attr("width", 150)
 					.append('input')
 					.attr('size', 8)
 					.attr('type', 'text');
@@ -222,8 +232,10 @@ angular
 				})
 				.enter()
 				.append("td")
-//			    .attr("style", "font-family: Courier") // sets the font style
-				.html(function(d) { return d.value });
+				.attr("width", 150)
+				.html(function(d) {
+					return d.value
+				});
 
 			// var rowsUpdate = rows.attr("style", "font-family: Courier"); // sets the font style
 
