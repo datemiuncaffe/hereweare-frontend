@@ -42,6 +42,11 @@ angular
 												 {id:'select1',type:'select'},
 												 {id:'select2',type:'select'}];
 
+			var selectOptions = [{type:'ANNO',options:[2014,2015,2016]},
+													 {type:'MESE',options:['Gennaio','Febbraio','Marzo','Aprile','Maggio',
+											 							 'Giugno','Luglio','Agosto','Settembre','Ottobre',
+											 							 'Novembre','Dicembre']}];
+
 			// append the header row
 			thead.append("tr")
 					.selectAll("th")
@@ -68,29 +73,93 @@ angular
 						return d.id;
 					});
 
-			thead.select("tr.generalfiltersrow")
-					.selectAll("input")
-					.attr('size', 8)
-					.attr('type', 'text');
+			var generalfiltersrow = thead.select("tr.generalfiltersrow");
 
+			generalfiltersrow
+				.selectAll("input")
+				.attr("class", "generalfilter")
+				.attr('size', 8)
+				.attr('type', 'text');
 
-					//
-					// var tablefilters = table.select("tr.tablefilters")
-					// 		.selectAll("input")
-					// 		.attr("value", function(d, i) {
-					// 			if (d == 'ANNO') {
-					// 				return '2016';
-					// 			}
-					// 			if (d == 'MESE') {
-					// 				return months[currentmonth];
-					// 			}
-					// 			return '';
-					// 		})
-					// 		.on("input", function(d, i) {
-					// 			var filtereddata = filterTable(table, data, columns);
-					// 			renderTable(id, table, filtereddata, columns);
-					// 		});
+			generalfiltersrow
+				.selectAll("select")
+				.attr("class", "generalfilter")
+				.data(selectOptions)
+				.selectAll("option")
+				.data(function(d) {
+					return d.options;
+				})
+				.enter()
+				.append("option")
+				.text(function (d) {
+					return d;
+				});
 
+			// default values
+			generalfiltersrow
+				.selectAll("select")
+				.select("option:nth-child(3)")
+				.attr("selected", "selected");
+
+			var generalfilters = generalfiltersrow
+				.selectAll(".generalfilter");
+
+			generalfiltersrow
+				.selectAll("input")
+				.on("input", updateFilters);
+			generalfiltersrow
+				.selectAll("select")
+				.on("change", updateFilters);
+
+			function updateFilters(d) {
+				var selectedType = d.type;
+				var selectedValue = d3.select(this).property('value');
+				console.log('option type: ' + selectedType + '; selected value: ' + selectedValue);
+
+				var filterValues = [];
+				generalfilters.each(function() {
+					filterValues.push(d3.select(this).property('value'));
+				});
+				console.log('filterValues: ' + JSON.stringify(filterValues, null, '\t'));
+
+				var customerdivs = d3.selectAll("section[id=activeprojects] div.center div.customer");
+				customerdivs.each(function() {
+					var self = d3.select(this);
+					var id = self.attr("data-customer-id");
+					var activeprojectsdiv = self.select("div.activeprojects");
+					var datatable = JSON.parse(activeprojectsdiv.attr("data-datatable"));
+					var table = activeprojectsdiv.select("table");
+					var columns = ['projectname', 'projectcode', 'year', 'month', 'budgetdays', 'costdays', 'costhours'];
+
+					table.selectAll("tr.tablefilters").each(function() {
+						d3.select(this).selectAll("input").each(function() {
+							d3.select(this).property("value", function(d, i) {
+								if (d == 'NOME PROGETTO') {
+									console.log('nome filtro: ' + d + '; filterValues[0] = ' + filterValues[0]);
+									return filterValues[0];
+								}
+								if (d == 'CODICE PROGETTO') {
+									console.log('nome filtro: ' + d + '; filterValues[1] = ' + filterValues[1]);
+									return filterValues[1];
+								}
+								if (d == 'ANNO') {
+									console.log('nome filtro: ' + d + '; filterValues[2] = ' + filterValues[2]);
+									return filterValues[2];
+								}
+								if (d == 'MESE') {
+									console.log('nome filtro: ' + d + '; filterValues[3] = ' + filterValues[3]);
+									return filterValues[3];
+								}
+								return '';
+							});
+						});
+					});
+					if (table != null && datatable != null) {
+						var filtereddata = filterTable(table, datatable, columns);
+						renderTable(id, table, filtereddata, columns);
+					}
+				});
+			}
 		};
 
 		$scope.$on('onRepeatLast', function(event, element, attrs){
@@ -114,6 +183,7 @@ angular
 				crud.getBudgetsCostsByCustomerId({ customerId: id, onlyActive: 'Y' })
 						.then(function(datatable) {
 					console.log('datatable: ' + JSON.stringify(datatable));
+					element.find("div.activeprojects").attr("data-datatable", JSON.stringify(datatable));
 					cb(id, element, datatable);
 				});
 			}
@@ -206,6 +276,9 @@ angular
 					.on("input", function(d, i) {
 						var filtereddata = filterTable(table, data, columns);
 						renderTable(id, table, filtereddata, columns);
+					})
+					.on("change", function(d, i) {
+						console.log("change event");
 					});
 		};
 
