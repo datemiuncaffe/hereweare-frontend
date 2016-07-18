@@ -370,10 +370,10 @@ angular
 				var projectCode = rowcells.eq(1).text();
 				console.log('year: ' + year + '; month: ' + month + '; projectCode: ' + projectCode);
 
-				var popovercontent = "<button class=\"btn btn-default\" ng-click=\"goToDettaglio" +
-									"({year:" + year + ",month:'" + month + "',projectCode:'" +
-									projectCode + "'});\">Dettaglio</button>";
-				// var popovercontent = "<button class=\"btn btn-default\" ng-click=\"goToDettaglio({year:2016,month:" + month + ",projectCode:" + projectCode + "});\">Dettaglio</button>";
+				var popovercontent = "<a class=\"btn btn-default\"" +
+				 										 " ui-sref=\"giornicommessautente({year:" + year +
+														 ",month:'" + month + "',projectCode:'" + projectCode + "'})\">Dettaglio</a>";
+
 				var popovercontenttemplate = angular.element(popovercontent);
 				var popovercontentFn = $compile(popovercontenttemplate);
 				var popovercontentcompiled = popovercontentFn($scope);
@@ -384,19 +384,6 @@ angular
 					content:	popovercontentcompiled
 				});
 			});
-		};
-
-		$scope.goToDettaglio = function(params) {
-			console.log('params: ' + JSON.stringify(params, null, '\t'));
-			console.log('go to giornicommessautente with year = ' +
-									params.year + ', month = ' + params.month +
-									', projectCode = ' + params.projectCode);
-
-			var url = 'http://' + $window.location.host + '/#/giornicommessautente' +
-					'?year=' + params.year + '&month=' + (months.indexOf(params.month)+1) +
-					'&projectCode=' + params.projectCode;
-	    $log.log(url);
-	    $window.location.href = url;
 		};
 
 	}]);
