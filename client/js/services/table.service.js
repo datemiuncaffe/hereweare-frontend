@@ -14,7 +14,7 @@
     		months: ['Gennaio','Febbraio','Marzo','Aprile','Maggio',
     						 'Giugno','Luglio','Agosto','Settembre','Ottobre',
     						 'Novembre','Dicembre'],
-        insertGeneralFilters: function(sectionId) {
+        insertGeneralFilters: function(sectionId, projectsContainer) {
           var hwtablesObj = this;
     			var table = d3.select("section[id="+ sectionId +"] div.top div.generalfilters")
     										.append("table"),
@@ -111,9 +111,9 @@
     				customerdivs.each(function() {
     					var self = d3.select(this);
     					var id = self.attr("data-customer-id");
-    					var activeprojectsdiv = self.select("div.activeprojects");
-    					var datatable = JSON.parse(activeprojectsdiv.attr("data-datatable"));
-    					var table = activeprojectsdiv.select("table");
+    					var projectsdiv = self.select(projectsContainer);
+    					var datatable = JSON.parse(projectsdiv.attr("data-datatable"));
+    					var table = projectsdiv.select("table");
     					var columns = ['projectname', 'projectcode', 'year', 'month', 'budgetdays', 'costdays', 'costhours'];
 
     					table.selectAll("tr.tablefilters").each(function() {
@@ -146,9 +146,9 @@
     				});
     			}
     		},
-        insertTable: function(sectionId, id, element) {
+        insertTable: function(sectionId, id, element, projectsContainer) {
           console.log('insert table');
-    			var table = d3.select("section[id=" + sectionId + "] div[data-customer-id='" + id + "'] div.activeprojects")
+    			var table = d3.select("section[id=" + sectionId + "] div[data-customer-id='" + id + "'] " + projectsContainer)
     										.append("table"),
     				thead = table.append("thead"),
     				tbody = table.append("tbody");
@@ -305,8 +305,8 @@
     		},
         addPopover: function(id) {
     			console.log('adding popover');
-    			var tablerows = $("section[id=activeprojects] div[data-customer-id='" + id + "']" +
-    												" div.activeprojects tbody tr");
+    			var tablerows = $("section[id=" + this.sectionId + "] div[data-customer-id='" + id + "']" +
+    												" " + this.projectsContainer + " tbody tr");
     			tablerows.each(function() {
     				var rowcells = $(this).find("td");
     				var year = rowcells.eq(2).text();
