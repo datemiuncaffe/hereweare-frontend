@@ -19,7 +19,7 @@
         }];
 
         sections.push({
-          name: 'Riepiloghi progetti',
+          name: 'progetti',
           type: 'toggle',
           pages: [{
             name: 'Progetti attivi',
