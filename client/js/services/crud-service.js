@@ -66,8 +66,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 			getCustomersAndProjects: function(){
 				return resources.GET.LOCAL.getCustomersAndProjects.query().$promise;
 			},
-      getCustomers: function(){
-				return resources.GET.EHOUR.getCustomers.query().$promise;
+      getCustomers: function(customerParams){
+				return resources.GET.EHOUR.getCustomers.query(customerParams).$promise;
 			},
       getProjectsByCustomerId: function(idObj) {
         return resources.GET.EHOUR.getProjectsByCustomerId.query(idObj).$promise;

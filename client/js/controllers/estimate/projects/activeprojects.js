@@ -10,7 +10,7 @@ angular
 		hwtables.projectsContainer = $scope.projectsContainer;
 
     $q.all([
-		  crud.getCustomers()
+		  crud.getCustomers({customerGroup: 'EXT'})
 		])
 		.then(function(data) {
 			if (data[0].length > 0) {
@@ -36,7 +36,7 @@ angular
 									setTimeout(function() {
 										// console.log('processing customerId: ' + customerId);
 										getActiveProjectsByCustomerId(customerId, element, showData);
-					        }, index * 4500);
+					        }, index * 1000);
 								});
 		});
 
