@@ -10,7 +10,8 @@ angular
     'myMenuApp.controllers',
     'ngAnimate',
     'ngMaterial',
-    'ngAria'
+    'ngAria',
+    'table.service'
   ])
   .config(['$stateProvider', '$urlRouterProvider', '$provide', function($stateProvider, $urlRouterProvider, $provide) {
       $stateProvider
