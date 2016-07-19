@@ -307,6 +307,7 @@
     			console.log('adding popover');
     			var tablerows = $("section[id=" + this.sectionId + "] div[data-customer-id='" + id + "']" +
     												" " + this.projectsContainer + " tbody tr");
+          var hwtablesObj = this;
     			tablerows.each(function() {
     				var rowcells = $(this).find("td");
     				var year = rowcells.eq(2).text();
@@ -316,7 +317,7 @@
 
     				var popovercontent = "<a class=\"btn btn-default\"" +
     				 										 " ui-sref=\"giornicommessautente({year:" + year +
-    														 ",month:'" + month + "',projectCode:'" + projectCode + "'})\">Dettaglio</a>";
+    														 ",month:'" + (hwtablesObj.months.indexOf(month) + 1) + "',projectCode:'" + projectCode + "'})\">Dettaglio</a>";
 
     				var popovercontenttemplate = angular.element(popovercontent);
     				var popovercontentFn = $compile(popovercontenttemplate);
