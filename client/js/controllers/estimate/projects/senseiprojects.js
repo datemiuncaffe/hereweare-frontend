@@ -1,15 +1,6 @@
 angular
 	.module("app")
-	.directive('onLastRepeat', function() {
-		return function(scope, element, attrs) {
-			if (scope.$last) {
-				setTimeout(function() {
-						scope.$emit('onRepeatLast', element, attrs);
-				}, 1);
-			}
-		};
-	})
-	.controller("ActiveProjectsController",
+	.controller("SenseiProjectsController",
 							['$rootScope', '$scope', '$q', 'crud', 'hwtables',
 							function($rootScope, $scope, $q, crud, hwtables) {
 		$scope.customers = null;
@@ -19,7 +10,7 @@ angular
 		])
 		.then(function(data) {
 			if (data[0].length > 0) {
-				hwtables.insertGeneralFilters();
+				hwtables.insertGeneralFilters("senseiprojects");
 				var customers = data[0];
 				$scope.customers = customers;
 			}
@@ -32,12 +23,12 @@ angular
 									var element = $(this);
 									var customerId = $(this).attr("data-customer-id");
 									console.log('customerId = ' + customerId);
-									// if (customerId == '19' || customerId == '16') {
-									// 	getActiveProjectsByCustomerId(customerId, element, showData);
-									// }
-									setTimeout(function() {
-					          getActiveProjectsByCustomerId(customerId, element, showData);
-					        }, index * 1500);
+									if (customerId == '19' || customerId == '16') {
+										getActiveProjectsByCustomerId(customerId, element, showData);
+									}
+									// setTimeout(function() {
+					        //   getActiveProjectsByCustomerId(customerId, element, showData);
+					        // }, index * 1500);
 								});
 		});
 
@@ -46,14 +37,14 @@ angular
 				crud.getBudgetsCostsByCustomerId({ customerId: id, onlyActive: 'Y' })
 						.then(function(datatable) {
 					console.log('datatable: ' + JSON.stringify(datatable));
-					element.find("div.activeprojects").attr("data-datatable", JSON.stringify(datatable));
+					element.find("div.senseiprojects").attr("data-datatable", JSON.stringify(datatable));
 					cb(id, element, datatable);
 				});
 			}
 		};
 
 		function showData(id, element, datatable) {
-			var table = hwtables.insertTable(id, element);
+			var table = hwtables.insertTable("senseiprojects", id, element);
 			// render the table
 			hwtables.tabulate(id, table, datatable,
 					['projectname', 'projectcode', 'year', 'month', 'budgetdays', 'costdays', 'costhours']);

@@ -19,8 +19,17 @@ angular
         url: '/activeprojects',
         views:{
           'activeprojectsview': {
-              templateUrl: 'views/estimate/activeprojects.html',
+              templateUrl: 'views/estimate/projects/activeprojects.html',
               controller: 'ActiveProjectsController'
+           }
+        }
+      })
+      .state('senseiprojects', {
+        url: '/senseiprojects',
+        views:{
+          'senseiprojectsview': {
+              templateUrl: 'views/estimate/projects/senseiprojects.html',
+              controller: 'SenseiProjectsController'
            }
         }
       })
@@ -137,4 +146,13 @@ angular
 
       return doc.label || doc.name;
     };
-  });
+  })
+  .directive('onLastRepeat', function() {
+		return function(scope, element, attrs) {
+			if (scope.$last) {
+				setTimeout(function() {
+						scope.$emit('onRepeatLast', element, attrs);
+				}, 1);
+			}
+		};
+	});

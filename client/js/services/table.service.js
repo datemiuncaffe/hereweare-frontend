@@ -14,9 +14,9 @@
     		months: ['Gennaio','Febbraio','Marzo','Aprile','Maggio',
     						 'Giugno','Luglio','Agosto','Settembre','Ottobre',
     						 'Novembre','Dicembre'],
-        insertGeneralFilters: function() {
+        insertGeneralFilters: function(sectionId) {
           var hwtablesObj = this;
-    			var table = d3.select("section[id=activeprojects] div.top div.generalfilters")
+    			var table = d3.select("section[id="+ sectionId +"] div.top div.generalfilters")
     										.append("table"),
     				thead = table.append("thead"),
     				tbody = table.append("tbody");
@@ -107,7 +107,7 @@
     				});
     				console.log('filterValues: ' + JSON.stringify(filterValues, null, '\t'));
 
-    				var customerdivs = d3.selectAll("section[id=activeprojects] div.center div.customer");
+    				var customerdivs = d3.selectAll("section[id=" + sectionId + "] div.center div.customer");
     				customerdivs.each(function() {
     					var self = d3.select(this);
     					var id = self.attr("data-customer-id");
@@ -146,8 +146,9 @@
     				});
     			}
     		},
-        insertTable: function(id, element) {
-    			var table = d3.select("section[id=activeprojects] div[data-customer-id='" + id + "'] div.activeprojects")
+        insertTable: function(sectionId, id, element) {
+          console.log('insert table');
+    			var table = d3.select("section[id=" + sectionId + "] div[data-customer-id='" + id + "'] div.activeprojects")
     										.append("table"),
     				thead = table.append("thead"),
     				tbody = table.append("tbody");

@@ -9,10 +9,6 @@
       function ($location) {
 
         var sections = [{
-          name: 'Progetti attivi',
-          type: 'link',
-          state: 'activeprojects'
-        }, {
           name: 'Overview',
           type: 'link',
           state: 'overview'
@@ -21,6 +17,22 @@
           type: 'link',
           state: 'ricerca'
         }];
+
+        sections.push({
+          name: 'Riepiloghi progetti',
+          type: 'toggle',
+          pages: [{
+            name: 'Progetti attivi',
+            type: 'link',
+            state: 'activeprojects',
+            icon: ''
+          }, {
+            name: 'Progetti interni',
+            type: 'link',
+            state: 'senseiprojects',
+            icon: ''
+          }]
+        });
 
         sections.push({
           name: 'Riepiloghi ore',
