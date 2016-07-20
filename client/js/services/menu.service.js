@@ -43,27 +43,27 @@
             state: 'oremese',
             icon: ''
           }, {
-            name: 'Giorni commessa utente',
+            name: 'GG commessa dip.',
             type: 'link',
             state: 'giornicommessautente',
             icon: ''
           }, {
-            name: 'Giorni commessa',
+            name: 'GG commessa',
             type: 'link',
             state: 'giornicommessa',
             icon: ''
           }, {
-            name: 'Giorni',
+            name: 'GG',
             type: 'link',
             state: 'giorni',
             icon: ''
           }, {
-            name: 'Giorni cliente',
+            name: 'GG cliente',
             type: 'link',
             state: 'giornicliente',
             icon: ''
           }, {
-            name: 'Giorni cliente progetto',
+            name: 'GG cliente progetto',
             type: 'link',
             state: 'giorniclienteprogetto',
             icon: ''
