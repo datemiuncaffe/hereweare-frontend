@@ -1,5 +1,5 @@
 
-angular.module('common.directives')
+angular.module('common.directives', ['common.services'])
   .run(['$templateCache', function ($templateCache) {
     $templateCache.put('partials/menu-toggle.tmpl.html',
       '<md-button class="md-button-toggle"\n' +
@@ -16,6 +16,16 @@ angular.module('common.directives')
       '    <menu-link section="page"></menu-link>\n' +
       '  </li>\n' +
       '</ul>\n' +
+      '');
+    $templateCache.put('partials/menu-link.tmpl.html',
+      '<md-button ng-class="{\'{{section.icon}}\' : true}" ui-sref-active="active" \n' +
+      '  ui-sref="{{section.state}}" ng-click="focusSection()">\n' +
+      '  {{section | humanizeDoc}}\n' +
+      '  <span  class="md-visually-hidden "\n' +
+      '    ng-if="isSelected()">\n' +
+      '    current page\n' +
+      '  </span>\n' +
+      '</md-button>\n' +
       '');
   }])
   .directive('menuToggle', ['$timeout', function ($timeout ) {
@@ -42,3 +52,20 @@ angular.module('common.directives')
       }
     };
   }])
+  .directive('menuLink', function () {
+    return {
+      scope: {
+        section: '='
+      },
+      templateUrl: 'partials/menu-link.tmpl.html',
+      link: function ($scope, $element) {
+        var controller = $element.parent().controller();
+
+        $scope.focusSection = function () {
+          // set flag to be used later when
+          // $locationChangeSuccess calls openPage()
+          controller.autoFocusContent = true;
+        };
+      }
+    };
+  });

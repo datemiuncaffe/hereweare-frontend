@@ -24,8 +24,8 @@
     <link href="css/calendar/pikaday.css" rel="stylesheet">
 
     <link href='http://fonts.googleapis.com/css?family=Ubuntu:500,700' rel='stylesheet' type='text/css'>
-    <link data-require="angular-material@0.10.1" data-semver="0.9.4" rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.1/angular-material.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.1/angular-material.min.css" data-require="angular-material@0.10.1" data-semver="0.9.4" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/sidemenu.css" rel="stylesheet"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -50,12 +50,19 @@
     <script src="vendor/angular-material/angular-material.js"></script>
     <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
+    <script src="js/app.js"></script>
+
     <script src="js/services/lb-services.js"></script>
     <script src="js/services/hwlog-service.js"></script>
     <script src="js/services/crud-service.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/services/table.service.js"></script>
+    <script src="js/services/menu.service.js"></script>
+
     <script src="js/pikaday.js"></script>
     <script src="js/directives/calendar.js"></script>
+    <script src="js/directives/menu.directive.js"></script>
+
+    <script src="js/controllers/menu.controller.js"></script>
     <script src="js/controllers/estimate/projects/activeprojects.js"></script>
     <script src="js/controllers/estimate/projects/senseiprojects.js"></script>
     <script src="js/controllers/estimate/overview.js"></script>
@@ -68,14 +75,6 @@
     <script src="js/controllers/ehourqueries/giorni.js"></script>
     <script src="js/controllers/ehourqueries/giornicliente.js"></script>
     <script src="js/controllers/ehourqueries/giorniclienteprogetto.js"></script>
-
-    <script src="js/app.modules.js"></script>
-    <script src="js/services/menu.service.js"></script>
-    <script src="js/controllers/home.controller.js"></script>
-    <script src="js/directives/menu_toggle.directive.js"></script>
-    <script src="js/directives/menulink.directive.js"></script>
-
-    <script src="js/services/table.service.js"></script>
 
   </head>
   <body ng-app="app">
@@ -92,7 +91,7 @@
 
     <div class="bodycontent">
 
-      <div class="menuvert" ng-controller="HomeCtrl as vm">
+      <div class="menuvert" ng-controller="MenuController as vm">
         <md-sidenav class="md-sidenav-left md-whiteframe-z1 menuvert-container"
           md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
           <md-content role="navigation" class="menuvert-content">

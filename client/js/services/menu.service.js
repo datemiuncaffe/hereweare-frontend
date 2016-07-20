@@ -1,11 +1,8 @@
 (function(){
-
   'use strict';
 
-  angular.module('common.services')
-    .factory('menu', [
-      '$location',
-      '$rootScope',
+  angular.module('common.services',[])
+    .factory('menu', ['$location', '$rootScope',
       function ($location) {
 
         var sections = [{
@@ -94,6 +91,6 @@
             (a.humanName > b.humanName) ? 1 : 0;
         }
 
-      }])
+      }]);
 
 })();

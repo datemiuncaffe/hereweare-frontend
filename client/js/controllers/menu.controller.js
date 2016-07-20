@@ -1,11 +1,11 @@
 (function(){
   'use strict';
 
-  angular.module('myMenuApp.controllers')
-    .controller('HomeCtrl', ['$rootScope', '$log', '$state', '$timeout', '$location', 'menu',
+  angular.module('myMenuApp.controllers',['common.directives'])
+    .controller('MenuController', ['$rootScope', '$log', '$state', '$timeout', '$location', 'menu',
                 function ($rootScope, $log, $state, $timeout, $location, menu) {
       var vm = this;
-      
+
       //functions for menu-link and menu-toggle
       vm.isOpen = isOpen;
       vm.toggleOpen = toggleOpen;
