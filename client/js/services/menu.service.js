@@ -35,7 +35,7 @@
         });
 
         sections.push({
-          name: 'Riepiloghi ore',
+          name: 'Riepilogo ore',
           type: 'toggle',
           pages: [{
             name: 'Ore mese',
