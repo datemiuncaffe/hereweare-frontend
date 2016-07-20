@@ -36,7 +36,7 @@ angular
 									setTimeout(function() {
 										// console.log('processing customerId: ' + customerId);
 										getActiveProjectsByCustomerId(customerId, element, showData);
-					        }, index * 1000);
+					        }, index * 500);
 								});
 		});
 

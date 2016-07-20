@@ -32,7 +32,7 @@ angular
 									// }
 									setTimeout(function() {
 					          getActiveProjectsByCustomerId(customerId, element, showData);
-					        }, index * 1000);
+					        }, index * 500);
 								});
 		});
 

@@ -11,6 +11,9 @@
     		currentmonth: function() {
           return this.currenttime().month();
         },
+        currentyear: function() {
+          return this.currenttime().year();
+        },
     		months: ['Gennaio','Febbraio','Marzo','Aprile','Maggio',
     						 'Giugno','Luglio','Agosto','Settembre','Ottobre',
     						 'Novembre','Dicembre'],
@@ -27,7 +30,12 @@
     												 {id:'select1',type:'select'},
     												 {id:'select2',type:'select'}];
 
-    			var selectOptions = [{type:'ANNO',options:[2014,2015,2016]},
+          var availableyears = [2008];
+          var currentyear = this.currentyear();
+          while (availableyears[availableyears.length - 1] < currentyear) {
+            availableyears.push(availableyears[availableyears.length - 1] + 1);
+          }
+    			var selectOptions = [{type:'ANNO',options:availableyears},
     													 {type:'MESE',options:['Gennaio','Febbraio','Marzo','Aprile','Maggio',
     											 							 'Giugno','Luglio','Agosto','Settembre','Ottobre',
     											 							 'Novembre','Dicembre']}];
@@ -66,8 +74,8 @@
     				.attr('size', 8)
     				.attr('type', 'text');
 
-    			generalfiltersrow
-    				.selectAll("select")
+          var generalfiltersselect = generalfiltersrow.selectAll("select");
+          generalfiltersselect
     				.attr("class", "generalfilter")
     				.data(selectOptions)
     				.selectAll("option")
@@ -80,11 +88,26 @@
     					return d;
     				});
 
-    			// default values
-    			generalfiltersrow
-    				.selectAll("select")
-    				.select("option:nth-child(3)")
+          // default values
+          generalfiltersselect
+            .filter(function(d, i) {
+              return d.type == 'ANNO';
+            })
+    				.selectAll("option")
+            .filter(function(d, i) {
+              return d == currentyear;
+            })
     				.attr("selected", "selected");
+          generalfiltersselect
+            .filter(function(d, i) {
+              return d.type == 'MESE';
+            })
+    				.selectAll("option")
+            .filter(function(d, i) {
+              return d == hwtablesObj.months[hwtablesObj.currentmonth()];
+            })
+    				.attr("selected", "selected");
+          // end default values
 
     			var generalfilters = generalfiltersrow
     				.selectAll(".generalfilter");
@@ -216,7 +239,7 @@
     					.selectAll("input")
     					.attr("value", function(d, i) {
     						if (d == 'ANNO') {
-    							return '2016';
+    							return hwtablesObj.currentyear();
     						}
     						if (d == 'MESE') {
     							return hwtablesObj.months[hwtablesObj.currentmonth()];

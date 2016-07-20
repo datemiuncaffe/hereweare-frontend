@@ -48,6 +48,11 @@
             state: 'giornicommessautente',
             icon: ''
           }, {
+            name: 'Giorni commessa',
+            type: 'link',
+            state: 'giornicommessa',
+            icon: ''
+          }, {
             name: 'Giorni',
             type: 'link',
             state: 'giorni',
