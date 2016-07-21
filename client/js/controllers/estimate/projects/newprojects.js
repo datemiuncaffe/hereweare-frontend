@@ -14,7 +14,6 @@ angular
 		])
 		.then(function(data) {
 			if (data[0].length > 0) {
-				hwtables.insertGeneralFilters($scope.sectionId, $scope.projectsContainer);
 				var customers = data[0];
 				$scope.customers = customers;
 			}
@@ -42,7 +41,7 @@ angular
 
 		function getActiveProjectsByCustomerId(id, element, cb) {
 			if (id != null && id > 0) {
-				crud.getBudgetsCostsByCustomerId({ customerId: id, onlyActive: 'Y' })
+				crud.getBudgetsCostsByCustomerId({ customerId: id, projectGroup: 'NEW' })
 						.then(function(datatable) {
 					console.log('datatable: ' + JSON.stringify(datatable));
 					element.find($scope.projectsContainer).attr("data-datatable", JSON.stringify(datatable));

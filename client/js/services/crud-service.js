@@ -72,8 +72,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
       getProjectsByCustomerId: function(idObj) {
         return resources.GET.EHOUR.getProjectsByCustomerId.query(idObj).$promise;
       },
-      getBudgetsCostsByCustomerId: function(idObj) {
-        return resources.GET.BOTH.getBudgetsCostsByCustomerId.query(idObj).$promise;
+      getBudgetsCostsByCustomerId: function(params) {
+        return resources.GET.BOTH.getBudgetsCostsByCustomerId.query(params).$promise;
       },
       getBudgets: function(projectId) {
         return resources.GET.LOCAL.getBudgets.query(projectId).$promise;
