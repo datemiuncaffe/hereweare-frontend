@@ -1,16 +1,16 @@
 angular
 	.module("app")
-	.controller("ActiveProjectsController",
+	.controller("NewProjectsController",
 							['$rootScope', '$scope', '$q', 'crud', 'hwtables',
 							function($rootScope, $scope, $q, crud, hwtables) {
 		$scope.customers = null;
-		$scope.sectionId = "activeprojects";
-		$scope.projectsContainer = "div.activeprojects";
+		$scope.sectionId = "newprojects";
+		$scope.projectsContainer = "div.newprojects";
 		hwtables.sectionId = $scope.sectionId;
 		hwtables.projectsContainer = $scope.projectsContainer;
 
     $q.all([
-		  crud.getCustomers({customerGroup: 'ACTIVE'})
+		  crud.getCustomers({customerGroup: 'NEW'})
 		])
 		.then(function(data) {
 			if (data[0].length > 0) {

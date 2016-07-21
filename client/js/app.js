@@ -33,6 +33,15 @@ angular
            }
         }
       })
+      .state('newprojects', {
+        url: '/newprojects',
+        views:{
+          'newprojectsview': {
+              templateUrl: 'views/estimate/projects/newprojects.html',
+              controller: 'NewProjectsController'
+           }
+        }
+      })
       .state('overview', {
         url: '/overview',
         views:{

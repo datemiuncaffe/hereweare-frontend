@@ -19,14 +19,19 @@
           name: 'progetti',
           type: 'toggle',
           pages: [{
-            name: 'Progetti attivi',
+            name: 'Attivi',
             type: 'link',
             state: 'activeprojects',
             icon: ''
           }, {
-            name: 'Progetti interni',
+            name: 'Interni',
             type: 'link',
             state: 'senseiprojects',
+            icon: ''
+          }, {
+            name: 'Nuovi',
+            type: 'link',
+            state: 'newprojects',
             icon: ''
           }]
         });
