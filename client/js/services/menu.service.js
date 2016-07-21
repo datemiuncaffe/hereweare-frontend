@@ -55,7 +55,7 @@
             state: 'giornicommessa',
             icon: ''
           }, {
-            name: 'GG',
+            name: 'GG erogate',
             type: 'link',
             state: 'giorni',
             icon: ''
