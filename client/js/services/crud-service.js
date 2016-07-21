@@ -11,8 +11,16 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 
 (function(window, angular, undefined) {'use strict';
 
-	var module = angular.module("crudService",[]);
-	module.factory('crud', ['$resource', 'resourceBaseUrl', function($resource, resourceBaseUrl) {
+	var module = angular.module("crudService",['angular-cache']);
+	module.factory('crud', ['$resource', 'resourceBaseUrl', 'CacheFactory',
+                function($resource, resourceBaseUrl, CacheFactory) {
+    var budgetsCostsByCustomerIdCache;
+    if (!CacheFactory.get('budgetsCostsByCustomerIdCache')) {
+      budgetsCostsByCustomerIdCache = CacheFactory('budgetsCostsByCustomerIdCache', {
+        maxAge: 4 * 60 * 1000, // 2 minutes,
+        deleteOnExpire: 'aggressive'
+      });
+    }
 
     var queries = {
       GET: {
@@ -41,7 +49,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
     var resources = {
       GET: {
         BOTH: {
-          getBudgetsCostsByCustomerId: $resource(queries.GET.BOTH.getBudgetsCostsByCustomerId, null, {'query':  {method:'GET', isArray:true}})
+          getBudgetsCostsByCustomerId: $resource(queries.GET.BOTH.getBudgetsCostsByCustomerId, null, {'query':  {method:'GET', cache: CacheFactory.get('budgetsCostsByCustomerIdCache'), isArray:true}})
         },
         LOCAL: {
           getCustomersAndProjects:	$resource(queries.GET.LOCAL.getCustomersAndProjects, null, {'query':  {method:'GET', isArray:true}}),
