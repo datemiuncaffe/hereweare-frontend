@@ -38,7 +38,7 @@ angular
 									// 	getActiveProjectsByCustomerId(customerId, element, showData);
 					        // }, index * 500);
 								});
-			var period = 6;
+			var period = 8;
 			var idelementListLength = idelementList.length;
 			var numpages = Math.floor(idelementListLength / period);
 			console.log('numpages: ' + numpages);
@@ -71,14 +71,15 @@ angular
 
 				crud.getBudgetsCostsByCustomerIds({ customerIds: ids, projectGroup: 'ACTIVE' })
 						.then(function(datatables) {
-					console.log('datatables: ' + JSON.stringify(datatables));
+					console.log('datatables: ' + JSON.stringify(datatables, null, '\t'));
 					datatables.forEach(function(item) {
-						var element = page.filter(function(pageitem) {
+						var curritem = page.filter(function(pageitem) {
+							console.log(pageitem.id + '-' + item.customerId + '; check: ' + (pageitem.id == item.customerId));
 							return pageitem.id == item.customerId;
-						})[0].id;
-						console.log('processed id = ' + id);
-						// element.find($scope.projectsContainer).attr("data-datatable", JSON.stringify(item.datatable));
-						// cb(item.customerId, element, item.datatable);
+						});
+						console.log('processed id = ' + curritem[0].id);
+						curritem[0].elem.find($scope.projectsContainer).attr("data-datatable", JSON.stringify(item.datatable));
+						cb(item.customerId, curritem[0].elem, item.datatable);
 					});
 				});
 			}

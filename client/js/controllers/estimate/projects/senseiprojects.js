@@ -21,28 +21,65 @@ angular
 		});
 
 		$scope.$on('onRepeatLast', function(event, element, attrs){
+			var idelementList = [];
 			$(element).parent()
 								.find("div.customer")
 								.each(function(index) {
 									var element = $(this);
 									var customerId = $(this).attr("data-customer-id");
-									console.log('customerId = ' + customerId);
+									// console.log('customerId = ' + customerId);
+									var idelement = {id:customerId,elem:element};
+									idelementList.push(idelement);
 									// if (customerId == '19' || customerId == '16') {
 									// 	getActiveProjectsByCustomerId(customerId, element, showData);
 									// }
-									setTimeout(function() {
-					          getActiveProjectsByCustomerId(customerId, element, showData);
-					        }, index * 500);
+									// setTimeout(function() {
+					        //   getActiveProjectsByCustomerId(customerId, element, showData);
+					        // }, index * 500);
 								});
+			var period = 1;
+			var idelementListLength = idelementList.length;
+			var numpages = Math.floor(idelementListLength / period);
+			console.log('numpages: ' + numpages);
+			var pages = [];
+			for (var i = 0; i < numpages; i++) {
+				pages[i] = idelementList.filter(function(idelement, index) {
+					if (i == numpages - 1) {
+						return (period * i <= index);
+					} else {
+						return (period * i <= index && index < period * (i+1));
+					}
+				});
+			}
+			pages.forEach(function(page) {
+				getActiveProjects(page, showData);
+			});
+			// getActiveProjects(pages[0], showData);
 		});
 
-		function getActiveProjectsByCustomerId(id, element, cb) {
-			if (id != null && id > 0) {
-				crud.getBudgetsCostsByCustomerId({ customerId: id, projectGroup: 'INT' })
-						.then(function(datatable) {
-					console.log('datatable: ' + JSON.stringify(datatable));
-					element.find($scope.projectsContainer).attr("data-datatable", JSON.stringify(datatable));
-					cb(id, element, datatable);
+		function getActiveProjects(page, cb) {
+			if (page != null && page.length > 0) {
+				var ids = "";
+				page.forEach(function(item, index) {
+					ids += item.id;
+					if (index != (page.length - 1)) {
+						ids += ',';
+					}
+				});
+				console.log('ids: ' + ids);
+
+				crud.getBudgetsCostsByCustomerIds({ customerIds: ids, projectGroup: 'INT' })
+						.then(function(datatables) {
+					console.log('datatables: ' + JSON.stringify(datatables, null, '\t'));
+					datatables.forEach(function(item) {
+						var curritem = page.filter(function(pageitem) {
+							console.log(pageitem.id + '-' + item.customerId + '; check: ' + (pageitem.id == item.customerId));
+							return pageitem.id == item.customerId;
+						});
+						console.log('processed id = ' + curritem[0].id);
+						curritem[0].elem.find($scope.projectsContainer).attr("data-datatable", JSON.stringify(item.datatable));
+						cb(item.customerId, curritem[0].elem, item.datatable);
+					});
 				});
 			}
 		};
