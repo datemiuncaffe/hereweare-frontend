@@ -32,8 +32,7 @@
 			</div>
 			<div class="form-group budgettot">
 				<p>Giorni totali:</p>
-				<span>{{project.daystot}}</span>
-				<!--input class="ng-binding" ng-model="project.daystot"></input-->
+				<input class="ng-binding" ng-model="project.daystot" name="projectdaystot"></input>
 			</div>
 		</div>
 		<div class="center">
@@ -69,8 +68,10 @@
 						<span>A: <b>{{budget.to}}</b></span>
 					</span>
 					<span class="budgetvalues">
-						<span>Budget mensile: <b>{{budget.amount}}</b></span>
-						<span>Giornate previste: <b>{{budget.days}}</b></span>
+						<label for="budgetamount">Budget mensile:</label>
+						<input class="ng-binding" ng-model="budget.amount" name="budgetamount" id="budgetamount" type="number" size="6"></input>
+						<label for="budgetdays">Giornate previste:</label>
+						<input class="ng-binding" ng-model="budget.days" name="budgetdays" id="budgetdays" type="number" size="6"></input>
 					</span>
 				</div>
 			</div>
