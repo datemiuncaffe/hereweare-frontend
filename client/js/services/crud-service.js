@@ -14,9 +14,9 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 	var module = angular.module("crudService",['angular-cache']);
 	module.factory('crud', ['$resource', 'resourceBaseUrl', 'CacheFactory',
                 function($resource, resourceBaseUrl, CacheFactory) {
-    var budgetsCostsByCustomerIdCache;
-    if (!CacheFactory.get('budgetsCostsByCustomerIdCache')) {
-      budgetsCostsByCustomerIdCache = CacheFactory('budgetsCostsByCustomerIdCache', {
+    var budgetsCostsByCustomerIdsCache;
+    if (!CacheFactory.get('budgetsCostsByCustomerIdsCache')) {
+      budgetsCostsByCustomerIdsCache = CacheFactory('budgetsCostsByCustomerIdsCache', {
         maxAge: 4 * 60 * 1000, // 2 minutes,
         deleteOnExpire: 'aggressive'
       });
@@ -25,7 +25,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
     var queries = {
       GET: {
         BOTH: {
-          getBudgetsCostsByCustomerId: 'http://' + resourceBaseUrl + '/query_budgets_costs_by_customer_id'
+          getBudgetsCostsByCustomerIds: 'http://' + resourceBaseUrl + '/query_budgets_costs_by_customer_ids'
         },
         LOCAL: {
           getCustomersAndProjects:	'http://' + resourceBaseUrl + '/api/customers?filter[include][projects]=budgets',
@@ -49,7 +49,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
     var resources = {
       GET: {
         BOTH: {
-          getBudgetsCostsByCustomerId: $resource(queries.GET.BOTH.getBudgetsCostsByCustomerId, null, {'query':  {method:'GET', cache: CacheFactory.get('budgetsCostsByCustomerIdCache'), isArray:true}})
+          getBudgetsCostsByCustomerIds: $resource(queries.GET.BOTH.getBudgetsCostsByCustomerIds, null, {'query':  {method:'GET', cache: CacheFactory.get('budgetsCostsByCustomerIdsCache'), isArray:true}})
         },
         LOCAL: {
           getCustomersAndProjects:	$resource(queries.GET.LOCAL.getCustomersAndProjects, null, {'query':  {method:'GET', isArray:true}}),
@@ -80,8 +80,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
       getProjectsByCustomerId: function(idObj) {
         return resources.GET.EHOUR.getProjectsByCustomerId.query(idObj).$promise;
       },
-      getBudgetsCostsByCustomerId: function(params) {
-        return resources.GET.BOTH.getBudgetsCostsByCustomerId.query(params).$promise;
+      getBudgetsCostsByCustomerIds: function(params) {
+        return resources.GET.BOTH.getBudgetsCostsByCustomerIds.query(params).$promise;
       },
       getBudgets: function(projectId) {
         return resources.GET.LOCAL.getBudgets.query(projectId).$promise;
