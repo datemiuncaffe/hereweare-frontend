@@ -37,7 +37,7 @@ angular
 									// 	getActiveProjectsByCustomerId(customerId, element, showData);
 					        // }, index * 500);
 								});
-			var period = 1;
+			var period = 2;
 			var idelementListLength = idelementList.length;
 			var numpages = Math.floor(idelementListLength / period);
 			console.log('numpages: ' + numpages);
