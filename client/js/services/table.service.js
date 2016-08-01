@@ -284,6 +284,8 @@
     			var rowsExit = rows.exit().remove();
 
     			this.addPopover(id);
+          this.addTableLinks(id, table);
+
     		},
     		filterTable: function(table, rows, columns) {
     			var filtervalues = [];
@@ -353,7 +355,44 @@
     					content:	popovercontentcompiled
     				});
     			});
-    		}
+    		},
+    		addTableLinks: function(customerId, table) { // add dynamic link to single project page
+          console.log('adding table links');
+          var customerDiv = $("section[id=" + this.sectionId + "] div[data-customer-id='" + customerId + "']");
+          var customerName = customerDiv.find("span.name h4").text();
+
+          if ("div.newprojects" == this.projectsContainer) {
+            var tablerows = customerDiv.find(this.projectsContainer + " tbody tr");
+            var rowlinks = [];
+      			table.select("tbody").selectAll("tr").each(function(d){
+      				var link = "projectmodify({" +
+      									 "customerId: " + customerId + "," +
+      									 "customerName: '" + customerName + "'," +
+      									 "projectId: " + d.projectId + "," +
+      									 "projectName: '" + d.projectname + "'," +
+      									 "projectCode: '" + d.projectcode + "'" +
+      									 "})";
+      				rowlinks.push(link);
+      			});
+      			console.log('rowlinks = ' + JSON.stringify(rowlinks));
+      			tablerows.each(function(index) {
+      				var rowcells = $(this).find("td");
+      				console.log('rowcells: ' + rowcells);
+      				rowcells.each(function() {
+      					var value = $(this).text();
+      					console.log('value: ' + value);
+      					var modifypageurl = '<a ui-sref="' + rowlinks[index] + '">' + value + '</a>';
+      					console.log('modifypageurl: ' + modifypageurl);
+      					var modifypagetemplate = angular.element(modifypageurl);
+      					var modifypageFn = $compile(modifypagetemplate);
+                var scope = angular.element(this).scope();
+      					var modifypagelink = modifypageFn(scope);
+      					$(this).empty();
+      					$(this).append(modifypagelink);
+      				});
+      			});
+          }
+    		} // end add dynamic link to single project page
       }; // end self
     }]);
 })();
