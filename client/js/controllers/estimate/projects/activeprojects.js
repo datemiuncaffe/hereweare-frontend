@@ -20,6 +20,8 @@ angular
 			}
 		});
 
+		var minperiod = 6;
+
 		$scope.$on('onRepeatLast', function(event, element, attrs){
 			var idelementList = [];
 			$(element).parent()
@@ -38,8 +40,12 @@ angular
 									// 	getActiveProjectsByCustomerId(customerId, element, showData);
 					        // }, index * 500);
 								});
-			var period = 8;
+
 			var idelementListLength = idelementList.length;
+			var period = minperiod;
+			if (idelementListLength < period) {
+				period = idelementListLength;
+			}
 			var numpages = Math.floor(idelementListLength / period);
 			console.log('numpages: ' + numpages);
 			var pages = [];
