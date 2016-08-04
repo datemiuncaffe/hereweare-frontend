@@ -1,8 +1,10 @@
 angular
-  .module('app')
+  .module('ehourqueries')
   .controller('GiorniCommessaUtenteController',
-      ['$scope', '$state', 'NgTableParams', '$resource', 'resourceBaseUrl', '$stateParams',
-      function($scope, $state, NgTableParams, $resource, resourceBaseUrl, $stateParams) {
+      ['$scope', '$state', 'NgTableParams', '$resource', 'resourceBaseUrl',
+       '$stateParams', 'FileSaver', 'Blob',
+      function($scope, $state, NgTableParams, $resource, resourceBaseUrl,
+        $stateParams, FileSaver, Blob) {
 	  var ref = this;
 
     var now = moment();
@@ -53,7 +55,9 @@ angular
     $scope.saveAllCSV = function() {
       console.log("saving all csv ...");
       var currentData = ref.tableParams.data;
-      console.log("currentData: " + JSON.stringify(currentData, null, '\t'));
+      console.log("currentData: " + JSON.stringify(currentData, null, 2));
+      var blob = new Blob([JSON.stringify(currentData, null, 2)], {type : 'application/json'});
+      FileSaver.saveAs(blob, 'giorniCommessaUtente.csv');
     };
 
   }]);

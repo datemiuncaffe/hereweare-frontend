@@ -1,5 +1,5 @@
 angular
-  .module('app')
+  .module('ehourqueries')
   .controller('GiorniClienteController', ['$scope', '$state', 'NgTableParams', '$resource', 'resourceBaseUrl', function($scope,
 		  $state, NgTableParams, $resource, resourceBaseUrl) {
 	  var ref = this;

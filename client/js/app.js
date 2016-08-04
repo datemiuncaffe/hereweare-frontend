@@ -11,7 +11,8 @@ angular
     'ngAnimate',
     'ngMaterial',
     'ngAria',
-    'table.service'
+    'table.service',
+    'ehourqueries'
   ])
   .config(['$stateProvider', '$urlRouterProvider', '$provide', function($stateProvider, $urlRouterProvider, $provide) {
       $stateProvider
@@ -165,3 +166,5 @@ angular
 			}
 		};
 	});
+
+angular.module('ehourqueries', ['ngFileSaver']);

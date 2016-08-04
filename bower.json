@@ -24,6 +24,7 @@
     "moment": "^2.13.0",
     "angucomplete-alt": "^2.4.1",
     "d3": "^3.5.17",
-    "angular-cache": "^4.6.0"
+    "angular-cache": "^4.6.0",
+    "angular-file-saver": "^1.1.2"
   }
 }
