@@ -49,4 +49,11 @@ angular
     			});
     		}
     	});
+
+    $scope.saveAllCSV = function() {
+      console.log("saving all csv ...");
+      var currentData = ref.tableParams.data;
+      console.log("currentData: " + JSON.stringify(currentData, null, '\t'));
+    };
+
   }]);

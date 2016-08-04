@@ -97,3 +97,12 @@ body {
   border-left-style: double;
   display: inline-block;
 }
+
+.csvsaverdiv {
+  margin-bottom: 10px;
+  height: 30px;
+  display: block;
+}
+.csvsaver {
+  float: right;
+}

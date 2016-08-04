@@ -1,6 +1,10 @@
 <div class="list-group">
 	<div ng-controller="GiorniCommessaUtenteController as oremese">
 	  <h1>Giornate erogate per commessa e per dipendente</h1>
+		<!-- <div class="csvsaverdiv"> -->
+		<form class="csvsaverdiv">
+			<button class="btn btn-default csvsaver" ng-click="saveAllCSV()">Salva tutti i csv</button>
+		</form>
 	  <table ng-table="oremese.tableParams" class="table table-bordered table-striped table-condensed" show-filter="true">
 		<tr ng-repeat="row in $data">
 		  <td data-title="'ANNO'" filter="{anno: 'text'}" sortable="'anno'">{{row.anno}}</td>
