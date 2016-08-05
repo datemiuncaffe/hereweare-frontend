@@ -95,6 +95,27 @@ angular
     };
 
     function getCSV(data) {
+      data.sort(function(a, b) {
+        var codiceNomeClienteA = a.codiceNomeCliente.toUpperCase(); // ignore upper and lowercase
+        var codiceNomeClienteB = b.codiceNomeCliente.toUpperCase(); // ignore upper and lowercase
+
+        if (codiceNomeClienteA < codiceNomeClienteB) {
+          return -1;
+        } else if (codiceNomeClienteA > codiceNomeClienteB) {
+          return 1;
+        } else { // equality
+          var nomeProgettoA = a.nomeProgetto.toUpperCase();
+          var nomeProgettoB = b.nomeProgetto.toUpperCase();
+          if (nomeProgettoA < nomeProgettoB) {
+            return -1;
+          } else if (nomeProgettoA > nomeProgettoB) {
+            return 1;
+          }
+          // must be equal
+          return 0;
+        }
+      });
+
       var csv = "";
       csv += "Rapporto cliente\n";
 
@@ -103,17 +124,30 @@ angular
       var datestart = currentmonth.date(1).format("D-MMM-YY");
       var dateend = currentmonth.date(currentmonth.daysInMonth()).format("D-MMM-YY");
       console.log("datestart: " + datestart + "; dateend: " + dateend);
-      csv += "Data di inizio," + datestart + ",,Data di fine," + dateend + "\n\n";
+      csv += "Data di inizio," + datestart + ",,Data di fine," + dateend + "\n";
+      csv += ",,,,,\n";
 
       var ret = [];
-      ret.push('"' + Object.keys(data[0]).join('","') + '"');
+      var header = ["Cliente", "Progetto", "Codice progetto", "Dipendente", "Role", "Ore"];
+      ret.push('"' + header.join('","') + '"');
+
       for (var i = 0, len = data.length; i < len; i++) {
           var line = [];
-          for (var key in data[i]) {
-              if (data[i].hasOwnProperty(key)) {
-                  line.push('"' + data[i][key] + '"');
-                  // line.push(data[i][key]);
-              }
+          if (data[i].hasOwnProperty("codiceNomeCliente")) {
+              line.push('"' + data[i]["codiceNomeCliente"] + '"');
+          }
+          if (data[i].hasOwnProperty("nomeProgetto")) {
+              line.push('"' + data[i]["nomeProgetto"] + '"');
+          }
+          if (data[i].hasOwnProperty("codiceProgetto")) {
+              line.push('"' + data[i]["codiceProgetto"] + '"');
+          }
+          if (data[i].hasOwnProperty("cognomeNomeDipendente")) {
+              line.push('"' + data[i]["cognomeNomeDipendente"] + '"');
+          }
+          line.push('""');
+          if (data[i].hasOwnProperty("oreMese")) {
+              line.push('"' + data[i]["oreMese"] + '"');
           }
           ret.push(line.join(','));
       }
