@@ -65,7 +65,7 @@ angular
       var employees = Object.keys(dataperemployee).sort();
       console.log("employees: " + JSON.stringify(employees, null, '\t'));
       employees.forEach(function(employee){
-        var currentDataCSV = csv(dataperemployee[employee]);
+        var currentDataCSV = getCSV(dataperemployee[employee]);
         console.log("currentDataCSV: " + JSON.stringify(currentDataCSV, null, '\n'));
         zipfolder.file(employee + ".csv", currentDataCSV);
 
@@ -94,19 +94,32 @@ angular
       return dataperemployee;
     };
 
-    function csv(arr) {
-        var ret = [];
-        ret.push('"' + Object.keys(arr[0]).join('","') + '"');
-        for (var i = 0, len = arr.length; i < len; i++) {
-            var line = [];
-            for (var key in arr[i]) {
-                if (arr[i].hasOwnProperty(key)) {
-                    line.push('"' + arr[i][key] + '"');
-                }
-            }
-            ret.push(line.join(','));
-        }
-        return ret.join('\n');
+    function getCSV(data) {
+      var csv = "";
+      csv += "Rapporto cliente\n";
+
+      var month = data[0].mese;
+      var currentmonth = moment({month:(data[0].mese - 1)});
+      var datestart = currentmonth.date(1).format("D-MMM-YY");
+      var dateend = currentmonth.date(currentmonth.daysInMonth()).format("D-MMM-YY");
+      console.log("datestart: " + datestart + "; dateend: " + dateend);
+      csv += "Data di inizio," + datestart + ",,Data di fine," + dateend + "\n\n";
+
+      var ret = [];
+      ret.push('"' + Object.keys(data[0]).join('","') + '"');
+      for (var i = 0, len = data.length; i < len; i++) {
+          var line = [];
+          for (var key in data[i]) {
+              if (data[i].hasOwnProperty(key)) {
+                  line.push('"' + data[i][key] + '"');
+                  // line.push(data[i][key]);
+              }
+          }
+          ret.push(line.join(','));
+      }
+
+      csv += ret.join('\n');
+      return csv;
     };
 
   }]);
