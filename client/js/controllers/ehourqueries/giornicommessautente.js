@@ -56,8 +56,57 @@ angular
       console.log("saving all csv ...");
       var currentData = ref.tableParams.data;
       console.log("currentData: " + JSON.stringify(currentData, null, 2));
-      var blob = new Blob([JSON.stringify(currentData, null, 2)], {type : 'application/json'});
-      FileSaver.saveAs(blob, 'giorniCommessaUtente.csv');
+
+      var dataperemployee = groupDataPerEmployee(currentData);
+
+      var zip = new JSZip();
+      var zipfolder = zip.folder("orefatturate");
+
+      var employees = Object.keys(dataperemployee).sort();
+      console.log("employees: " + JSON.stringify(employees, null, '\t'));
+      employees.forEach(function(employee){
+        var currentDataCSV = csv(dataperemployee[employee]);
+        console.log("currentDataCSV: " + JSON.stringify(currentDataCSV, null, '\n'));
+        zipfolder.file(employee + ".csv", currentDataCSV);
+
+        // var blob = new Blob([currentDataCSV], {type : 'application/json'});
+        // console.log("blob: " + JSON.stringify(blob, null, '\t'));
+      });
+      zipfolder.generateAsync({type:"blob"})
+              .then(function (blob) {
+                FileSaver.saveAs(blob, 'giorniCommessaUtente.zip');
+              });
+    };
+
+    function groupDataPerEmployee(currentData) {
+      var dataperemployee = {};
+      currentData.forEach(function(currentData){
+        if (dataperemployee.hasOwnProperty(currentData.nomeDipendente)) {
+          console.log("already present");
+          dataperemployee[currentData.nomeDipendente].push(currentData);
+        } else {
+          console.log("add");
+          dataperemployee[currentData.nomeDipendente] = [];
+          dataperemployee[currentData.nomeDipendente].push(currentData);
+        }
+      });
+      console.log("dataperemployee: " + JSON.stringify(dataperemployee, null, '\t'));
+      return dataperemployee;
+    };
+
+    function csv(arr) {
+        var ret = [];
+        ret.push('"' + Object.keys(arr[0]).join('","') + '"');
+        for (var i = 0, len = arr.length; i < len; i++) {
+            var line = [];
+            for (var key in arr[i]) {
+                if (arr[i].hasOwnProperty(key)) {
+                    line.push('"' + arr[i][key] + '"');
+                }
+            }
+            ret.push(line.join(','));
+        }
+        return ret.join('\n');
     };
 
   }]);

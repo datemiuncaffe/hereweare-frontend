@@ -25,6 +25,7 @@
     "angucomplete-alt": "^2.4.1",
     "d3": "^3.5.17",
     "angular-cache": "^4.6.0",
-    "angular-file-saver": "^1.1.2"
+    "angular-file-saver": "^1.1.2",
+    "jszip": "Stuk/jszip#^3.1.0"
   }
 }
