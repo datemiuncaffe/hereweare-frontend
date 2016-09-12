@@ -86,14 +86,28 @@
 
   </head>
   <body ng-app="app">
-    <div class="headers" role="navigation">
+    <div class="headers" role="navigation" ng-controller="MenuController as vm">
       <div class="headers-container">
-        <div>
-          <a ui-sref="overview">Overview</a>
+
+        <div class="headers-menu" ng-class="{'last': $last}"
+          ng-repeat="section in vm.menu.sections.orizontalSections">
+          <a ui-sref="{{section.state}}" ng-if="section.type === 'link'">
+            {{section.name}}
+          </a>
+          <md-menu ng-if="section.type === 'toggle'">
+            <button ng-click="$mdOpenMenu()">
+              {{section.name}}
+            </button>
+            <md-menu-content class="headers-menu-content">
+              <md-menu-item ng-repeat="page in section.pages">
+                <a ui-sref="{{page.state}}">
+                  <md-button>{{page.name}}</md-button>
+                </a>
+              </md-menu-item>
+            </md-menu-content>
+          </md-menu>
         </div>
-        <div class="last">
-          <a ui-sref="activeprojects">Progetti attivi</a>
-        </div>
+
       </div>
     </div>
 
@@ -104,7 +118,8 @@
           md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
           <md-content role="navigation" class="menuvert-content">
             <ul class="side-menu">
-              <li ng-repeat="section in vm.menu.sections" class="parent-list-item"
+              <li ng-repeat="section in vm.menu.sections.verticalSections"
+                  class="parent-list-item"
                   ng-class="{'parentActive' : vm.isSectionSelected(section)}">
                 <h2 class="menu-heading" ng-if="section.type === 'heading'"
                     id="heading_{{ section.name | nospace }}">

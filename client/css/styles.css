@@ -15,7 +15,7 @@ body {
 .headers-container {
   margin-left: 250px;
 }
-.headers-container > div {
+.headers-container > .headers-menu {
   border-left-color: cyan;
   border-left-width: medium;
   border-left-style: solid;
@@ -27,10 +27,19 @@ body {
   margin-bottom: 10px;
   display: inline-block;
 }
-.headers-container > div.last {
+.headers-container > .headers-menu.last {
   border-right-color: cyan;
   border-right-width: medium;
   border-right-style: solid;
+}
+.headers-menu-content {
+  background-color: #222;
+  border-color: #080808;
+}
+md-menu-item {
+  margin-bottom: 4px;
+  border-bottom-color: cyan;
+  border-bottom-style: solid;
 }
 .headers-container a {
 	font-size: 20px;

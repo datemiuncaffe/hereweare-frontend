@@ -5,72 +5,128 @@
     .factory('menu', ['$location', '$rootScope',
       function ($location) {
 
-        var sections = [{
-          name: 'Overview',
-          type: 'link',
-          state: 'overview'
-        }, {
-          name: 'Ricerca',
-          type: 'link',
-          state: 'ricerca'
-        }];
-
-        sections.push({
-          name: 'progetti',
-          type: 'toggle',
-          pages: [{
-            name: 'Attivi',
+        var sections = {
+          verticalSections: [{
+            name: 'Overview',
             type: 'link',
-            state: 'activeprojects',
-            icon: ''
+            state: 'overview'
           }, {
-            name: 'Interni',
+            name: 'Ricerca',
             type: 'link',
-            state: 'senseiprojects',
-            icon: ''
+            state: 'ricerca'
           }, {
-            name: 'Nuovi',
+            name: 'Progetti',
+            type: 'toggle',
+            pages: [{
+              name: 'Attivi',
+              type: 'link',
+              state: 'activeprojects',
+              icon: ''
+            }, {
+              name: 'Interni',
+              type: 'link',
+              state: 'senseiprojects',
+              icon: ''
+            }, {
+              name: 'Nuovi',
+              type: 'link',
+              state: 'newprojects',
+              icon: ''
+            }]
+          }, {
+            name: 'Riepilogo ore',
+            type: 'toggle',
+            pages: [{
+              name: 'Ore mese',
+              type: 'link',
+              state: 'oremese',
+              icon: ''
+            }, {
+              name: 'GG commessa dip.',
+              type: 'link',
+              state: 'giornicommessautente',
+              icon: ''
+            }, {
+              name: 'GG commessa',
+              type: 'link',
+              state: 'giornicommessa',
+              icon: ''
+            }, {
+              name: 'GG erogate',
+              type: 'link',
+              state: 'giorni',
+              icon: ''
+            }, {
+              name: 'GG cliente',
+              type: 'link',
+              state: 'giornicliente',
+              icon: ''
+            }, {
+              name: 'GG cliente progetto',
+              type: 'link',
+              state: 'giorniclienteprogetto',
+              icon: ''
+            }]
+          }],
+          orizontalSections: [{
+            name: 'Overview',
             type: 'link',
-            state: 'newprojects',
-            icon: ''
+            state: 'overview'
+          }, {
+            name: 'Progetti',
+            type: 'toggle',
+            pages: [{
+              name: 'Attivi',
+              type: 'link',
+              state: 'activeprojects',
+              icon: ''
+            }, {
+              name: 'Interni',
+              type: 'link',
+              state: 'senseiprojects',
+              icon: ''
+            }, {
+              name: 'Nuovi',
+              type: 'link',
+              state: 'newprojects',
+              icon: ''
+            }]
+          }, {
+            name: 'Riepilogo ore',
+            type: 'toggle',
+            pages: [{
+              name: 'Ore mese',
+              type: 'link',
+              state: 'oremese',
+              icon: ''
+            }, {
+              name: 'GG commessa dip.',
+              type: 'link',
+              state: 'giornicommessautente',
+              icon: ''
+            }, {
+              name: 'GG commessa',
+              type: 'link',
+              state: 'giornicommessa',
+              icon: ''
+            }, {
+              name: 'GG erogate',
+              type: 'link',
+              state: 'giorni',
+              icon: ''
+            }, {
+              name: 'GG cliente',
+              type: 'link',
+              state: 'giornicliente',
+              icon: ''
+            }, {
+              name: 'GG cliente progetto',
+              type: 'link',
+              state: 'giorniclienteprogetto',
+              icon: ''
+            }]
           }]
-        });
-
-        sections.push({
-          name: 'Riepilogo ore',
-          type: 'toggle',
-          pages: [{
-            name: 'Ore mese',
-            type: 'link',
-            state: 'oremese',
-            icon: ''
-          }, {
-            name: 'GG commessa dip.',
-            type: 'link',
-            state: 'giornicommessautente',
-            icon: ''
-          }, {
-            name: 'GG commessa',
-            type: 'link',
-            state: 'giornicommessa',
-            icon: ''
-          }, {
-            name: 'GG erogate',
-            type: 'link',
-            state: 'giorni',
-            icon: ''
-          }, {
-            name: 'GG cliente',
-            type: 'link',
-            state: 'giornicliente',
-            icon: ''
-          }, {
-            name: 'GG cliente progetto',
-            type: 'link',
-            state: 'giorniclienteprogetto',
-            icon: ''
-          }]
-        });
+        };
 
         var self;
 
