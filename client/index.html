@@ -94,10 +94,14 @@
           <a ui-sref="{{section.state}}" ng-if="section.type === 'link'">
             {{section.name}}
           </a>
-          <md-menu ng-if="section.type === 'toggle'">
-            <button ng-click="$mdOpenMenu()">
-              {{section.name}}
-            </button>
+          <md-menu ng-if="section.type === 'toggle'"
+            md-position-mode="left bottom"
+            md-offset="0 20">
+            <md-button class="md-button-toggle" ng-click="$mdOpenMenu()">
+              <span aria-hidden="true">
+                {{section.name}}
+              </span>
+            </md-button>
             <md-menu-content class="headers-menu-content">
               <md-menu-item ng-repeat="page in section.pages">
                 <a ui-sref="{{page.state}}">

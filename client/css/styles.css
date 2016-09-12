@@ -32,6 +32,30 @@ body {
   border-right-width: medium;
   border-right-style: solid;
 }
+.headers-menu .md-button {
+  border-radius: 0;
+  /*color: inherit;*/
+  font-size: 20px;
+  color: #9d9d9d;
+  cursor: pointer;
+  font-weight: 400;
+  line-height: inherit;
+  min-height: inherit;
+  margin: 0;
+  max-height: 40px;
+  overflow: hidden;
+  padding: 0px 0px;
+  text-align: left;
+  text-decoration: none;
+  white-space: normal;
+  width: 100%;
+}
+.headers-menu .md-button:hover,
+.headers-menu .md-button:focus {
+  background-color: transparent;
+  color: #fff;
+  text-decoration: none;
+}
 .headers-menu-content {
   background-color: #222;
   border-color: #080808;
