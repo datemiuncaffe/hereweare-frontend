@@ -75,6 +75,7 @@
           }, {
             name: 'Progetti',
             type: 'toggle',
+            width: '400px',
             pages: [{
               name: 'Attivi',
               type: 'link',

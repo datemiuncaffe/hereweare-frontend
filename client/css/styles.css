@@ -58,7 +58,11 @@ body {
 }
 .headers-menu-content {
   background-color: #222;
-  border-color: #080808;
+  /*border-color: #080808;*/
+  max-height: none;
+  border-color: cyan;
+  border-width: medium;
+  border-style: solid;
 }
 md-menu-item {
   margin-bottom: 4px;
