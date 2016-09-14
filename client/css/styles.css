@@ -7,13 +7,17 @@ body {
 }
 
 .headers {
-  background-color: #222222;
+  background-color: #dacf7a;
   border-color: #080808;
   box-sizing: content-box;
 }
 
 .headers-container {
   margin-left: 250px;
+}
+.headers-container a {
+	font-size: 20px;
+  color: #9d9d9d;
 }
 .headers-container > .headers-menu {
   border-left-color: cyan;
@@ -34,7 +38,7 @@ body {
 }
 .headers-menu .md-button {
   border-radius: 0;
-  font-size: 20px;
+  font-size: 16px;
   color: #9d9d9d;
   cursor: pointer;
   font-weight: 400;
@@ -62,20 +66,45 @@ body {
   border-color: cyan;
   border-width: medium;
   border-style: solid;
+  padding: 0;
 }
-md-menu-item {
-  margin-bottom: 4px;
-  border-bottom-color: cyan;
+.headers-menu-content button {
+  min-width: 50px;
+  margin: 0;
+  font-size: 16px;
+}
+.headers-menu-content a:hover,
+.headers-menu-content button:hover {
+  background-color: rgb(255, 0, 0);
+}
+.headers-menu-content button:not([disabled]),
+.headers-menu-content button:hover:not([disabled]) {
+  background-color: transparent;
+}
+.headers-menu-content md-menu-item {
+  /*border-bottom-color: cyan;*/
   border-bottom-style: solid;
+  background-color: rgb(90, 85, 88);
 }
-.headers-container a {
-	font-size: 20px;
+.headers-menu-content md-menu-item:hover {
+  background-color: rgb(255, 85, 25);
+}
+.headers-menu-content md-menu-item a {
+  padding-left: 8px;
+  font-size: 20px;
   color: #9d9d9d;
 }
-.headers-container a:hover, .headers-container a:focus {
+.headers-menu-content md-menu-item a:hover,
+.headers-menu-content md-menu-item a:focus {
   background-color: transparent;
   color: #fff;
   text-decoration: none;
+}
+.headers-menu-content md-menu-item a span {
+  color: #9d9d9d;
+}
+.headers-menu-content md-menu-item a span:hover {
+  color: #000000;
 }
 
 /* ------------------------------------ */
@@ -83,7 +112,7 @@ md-menu-item {
 	width: 250px;
 	margin-right: auto;
   margin-top: -68px;
-  background-color: #222222;
+  background-color: #2294ff;
   border-color: #080808;
   box-sizing: content-box;
   display: inline-block;
