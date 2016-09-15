@@ -7,7 +7,7 @@ body {
 }
 
 .headers {
-  background-color: #dacf7a;
+  background-color: #163653;
   border-color: #080808;
   box-sizing: content-box;
 }
@@ -60,12 +60,8 @@ body {
   text-decoration: none;
 }
 .headers-menu-content {
-  background-color: #222222;
-  border-color: #080808;
+  background-color: #163653;
   max-height: none;
-  border-color: cyan;
-  border-width: medium;
-  border-style: solid;
   padding: 0;
 }
 .headers-menu-content button {
@@ -84,13 +80,14 @@ body {
 .headers-menu-content md-menu-item {
   /*border-bottom-color: cyan;*/
   border-bottom-style: solid;
-  background-color: rgb(90, 85, 88);
+  background-color: #163653;
 }
 .headers-menu-content md-menu-item:hover {
   background-color: rgb(255, 85, 25);
 }
 .headers-menu-content md-menu-item a {
-  padding-left: 8px;
+  padding-left: 12px;
+  padding-right: 20px;
   font-size: 20px;
   color: #9d9d9d;
 }
@@ -149,6 +146,7 @@ body {
 .menuvert img.sensei-logo-png {
   background-color: rgba(60, 55, 255, 0.5);
   width: 250px;
+  padding: 16px;
 }
 .menuvert .menuvert-container .menuvert-content button {
 	font-size: 20px;
