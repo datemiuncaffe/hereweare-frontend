@@ -73,6 +73,10 @@
             type: 'link',
             state: 'overview'
           }, {
+            name: 'Ricerca',
+            type: 'link',
+            state: 'ricerca'
+          }, {
             name: 'Progetti',
             type: 'toggle',
             width: '400px',
