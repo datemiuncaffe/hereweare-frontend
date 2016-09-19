@@ -28,7 +28,7 @@ md-sidenav {
 }
 
 .side-menu .md-button.active {
-  color: deeppink;
+  color: #fff;
 }
 
 .side-menu .menu-toggle-list a.md-button {
@@ -72,7 +72,7 @@ md-sidenav {
   border-radius: 0;
   /*color: inherit;*/
   font-size: 20px;
-  color: #9d9d9d;
+  color: #e3e39d;
   cursor: pointer;
   font-weight: 400;
   line-height: 40px;

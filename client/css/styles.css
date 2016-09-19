@@ -7,7 +7,7 @@ body {
 }
 
 .headers {
-  background-color: #163653;
+  background-color: #165697;
   border-color: #080808;
   box-sizing: content-box;
 }
@@ -17,10 +17,12 @@ body {
 }
 .headers-container a {
 	font-size: 16px;
-  color: #9d9d9d;
+  color: #e3e39d;
   text-transform: uppercase;
 }
 .headers-container a:hover {
+  background-color: transparent;
+  color: #fff;
   text-decoration: none;
 }
 .headers-container > .headers-menu {
@@ -43,7 +45,7 @@ body {
 .headers-menu .md-button {
   border-radius: 0;
   font-size: 16px;
-  color: #9d9d9d;
+  color: #e3e39d;
   cursor: pointer;
   font-weight: 400;
   line-height: inherit;
@@ -64,7 +66,7 @@ body {
   text-decoration: none;
 }
 .headers-menu-content {
-  background-color: #163653;
+  background-color: #165697;
   max-height: none;
   padding: 0;
 }
@@ -85,7 +87,7 @@ body {
 .headers-menu-content md-menu-item {
   /*border-bottom-color: cyan;*/
   border-bottom-style: solid;
-  background-color: #163653;
+  background-color: #165697;
 }
 .headers-menu-content md-menu-item:hover {
   background-color: rgb(92, 220, 254);
@@ -94,7 +96,7 @@ body {
   padding-left: 12px;
   padding-right: 30px;
   font-size: 20px;
-  color: #9d9d9d;
+  color: #e3e39d;
 }
 .headers-menu-content md-menu-item a:hover,
 .headers-menu-content md-menu-item a:focus {
@@ -103,7 +105,7 @@ body {
   text-decoration: none;
 }
 .headers-menu-content md-menu-item a span {
-  color: #9d9d9d;
+  color: #e3e39d;
 }
 .headers-menu-content md-menu-item a span:hover {
   color: #000000;
@@ -114,7 +116,7 @@ body {
 	width: 250px;
 	margin-right: auto;
   margin-top: -68px;
-  background-color: #163653;
+  background-color: #165697;
   border-color: #080808;
   box-sizing: content-box;
   display: inline-block;
@@ -130,7 +132,7 @@ body {
 }
 
 .menuvert .menuvert-container .menuvert-content {
-  background-color: #163653;
+  background-color: #165697;
   border-color: #080808;
 }
 
@@ -154,7 +156,7 @@ body {
 }
 .menuvert .menuvert-container .menuvert-content button {
 	font-size: 20px;
-  color: #9d9d9d;
+  color: #e3e39d;
 }
 .menuvert .menuvert-container .menuvert-content button:hover,
 .menuvert .menuvert-container .menuvert-content button:focus {
