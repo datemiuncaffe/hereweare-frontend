@@ -34,7 +34,7 @@
               icon: ''
             }]
           }, {
-            name: 'Riepilogo ore',
+            name: 'Riepilogo dipendenti',
             type: 'toggle',
             pages: [{
               name: 'Ore mese',
@@ -46,7 +46,11 @@
               type: 'link',
               state: 'giornicommessautente',
               icon: ''
-            }, {
+            }]
+          }, {
+            name: 'Riepilogo commesse',
+            type: 'toggle',
+            pages: [{
               name: 'GG commessa',
               type: 'link',
               state: 'giornicommessa',
@@ -97,7 +101,7 @@
               icon: ''
             }]
           }, {
-            name: 'Riepilogo ore',
+            name: 'Riepilogo dipendenti',
             type: 'toggle',
             pages: [{
               name: 'Ore mese',
@@ -109,7 +113,11 @@
               type: 'link',
               state: 'giornicommessautente',
               icon: ''
-            }, {
+            }]
+          }, {
+            name: 'Riepilogo commesse',
+            type: 'toggle',
+            pages: [{
               name: 'GG commessa',
               type: 'link',
               state: 'giornicommessa',
