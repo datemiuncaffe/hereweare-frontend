@@ -5,7 +5,7 @@
 		<tr ng-repeat="row in $data">
 		  <td data-title="'ANNO'" filter="{anno: 'text'}" sortable="'anno'">{{row.anno}}</td>
 		  <td data-title="'MESE'" filter="{mese: 'text'}" filter-data="'8'" sortable="'mese'">{{row.mese}}</td>
-		  <td data-title="'GIORNATE EROGATE'" filter="{giornateMese: 'text'}" sortable="'giornateMese'">{{row.giornateMese}}</td>
+		  <td data-title="'GIORNATE EROGATE'" sortable="'giornateMese'">{{row.giornateMese}}</td>
 		</tr>
 	  </table>
 	</div>
