@@ -91,7 +91,9 @@
 
         <div class="headers-menu" ng-class="{'last': $last}"
           ng-repeat="section in vm.menu.sections.orizontalSections">
-          <a ui-sref="{{section.state}}" ng-if="section.type === 'link'">
+          <a ui-sref="{{section.state}}"
+             ui-sref-active="active"
+             ng-if="section.type === 'link'">
             {{section.name}}
           </a>
           <md-menu ng-if="section.type === 'toggle'"
@@ -104,7 +106,8 @@
             </md-button>
             <md-menu-content class="headers-menu-content">
               <md-menu-item ng-repeat="page in section.pages">
-                <a ui-sref="{{page.state}}">
+                <a ui-sref="{{page.state}}"
+                   ui-sref-active="active">
                   <md-button>{{page.name}}</md-button>
                 </a>
               </md-menu-item>
