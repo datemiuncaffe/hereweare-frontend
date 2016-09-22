@@ -1,0 +1,33 @@
+.bodycontent {
+  padding-left: 400px;
+  padding-top:10px;
+  background-color: #165697;
+  border-left-color: cyan;
+  border-left-width: medium;
+  border-left-style: solid;
+  box-sizing: content-box;
+}
+.bodycontent .sensei-logo-png {
+  background-color: rgb(92, 220, 254);
+}
+.bodycontent .login {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+.bodycontent .login-button {
+  border-color: #080808;
+  border-radius: 0;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: normal;
+  width: 100%;
+}
+.bodycontent .login-button span {
+  font-size: 16px;
+  color: #e3e39d;
+  text-transform: uppercase;
+  background-color: rgba(0, 0, 0, 1.0);
+}
+.bodycontent .login-button span:hover {
+  color: #fff;
+}
