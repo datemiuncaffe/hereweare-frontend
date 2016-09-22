@@ -83,12 +83,12 @@
     <script src="js/controllers/ehourqueries/giorni.js"></script>
     <script src="js/controllers/ehourqueries/giornicliente.js"></script>
     <script src="js/controllers/ehourqueries/giorniclienteprogetto.js"></script>
+    <script src="js/controllers/auth.js"></script>
 
   </head>
   <body ng-app="app">
     <div class="headers" role="navigation" ng-controller="MenuController as vm">
       <div class="headers-container">
-
         <div class="headers-menu" ng-class="{'last': $last}"
           ng-repeat="section in vm.menu.sections.orizontalSections">
           <a ui-sref="{{section.state}}"
@@ -114,7 +114,15 @@
             </md-menu-content>
           </md-menu>
         </div>
-
+      </div>
+      <div class="logout-container" ng-controller="AuthController">
+        <div class="logout-menu">
+          <md-button class="logout-button" ng-click="logout()">
+            <span aria-hidden="true">
+              Logout
+            </span>
+          </md-button>
+        </div>
       </div>
     </div>
 
