@@ -5,8 +5,9 @@
 			<tr ng-repeat="row in $data">
 			  <td data-title="'ANNO'" filter="{anno: 'number'}" sortable="'anno'">{{row.anno}}</td>
 			  <td data-title="'MESE'" filter="{mese: 'number'}" sortable="'mese'">{{row.mese}}</td>
-			  <td data-title="'DIPENDENTE'" filter="{nomeDipendente: 'text'}" sortable="'nomeDipendente'">{{row.nomeDipendente}}</td>
-			  <td data-title="'ORE LAVORATE'" sortable="'oreMese'">{{row.oreMese}}</td>
+			  <td data-title="'NOME'" filter="{nomeDipendente: 'text'}" sortable="'nomeDipendente'">{{row.nomeDipendente}}</td>
+				<td data-title="'COGNOME'" filter="{cognomeDipendente: 'text'}" sortable="'cognomeDipendente'">{{row.cognomeDipendente}}</td>
+			  <td data-title="'ORE CARICATE'" sortable="'oreMese'">{{row.oreMese}}</td>
 			</tr>
 	  </table>
 	</div>
