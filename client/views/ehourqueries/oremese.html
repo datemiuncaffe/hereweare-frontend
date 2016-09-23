@@ -1,7 +1,9 @@
 <div class="list-group">
 	<div ng-controller="OreMeseController as oremese">
 	  <h1>Ore mensili erogate per dipendente</h1>
-	  <table ng-table="oremese.tableParams" class="table table-bordered table-striped table-condensed" show-filter="true" width="400">
+	  <table ng-table="oremese.tableParams"
+			class="table table-bordered table-striped table-condensed ehourdata"
+			show-filter="true" width="400">
 			<tr ng-repeat="row in $data">
 			  <td data-title="'ANNO'" filter="{anno: 'number'}" sortable="'anno'">{{row.anno}}</td>
 			  <td data-title="'MESE'" filter="{mese: 'number'}" sortable="'mese'">{{row.mese}}</td>
