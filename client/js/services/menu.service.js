@@ -71,6 +71,15 @@
               state: 'giorniclienteprogetto',
               icon: ''
             }]
+          }, {
+            name: 'Reporting',
+            type: 'toggle',
+            pages: [{
+              name: 'Per dipendente',
+              type: 'link',
+              state: 'employeereporting',
+              icon: ''
+            }]
           }],
           orizontalSections: [{
             name: 'Overview',
@@ -136,6 +145,15 @@
               name: 'GG cliente progetto',
               type: 'link',
               state: 'giorniclienteprogetto',
+              icon: ''
+            }]
+          }, {
+            name: 'Reporting',
+            type: 'toggle',
+            pages: [{
+              name: 'Per dipendente',
+              type: 'link',
+              state: 'employeereporting',
               icon: ''
             }]
           }]

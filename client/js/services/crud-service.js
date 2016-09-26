@@ -32,6 +32,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           getBudgets: 'http://' + resourceBaseUrl + '/api/projects/:id?filter[include]=budgets'                                    //loc
         },
         EHOUR: {
+          getActiveEmployees: 'http://' + resourceBaseUrl + '/query_active_employees',
           getCustomers: 'http://' + resourceBaseUrl + '/query_customers',
           getProjectsByCustomerId: 'http://' + resourceBaseUrl + '/query_projects_by_customer_id',
           getCosts: 'http://' + resourceBaseUrl + '/query_costs'
@@ -56,6 +57,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           getBudgets: $resource(queries.GET.LOCAL.getBudgets, null, {'query':  {method:'GET'}})
         },
         EHOUR: {
+          getActiveEmployees: $resource(queries.GET.EHOUR.getActiveEmployees, null, {'query':  {method:'GET', isArray:true}}),
           getCustomers:	$resource(queries.GET.EHOUR.getCustomers, null, {'query':  {method:'GET', isArray:true}}),
           getProjectsByCustomerId: $resource(queries.GET.EHOUR.getProjectsByCustomerId, null, {'query':  {method:'GET', isArray:true}}),
           getCosts: $resource(queries.GET.EHOUR.getCosts, null, {'query':  {method:'GET', isArray:true}})
@@ -71,6 +73,9 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
     };
 
 		var crud = {
+      getActiveEmployees: function(){
+				return resources.GET.EHOUR.getActiveEmployees.query().$promise;
+			},
 			getCustomersAndProjects: function(){
 				return resources.GET.LOCAL.getCustomersAndProjects.query().$promise;
 			},

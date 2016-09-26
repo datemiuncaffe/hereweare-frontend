@@ -1,0 +1,31 @@
+<h1>Crea un report per dipendente</h1>
+<hr>
+<section>
+<form class="csvsaverdiv">
+	<!--input id="XLSreader" name="XLSreader" type="file">Carica un excel</input-->
+	<button class="btn btn-default csvsaver" ng-click="saveAllCSV()">
+		Esporta excel
+	</button>
+</form>
+<form name="employeeReportForm" novalidate>
+	<fieldset>
+		<div class="top">
+			<div class="form-group customers">
+				<label>Dipendenti</label>
+				<select
+					ng-model="selectedEmployee"
+					ng-options="employee as employee.cognomeDipendente for employee in employees"
+					ng-change="onEmployeeChange(selectedEmployee)">
+				</select>
+			</div>
+
+		</div>
+		<div class="center">
+			<div class="search_results">
+				<h4>Dettaglio delle ore caricate da: {{selectedCustomer.name}}</h4>
+			</div>
+		</div>
+	</fieldset>
+</form>
+<hr>
+</section>

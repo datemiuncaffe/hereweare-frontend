@@ -132,6 +132,15 @@ angular
     	         controller: 'GiorniClienteProgettoController'
     		  }
     		}
+      })
+      .state('employeereporting', {
+        url: '/reporting/employee',
+        views:{
+          'employeereportingview': {
+              templateUrl: 'views/reporting/employee.html',
+              controller: 'EmployeeReportingController'
+           }
+        }
       });
 
       $urlRouterProvider.otherwise('overview');
