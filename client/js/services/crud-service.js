@@ -32,10 +32,11 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           getBudgets: 'http://' + resourceBaseUrl + '/api/projects/:id?filter[include]=budgets'                                    //loc
         },
         EHOUR: {
-          getActiveEmployees: 'http://' + resourceBaseUrl + '/query_active_employees',
+          getActiveUsers: 'http://' + resourceBaseUrl + '/query_active_users',
           getCustomers: 'http://' + resourceBaseUrl + '/query_customers',
           getProjectsByCustomerId: 'http://' + resourceBaseUrl + '/query_projects_by_customer_id',
-          getCosts: 'http://' + resourceBaseUrl + '/query_costs'
+          getCosts: 'http://' + resourceBaseUrl + '/query_costs',
+          getReportsByUserNameAndDateInterval: 'http://' + resourceBaseUrl + '/query_reports_by_userid_dateinterval'
         }
       },
       PUT: {
@@ -57,10 +58,11 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           getBudgets: $resource(queries.GET.LOCAL.getBudgets, null, {'query':  {method:'GET'}})
         },
         EHOUR: {
-          getActiveEmployees: $resource(queries.GET.EHOUR.getActiveEmployees, null, {'query':  {method:'GET', isArray:true}}),
+          getActiveUsers: $resource(queries.GET.EHOUR.getActiveUsers, null, {'query':  {method:'GET', isArray:true}}),
           getCustomers:	$resource(queries.GET.EHOUR.getCustomers, null, {'query':  {method:'GET', isArray:true}}),
           getProjectsByCustomerId: $resource(queries.GET.EHOUR.getProjectsByCustomerId, null, {'query':  {method:'GET', isArray:true}}),
-          getCosts: $resource(queries.GET.EHOUR.getCosts, null, {'query':  {method:'GET', isArray:true}})
+          getCosts: $resource(queries.GET.EHOUR.getCosts, null, {'query':  {method:'GET', isArray:true}}),
+          getReportsByUserNameAndDateInterval: $resource(queries.GET.EHOUR.getReportsByUserNameAndDateInterval, null, {'query':  {method:'GET', isArray:true}})
         }
       },
       PUT: {
@@ -73,8 +75,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
     };
 
 		var crud = {
-      getActiveEmployees: function(){
-				return resources.GET.EHOUR.getActiveEmployees.query().$promise;
+      getActiveUsers: function(){
+				return resources.GET.EHOUR.getActiveUsers.query().$promise;
 			},
 			getCustomersAndProjects: function(){
 				return resources.GET.LOCAL.getCustomersAndProjects.query().$promise;
@@ -93,6 +95,9 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
       },
       getCosts: function(projectCode) {
         return resources.GET.EHOUR.getCosts.query(projectCode).$promise;
+      },
+      getReportsByUserNameAndDateInterval: function(params) {
+        return resources.GET.EHOUR.getReportsByUserNameAndDateInterval.query(params).$promise;
       },
 			updateProject: function(project){
 				return resources.PUT.updateProject.update(project).$promise;

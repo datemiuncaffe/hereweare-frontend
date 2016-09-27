@@ -8,7 +8,7 @@ angular
 
 		$q
 		.all([
-				crud.getActiveEmployees()
+				crud.getActiveUsers()
 		])
 		.then(
 			function(data) {
@@ -29,34 +29,25 @@ angular
 		$scope.search = function(selectedEmployee) {
 			console.log('selectedEmployee: ' +
 				JSON.stringify(selectedEmployee, null, '\t'));
-			// if (selectedCustomer != null && selectedCustomer.id != null && selectedCustomer.id > 0) {
-			// 	console.log('searching for selectedCustomer id = ' + selectedCustomer.id);
-			//
-			// 	// query ehour
-			// 	crud.getProjectsByCustomerId({ customerId: selectedCustomer.id }).then(function(projects) {
-			// 		console.log('projects: ' + JSON.stringify(projects));
-			//
-			// 		// sorting projects
-			// 		projects.sort(function(a, b) {
-			// 		  var nameA = a.name.toUpperCase(); // ignore upper and lowercase
-			// 		  var nameB = b.name.toUpperCase(); // ignore upper and lowercase
-			//
-			// 			if (nameA < nameB) {
-			// 		    return -1;
-			// 		  }
-			// 		  if (nameA > nameB) {
-			// 		    return 1;
-			// 		  }
-			// 		  // names must be equal
-			// 		  return 0;
-			// 		});
-			// 		console.log('sorted projects: ' + JSON.stringify(projects));
-			//
-			// 		// render the table
-			// 		tabulate(projects,
-			// 				["id", "name", "code", "customerId"]);
-			// 	});
-			// }
+
+			if (selectedEmployee != null &&
+					selectedEmployee.cognomeDipendente != null &&
+					selectedEmployee.cognomeDipendente.length > 0) {
+				console.log('searching for employee ' +
+										selectedEmployee.cognomeDipendente);
+
+				// query ehour
+				crud.getReportsByUserNameAndDateInterval({
+							lastName: selectedEmployee.cognomeDipendente
+						}).then(function(report) {
+					console.log('report: ' + JSON.stringify(report));
+
+					// render the table
+					tabulate(report,
+							["data", "cliente", "progetto", "codiceProgetto",
+							 "dipendente", "ruolo", "commento", "ore"]);
+				});
+			}
 		};
 
 		var table = d3.select("form[name=employeeReportForm] " +
@@ -69,7 +60,7 @@ angular
 		// append the header row
 		thead.append("tr")
 				.selectAll("th")
-				.data(["DATA DEL GIORNO", "CLIENTE",
+				.data(["DATA", "CLIENTE",
 							 "PROGETTO", "CODICE PROGETTO",
 						 	 "DIPENDENTE", "RUOLO",
 						 	 "COMMENTO", "ORE"])
@@ -86,7 +77,7 @@ angular
 			// create a row for each object in the data
 			var rows = tbody.selectAll("tr")
 					.data(data,	function(d) {
-						return d.id;
+						return (d.data + d.cliente + d.dipendente);
 					});
 
 			// create a row for each object in the data
@@ -107,53 +98,7 @@ angular
 
 			var rowsExit = rows.exit().remove();
 
-			//addTableLinks();
-
 		  return table;
-		}
-
-		// add dynamic link to single project page
-		// function addTableLinks() {
-		// 	var tablerows = angular.element(document).find("div.search_results table tbody tr");
-		// 	console.log('tablerows is array = ' + tablerows instanceof Array);
-		// 	console.log('tablerows = ' + tablerows);
-		// 	var rowlinks = [];
-		// 	tbody.selectAll("tr").each(function(d){
-		// 		var link = "projectdetail({" +
-		// 							 "customerId: " + $scope.selectedCustomer.id + "," +
-		// 							 "customerName: '" + $scope.selectedCustomer.name + "'," +
-		// 							 "projectId: " + d.id + "," +
-		// 							 "projectName: '" + d.name + "'," +
-		// 							 "projectCode: '" + d.code + "'" +
-		// 							 "})";
-		// 		rowlinks.push(link);
-		// 	});
-		// 	console.log('rowlinks = ' + JSON.stringify(rowlinks));
-		// 	tablerows.each(function(index) {
-		// 		var rowcells = $(this).find("td");
-		// 		console.log('rowcells: ' + rowcells);
-		// 		rowcells.each(function() {
-		// 			var value = $(this).text();
-		// 			console.log('value: ' + value);
-		// 			var projectpageurl = '<a ui-sref="' + rowlinks[index] + '">' + value + '</a>';
-		// 			console.log('projectpageurl: ' + projectpageurl);
-		// 			var projectpagetemplate = angular.element(projectpageurl);
-		// 			var projectpageFn = $compile(projectpagetemplate);
-		// 			var projectpagelink = projectpageFn($scope);
-		// 			$(this).empty();
-		// 			$(this).append(projectpagelink);
-		// 		});
-		// 	});
-		// }
-		// end add dynamic link to single project page
-
-		// $scope.getLinkUrl = function(){
-		//   return $state.href('oremese', {someParam: $scope.selectedCustomer});
-		// };
-		//
-		// $scope.redirectUrl = function(){
-		// 	console.log('redirect...');
-		// 	$state.go('projectcreate');
-		// };
+		};
 
 	}]);
