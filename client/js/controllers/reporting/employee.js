@@ -101,4 +101,46 @@ angular
 		  return table;
 		};
 
+		$scope.reportIntervals = {
+			weeks: [],
+			months: [],
+			quarters: []
+		};
+		var monthsBack = 12;
+		var monthsAhead = 2;
+		var now = moment();
+		var startDay = now.clone().subtract(monthsBack, 'months');
+		var endDay = now.clone().add(monthsAhead, 'months');
+
+		var currentDay = startDay;
+		var weeks = {};
+		while (currentDay.year() < endDay.year() ||
+					 (currentDay.week() <= endDay.week() &&
+					  currentDay.year() == endDay.year())) {
+			var numberOfWeek = currentDay.week() + '-' +
+						 currentDay.endOf('week').year();
+			var startOfWeek = currentDay.clone()
+					.startOf('week').format('YYYY-MM-DD');
+			var endOfWeek = currentDay.clone()
+					.endOf('week').format('YYYY-MM-DD');
+			var labelOfWeek = startOfWeek + ' | ' + endOfWeek;
+			weeks[numberOfWeek] = {
+				number: numberOfWeek,
+				start: startOfWeek,
+				end: endOfWeek,
+				label: labelOfWeek
+			};
+			//console.log('currentDay: ' + currentDay.toString());
+			currentDay = currentDay.add(1, 'weeks');
+		}
+		//console.log('weeks: ' + JSON.stringify(weeks, null, '\t'));
+
+		var weeksKeys = Object.keys(weeks);
+		weeksKeys.forEach(function(key) {
+			$scope.reportIntervals.weeks.push(weeks[key]);
+		});
+		console.log('weeks: ' +
+			JSON.stringify($scope.reportIntervals.weeks, null, '\t'));
+		$scope.selectedWeek = $scope.reportIntervals.weeks[0];
+
 	}]);
