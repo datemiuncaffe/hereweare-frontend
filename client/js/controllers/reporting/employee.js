@@ -6,10 +6,35 @@ angular
 		$scope.employees = null;
 		$scope.selectedEmployee = {};
 		$scope.reportIntervals = {
-			weeks: [],
-			months: [],
-			quarters: []
+			weeks: [{
+				number: 0,
+				start: null,
+				end: null,
+				label: 'Seleziona la settimana'
+			}],
+			months: [{
+				number: 0,
+				start: null,
+				end: null,
+				label: 'Seleziona il mese'
+			}],
+			quarters: [{
+				number: 0,
+				start: null,
+				end: null,
+				label: 'Seleziona il trimestre'
+			}]
 		};
+		var selectedInterval = {
+			number: 0,
+			start: null,
+			end: null,
+			label: null
+		};
+
+		var monthsNames = ['Gennaio','Febbraio','Marzo','Aprile',
+						'Maggio', 'Giugno','Luglio','Agosto','Settembre',
+						'Ottobre', 'Novembre','Dicembre'];
 		var monthsBack = 12;
 		var monthsAhead = 2;
 		var now = moment();
@@ -31,28 +56,54 @@ angular
 				$scope.selectedWeek = $scope.reportIntervals.weeks[0];
 				$scope.selectedMonth = $scope.reportIntervals.months[0];
 				$scope.selectedQuarter = $scope.reportIntervals.quarters[0];
-				$scope.search($scope.selectedEmployee);
+				$scope.search();
 			});
 
 		$scope.onEmployeeChange = function() {
 			console.log('selectedEmployee cognome: ' +
 				$scope.selectedEmployee.cognomeDipendente);
-			$scope.search($scope.selectedEmployee);
+			$scope.search();
 		};
 
-		$scope.search = function(selectedEmployee) {
-			console.log('selectedEmployee: ' +
-				JSON.stringify(selectedEmployee, null, '\t'));
+		$scope.onWeekChange = function() {
+			console.log('selectedWeek: ' +
+				$scope.selectedWeek.label);
+			$scope.selectedMonth = $scope.reportIntervals.months[0];
+			$scope.selectedQuarter = $scope.reportIntervals.quarters[0];
+			$scope.search();
+		};
 
-			if (selectedEmployee != null &&
-					selectedEmployee.cognomeDipendente != null &&
-					selectedEmployee.cognomeDipendente.length > 0) {
+		$scope.onMonthChange = function() {
+			console.log('selectedMonth: ' +
+				$scope.selectedMonth.label);
+			$scope.selectedWeek = $scope.reportIntervals.weeks[0];
+			$scope.selectedQuarter = $scope.reportIntervals.quarters[0];
+			$scope.search();
+		};
+
+		$scope.onQuarterChange = function() {
+			console.log('selectedQuarter: ' +
+				$scope.selectedQuarter.label);
+			$scope.selectedWeek = $scope.reportIntervals.weeks[0];
+			$scope.selectedMonth = $scope.reportIntervals.months[0];
+			$scope.search();
+		};
+
+		$scope.search = function() {
+			console.log('selectedEmployee: ' +
+				JSON.stringify($scope.selectedEmployee, null, '\t'));
+
+			if ($scope.selectedEmployee != null &&
+					$scope.selectedEmployee.cognomeDipendente != null &&
+					$scope.selectedEmployee.cognomeDipendente.length > 0) {
 				console.log('searching for employee ' +
-										selectedEmployee.cognomeDipendente);
+										$scope.selectedEmployee.cognomeDipendente);
 
 				// query ehour
 				crud.getReportsByUserNameAndDateInterval({
-							lastName: selectedEmployee.cognomeDipendente
+							lastName: $scope.selectedEmployee.cognomeDipendente,
+							startDate: '',
+							endDate: ''
 						}).then(function(report) {
 					console.log('report: ' + JSON.stringify(report));
 
@@ -131,7 +182,8 @@ angular
 						.format('YYYY-MM-DD');
 				var endOfWeek = currentDayOfWeek.endOf('week')
 						.format('YYYY-MM-DD');
-				var labelOfWeek = startOfWeek + ' | ' + endOfWeek;
+				var labelOfWeek = currentDayOfWeek.week() + ': (' +
+						startOfWeek + ' | ' + endOfWeek + ')';
 
 				weeks[numberOfWeek] = {
 					number: numberOfWeek,
@@ -147,7 +199,9 @@ angular
 						.format('YYYY-MM-DD');
 				var endOfMonth = currentDayOfMonth.endOf('month')
 						.format('YYYY-MM-DD');
-				var labelOfMonth = startOfMonth + ' | ' + endOfMonth;
+				var labelOfMonth = currentDayOfMonth.endOf('month').year() +
+						'-' + monthsNames[currentDayOfMonth.month()] + ': (' +
+						startOfMonth + ' | ' + endOfMonth + ')';
 
 				if (months[numberOfMonth] == null) {
 					months[numberOfMonth] = {
@@ -165,7 +219,9 @@ angular
 						.format('YYYY-MM-DD');
 				var endOfQuarter = currentDayOfQuarter.endOf('quarter')
 						.format('YYYY-MM-DD');
-				var labelOfQuarter = startOfQuarter + ' | ' + endOfQuarter;
+				var labelOfQuarter = currentDayOfQuarter.endOf('quarter').year() +
+						'-' + currentDayOfQuarter.quarter() + ': (' +
+						startOfQuarter + ' | ' + endOfQuarter + ')';
 
 				if (quarters[numberOfQuarter] == null) {
 					quarters[numberOfQuarter] = {
