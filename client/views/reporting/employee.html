@@ -23,7 +23,19 @@
 				<select
 					ng-model="selectedWeek"
 					ng-options="week as week.label for week in reportIntervals.weeks"
-					ng-change="onWeekChange(selectedWeek)">
+					ng-change="onWeekChange()">
+				</select>
+				<label>Mese</label>
+				<select
+					ng-model="selectedMonth"
+					ng-options="month as month.label for month in reportIntervals.months"
+					ng-change="onMonthChange()">
+				</select>
+				<label>Trimestre</label>
+				<select
+					ng-model="selectedQuarter"
+					ng-options="quarter as quarter.label for quarter in reportIntervals.quarters"
+					ng-change="onQuarterChange()">
 				</select>
 			</div>
 		</div>
