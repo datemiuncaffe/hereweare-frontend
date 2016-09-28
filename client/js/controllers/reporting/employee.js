@@ -124,7 +124,7 @@ angular
 		var table = d3.select("form[name=employeeReportForm] " +
 									"div.search_results")
 									.append("table")
-									.attr("style", "width:1000px; table-layout:fixed;"),
+									.attr("style", "table-layout:fixed;"),
 				thead = table.append("thead"),
 				tbody = table.append("tbody");
 
@@ -137,7 +137,7 @@ angular
 						 	 "COMMENTO", "ORE"])
 				.enter()
 				.append("th")
-				.attr("style", "width:100px; word-wrap:break-word;")
+				.attr("style", "word-wrap:break-word;")
 				.text(function(column) {
 					return column;
 				});
@@ -164,7 +164,7 @@ angular
 			    })
 			    .enter()
 			    .append("td")
-			    .attr("style", "width:100px; word-wrap:break-word;") // sets the font style
+			    .attr("style", "word-wrap:break-word;") // sets the font style
 				.html(function(d) { return d.value });
 
 			var rowsExit = rows.exit().remove();

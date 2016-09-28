@@ -1,0 +1,53 @@
+form[name=employeeReportForm] div.top {
+  font-family: Arial;
+  font-size: 14px;
+  float: left;
+  margin-bottom: 10px;
+}
+form[name=employeeReportForm] div.top > div.employees {
+  float: left;
+  width: 800px;
+}
+form[name=employeeReportForm] div.top > div.intervals {
+  float: left;
+  border-bottom: 1px solid black;
+  padding-bottom: 15px;
+}
+form[name=employeeReportForm] div.top > div.intervals > div {
+  float: left;
+  padding-top: 10px;
+  padding-right: 10px;
+}
+form[name=employeeReportForm] div.top > div.intervals > div > label {
+  padding-right: 5px;
+}
+
+form[name=employeeReportForm] div.center {
+  font-family: Arial;
+  font-size: 14px;
+  float: left;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+}
+form[name=employeeReportForm] div.center table {
+  margin-top: 20px;
+}
+
+
+.highlight {
+    color: #ff0000;
+}
+
+div.search_results {
+	margin-bottom: 8px;
+}
+div.search_results th {
+	padding-left: 5px;
+	padding-right: 20px;
+	border: 1px solid black;
+}
+div.search_results td {
+	padding-left: 5px;
+	padding-right: 20px;
+	border: 1px solid black;
+}
