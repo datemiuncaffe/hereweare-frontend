@@ -111,10 +111,11 @@ angular
 							startDate: selectedInterval.start,
 							endDate: selectedInterval.end
 						}).then(function(report) {
-					console.log('report: ' + JSON.stringify(report));
+					console.log('report: ' +
+						JSON.stringify(report, null, '\t'));
 
 					// render the table
-					tabulate(report,
+					tabulate(report.inserimenti,
 							["data", "cliente", "progetto", "codiceProgetto",
 							 "dipendente", "ruolo", "commento", "ore"]);
 				});
@@ -127,6 +128,7 @@ angular
 									.attr("style", "table-layout:fixed;"),
 				thead = table.append("thead"),
 				tbody = table.append("tbody");
+				tfoot = table.append("tfoot");
 
 		// append the header row
 		thead.append("tr")
@@ -137,6 +139,16 @@ angular
 						 	 "COMMENTO", "ORE"])
 				.enter()
 				.append("th")
+				.attr("style", "word-wrap:break-word;")
+				.text(function(column) {
+					return column;
+				});
+
+		tfoot.append("tr")
+				.selectAll("td")
+				.data(["ORE TOT", "VAL"])
+				.enter()
+				.append("td")
 				.attr("style", "word-wrap:break-word;")
 				.text(function(column) {
 					return column;
