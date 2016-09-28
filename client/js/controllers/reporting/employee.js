@@ -70,6 +70,8 @@ angular
 				$scope.selectedWeek.label);
 			$scope.selectedMonth = $scope.reportIntervals.months[0];
 			$scope.selectedQuarter = $scope.reportIntervals.quarters[0];
+			selectedInterval.start = $scope.selectedWeek.start;
+			selectedInterval.end = $scope.selectedWeek.end;
 			$scope.search();
 		};
 
@@ -78,6 +80,8 @@ angular
 				$scope.selectedMonth.label);
 			$scope.selectedWeek = $scope.reportIntervals.weeks[0];
 			$scope.selectedQuarter = $scope.reportIntervals.quarters[0];
+			selectedInterval.start = $scope.selectedMonth.start;
+			selectedInterval.end = $scope.selectedMonth.end;
 			$scope.search();
 		};
 
@@ -86,6 +90,8 @@ angular
 				$scope.selectedQuarter.label);
 			$scope.selectedWeek = $scope.reportIntervals.weeks[0];
 			$scope.selectedMonth = $scope.reportIntervals.months[0];
+			selectedInterval.start = $scope.selectedQuarter.start;
+			selectedInterval.end = $scope.selectedQuarter.end;
 			$scope.search();
 		};
 
@@ -102,8 +108,8 @@ angular
 				// query ehour
 				crud.getReportsByUserNameAndDateInterval({
 							lastName: $scope.selectedEmployee.cognomeDipendente,
-							startDate: '',
-							endDate: ''
+							startDate: selectedInterval.start,
+							endDate: selectedInterval.end
 						}).then(function(report) {
 					console.log('report: ' + JSON.stringify(report));
 
