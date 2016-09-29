@@ -114,10 +114,25 @@ angular
 					console.log('report: ' +
 						JSON.stringify(report, null, '\t'));
 
+					var footerdata = [
+						{
+							id:	{
+								cognome: $scope.selectedEmployee.cognomeDipendente,
+								nome:	$scope.selectedEmployee.nomeDipendente,
+								startDate: selectedInterval.start,
+								endDate: selectedInterval.end
+							},
+							cells: [
+								{value: 'TOTALE ORE:', colspan: 7},
+								{value: report.oretotali, colspan: 1}
+							]
+						}
+					];
 					// render the table
 					tabulate(report.inserimenti,
 							["data", "cliente", "progetto", "codiceProgetto",
-							 "dipendente", "ruolo", "commento", "ore"]);
+							 "dipendente", "ruolo", "commento", "ore"],
+						 	footerdata);
 				});
 			}
 		};
@@ -144,23 +159,14 @@ angular
 					return column;
 				});
 
-		tfoot.append("tr")
-				.selectAll("td")
-				.data(["ORE TOT", "VAL"])
-				.enter()
-				.append("td")
-				.attr("style", "word-wrap:break-word;")
-				.text(function(column) {
-					return column;
-				});
-
 		// The table generation function
-		function tabulate(data, columns) {
+		function tabulate(data, columns, footerdata) {
 
 			// create a row for each object in the data
 			var rows = tbody.selectAll("tr")
 					.data(data,	function(d) {
-						return (d.data + d.cliente + d.dipendente);
+						return (d.data + d.progetto +
+							d.dipendente + d.ruolo);
 					});
 
 			// create a row for each object in the data
@@ -181,7 +187,33 @@ angular
 
 			var rowsExit = rows.exit().remove();
 
-		  return table;
+			//footer
+			var footerrow = tfoot.selectAll("tr")
+					.data(footerdata,	function(d) {
+						return (d.id.cognome + d.id.nome +
+							d.id.startDate + d.id.endDate);
+					});
+
+			var footerrowEnter = footerrow.enter()
+				.insert("tr");
+
+			var footercells = footerrowEnter.selectAll("td")
+			    .data(function(row) {
+			      return row.cells;
+			    })
+			    .enter()
+			    .append("td")
+			    .attr("style", "word-wrap:break-word;") // sets the font style
+					.attr('colspan', function(d) {
+						return d.colspan;
+					})
+					.text(function(d) {
+						return d.value;
+					});
+
+			var footerrowExit = footerrow.exit().remove();
+
+			return table;
 		};
 
 		function getReportIntervals(reportWeeks,

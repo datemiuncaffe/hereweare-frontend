@@ -65,4 +65,13 @@ form[name=employeeReportForm] div.search_results td {
 }
 form[name=employeeReportForm] div.search_results table tfoot td {
   background-color: cyan;
+  font-weight: bold;
+}
+form[name=employeeReportForm] div.search_results table tfoot td:first-child {
+  border-radius: 0 0 0 80px;
+  padding-left: 20px;
+	padding-right: 5px;
+}
+form[name=employeeReportForm] div.search_results table tfoot td:last-child {
+  border-radius: 0 0 80px 0;
 }
