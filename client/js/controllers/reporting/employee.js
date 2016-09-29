@@ -60,8 +60,9 @@ angular
 			});
 
 		$scope.onEmployeeChange = function() {
-			console.log('selectedEmployee cognome: ' +
-				$scope.selectedEmployee.cognomeDipendente);
+			console.log('selectedEmployee: ' +
+				$scope.selectedEmployee.cognomeDipendente +
+				'-' + $scope.selectedEmployee.nomeDipendente);
 			$scope.search();
 		};
 
@@ -101,12 +102,16 @@ angular
 
 			if ($scope.selectedEmployee != null &&
 					$scope.selectedEmployee.cognomeDipendente != null &&
-					$scope.selectedEmployee.cognomeDipendente.length > 0) {
+					$scope.selectedEmployee.cognomeDipendente.length > 0 &&
+					$scope.selectedEmployee.nomeDipendente != null &&
+					$scope.selectedEmployee.nomeDipendente.length > 0) {
 				console.log('searching for employee ' +
-										$scope.selectedEmployee.cognomeDipendente);
+										$scope.selectedEmployee.cognomeDipendente +
+										'-' + $scope.selectedEmployee.nomeDipendente);
 
 				// query ehour
 				crud.getReportsByUserNameAndDateInterval({
+							firstName: $scope.selectedEmployee.nomeDipendente,
 							lastName: $scope.selectedEmployee.cognomeDipendente,
 							startDate: selectedInterval.start,
 							endDate: selectedInterval.end
