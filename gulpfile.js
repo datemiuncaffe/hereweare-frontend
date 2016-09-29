@@ -54,11 +54,11 @@ function modifyLocalFn() {
 function modifyTestFn() {
 	gutil.log('modify app.js file in test...');
 	gulp.src(['/home/federico/Documents/ehour/projects/hereweare-frontend/client/js/app.js'])
-    .pipe(replace('$resourceBaseUrl$', '192.168.88.158:3002'))
+    .pipe(replace('$resourceBaseUrl$', '89.96.126.46:3002'))
     .pipe(gulp.dest('/home/federico/Documents/ehour/projects/hereweare-frontend/build/test/client/js'));
 	gutil.log('modify ricerca.html file in test...');
 	gulp.src(['/home/federico/Documents/ehour/projects/hereweare-frontend/client/views/estimate/ricerca.html'])
-    .pipe(replace('$resourceBaseUrl$', '192.168.88.158:3002'))
+    .pipe(replace('$resourceBaseUrl$', '89.96.126.46:3002'))
     .pipe(gulp.dest('/home/federico/Documents/ehour/projects/hereweare-frontend/build/test/client/views/estimate'));
 }
 
