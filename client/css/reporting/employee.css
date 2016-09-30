@@ -71,6 +71,7 @@ form[name=employeeReportForm] div.search_results table tfoot td:first-child {
   border-radius: 0 0 0 80px;
   padding-left: 20px;
 	padding-right: 5px;
+  text-align: right;
 }
 form[name=employeeReportForm] div.search_results table tfoot td:last-child {
   border-radius: 0 0 80px 0;

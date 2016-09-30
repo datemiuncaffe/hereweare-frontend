@@ -56,13 +56,13 @@ angular
 												 	 $scope.reportIntervals.quarters);
 				$scope.selectedWeek = $scope.reportIntervals.weeks[0];
 				$scope.selectedMonth =
-					$scope.reportIntervals.months[currentMonthIndex];
+					$scope.reportIntervals.months[currentMonthIndex-1];
 				$scope.selectedQuarter = $scope.reportIntervals.quarters[0];
 
 				selectedInterval.start =
-					$scope.reportIntervals.months[currentMonthIndex].start;
+					$scope.reportIntervals.months[currentMonthIndex-1].start;
 				selectedInterval.end =
-					$scope.reportIntervals.months[currentMonthIndex].end;
+					$scope.reportIntervals.months[currentMonthIndex-1].end;
 
 				$scope.search();
 			});
