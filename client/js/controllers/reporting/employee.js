@@ -40,6 +40,7 @@ angular
 		var now = moment();
 		var startDay = now.clone().subtract(monthsBack, 'months');
 		var endDay = now.clone().add(monthsAhead, 'months');
+		var currentMonthIndex = 0;
 
 		$q
 		.all([
@@ -54,8 +55,15 @@ angular
 													 $scope.reportIntervals.months,
 												 	 $scope.reportIntervals.quarters);
 				$scope.selectedWeek = $scope.reportIntervals.weeks[0];
-				$scope.selectedMonth = $scope.reportIntervals.months[0];
+				$scope.selectedMonth =
+					$scope.reportIntervals.months[currentMonthIndex];
 				$scope.selectedQuarter = $scope.reportIntervals.quarters[0];
+
+				selectedInterval.start =
+					$scope.reportIntervals.months[currentMonthIndex].start;
+				selectedInterval.end =
+					$scope.reportIntervals.months[currentMonthIndex].end;
+
 				$scope.search();
 			});
 
@@ -296,7 +304,13 @@ angular
 				reportWeeks.push(weeks[key]);
 			});
 			var monthsKeys = Object.keys(months);
+			var currentnumberOfMonth = now.month() + '-' +
+						now.endOf('month').year();
 			monthsKeys.forEach(function(key) {
+				if (currentnumberOfMonth == months[key].number) {
+					currentMonthIndex = reportMonths.length;
+					months[key].label = 'mese corrente';
+				}
 				reportMonths.push(months[key]);
 			});
 			var quartersKeys = Object.keys(quarters);
