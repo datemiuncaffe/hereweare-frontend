@@ -12,7 +12,8 @@ angular
     'ngMaterial',
     'ngAria',
     'table.service',
-    'ehourqueries'
+    'ehourqueries',
+    'export-service'
   ])
   .config(['$stateProvider', '$urlRouterProvider', '$provide', function($stateProvider, $urlRouterProvider, $provide) {
       $stateProvider
