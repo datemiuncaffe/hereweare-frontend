@@ -77,6 +77,10 @@ form[name=employeeReportForm] div.search_results table tfoot td {
   background-color: cyan;
   font-weight: bold;
 }
+form[name=employeeReportForm] div.search_results table tbody td:first-child {
+  padding-left: 10px;
+  padding-right: 0;
+}
 form[name=employeeReportForm] div.search_results table tfoot td:first-child {
   border-radius: 0 0 0 80px;
   padding-left: 20px;
