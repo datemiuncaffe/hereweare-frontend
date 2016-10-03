@@ -28,6 +28,7 @@ form[name=employeeReportForm] div.center {
   float: left;
   margin-bottom: 10px;
   border-bottom: 1px solid black;
+  width: 1150px;
 }
 form[name=employeeReportForm] div.center table {
   margin-top: 20px;
@@ -43,6 +44,7 @@ form[name=employeeReportForm] div.search_results {
 }
 form[name=employeeReportForm] div.search_results table {
   border-collapse: separate;
+  width: 1100px;
 }
 form[name=employeeReportForm] div.search_results th {
 	padding-left: 5px;
@@ -54,9 +56,17 @@ form[name=employeeReportForm] div.search_results th:first-child {
   border-radius: 80px 0 0 0;
   padding-left: 20px;
 	padding-right: 5px;
+  width: 80px;
+}
+form[name=employeeReportForm] div.search_results th:nth-child(6) {
+  width: 170px;
+}
+form[name=employeeReportForm] div.search_results th:nth-child(7) {
+  width: 300px;
 }
 form[name=employeeReportForm] div.search_results th:last-child {
   border-radius: 0 80px 0 0;
+  width: 60px;
 }
 form[name=employeeReportForm] div.search_results td {
 	padding-left: 5px;
