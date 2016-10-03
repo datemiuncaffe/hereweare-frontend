@@ -66,6 +66,7 @@ angular
       var employees = Object.keys(dataperemployee).sort();
       console.log("employees: " + JSON.stringify(employees, null, '\t'));
       employees.forEach(function(employee){
+        sortByCodiceNomeCliente(dataperemployee[employee]);
         var currentDataCSV = getCSV(dataperemployee[employee]);
         console.log("currentDataCSV: " + JSON.stringify(currentDataCSV, null, '\n'));
         zipfolder.file(employee + ".csv", currentDataCSV);
@@ -98,27 +99,6 @@ angular
     };
 
     function getCSV(data) {
-      data.sort(function(a, b) {
-        var codiceNomeClienteA = a.codiceNomeCliente.toUpperCase(); // ignore upper and lowercase
-        var codiceNomeClienteB = b.codiceNomeCliente.toUpperCase(); // ignore upper and lowercase
-
-        if (codiceNomeClienteA < codiceNomeClienteB) {
-          return -1;
-        } else if (codiceNomeClienteA > codiceNomeClienteB) {
-          return 1;
-        } else { // equality
-          var nomeProgettoA = a.nomeProgetto.toUpperCase();
-          var nomeProgettoB = b.nomeProgetto.toUpperCase();
-          if (nomeProgettoA < nomeProgettoB) {
-            return -1;
-          } else if (nomeProgettoA > nomeProgettoB) {
-            return 1;
-          }
-          // must be equal
-          return 0;
-        }
-      });
-
       var csv = "";
       csv += "Rapporto cliente\n";
 
@@ -160,27 +140,6 @@ angular
     };
 
     function getXLS(data) {
-      data.sort(function(a, b) {
-        var codiceNomeClienteA = a.codiceNomeCliente.toUpperCase(); // ignore upper and lowercase
-        var codiceNomeClienteB = b.codiceNomeCliente.toUpperCase(); // ignore upper and lowercase
-
-        if (codiceNomeClienteA < codiceNomeClienteB) {
-          return -1;
-        } else if (codiceNomeClienteA > codiceNomeClienteB) {
-          return 1;
-        } else { // equality
-          var nomeProgettoA = a.nomeProgetto.toUpperCase();
-          var nomeProgettoB = b.nomeProgetto.toUpperCase();
-          if (nomeProgettoA < nomeProgettoB) {
-            return -1;
-          } else if (nomeProgettoA > nomeProgettoB) {
-            return 1;
-          }
-          // must be equal
-          return 0;
-        }
-      });
-
       var year = data[0].anno;
       var month = data[0].mese - 1;
       var daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -233,6 +192,29 @@ angular
       //return blob;
 
       return excelgen.s2ab(wbout);
+    };
+
+    function sortByCodiceNomeCliente(data){
+      data.sort(function(a, b) {
+        var codiceNomeClienteA = a.codiceNomeCliente.toUpperCase(); // ignore upper and lowercase
+        var codiceNomeClienteB = b.codiceNomeCliente.toUpperCase(); // ignore upper and lowercase
+
+        if (codiceNomeClienteA < codiceNomeClienteB) {
+          return -1;
+        } else if (codiceNomeClienteA > codiceNomeClienteB) {
+          return 1;
+        } else { // equality
+          var nomeProgettoA = a.nomeProgetto.toUpperCase();
+          var nomeProgettoB = b.nomeProgetto.toUpperCase();
+          if (nomeProgettoA < nomeProgettoB) {
+            return -1;
+          } else if (nomeProgettoA > nomeProgettoB) {
+            return 1;
+          }
+          // must be equal
+          return 0;
+        }
+      });
     };
 
     /* ----- reader ------ */

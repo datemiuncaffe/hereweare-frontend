@@ -1,8 +1,10 @@
 angular
 	.module("app")
 	.controller("EmployeeReportingController",
-			['$scope', '$resource', '$state', '$compile', 'crud', '$q',
-	    function($scope, $resource, $state, $compile, crud, $q) {
+			['$scope', '$resource', '$state', 'crud', '$q',
+			 'FileSaver', 'Blob', 'excelgen',
+	    function($scope, $resource, $state, crud, $q,
+							 FileSaver, Blob, excelgen) {
 		$scope.employees = null;
 		$scope.selectedEmployee = {};
 		$scope.reportIntervals = {
@@ -41,6 +43,7 @@ angular
 		var startDay = now.clone().subtract(monthsBack, 'months');
 		var endDay = now.clone().add(monthsAhead, 'months');
 		var currentMonthIndex = 0;
+		var datatoexport = {};
 
 		$q
 		.all([
@@ -144,8 +147,14 @@ angular
 					// render the table
 					tabulate(report.inserimenti,
 							["data", "cliente", "progetto", "codiceProgetto",
-							 "dipendente", "ruolo", "commento", "ore"],
+						 	 "dipendente", "ruolo", "commento", "ore"],
 						 	footerdata);
+
+					datatoexport.header = ["Data","Cliente","Progetto",
+						"Codice progetto", "Dipendente", "Ruolo",
+						"Commento", "Ore"];
+					datatoexport.rows = report.inserimenti;
+					datatoexport.footer = footerdata;
 				});
 			}
 		};
@@ -318,5 +327,132 @@ angular
 				reportQuarters.push(quarters[key]);
 			});
 		};
+
+		/* ---- export csv/excel ---- */
+		$scope.export = function() {
+      console.log("export csv/excel ...");
+      var currentData = datatoexport;
+      console.log("currentData: " +
+				JSON.stringify(currentData, null, 2));
+
+      var zip = new JSZip();
+      var zipfolder = zip.folder("orefatturate");
+			var filename = $scope.selectedEmployee.cognomeDipendente +
+				'-' + $scope.selectedEmployee.nomeDipendente;
+
+      var currentDataCSV = getCSV(currentData);
+    	console.log("currentDataCSV: " +
+				JSON.stringify(currentDataCSV, null, '\n'));
+      zipfolder.file(filename + ".csv", currentDataCSV);
+      var currentDataXLS = getXLS(currentData);
+      zipfolder.file(filename + ".xlsx", currentDataXLS);
+			zipfolder.generateAsync({type:"blob"})
+			    .then(function (blob) {
+			      FileSaver.saveAs(blob, filename + '.zip');
+			    });
+    };
+
+    function getCSV(data) {
+      var csv = "";
+      csv += "Rapporto dettagliato\n";
+
+		  var datestart =
+				moment(data.rows[0].data, "DD/MM/YY")
+				.format("D-MMM-YY");
+      var dateend =
+				moment(data.rows[data.rows.length - 1].data, "DD/MM/YY")
+				.format("D-MMM-YY");
+      console.log("datestart: " + datestart + "; dateend: " + dateend);
+      csv += "Data di inizio," + datestart + ",," +
+						 "Data di fine," + dateend + "\n";
+      csv += ",,,,,\n";
+
+      var ret = [];
+      var header = data.header;
+      ret.push('"' + header.join('","') + '"');
+
+      for (var i = 0, len = data.rows.length; i < len; i++) {
+        var line = [];
+				var keys = Object.keys(data.rows[0]);
+				keys.forEach(function(key){
+					if (data.rows[i][key] != null &&
+							key == "data") {
+						line.push('"' +
+							moment(data.rows[i].data, "DD/MM/YY")
+							.format("D-MMM-YY") +
+							'"');
+					} else if (data.rows[i][key] != null) {
+						line.push('"' + data.rows[i][key] + '"');
+					} else {
+						line.push('""');
+					}
+				});
+        ret.push(line.join(','));
+      }
+
+      csv += ret.join('\n') + "\n";
+
+			// ore totali
+			csv += ",,,,,," +
+				data.footer[0].cells[0].value +
+				"," +
+				data.footer[0].cells[1].value +
+				"\n";
+      return csv;
+    };
+
+    function getXLS(data) {
+      var datestart =
+				moment(data.rows[0].data, "DD/MM/YY")
+				.format("D-MMM-YY");
+      var dateend =
+				moment(data.rows[data.rows.length - 1].data, "DD/MM/YY")
+				.format("D-MMM-YY");
+      console.log("datestart: " + datestart + "; dateend: " + dateend);
+
+      /* Build data for xls in form of array of arrays */
+      var XLSdata = [
+        ["Rapporto dettagliato"],
+        ["Data di inizio", datestart, null, "Data di fine", dateend],
+        [ null, null, null, null, null],
+        data.header
+      ];
+
+      for (var i = 0, len = data.rows.length; i < len; i++) {
+        var line = [];
+				var keys = Object.keys(data.rows[0]);
+				keys.forEach(function(key){
+					if (data.rows[i][key] != null &&
+							key == "data") {
+						line.push(moment(data.rows[i].data, "DD/MM/YY")
+							.format("D-MMM-YY"));
+					} else if (data.rows[i][key] != null) {
+						line.push(data.rows[i][key]);
+					} else {
+						line.push(null);
+					}
+				});
+        XLSdata.push(line);
+      }
+
+			// ore totali
+			XLSdata.push([ null, null, null,
+				null, null, null,
+				data.footer[0].cells[0].value,
+				data.footer[0].cells[1].value]);
+
+      var ws_name = "Rendicontazione ore " + data.rows[0].dipendente;
+      var wb = new excelgen.Workbook();
+      console.log('wb: ' + JSON.stringify(wb, null, '\t'));
+      var ws = excelgen.sheet_from_array_of_arrays(XLSdata);
+
+      /* add worksheet to workbook */
+      wb.SheetNames.push(ws_name);
+      wb.Sheets[ws_name] = ws;
+      var wbout = XLSX.write(wb,
+        {bookType:'xlsx', bookSST:true, type: 'binary'});
+
+      return excelgen.s2ab(wbout);
+    };
 
 	}]);
