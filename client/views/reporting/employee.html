@@ -1,10 +1,5 @@
-<h1>Crea un report per dipendente</h1>
+<h1>Report ore lavorate per dipendente</h1>
 <section>
-<form class="csvsaverdiv">
-	<button class="btn btn-default csvsaver" ng-click="export()">
-		Esporta excel
-	</button>
-</form>
 <form name="employeeReportForm" novalidate>
 	<fieldset>
 		<div class="top">
@@ -46,8 +41,13 @@
 		<div class="center">
 			<div class="search_results">
 				<h4>Dettaglio delle ore caricate da:
-					{{selectedEmployee.cognomeDipendente}}
-					{{selectedEmployee.nomeDipendente}}
+					<b>
+						{{selectedEmployee.cognomeDipendente}}
+						{{selectedEmployee.nomeDipendente}}
+					</b>
+					<button class="btn btn-default excelExporter" ng-click="export()">
+						Esporta excel
+					</button>
 				</h4>
 			</div>
 		</div>

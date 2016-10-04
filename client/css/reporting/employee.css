@@ -2,6 +2,7 @@ form[name=employeeReportForm] div.top {
   font-family: Arial;
   font-size: 14px;
   float: left;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 form[name=employeeReportForm] div.top > div.employees {
@@ -41,6 +42,13 @@ form[name=employeeReportForm] div.center table {
 
 form[name=employeeReportForm] div.search_results {
 	margin-bottom: 8px;
+}
+form[name=employeeReportForm] div.search_results h4 {
+  width: 1100px;
+}
+form[name=employeeReportForm] div.search_results h4 .excelExporter {
+  float: right;
+  margin-top: -6px;
 }
 form[name=employeeReportForm] div.search_results table {
   border-collapse: separate;
