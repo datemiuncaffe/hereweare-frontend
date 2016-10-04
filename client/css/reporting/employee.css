@@ -48,7 +48,7 @@ form[name=employeeReportForm] div.search_results table {
 }
 form[name=employeeReportForm] div.search_results th {
 	padding-left: 5px;
-	padding-right: 20px;
+	padding-right: 5px;
 	border: 1px solid black;
   background-color: cyan;
 }
@@ -58,11 +58,15 @@ form[name=employeeReportForm] div.search_results th:first-child {
 	padding-right: 5px;
   width: 80px;
 }
+form[name=employeeReportForm] div.search_results th:nth-child(5) {
+  /*width: 150px;*/
+  white-space: nowrap;
+}
 form[name=employeeReportForm] div.search_results th:nth-child(6) {
   width: 170px;
 }
 form[name=employeeReportForm] div.search_results th:nth-child(7) {
-  width: 300px;
+  width: 200px;
 }
 form[name=employeeReportForm] div.search_results th:last-child {
   border-radius: 0 80px 0 0;
@@ -70,7 +74,7 @@ form[name=employeeReportForm] div.search_results th:last-child {
 }
 form[name=employeeReportForm] div.search_results td {
 	padding-left: 5px;
-	padding-right: 20px;
+	padding-right: 5px;
 	border: 1px solid black;
 }
 form[name=employeeReportForm] div.search_results table tfoot td {

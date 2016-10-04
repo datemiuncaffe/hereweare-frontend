@@ -176,7 +176,7 @@ angular
 						 	 "COMMENTO", "ORE"])
 				.enter()
 				.append("th")
-				.attr("style", "word-wrap:break-word;")
+				.attr("style", "white-space: nowrap;")
 				.text(function(column) {
 					return column;
 				});
