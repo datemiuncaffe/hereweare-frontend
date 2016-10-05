@@ -16,9 +16,9 @@ body {
   margin-left: 250px;
 }
 .headers-container a {
-	font-size: 16px;
+	font-size: 20px;
   color: #e3e39d;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
 }
 .headers-container a:hover {
   background-color: transparent;
@@ -29,8 +29,8 @@ body {
   border-left-color: cyan;
   border-left-width: medium;
   border-left-style: solid;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 23px;
+  padding-bottom: 23px;
   padding-left: 15px;
   padding-right: 15px;
   margin-top: 10px;
@@ -47,7 +47,7 @@ body {
 }
 .headers-menu .md-button {
   border-radius: 0;
-  font-size: 16px;
+  font-size: 20px;
   color: #e3e39d;
   cursor: pointer;
   font-weight: 400;
@@ -55,12 +55,14 @@ body {
   min-height: inherit;
   margin: 0;
   max-height: 40px;
+  min-width: 20px;
   overflow: hidden;
   padding: 0px 0px;
   text-align: left;
   text-decoration: none;
   white-space: normal;
   width: 100%;
+  text-transform: none;
 }
 .headers-menu .md-button:hover,
 .headers-menu .md-button:focus {
@@ -118,7 +120,7 @@ body {
 .menuvert {
 	width: 250px;
 	margin-right: auto;
-  margin-top: -68px;
+  margin-top: -101px;
   background-color: #165697;
   border-color: #080808;
   box-sizing: content-box;

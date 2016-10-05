@@ -25,6 +25,7 @@ md-sidenav {
   list-style: none;
   padding: 0;
   margin-top: 0;
+  margin-bottom: 10px;
 }
 
 .side-menu .md-button.active {
@@ -33,15 +34,15 @@ md-sidenav {
 
 .side-menu .menu-toggle-list a.md-button {
   display: block;
-  padding: 0 16px 0 32px;
   text-transform: none;
   text-rendering: optimizeLegibility;
   font-weight: 500;
+  margin: 0;
 }
 
 .side-menu .menu-toggle-list .md-button {
   display: block;
-  padding: 0 16px 0 32px;
+  padding: 0 16px 0 16px;
   text-transform: none;
 }
 
@@ -70,20 +71,18 @@ md-sidenav {
 
 .side-menu .md-button {
   border-radius: 0;
-  /*color: inherit;*/
   font-size: 20px;
   color: #e3e39d;
   cursor: pointer;
   font-weight: 400;
   line-height: 40px;
-  margin: 0;
-  /*max-height: 40px;*/
+  margin: 4px 0 6px 0;
   overflow: hidden;
-  padding: 0px 16px;
   text-align: left;
   text-decoration: none;
   white-space: normal;
   width: 100%;
+  text-transform: none;
 }
 .side-menu .md-button:hover,
 .side-menu .md-button:focus {
@@ -107,6 +106,6 @@ md-sidenav {
 }
 
 .side-menu menu-toggle span {
-  padding-top: 12px;
+  padding-top: 6px;
   padding-bottom: 12px;
 }
