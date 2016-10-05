@@ -44,7 +44,7 @@ form[name=employeeReportForm] div.search_results {
 	margin-bottom: 8px;
 }
 form[name=employeeReportForm] div.search_results h4 {
-  width: 1100px;
+  width: 1200px;
 }
 form[name=employeeReportForm] div.search_results h4 .excelExporter {
   float: right;
@@ -52,7 +52,7 @@ form[name=employeeReportForm] div.search_results h4 .excelExporter {
 }
 form[name=employeeReportForm] div.search_results table {
   border-collapse: separate;
-  width: 1100px;
+  width: 1200px;
 }
 form[name=employeeReportForm] div.search_results th {
 	padding-left: 5px;
@@ -74,7 +74,7 @@ form[name=employeeReportForm] div.search_results th:nth-child(6) {
   width: 170px;
 }
 form[name=employeeReportForm] div.search_results th:nth-child(7) {
-  width: 200px;
+  width: 210px;
 }
 form[name=employeeReportForm] div.search_results th:last-child {
   border-radius: 0 80px 0 0;
@@ -92,6 +92,9 @@ form[name=employeeReportForm] div.search_results table tfoot td {
 form[name=employeeReportForm] div.search_results table tbody td:first-child {
   padding-left: 10px;
   padding-right: 0;
+}
+form[name=employeeReportForm] div.search_results table tbody td:nth-child(5) {
+  white-space: nowrap;
 }
 form[name=employeeReportForm] div.search_results table tfoot td:first-child {
   border-radius: 0 0 0 80px;
