@@ -1,24 +1,32 @@
-<div class="list-group">
-	<div ng-controller="GiorniCommessaUtenteController as oremese">
-	  <h1>Giornate erogate per commessa e per dipendente</h1>
-		<!-- <div class="csvsaverdiv"> -->
-		<form class="csvsaverdiv">
-			<!--input id="XLSreader" name="XLSreader" type="file">Carica un excel</input-->
-			<button class="btn btn-default csvsaver" ng-click="saveAllCSV()">Esporta excel</button>
-		</form>
-	  <table ng-table="oremese.tableParams"
-			class="table table-bordered table-striped table-condensed ehourdata"
-			show-filter="true">
-		<tr ng-repeat="row in $data">
-		  <td data-title="'ANNO'" filter="{anno: 'text'}" sortable="'anno'">{{row.anno}}</td>
-		  <td data-title="'MESE'" filter="{mese: 'text'}" sortable="'mese'">{{row.mese}}</td>
-		  <td data-title="'CLIENTE'" filter="{nomeCliente: 'text'}" sortable="'nomeCliente'">{{row.nomeCliente}}</td>
-		  <td data-title="'CODICE PROGETTO'" filter="{codiceProgetto: 'text'}" sortable="'codiceProgetto'">{{row.codiceProgetto}}</td>
-		  <td data-title="'PROGETTO'" filter="{nomeProgetto: 'text'}" sortable="'nomeProgetto'">{{row.nomeProgetto}}</td>
-		  <td data-title="'NOME'" filter="{nomeDipendente: 'text'}" sortable="'nomeDipendente'">{{row.nomeDipendente}}</td>
-			<td data-title="'COGNOME'" filter="{cognomeDipendente: 'text'}" sortable="'cognomeDipendente'">{{row.cognomeDipendente}}</td>
-			<td data-title="'GIORNATE EROGATE'" sortable="'giornateMese'">{{row.giornateMese}}</td>
-		</tr>
-	  </table>
+<h1>Giornate erogate per commessa e per dipendente</h1>
+<hr>
+<section id="ggcommessautente" class="ehourtables">
+	<div class="top">
 	</div>
-</div>
+	<div class="center">
+		<div class="list-group">
+			<div ng-controller="GiorniCommessaUtenteController as oremese">
+				<!-- <div class="csvsaverdiv"> -->
+				<form class="csvsaverdiv">
+					<!--input id="XLSreader" name="XLSreader" type="file">Carica un excel</input-->
+					<button class="btn btn-default csvsaver" ng-click="saveAllCSV()">Esporta excel</button>
+				</form>
+			  <table ng-table="oremese.tableParams"
+					class="table table-bordered table-striped table-condensed ehourdata"
+					show-filter="true">
+				<tr ng-repeat="row in $data">
+				  <td data-title="'ANNO'" filter="{anno: 'text'}" sortable="'anno'">{{row.anno}}</td>
+				  <td data-title="'MESE'" filter="{mese: 'text'}" sortable="'mese'">{{row.mese}}</td>
+				  <td data-title="'CLIENTE'" filter="{nomeCliente: 'text'}" sortable="'nomeCliente'">{{row.nomeCliente}}</td>
+				  <td data-title="'CODICE PROGETTO'" filter="{codiceProgetto: 'text'}" sortable="'codiceProgetto'">{{row.codiceProgetto}}</td>
+				  <td data-title="'PROGETTO'" filter="{nomeProgetto: 'text'}" sortable="'nomeProgetto'">{{row.nomeProgetto}}</td>
+				  <td data-title="'NOME'" filter="{nomeDipendente: 'text'}" sortable="'nomeDipendente'">{{row.nomeDipendente}}</td>
+					<td data-title="'COGNOME'" filter="{cognomeDipendente: 'text'}" sortable="'cognomeDipendente'">{{row.cognomeDipendente}}</td>
+					<td data-title="'GIORNATE EROGATE'" sortable="'giornateMese'">{{row.giornateMese}}</td>
+				</tr>
+			  </table>
+			</div>
+		</div>
+	</div>
+	<hr>
+</section>

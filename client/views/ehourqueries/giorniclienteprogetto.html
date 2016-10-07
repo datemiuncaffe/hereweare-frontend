@@ -1,15 +1,23 @@
-<div class="list-group">
-	<div ng-controller="GiorniClienteProgettoController as oremese">
-	  <h1>Giornate erogate per cliente e per progetto</h1>
-	  <table ng-table="oremese.tableParams"
-			class="table table-bordered table-striped table-condensed ehourdata"
-			show-filter="true">
-		<tr ng-repeat="row in $data">
-		  <td data-title="'CLIENTE'" filter="{nomeCliente: 'text'}" sortable="'nomeCliente'">{{row.nomeCliente}}</td>
-		  <td data-title="'CODICE PROGETTO'" filter="{codiceProgetto: 'text'}" sortable="'codiceProgetto'">{{row.codiceProgetto}}</td>
-		  <td data-title="'PROGETTO'" filter="{nomeProgetto: 'text'}" sortable="'nomeProgetto'">{{row.nomeProgetto}}</td>
-		  <td data-title="'GIORNATE EROGATE'" sortable="'giornateMese'">{{row.giornateMese}}</td>
-		</tr>
-	  </table>
+<h1>Giornate erogate per cliente e per progetto</h1>
+<hr>
+<section id="ggclienteprogetto" class="ehourtables">
+	<div class="top">
 	</div>
-</div>
+	<div class="center">
+		<div class="list-group">
+			<div ng-controller="GiorniClienteProgettoController as oremese">
+			  <table ng-table="oremese.tableParams"
+					class="table table-bordered table-striped table-condensed ehourdata"
+					show-filter="true">
+				<tr ng-repeat="row in $data">
+				  <td data-title="'CLIENTE'" filter="{nomeCliente: 'text'}" sortable="'nomeCliente'">{{row.nomeCliente}}</td>
+				  <td data-title="'CODICE PROGETTO'" filter="{codiceProgetto: 'text'}" sortable="'codiceProgetto'">{{row.codiceProgetto}}</td>
+				  <td data-title="'PROGETTO'" filter="{nomeProgetto: 'text'}" sortable="'nomeProgetto'">{{row.nomeProgetto}}</td>
+				  <td data-title="'GIORNATE EROGATE'" sortable="'giornateMese'">{{row.giornateMese}}</td>
+				</tr>
+			  </table>
+			</div>
+		</div>
+	</div>
+	<hr>
+</section>

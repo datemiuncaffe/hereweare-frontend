@@ -1,0 +1,14 @@
+section.ehourtables div.top {
+  font-family: Arial;
+  font-size: 14px;
+  float: left;
+  margin-bottom: 10px;
+  /*border-bottom: 1px solid black;*/
+}
+section.ehourtables div.center {
+  font-family: Arial;
+  font-size: 14px;
+  float: left;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+}

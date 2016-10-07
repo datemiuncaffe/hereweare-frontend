@@ -1,16 +1,24 @@
-<div class="list-group">
-	<div ng-controller="OreMeseController as oremese">
-	  <h1>Ore mensili erogate per dipendente</h1>
-	  <table ng-table="oremese.tableParams"
-			class="table table-bordered table-striped table-condensed ehourdata"
-			show-filter="true" width="400">
-			<tr ng-repeat="row in $data">
-			  <td data-title="'ANNO'" filter="{anno: 'number'}" sortable="'anno'">{{row.anno}}</td>
-			  <td data-title="'MESE'" filter="{mese: 'number'}" sortable="'mese'">{{row.mese}}</td>
-			  <td data-title="'NOME'" filter="{nomeDipendente: 'text'}" sortable="'nomeDipendente'">{{row.nomeDipendente}}</td>
-				<td data-title="'COGNOME'" filter="{cognomeDipendente: 'text'}" sortable="'cognomeDipendente'">{{row.cognomeDipendente}}</td>
-			  <td data-title="'ORE CARICATE'" sortable="'oreMese'">{{row.oreMese}}</td>
-			</tr>
-	  </table>
+<h1>Ore mensili erogate per dipendente</h1>
+<hr>
+<section id="oremese" class="ehourtables">
+	<div class="top">
 	</div>
-</div>
+	<div class="center">
+		<div class="list-group">
+			<div ng-controller="OreMeseController as oremese">
+			  <table ng-table="oremese.tableParams"
+					class="table table-bordered table-striped table-condensed ehourdata"
+					show-filter="true" width="400">
+					<tr ng-repeat="row in $data">
+					  <td data-title="'ANNO'" filter="{anno: 'number'}" sortable="'anno'">{{row.anno}}</td>
+					  <td data-title="'MESE'" filter="{mese: 'number'}" sortable="'mese'">{{row.mese}}</td>
+					  <td data-title="'NOME'" filter="{nomeDipendente: 'text'}" sortable="'nomeDipendente'">{{row.nomeDipendente}}</td>
+						<td data-title="'COGNOME'" filter="{cognomeDipendente: 'text'}" sortable="'cognomeDipendente'">{{row.cognomeDipendente}}</td>
+					  <td data-title="'ORE CARICATE'" sortable="'oreMese'">{{row.oreMese}}</td>
+					</tr>
+			  </table>
+			</div>
+		</div>
+	</div>
+	<hr>
+</section>

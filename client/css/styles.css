@@ -1,6 +1,9 @@
 body {
   padding-top:0px;
   box-sizing: content-box;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
 }
 .glyphicon-remove:hover {
   cursor:pointer
@@ -10,6 +13,8 @@ body {
   background-color: #165697;
   border-color: #080808;
   box-sizing: content-box;
+  flex-basis: 100px;
+  order: 1;
 }
 
 .headers-container {
@@ -117,8 +122,16 @@ body {
 }
 
 /* ------------------------------------ */
+.bodycontent {
+  display: flex;
+  align-items: stretch;
+  /*height: 100%;*/
+  flex-grow: 1;
+  order: 2;
+}
 .menuvert {
-	width: 250px;
+	/*width: 250px;*/
+  flex-basis: 250px;
 	margin-right: auto;
   margin-top: -101px;
   background-color: #165697;
@@ -126,6 +139,7 @@ body {
   box-sizing: content-box;
   display: inline-block;
   float: left;
+  order: 1;
 }
 
 .menuvert .menuvert-container {
@@ -178,10 +192,23 @@ body {
 
 /* ------------------------------------ */
 .centerpage {
-  width: 1250px;
   padding-left: 40px;
+  padding-right: 40px;
   border-left-style: double;
   display: inline-block;
+  flex-basis: 1200px;
+  flex-grow: 1;
+  order: 2;
+}
+
+.centerpage .center {
+  width: 1050px;
+}
+
+.rightbar {
+  /*width: 100%;*/
+  flex-basis: 100px;
+  order: 3;
 }
 
 .csvsaverdiv {
