@@ -1,0 +1,77 @@
+<div class="headers" role="navigation" ng-controller="MenuController as vm">
+  <div class="headers-container">
+    <div class="headers-menu" ng-class="{'last': $last}"
+      ng-repeat="section in vm.menu.sections.orizontalSections">
+      <a ui-sref="{{section.state}}"
+         ui-sref-active="active"
+         ng-if="section.type === 'link'">
+        {{section.name}}
+      </a>
+      <md-menu ng-if="section.type === 'toggle'"
+        md-position-mode="left bottom"
+        md-offset="-18 23">
+        <md-button class="md-button-toggle" ng-click="$mdOpenMenu()">
+          <span aria-hidden="true">
+            {{section.name}}
+          </span>
+        </md-button>
+        <md-menu-content class="headers-menu-content">
+          <md-menu-item ng-repeat="page in section.pages">
+            <a ui-sref="{{page.state}}"
+               ui-sref-active="active">
+              <md-button>{{page.name}}</md-button>
+            </a>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </div>
+  </div>
+  <div class="logout-container" ng-controller="LoginController">
+    <div class="logout-menu">
+      <md-button class="logout-button" ng-click="logout()">
+        <span aria-hidden="true">
+          Logout
+        </span>
+      </md-button>
+    </div>
+  </div>
+</div>
+
+<div class="bodycontent">
+  <div class="menuvert" ng-controller="MenuController as vm">
+    <img class="sensei-logo-png" src="img/sensei-logo_nobg.png"></img>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z1 menuvert-container"
+      md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+      <md-content role="navigation" class="menuvert-content">
+        <ul class="side-menu">
+          <li ng-repeat="section in vm.menu.sections.verticalSections"
+              class="parent-list-item"
+              ng-class="{'parentActive' : vm.isSectionSelected(section)}">
+            <h2 class="menu-heading" ng-if="section.type === 'heading'"
+                id="heading_{{ section.name | nospace }}">
+              {{section}}
+            </h2>
+            <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
+            <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
+          </li>
+        </ul>
+      </md-content>
+    </md-sidenav>
+  </div>
+
+  <div class="centerpage">
+    <div ui-view="activeprojectsview"></div>
+    <div ui-view="senseiprojectsview"></div>
+    <div ui-view="newprojectsview"></div>
+    <div ui-view="overviewview" class="calendar"></div>
+    <div ui-view="ricercaview"></div>
+    <div ui-view="projectdetailview"></div>
+    <div ui-view="projectmodifyview"></div>
+    <div ui-view="oremeseview"></div>
+    <div ui-view="giornicommessautenteview"></div>
+    <div ui-view="giornicommessaview"></div>
+    <div ui-view="giorniview"></div>
+    <div ui-view="giorniclienteview"></div>
+    <div ui-view="giorniclienteprogettoview"></div>
+  </div>
+</div>

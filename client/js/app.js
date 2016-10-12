@@ -11,131 +11,154 @@ angular
     'ngAnimate',
     'ngMaterial',
     'ngAria',
+    'ngCookies',
     'table.service',
     'ehourqueries',
-    'authcontroller'
+    'auth',
+    'login'
   ])
-  .config(['$stateProvider', '$urlRouterProvider', '$provide', function($stateProvider, $urlRouterProvider, $provide) {
-      $stateProvider
-      .state('activeprojects', {
+  .config(['$stateProvider', '$urlRouterProvider', '$provide',
+           function($stateProvider, $urlRouterProvider, $provide) {
+      $stateProvider.state('pages', {
+        //abstract: true,
+        url: '/pages',
+        views:{
+          'pagesview': {
+              templateUrl: 'views/pages/pages.html'
+              //controller: 'LoginController'
+           }
+        }
+      })
+      .state('pages.activeprojects', {
         url: '/activeprojects',
         views:{
           'activeprojectsview': {
-              templateUrl: 'views/estimate/projects/activeprojects.html',
+              templateUrl: 'views/pages/estimate/projects/activeprojects.html',
               controller: 'ActiveProjectsController'
            }
         }
       })
-      .state('senseiprojects', {
+      .state('pages.senseiprojects', {
         url: '/senseiprojects',
         views:{
           'senseiprojectsview': {
-              templateUrl: 'views/estimate/projects/senseiprojects.html',
+              templateUrl: 'views/pages/estimate/projects/senseiprojects.html',
               controller: 'SenseiProjectsController'
            }
         }
       })
-      .state('newprojects', {
+      .state('pages.newprojects', {
         url: '/newprojects',
         views:{
           'newprojectsview': {
-              templateUrl: 'views/estimate/projects/newprojects.html',
+              templateUrl: 'views/pages/estimate/projects/newprojects.html',
               controller: 'NewProjectsController'
            }
         }
       })
-      .state('overview', {
+      .state('pages.overview', {
         url: '/overview',
         views:{
           'overviewview': {
-              templateUrl: 'views/estimate/overview.html',
+              templateUrl: 'views/pages/estimate/overview.html',
               controller: 'OverviewController'
            }
         }
       })
-      .state('ricerca', {
+      .state('pages.ricerca', {
         url: '/ricerca',
         views:{
           'ricercaview': {
-              templateUrl: 'views/estimate/ricerca.html',
+              templateUrl: 'views/pages/estimate/ricerca.html',
               controller: 'RicercaController'
            }
         }
       })
-      .state('projectdetail', {
+      .state('pages.projectdetail', {
         url: '/projectdetail?customerId&customerName&projectId&projectName&projectCode',
         views:{
           'projectdetailview': {
-              templateUrl: 'views/estimate/projectdetail.html',
+              templateUrl: 'views/pages/estimate/projectdetail.html',
               controller: 'ProjectDetailController'
            }
         }
       })
-      .state('projectmodify', {
+      .state('pages.projectmodify', {
         url: '/projectmodify?customerId&customerName&projectId&projectName&projectCode',
         views:{
           'projectmodifyview': {
-              templateUrl: 'views/estimate/projectmodify.html',
+              templateUrl: 'views/pages/estimate/projectmodify.html',
               controller: 'ProjectModifyController'
            }
         }
       })
-      .state('oremese', {
+      .state('pages.oremese', {
     		url: '/oremese',
     		views:{
     		  'oremeseview': {
-    	         templateUrl: 'views/ehourqueries/oremese.html',
+    	         templateUrl: 'views/pages/ehour/dipendenti/oremese.html',
     	         controller: 'OreMeseController'
     		  }
     		}
       })
-      .state('giornicommessautente', {
+      .state('pages.giornicommessautente', {
     		url: '/giornicommessautente?year&month&projectCode',
     		views:{
     		  'giornicommessautenteview': {
-    	         templateUrl: 'views/ehourqueries/giornicommessautente.html',
+    	         templateUrl: 'views/pages/ehour/dipendenti/giornicommessautente.html',
     	         controller: 'GiorniCommessaUtenteController'
     		  }
     		}
       })
-      .state('giornicommessa', {
+      .state('pages.giornicommessa', {
     		url: '/giornicommessa',
     		views:{
     		  'giornicommessaview': {
-    	         templateUrl: 'views/ehourqueries/giornicommessa.html',
+    	         templateUrl: 'views/pages/ehour/commesse/giornicommessa.html',
     	         controller: 'GiorniCommessaController'
     		  }
     		}
       })
-      .state('giorni', {
+      .state('pages.giorni', {
     		url: '/giorni',
     		views:{
     		  'giorniview': {
-    	         templateUrl: 'views/ehourqueries/giorni.html',
+    	         templateUrl: 'views/pages/ehour/commesse/giorni.html',
     	         controller: 'GiorniController'
     		  }
     		}
       })
-      .state('giornicliente', {
+      .state('pages.giornicliente', {
     		url: '/giornicliente',
     		views:{
     		  'giorniclienteview': {
-    	         templateUrl: 'views/ehourqueries/giornicliente.html',
+    	         templateUrl: 'views/pages/ehour/commesse/giornicliente.html',
     	         controller: 'GiorniClienteController'
     		  }
     		}
       })
-      .state('giorniclienteprogetto', {
+      .state('pages.giorniclienteprogetto', {
     		url: '/giorniclienteprogetto',
     		views:{
     		  'giorniclienteprogettoview': {
-    	         templateUrl: 'views/ehourqueries/giorniclienteprogetto.html',
+    	         templateUrl: 'views/pages/ehour/commesse/giorniclienteprogetto.html',
     	         controller: 'GiorniClienteProgettoController'
     		  }
     		}
       });
 
-      $urlRouterProvider.otherwise('overview');
+      $stateProvider.state('login', {
+        url: '/login',
+        views:{
+          'loginview': {
+              templateUrl: 'views/login/login.html',
+              controller: 'LoginController'
+           }
+        }
+      });
+
+      //$urlRouterProvider.otherwise('pages.overview');
+      $urlRouterProvider.otherwise('/pages/overview');
 
       $provide.value('resourceBaseUrl', '$resourceBaseUrl$');
   }])
@@ -166,6 +189,34 @@ angular
 				}, 1);
 			}
 		};
-	});
+	})
+  .run(['$rootScope', '$location', '$cookieStore', '$http',
+        function ($rootScope, $location, $cookieStore, $http) {
+    console.log('onrun...');
+    // keep user logged in after page refresh
+    $rootScope.globals = $cookieStore.get('globals') || {};
+    // if ($rootScope.globals.currentUser) {
+    //     $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+    // }
+
+    $rootScope.$on('$locationChangeStart',
+                   function (event, next, current) {
+      console.log('$locationChangeStart...');
+      // redirect to login page if not logged in and trying
+      // to access a restricted page
+      var restrictedPage = $.inArray($location.path(),
+        ['/login', '/register']) === -1;
+      //var loggedIn = $rootScope.globals.currentUser;
+      var loggedIn = $rootScope.globals.isAuthen;
+      console.log('isAuthen: ' + loggedIn);
+      if (restrictedPage && !loggedIn) {
+        console.log('redirect to login');
+        $location.path('/login');
+          // if ($state.$current.navigable != state || !equalForKeys($match, $stateParams)) {
+          //     $state.transitionTo(state, $match, false);
+          // }
+      }
+    });
+  }]);
 
 angular.module('ehourqueries', ['ngFileSaver']);

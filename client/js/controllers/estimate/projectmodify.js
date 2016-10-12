@@ -1,7 +1,8 @@
 angular
 	.module("app")
-	.controller("ProjectModifyController", ['$scope', '$resource', '$q', '$stateParams', 'crud',
-	                                        function($scope, $resource, $q, $stateParams, crud) {
+	.controller("ProjectModifyController",
+				['$scope', '$resource', '$q', '$stateParams', 'crud',
+	       function($scope, $resource, $q, $stateParams, crud) {
 			/* entities */
 	    $scope.customer = {
 	    	name: null

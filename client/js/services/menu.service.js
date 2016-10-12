@@ -9,28 +9,28 @@
           verticalSections: [{
             name: 'Overview',
             type: 'link',
-            state: 'overview'
+            state: 'pages.overview'
           }, {
             name: 'Ricerca',
             type: 'link',
-            state: 'ricerca'
+            state: 'pages.ricerca'
           }, {
             name: 'Progetti',
             type: 'toggle',
             pages: [{
               name: 'Attivi',
               type: 'link',
-              state: 'activeprojects',
+              state: 'pages.activeprojects',
               icon: ''
             }, {
               name: 'Interni',
               type: 'link',
-              state: 'senseiprojects',
+              state: 'pages.senseiprojects',
               icon: ''
             }, {
               name: 'Nuovi',
               type: 'link',
-              state: 'newprojects',
+              state: 'pages.newprojects',
               icon: ''
             }]
           }, {
@@ -39,12 +39,12 @@
             pages: [{
               name: 'Ore mese',
               type: 'link',
-              state: 'oremese',
+              state: 'pages.oremese',
               icon: ''
             }, {
               name: 'GG commessa dip.',
               type: 'link',
-              state: 'giornicommessautente',
+              state: 'pages.giornicommessautente',
               icon: ''
             }]
           }, {
@@ -53,33 +53,33 @@
             pages: [{
               name: 'GG commessa',
               type: 'link',
-              state: 'giornicommessa',
+              state: 'pages.giornicommessa',
               icon: ''
             }, {
               name: 'GG erogate',
               type: 'link',
-              state: 'giorni',
+              state: 'pages.giorni',
               icon: ''
             }, {
               name: 'GG cliente',
               type: 'link',
-              state: 'giornicliente',
+              state: 'pages.giornicliente',
               icon: ''
             }, {
               name: 'GG cliente progetto',
               type: 'link',
-              state: 'giorniclienteprogetto',
+              state: 'pages.giorniclienteprogetto',
               icon: ''
             }]
           }],
           orizontalSections: [{
             name: 'Overview',
             type: 'link',
-            state: 'overview'
+            state: 'pages.overview'
           }, {
             name: 'Ricerca',
             type: 'link',
-            state: 'ricerca'
+            state: 'pages.ricerca'
           }, {
             name: 'Progetti',
             type: 'toggle',
@@ -87,17 +87,17 @@
             pages: [{
               name: 'Attivi',
               type: 'link',
-              state: 'activeprojects',
+              state: 'pages.activeprojects',
               icon: ''
             }, {
               name: 'Interni',
               type: 'link',
-              state: 'senseiprojects',
+              state: 'pages.senseiprojects',
               icon: ''
             }, {
               name: 'Nuovi',
               type: 'link',
-              state: 'newprojects',
+              state: 'pages.newprojects',
               icon: ''
             }]
           }, {
@@ -106,12 +106,12 @@
             pages: [{
               name: 'Ore mese',
               type: 'link',
-              state: 'oremese',
+              state: 'pages.oremese',
               icon: ''
             }, {
               name: 'GG commessa dip.',
               type: 'link',
-              state: 'giornicommessautente',
+              state: 'pages.giornicommessautente',
               icon: ''
             }]
           }, {
@@ -120,22 +120,22 @@
             pages: [{
               name: 'GG commessa',
               type: 'link',
-              state: 'giornicommessa',
+              state: 'pages.giornicommessa',
               icon: ''
             }, {
               name: 'GG erogate',
               type: 'link',
-              state: 'giorni',
+              state: 'pages.giorni',
               icon: ''
             }, {
               name: 'GG cliente',
               type: 'link',
-              state: 'giornicliente',
+              state: 'pages.giornicliente',
               icon: ''
             }, {
               name: 'GG cliente progetto',
               type: 'link',
-              state: 'giorniclienteprogetto',
+              state: 'pages.giorniclienteprogetto',
               icon: ''
             }]
           }]

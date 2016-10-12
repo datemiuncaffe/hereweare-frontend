@@ -30,6 +30,7 @@
     <link href="https://ajax.googleapis.com/ajax/libs/angular_material/0.10.1/angular-material.min.css" data-require="angular-material@0.10.1" data-semver="0.9.4" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/sidemenu.css" rel="stylesheet"/>
+    <link href="css/login.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -53,9 +54,9 @@
     <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="vendor/angular-cache/dist/angular-cache.js" type="text/javascript"></script>
     <script src="vendor/angular-file-saver/dist/angular-file-saver.bundle.js" type="text/javascript"></script>
+    <script src="vendor/angular-cookies/angular-cookies.js" type="text/javascript"></script>
     <script src="vendor/js-xlsx/dist/xlsx.core.min.js" type="text/javascript"></script>
     <script src="vendor/jszip/dist/jszip.js" type="text/javascript"></script>
-
 
     <script src="js/app.js"></script>
 
@@ -84,87 +85,12 @@
     <script src="js/controllers/ehourqueries/giornicliente.js"></script>
     <script src="js/controllers/ehourqueries/giorniclienteprogetto.js"></script>
     <script src="js/controllers/auth.js"></script>
+    <script src="js/controllers/login/login.js"></script>
 
   </head>
   <body ng-app="app">
-    <div class="headers" role="navigation" ng-controller="MenuController as vm">
-      <div class="headers-container">
-        <div class="headers-menu" ng-class="{'last': $last}"
-          ng-repeat="section in vm.menu.sections.orizontalSections">
-          <a ui-sref="{{section.state}}"
-             ui-sref-active="active"
-             ng-if="section.type === 'link'">
-            {{section.name}}
-          </a>
-          <md-menu ng-if="section.type === 'toggle'"
-            md-position-mode="left bottom"
-            md-offset="-18 23">
-            <md-button class="md-button-toggle" ng-click="$mdOpenMenu()">
-              <span aria-hidden="true">
-                {{section.name}}
-              </span>
-            </md-button>
-            <md-menu-content class="headers-menu-content">
-              <md-menu-item ng-repeat="page in section.pages">
-                <a ui-sref="{{page.state}}"
-                   ui-sref-active="active">
-                  <md-button>{{page.name}}</md-button>
-                </a>
-              </md-menu-item>
-            </md-menu-content>
-          </md-menu>
-        </div>
-      </div>
-      <div class="logout-container" ng-controller="AuthController">
-        <div class="logout-menu">
-          <md-button class="logout-button" ng-click="logout()">
-            <span aria-hidden="true">
-              Logout
-            </span>
-          </md-button>
-        </div>
-      </div>
-    </div>
-
-    <div class="bodycontent">
-
-      <div class="menuvert" ng-controller="MenuController as vm">
-        <img class="sensei-logo-png" src="img/sensei-logo_nobg.png"></img>
-        <md-sidenav class="md-sidenav-left md-whiteframe-z1 menuvert-container"
-          md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
-          <md-content role="navigation" class="menuvert-content">
-            <ul class="side-menu">
-              <li ng-repeat="section in vm.menu.sections.verticalSections"
-                  class="parent-list-item"
-                  ng-class="{'parentActive' : vm.isSectionSelected(section)}">
-                <h2 class="menu-heading" ng-if="section.type === 'heading'"
-                    id="heading_{{ section.name | nospace }}">
-                  {{section}}
-                </h2>
-                <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
-                <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
-              </li>
-            </ul>
-          </md-content>
-        </md-sidenav>
-      </div>
-
-      <div class="centerpage">
-        <div ui-view="activeprojectsview"></div>
-        <div ui-view="senseiprojectsview"></div>
-        <div ui-view="newprojectsview"></div>
-        <div ui-view="overviewview" class="calendar"></div>
-        <div ui-view="ricercaview"></div>
-        <div ui-view="projectdetailview"></div>
-        <div ui-view="projectmodifyview"></div>
-        <div ui-view="oremeseview"></div>
-        <div ui-view="giornicommessautenteview"></div>
-        <div ui-view="giornicommessaview"></div>
-        <div ui-view="giorniview"></div>
-        <div ui-view="giorniclienteview"></div>
-        <div ui-view="giorniclienteprogettoview"></div>
-      </div>
-    </div>
-
+    <div ui-view="loginview"></div>
+    <div ui-view="pagesview"></div>
+    <!--div ui-view></div-->
   </body>
 </html>

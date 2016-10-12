@@ -114,7 +114,7 @@ angular
 			console.log('tablerows = ' + tablerows);
 			var rowlinks = [];
 			tbody.selectAll("tr").each(function(d){
-				var link = "projectdetail({" +
+				var link = "pages.projectdetail({" +
 									 "customerId: " + $scope.selectedCustomer.id + "," +
 									 "customerName: '" + $scope.selectedCustomer.name + "'," +
 									 "projectId: " + d.id + "," +

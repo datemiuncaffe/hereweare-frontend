@@ -1,0 +1,31 @@
+<div class="headers">
+
+</div>
+
+<div class="loginbodycontent">
+
+  <div>
+    <img class="sensei-logo-png" src="img/sensei-logo_nobg.png"></img>
+  </div>
+
+  <div class="login">
+    <md-button class="login-button" ng-click="login()">
+      <span aria-hidden="true">
+        Login
+      </span>
+    </md-button>
+  </div>
+
+  <form ng-submit="register()">
+    <input ng-model="hwuser.email" type="text"
+      name="hwuser-email" placeholder="inserisci la mail" />
+    <input ng-model="hwuser.password" type="password"
+      name="hwuser-password" placeholder="inserisci la password" />
+    <input type="submit" value="Registrati" />
+  </form>
+
+</div>
+
+<div class="footers">
+
+</div>

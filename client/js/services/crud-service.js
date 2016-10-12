@@ -42,7 +42,10 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         updateBudgets: 'http://' + resourceBaseUrl + '/api/budgets/updateAllByProjectId'
       },
       POST: {
-        createProject: 'http://' + resourceBaseUrl + '/api/projects/createAndIncrementId'
+        LOCAL: {
+          createProject: 'http://' + resourceBaseUrl + '/api/projects/createAndIncrementId',
+          createHwuser: 'http://' + resourceBaseUrl + '/api/hwuser'
+        }
       }
     };
 
@@ -66,7 +69,10 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         updateBudgets:	$resource(queries.PUT.updateBudgets, null, {'update': {method:'PUT'}})
       },
       POST: {
-        createProject:  $resource(queries.POST.createProject, null, {'save': {method:'POST'}})
+        LOCAL: {
+          createProject:  $resource(queries.POST.LOCAL.createProject, null, {'save': {method:'POST'}}),
+          createHwuser:  $resource(queries.POST.LOCAL.createHwuser, null, {'save': {method:'POST'}})
+        }
       }
     };
 
@@ -96,7 +102,10 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 				return resources.PUT.updateBudgets.update(data).$promise;
 			},
       createProject: function(project){
-				return resources.POST.createProject.save(project).$promise;
+				return resources.POST.LOCAL.createProject.save(project).$promise;
+			},
+      createHwuser: function(hwuser){
+				return resources.POST.LOCAL.createHwuser.save(hwuser).$promise;
 			}
 		};
 

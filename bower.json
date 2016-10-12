@@ -26,6 +26,10 @@
     "d3": "^3.5.17",
     "angular-cache": "^4.6.0",
     "angular-file-saver": "^1.1.2",
-    "jszip": "Stuk/jszip#^3.1.0"
+    "jszip": "Stuk/jszip#^3.1.0",
+    "angular-cookies": "^1.5.8"
+  },
+  "resolutions": {
+    "angular": "1.5.7"
   }
 }

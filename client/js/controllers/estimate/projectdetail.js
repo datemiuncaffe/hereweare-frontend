@@ -336,7 +336,8 @@ angular
 
 			console.log('changing state...');
 
-			var url = 'http://' + $window.location.host + '/#/projectmodify' +
+			var url = 'http://' + $window.location.host +
+					'/#/pages/projectmodify' +
 					'?customerId=' + $scope.customer.id + '&customerName=' + $scope.customer.name +
 					'&projectId=' + $scope.project.id +
 					'&projectCode=' + $scope.project.code + '&projectName=' + $scope.project.name;
