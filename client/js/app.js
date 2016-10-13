@@ -13,7 +13,8 @@ angular
     'ngAria',
     'table.service',
     'ehourqueries',
-    'export-service'
+    'export-service',
+    'ngStorage'
   ])
   .config(['$stateProvider', '$urlRouterProvider', '$provide', function($stateProvider, $urlRouterProvider, $provide) {
       $stateProvider

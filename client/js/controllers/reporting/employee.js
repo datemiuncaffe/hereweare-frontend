@@ -1,10 +1,10 @@
 angular
 	.module("app")
 	.controller("EmployeeReportingController",
-			['$scope', '$resource', '$state', 'crud', '$q',
-			 'FileSaver', 'Blob', 'excelgen',
-	    function($scope, $resource, $state, crud, $q,
-							 FileSaver, Blob, excelgen) {
+			['$scope', '$resource', '$state', '$sessionStorage',
+			 'crud', '$q', 'FileSaver', 'Blob', 'excelgen',
+	    function($scope, $resource, $state, $sessionStorage,
+				 			 crud, $q, FileSaver, Blob, excelgen) {
 		$scope.employees = null;
 		$scope.selectedEmployee = {};
 		$scope.reportIntervals = {
@@ -45,6 +45,9 @@ angular
 		var currentMonthIndex = 0;
 		var datatoexport = {};
 
+		console.log('$sessionStorage: ' +
+			JSON.stringify($sessionStorage, null, '\t'));
+
 		$q
 		.all([
 				crud.getActiveUsers()
@@ -53,62 +56,108 @@ angular
 			function(data) {
 				var employees = data[0];
 				$scope.employees = employees;
-				$scope.selectedEmployee = employees[0];
 				getReportIntervals($scope.reportIntervals.weeks,
 													 $scope.reportIntervals.months,
 												 	 $scope.reportIntervals.quarters);
-				$scope.selectedWeek = $scope.reportIntervals.weeks[0];
-				$scope.selectedMonth =
-					$scope.reportIntervals.months[currentMonthIndex-1];
-				$scope.selectedQuarter = $scope.reportIntervals.quarters[0];
 
-				selectedInterval.start =
-					$scope.reportIntervals.months[currentMonthIndex-1].start;
-				selectedInterval.end =
-					$scope.reportIntervals.months[currentMonthIndex-1].end;
+				if ($sessionStorage.selectedEmployeeIndex != null) {
+					$scope.selectedEmployee =
+						employees[$sessionStorage.selectedEmployeeIndex];
+				} else {
+					$scope.selectedEmployee = employees[0];
+				}
+
+				if ($sessionStorage.selectedWeekIndex != null) {
+					$scope.selectedWeek =
+						$scope.reportIntervals
+									.weeks[$sessionStorage.selectedWeekIndex];
+				} else {
+					$scope.selectedWeek = $scope.reportIntervals.weeks[0];
+				}
+
+				if ($sessionStorage.selectedMonthIndex != null) {
+					$scope.selectedMonth =
+						$scope.reportIntervals
+									.months[$sessionStorage.selectedMonthIndex];
+				} else {
+					$scope.selectedMonth =
+						$scope.reportIntervals.months[currentMonthIndex-1];
+				}
+
+				if ($sessionStorage.selectedQuarterIndex != null) {
+					$scope.selectedQuarter =
+						$scope.reportIntervals
+									.quarters[$sessionStorage.selectedQuarterIndex];
+				} else {
+					$scope.selectedQuarter = $scope.reportIntervals.quarters[0];
+				}
+
+				if ($sessionStorage.selectedInterval != null) {
+					selectedInterval.start = $sessionStorage.selectedInterval.start;
+					selectedInterval.end = $sessionStorage.selectedInterval.end;
+				} else {
+					selectedInterval.start =
+						$scope.reportIntervals.months[currentMonthIndex-1].start;
+					selectedInterval.end =
+						$scope.reportIntervals.months[currentMonthIndex-1].end;
+				}
 
 				$scope.search();
 			});
 
 		$scope.onEmployeeChange = function() {
-			console.log('selectedEmployee: ' +
-				$scope.selectedEmployee.cognomeDipendente +
-				'-' + $scope.selectedEmployee.nomeDipendente);
+			$sessionStorage.selectedEmployeeIndex =
+				$scope.employees.indexOf($scope.selectedEmployee);
 			$scope.search();
 		};
 
 		$scope.onWeekChange = function() {
-			console.log('selectedWeek: ' +
-				$scope.selectedWeek.label);
 			$scope.selectedMonth = $scope.reportIntervals.months[0];
 			$scope.selectedQuarter = $scope.reportIntervals.quarters[0];
 			selectedInterval.start = $scope.selectedWeek.start;
 			selectedInterval.end = $scope.selectedWeek.end;
+
+			$sessionStorage.selectedWeekIndex =
+				$scope.reportIntervals.weeks.indexOf($scope.selectedWeek);
+			$sessionStorage.selectedMonthIndex = 0;
+			$sessionStorage.selectedQuarterIndex = 0;
+			$sessionStorage.selectedInterval = selectedInterval;
+
 			$scope.search();
 		};
 
 		$scope.onMonthChange = function() {
-			console.log('selectedMonth: ' +
-				$scope.selectedMonth.label);
 			$scope.selectedWeek = $scope.reportIntervals.weeks[0];
 			$scope.selectedQuarter = $scope.reportIntervals.quarters[0];
 			selectedInterval.start = $scope.selectedMonth.start;
 			selectedInterval.end = $scope.selectedMonth.end;
+
+			$sessionStorage.selectedWeekIndex = 0;
+			$sessionStorage.selectedMonthIndex =
+				$scope.reportIntervals.months.indexOf($scope.selectedMonth);
+			$sessionStorage.selectedQuarterIndex = 0;
+			$sessionStorage.selectedInterval = selectedInterval;
+
 			$scope.search();
 		};
 
 		$scope.onQuarterChange = function() {
-			console.log('selectedQuarter: ' +
-				$scope.selectedQuarter.label);
 			$scope.selectedWeek = $scope.reportIntervals.weeks[0];
 			$scope.selectedMonth = $scope.reportIntervals.months[0];
 			selectedInterval.start = $scope.selectedQuarter.start;
 			selectedInterval.end = $scope.selectedQuarter.end;
+
+			$sessionStorage.selectedWeekIndex = 0;
+			$sessionStorage.selectedMonthIndex = 0;
+			$sessionStorage.selectedQuarterIndex =
+				$scope.reportIntervals.quarters.indexOf($scope.selectedQuarter);
+			$sessionStorage.selectedInterval = selectedInterval;
+
 			$scope.search();
 		};
 
 		$scope.search = function() {
-			console.log('selectedEmployee: ' +
+			console.log('(search) selectedEmployee: ' +
 				JSON.stringify($scope.selectedEmployee, null, '\t'));
 
 			if ($scope.selectedEmployee != null &&
