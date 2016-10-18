@@ -20,7 +20,8 @@
     <link href="css/estimate/ricerca.css" rel="stylesheet">
     <link href="css/estimate/projectdetail.css" rel="stylesheet">
     <link href="css/estimate/projectmodify.css" rel="stylesheet">
-    <link href="css/reporting/employee.css" rel="stylesheet">
+    <link href="css/reporting/filter/employeeFilter.css" rel="stylesheet">
+    <link href="css/reporting/report/employeeReport.css" rel="stylesheet">
     <link href="css/ehourqueries/ehourtables.css" rel="stylesheet">
 
     <link href="css/calendar/angular.css" rel="stylesheet" type="text/css">
@@ -86,7 +87,8 @@
     <script src="js/controllers/ehourqueries/giorni.js"></script>
     <script src="js/controllers/ehourqueries/giornicliente.js"></script>
     <script src="js/controllers/ehourqueries/giorniclienteprogetto.js"></script>
-    <script src="js/controllers/reporting/employee.js"></script>
+    <script src="js/controllers/reporting/filter/employeeFilter.js"></script>
+    <script src="js/controllers/reporting/report/employeeReport.js"></script>
 
   </head>
   <body ng-app="app">
@@ -159,7 +161,8 @@
         <div ui-view="giorniview"></div>
         <div ui-view="giorniclienteview"></div>
         <div ui-view="giorniclienteprogettoview"></div>
-        <div ui-view="employeereportingview"></div>
+        <div ui-view="employeefilterview"></div>
+        <div ui-view="employeereportview"></div>
       </div>
 
       <div class="rightbar">

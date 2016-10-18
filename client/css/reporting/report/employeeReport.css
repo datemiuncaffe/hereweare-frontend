@@ -5,23 +5,6 @@ form[name=employeeReportForm] div.top {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-form[name=employeeReportForm] div.top > div.employees {
-  float: left;
-  width: 800px;
-}
-form[name=employeeReportForm] div.top > div.intervals {
-  float: left;
-  border-bottom: 1px solid black;
-  padding-bottom: 15px;
-}
-form[name=employeeReportForm] div.top > div.intervals > div {
-  float: left;
-  padding-top: 10px;
-  padding-right: 10px;
-}
-form[name=employeeReportForm] div.top > div.intervals > div > label {
-  padding-right: 5px;
-}
 
 form[name=employeeReportForm] div.center {
   font-family: Arial;

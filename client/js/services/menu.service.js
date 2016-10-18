@@ -77,7 +77,7 @@
             pages: [{
               name: 'Per dipendente',
               type: 'link',
-              state: 'employeereporting',
+              state: 'employeefilter',
               icon: ''
             }]
           }],
@@ -153,7 +153,7 @@
             pages: [{
               name: 'Per dipendente',
               type: 'link',
-              state: 'employeereporting',
+              state: 'employeefilter',
               icon: ''
             }]
           }]

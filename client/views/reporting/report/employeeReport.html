@@ -1,0 +1,24 @@
+<h1>Report ore lavorate</h1>
+<section>
+<form name="employeeReportForm" novalidate>
+	<fieldset>
+		<div class="top">
+
+		</div>
+		<div class="center">
+			<div class="search_results">
+				<h4>Dettaglio delle ore caricate da:
+					<b>
+						{{selectedEmployee.cognomeDipendente}}
+						{{selectedEmployee.nomeDipendente}}
+					</b>
+					<button class="btn btn-default excelExporter" ng-click="export()">
+						Esporta excel
+					</button>
+				</h4>
+			</div>
+		</div>
+	</fieldset>
+</form>
+<hr>
+</section>

@@ -1,6 +1,6 @@
-<h1>Report ore lavorate per dipendente</h1>
+<h1>Crea un report con le ore lavorate del dipendente</h1>
 <section>
-<form name="employeeReportForm" novalidate>
+<form name="employeeFilterForm" novalidate>
 	<fieldset>
 		<div class="top">
 			<div class="form-group employees">
@@ -38,17 +38,11 @@
 				</div>
 			</div>
 		</div>
-		<div class="center">
-			<div class="search_results">
-				<h4>Dettaglio delle ore caricate da:
-					<b>
-						{{selectedEmployee.cognomeDipendente}}
-						{{selectedEmployee.nomeDipendente}}
-					</b>
-					<button class="btn btn-default excelExporter" ng-click="export()">
-						Esporta excel
-					</button>
-				</h4>
+		<div class="bottom">
+			<div class="form-group">
+				<button class="btn btn-default" ng-click="viewReport()">
+					Vai al report
+				</button>
 			</div>
 		</div>
 	</fieldset>

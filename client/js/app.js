@@ -135,12 +135,21 @@ angular
     		  }
     		}
       })
-      .state('employeereporting', {
-        url: '/reporting/employee',
+      .state('employeefilter', {
+        url: '/reporting/filter/employee',
         views:{
-          'employeereportingview': {
-              templateUrl: 'views/reporting/employee.html',
-              controller: 'EmployeeReportingController'
+          'employeefilterview': {
+              templateUrl: 'views/reporting/filter/employeeFilter.html',
+              controller: 'EmployeeFilterController'
+           }
+        }
+      })
+      .state('employeereport', {
+        url: '/reporting/report/employee?cognomeDipendente&nomeDipendente&startDate&endDate',
+        views:{
+          'employeereportview': {
+              templateUrl: 'views/reporting/report/employeeReport.html',
+              controller: 'EmployeeReportController'
            }
         }
       });
