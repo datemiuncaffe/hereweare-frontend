@@ -44,6 +44,9 @@ angular
 		var endDay = now.clone().add(monthsAhead, 'months');
 		var currentMonthIndex = 0;
 
+		$scope.customers = [];
+		$scope.projects = [];
+
 		console.log('$sessionStorage: ' +
 			JSON.stringify($sessionStorage, null, '\t'));
 
@@ -101,11 +104,16 @@ angular
 						$scope.reportIntervals.months[currentMonthIndex-1].end;
 				}
 
+				searchProjectsAndCustomers($scope.selectedEmployee,
+					selectedInterval.start, selectedInterval.end);
+
 			});
 
 		$scope.onEmployeeChange = function() {
 			$sessionStorage.selectedEmployeeIndex =
 				$scope.employees.indexOf($scope.selectedEmployee);
+			searchProjectsAndCustomers($scope.selectedEmployee,
+				selectedInterval.start, selectedInterval.end);
 		};
 
 		$scope.onWeekChange = function() {
@@ -119,6 +127,9 @@ angular
 			$sessionStorage.selectedMonthIndex = 0;
 			$sessionStorage.selectedQuarterIndex = 0;
 			$sessionStorage.selectedInterval = selectedInterval;
+
+			searchProjectsAndCustomers($scope.selectedEmployee,
+				selectedInterval.start, selectedInterval.end);
 		};
 
 		$scope.onMonthChange = function() {
@@ -132,6 +143,9 @@ angular
 				$scope.reportIntervals.months.indexOf($scope.selectedMonth);
 			$sessionStorage.selectedQuarterIndex = 0;
 			$sessionStorage.selectedInterval = selectedInterval;
+
+			searchProjectsAndCustomers($scope.selectedEmployee,
+				selectedInterval.start, selectedInterval.end);
 		};
 
 		$scope.onQuarterChange = function() {
@@ -145,6 +159,19 @@ angular
 			$sessionStorage.selectedQuarterIndex =
 				$scope.reportIntervals.quarters.indexOf($scope.selectedQuarter);
 			$sessionStorage.selectedInterval = selectedInterval;
+
+			searchProjectsAndCustomers($scope.selectedEmployee,
+				selectedInterval.start, selectedInterval.end);
+		};
+
+		$scope.onCustomersChange = function() {
+			console.log('selected customers: ' +
+				JSON.stringify($scope.selectedCustomers, null, '\t'));
+		};
+
+		$scope.onProjectsChange = function() {
+			console.log('selected projects: ' +
+				JSON.stringify($scope.selectedProjects, null, '\t'));
 		};
 
 		$scope.viewReport = function() {
@@ -251,6 +278,31 @@ angular
 			quartersKeys.forEach(function(key) {
 				reportQuarters.push(quarters[key]);
 			});
+		};
+
+		function searchProjectsAndCustomers(employee, startDate, endDate) {
+			var params = {
+				username: employee.cognomeDipendente,
+				startDate: startDate,
+				endDate: endDate
+			};
+
+			$q
+			.all([
+					crud.getProjectsAndCustomersByUserNameAndDateInterval(params)
+			])
+			.then(
+				function(data) {
+					console.log('data: ' + JSON.stringify(data, null, '\t'));
+					console.log('data customers: ' +
+						JSON.stringify(data.customers, null, '\t'));
+					console.log('data projects: ' +
+						JSON.stringify(data.projects, null, '\t'));
+					$scope.customers = data[0].customers;
+					$scope.projects = data[0].projects;
+					console.log('customers: ' + $scope.customers);
+					console.log('projects: ' + $scope.projects);
+				});
 		};
 
 	}]);

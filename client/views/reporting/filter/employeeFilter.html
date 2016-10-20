@@ -38,6 +38,84 @@
 				</div>
 			</div>
 		</div>
+		<div class="center">
+
+			<div class="GreyBlueFrame">
+        <!-- CUSTOMER SELECTION -->
+        <div class="leftColumn">
+            <div class="foldIcon">
+                <a title="Clear selection" href="javascript:;" id="id1b8">
+                    <i class="fa fa-trash-o"></i>
+                </a>
+                <a title="Filter options" id="customerFold" onclick="return toggleFilter('#customerFilter')" href="#">
+                    <i class="fa fa-wrench"></i>
+                </a>
+            </div>
+            <b>Filtro cliente</b>
+            <div class="filterContainer hidden" id="customerFilter">
+                <input type="text" placeholder="Filter..." class="textInput searchInput floatLeft" id="customerFilterInput">
+                &nbsp;&nbsp;
+                Sort on
+								<select id="id1b7"
+									name="customerPSort" class="textInputSmall">
+								<option value="0" selected="selected">Name</option>
+								<option value="1">Code</option>
+								<option value="2">Name</option>
+								</select><br>
+            </div>
+
+          <select multiple="multiple"
+							name="customers"
+							class="textInputSmall reportCriteriaDropdown"
+							id="customersSelect"
+							ng-model="selectedCustomers"
+							ng-options="customer as customer.customerCodeName for customer in customers"
+							ng-change="onCustomersChange()">
+					</select>
+          <br>
+        </div>
+
+        <!-- PROJECT SELECTION -->
+        <div class="rightColumn">
+            <div class="foldIcon">
+                <a title="Clear selection" href="javascript:;" id="id1bb">
+                    <i class="fa fa-trash-o"></i>
+                </a>
+
+                <a title="Filter options" id="projectFold" onclick="return toggleFilter('#projectFilter')" href="#">
+                    <i class="fa fa-wrench"></i>
+                </a>
+            </div>
+
+            <b>Filtro progetti</b><br>
+
+            <div class="filterContainer hidden" id="projectFilter">
+                <input type="text" placeholder="Filter..." class="textInput searchInput floatLeft" id="projectFilterInput">
+                &nbsp;&nbsp;
+                Sort on
+								<select id="id1ba"
+								name="customort" class="textInputSmall">
+								<option value="0" selected="selected">Name</option>
+								<option value="1">Code</option>
+								<option value="2">Name</option>
+								</select>
+								<br>
+            </div>
+
+					<select multiple="multiple"
+							name="projects"
+							class="textInputSmall reportCriteriaDropdown"
+							id="projectsSelect"
+							ng-model="selectedProjects"
+							ng-options="project as project.projectCodeName for project in projects"
+							ng-change="onProjectsChange()">
+					</select>
+          <br>
+        </div>
+        <br clear="all">
+			</div>
+
+		</div>
 		<div class="bottom">
 			<div class="form-group">
 				<button class="btn btn-default" ng-click="viewReport()">

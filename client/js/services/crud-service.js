@@ -36,7 +36,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           getCustomers: 'http://' + resourceBaseUrl + '/query_customers',
           getProjectsByCustomerId: 'http://' + resourceBaseUrl + '/query_projects_by_customer_id',
           getCosts: 'http://' + resourceBaseUrl + '/query_costs',
-          getReportsByUserNameAndDateInterval: 'http://' + resourceBaseUrl + '/query_reports_by_userid_dateinterval'
+          getReportsByUserNameAndDateInterval: 'http://' + resourceBaseUrl + '/query_reports_by_userid_dateinterval',
+          getProjectsAndCustomersByUserNameAndDateInterval: 'http://' + resourceBaseUrl + '/query_projects_customers_by_username_dateinterval'
         }
       },
       PUT: {
@@ -62,7 +63,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
           getCustomers:	$resource(queries.GET.EHOUR.getCustomers, null, {'query':  {method:'GET', isArray:true}}),
           getProjectsByCustomerId: $resource(queries.GET.EHOUR.getProjectsByCustomerId, null, {'query':  {method:'GET', isArray:true}}),
           getCosts: $resource(queries.GET.EHOUR.getCosts, null, {'query':  {method:'GET', isArray:true}}),
-          getReportsByUserNameAndDateInterval: $resource(queries.GET.EHOUR.getReportsByUserNameAndDateInterval, null, {'query':  {method:'GET'}})
+          getReportsByUserNameAndDateInterval: $resource(queries.GET.EHOUR.getReportsByUserNameAndDateInterval, null, {'query':  {method:'GET'}}),
+          getProjectsAndCustomersByUserNameAndDateInterval: $resource(queries.GET.EHOUR.getProjectsAndCustomersByUserNameAndDateInterval, null, {'query': {method:'GET'}})
         }
       },
       PUT: {
@@ -86,6 +88,9 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 			},
       getProjectsByCustomerId: function(idObj) {
         return resources.GET.EHOUR.getProjectsByCustomerId.query(idObj).$promise;
+      },
+      getProjectsAndCustomersByUserNameAndDateInterval: function(params) {
+        return resources.GET.EHOUR.getProjectsAndCustomersByUserNameAndDateInterval.query(params).$promise;
       },
       getBudgetsCostsByCustomerIds: function(params) {
         return resources.GET.BOTH.getBudgetsCostsByCustomerIds.query(params).$promise;
