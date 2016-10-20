@@ -15,6 +15,7 @@ angular
 			end: null,
 			label: null
 		};
+		var projectCodes = "";
 		var datatoexport = {};
 
 		console.log('$stateParams: ' +
@@ -40,6 +41,10 @@ angular
 			selectedInterval.end =
 				$stateParams.endDate;
 		}
+		if ($stateParams.projectCodes != null &&
+				$stateParams.projectCodes.length > 0) {
+			projectCodes = $stateParams.projectCodes;
+		}
 
 		search();
 
@@ -57,11 +62,12 @@ angular
 										'-' + $scope.selectedEmployee.nomeDipendente);
 
 				// query ehour
-				crud.getReportsByUserNameAndDateInterval({
+				crud.getReportsByUserNameAndDateIntervalAndProjects({
 							firstName: $scope.selectedEmployee.nomeDipendente,
 							lastName: $scope.selectedEmployee.cognomeDipendente,
 							startDate: selectedInterval.start,
-							endDate: selectedInterval.end
+							endDate: selectedInterval.end,
+							projectCodes: projectCodes
 						}).then(function(report) {
 					console.log('report: ' +
 						JSON.stringify(report, null, '\t'));

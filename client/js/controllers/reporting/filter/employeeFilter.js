@@ -46,6 +46,7 @@ angular
 
 		$scope.customers = [];
 		$scope.projects = [];
+		var projectCodes = [];
 
 		console.log('$sessionStorage: ' +
 			JSON.stringify($sessionStorage, null, '\t'));
@@ -167,16 +168,35 @@ angular
 		$scope.onCustomersChange = function() {
 			console.log('selected customers: ' +
 				JSON.stringify($scope.selectedCustomers, null, '\t'));
+			var selectedProjects = [];
+			projectCodes = [];
+			$scope.selectedCustomers.forEach(function(selectedCustomer){
+				selectedCustomer.projects.forEach(function(index){
+					selectedProjects.push($scope.projects[index]);
+					projectCodes
+						.push("'" + $scope.projects[index].projectCode + "'");
+				});
+			});
+			$scope.selectedProjects = selectedProjects;
 		};
 
 		$scope.onProjectsChange = function() {
 			console.log('selected projects: ' +
 				JSON.stringify($scope.selectedProjects, null, '\t'));
+			var selectedCustomers = [];
+			projectCodes = [];
+			$scope.selectedProjects.forEach(function(selectedProject){
+				selectedCustomers.push($scope.customers[selectedProject.customer]);
+				projectCodes
+					.push("'" + selectedProject.projectCode + "'");
+			});
+			$scope.selectedCustomers = selectedCustomers;
 		};
 
 		$scope.viewReport = function() {
 			console.log('(search) selectedEmployee: ' +
 				JSON.stringify($scope.selectedEmployee, null, '\t'));
+			console.log('projectCodes: ' + projectCodes);
 
 			var url = 'http://' + $window.location.host +
 					'/#/reporting/report/employee' +
@@ -185,7 +205,8 @@ angular
 					'&nomeDipendente=' +
 					$scope.selectedEmployee.nomeDipendente +
 					'&startDate=' + selectedInterval.start +
-					'&endDate=' + selectedInterval.end;
+					'&endDate=' + selectedInterval.end +
+					'&projectCodes=' + projectCodes;
 	    $log.log(url);
 	    $window.location.href = url;
 		};

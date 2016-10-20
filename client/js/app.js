@@ -145,7 +145,7 @@ angular
         }
       })
       .state('employeereport', {
-        url: '/reporting/report/employee?cognomeDipendente&nomeDipendente&startDate&endDate',
+        url: '/reporting/report/employee?cognomeDipendente&nomeDipendente&startDate&endDate&projectCodes',
         views:{
           'employeereportview': {
               templateUrl: 'views/reporting/report/employeeReport.html',
