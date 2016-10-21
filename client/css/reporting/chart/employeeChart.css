@@ -1,0 +1,24 @@
+form[name=employeeChartForm] div.top {
+  font-family: Arial;
+  font-size: 14px;
+  float: left;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+form[name=employeeChartForm] div.center {
+  font-family: Arial;
+  font-size: 14px;
+  float: left;
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+  width: 1150px;
+}
+
+.highlight {
+    color: #ff0000;
+}
+
+form[name=employeeChartForm] div.ct-chart {
+	margin-bottom: 8px;
+}

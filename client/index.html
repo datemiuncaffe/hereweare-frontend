@@ -11,6 +11,7 @@
     <link href="vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="vendor/ng-table/dist/ng-table.css" rel="stylesheet">
     <link href="vendor/angucomplete-alt/angucomplete-alt.css" rel="stylesheet">
+    <link href="vendor/chartist/dist/chartist.css" rel="stylesheet">
 
     <link href="css/styles.css" rel="stylesheet">
     <link href="css/estimate/overview.css" rel="stylesheet">
@@ -22,6 +23,7 @@
     <link href="css/estimate/projectmodify.css" rel="stylesheet">
     <link href="css/reporting/filter/employeeFilter.css" rel="stylesheet">
     <link href="css/reporting/report/employeeReport.css" rel="stylesheet">
+    <link href="css/reporting/chart/employeeChart.css" rel="stylesheet">
     <link href="css/ehourqueries/ehourtables.css" rel="stylesheet">
 
     <link href="css/calendar/angular.css" rel="stylesheet" type="text/css">
@@ -59,6 +61,7 @@
     <script src="vendor/js-xlsx/dist/xlsx.core.min.js" type="text/javascript"></script>
     <script src="vendor/jszip/dist/jszip.js" type="text/javascript"></script>
     <script src="vendor/ngstorage/ngStorage.js" type="text/javascript"></script>
+    <script src="vendor/chartist/dist/chartist.js" type="text/javascript"></script>
 
     <script src="js/app.js"></script>
 
@@ -89,6 +92,7 @@
     <script src="js/controllers/ehourqueries/giorniclienteprogetto.js"></script>
     <script src="js/controllers/reporting/filter/employeeFilter.js"></script>
     <script src="js/controllers/reporting/report/employeeReport.js"></script>
+    <script src="js/controllers/reporting/chart/employeeChart.js"></script>
 
   </head>
   <body ng-app="app">
@@ -163,6 +167,7 @@
         <div ui-view="giorniclienteprogettoview"></div>
         <div ui-view="employeefilterview"></div>
         <div ui-view="employeereportview"></div>
+        <div ui-view="employeechartview"></div>
       </div>
 
       <div class="rightbar">

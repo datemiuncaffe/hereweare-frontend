@@ -326,4 +326,18 @@ angular
 				});
 		};
 
+		$scope.viewChart = function() {
+			var url = 'http://' + $window.location.host +
+					'/#/reporting/chart/employee' +
+					'?cognomeDipendente=' +
+					$scope.selectedEmployee.cognomeDipendente +
+					'&nomeDipendente=' +
+					$scope.selectedEmployee.nomeDipendente +
+					'&startDate=' + selectedInterval.start +
+					'&endDate=' + selectedInterval.end +
+					'&projectCodes=' + projectCodes;
+	    $log.log(url);
+	    $window.location.href = url;
+		};
+
 	}]);

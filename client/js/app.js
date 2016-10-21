@@ -152,6 +152,15 @@ angular
               controller: 'EmployeeReportController'
            }
         }
+      })
+      .state('employeechart', {
+        url: '/reporting/chart/employee?cognomeDipendente&nomeDipendente&startDate&endDate&projectCodes',
+        views:{
+          'employeechartview': {
+              templateUrl: 'views/reporting/chart/employeeChart.html',
+              controller: 'EmployeeChartController'
+           }
+        }
       });
 
       $urlRouterProvider.otherwise('overview');
