@@ -22,3 +22,7 @@ form[name=employeeChartForm] div.center {
 form[name=employeeChartForm] div.ct-chart {
 	margin-bottom: 8px;
 }
+form[name=employeeChartForm] div.ct-chart .ct-label {
+	color: rgba(0, 0, 0, 0.87);
+  font-size: 14px;
+}

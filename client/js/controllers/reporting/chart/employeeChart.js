@@ -86,7 +86,7 @@ angular
 					console.log('report: ' +
 						JSON.stringify(report, null, '\t'));
 
-					getChartLabels(chart.data.labels);
+					getChartData(chart.data, report.inserimenti);
 					console.log('labels: ' +
 						JSON.stringify(chart.data.labels, null, '\t'));
 
@@ -98,15 +98,47 @@ angular
 			}
 		};
 
-		function getChartLabels(labels){
+		function getChartData(chartData, inserimenti){
+			chartData.labels = [];
+			chartData.series = [];
 			var startDay = moment(selectedInterval.start, 'YYYY-MM-DD');
 			var endDay = moment(selectedInterval.end, 'YYYY-MM-DD');
 			var currentDay = startDay.clone();
 			while (currentDay.isSameOrBefore(endDay)) {
-				var currentDayLabel = currentDay.format('YYYY-MM-DD');
-				labels.push(currentDayLabel);
+				var currentDayLabel = currentDay.format('DD/MM/YY');
+				chartData.labels.push(currentDayLabel);
 				currentDay = currentDay.add(1, 'days');
 			}
+			inserimenti.forEach(function(inserimento){
+				var alreadypresentseries = chartData.series.filter(function(item){
+					console.log('item: ' + JSON.stringify(item, null, '\t'));
+					console.log('inserimento: ' + JSON.stringify(inserimento, null, '\t'));
+					return (item.name == inserimento.codiceProgetto);
+				});
+				if (alreadypresentseries.length > 0) {
+					console.log('already present');
+					var index = chartData.labels.indexOf(inserimento.data);
+					if (index > 0) {
+						alreadypresentseries[0].data[index] = inserimento.ore;
+					}
+				} else {
+					var linedata = [];
+					chartData.labels.forEach(function(label){
+						linedata.push(0);
+					});
+					var index = chartData.labels.indexOf(inserimento.data);
+					if (index > 0) {
+						linedata[index] = inserimento.ore;
+					}
+					var line = {
+						name: inserimento.codiceProgetto,
+						data: linedata
+					}
+					chartData.series.push(line);
+				}
+			});
+			console.log('chartData: ' +
+				JSON.stringify(chartData, null, '\t'));
 		};
 
 	}]);
