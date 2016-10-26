@@ -12,7 +12,7 @@ form[name=employeeChartForm] div.center {
   float: left;
   margin-bottom: 10px;
   border-bottom: 1px solid black;
-  width: 1150px;
+  width: 1200px;
 }
 
 .highlight {
@@ -25,4 +25,8 @@ form[name=employeeChartForm] div.ct-chart {
 form[name=employeeChartForm] div.ct-chart .ct-label {
 	color: rgba(0, 0, 0, 0.87);
   font-size: 14px;
+}
+
+form[name=employeeChartForm] div.center svg.ct-chart-line {
+  /*padding-right: 20px;*/
 }
