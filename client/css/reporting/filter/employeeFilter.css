@@ -80,11 +80,25 @@ form[name=employeeFilterForm] div.center .rightColumn label {
   text-transform: none;
 }
 
+form[name=employeeFilterForm] div.center .leftColumnHeader,
+form[name=employeeFilterForm] div.center .rightColumnHeader {
+  margin-top: 10px;
+  margin-right: 18px;
+}
+form[name=employeeFilterForm] div.center .leftColumnTitle,
+form[name=employeeFilterForm] div.center .rightColumnTitle {
+  width: 200px;
+}
 form[name=employeeFilterForm] div.center .foldIcon {
   float: right;
   padding-right: 5%;
+  margin-top: 8px;
   width: 32px;
 }
+form[name=employeeFilterForm] div.center .foldIcon .deleteIcon {
+  width: 22px;
+}
+
 form[name=employeeFilterForm] div.center .reportCriteriaDropdown {
   height: 180px;
   margin-bottom: 5px;

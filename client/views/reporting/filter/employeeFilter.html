@@ -43,26 +43,16 @@
 			<div class="GreyBlueFrame">
         <!-- CUSTOMER SELECTION -->
         <div class="leftColumn">
-            <div class="foldIcon">
-                <a title="Clear selection" href="javascript:;" id="id1b8">
-                    <i class="fa fa-trash-o"></i>
-                </a>
-                <a title="Filter options" id="customerFold" onclick="return toggleFilter('#customerFilter')" href="#">
-                    <i class="fa fa-wrench"></i>
-                </a>
-            </div>
-            <b>Filtro cliente</b>
-            <div class="filterContainer hidden" id="customerFilter">
-                <input type="text" placeholder="Filter..." class="textInput searchInput floatLeft" id="customerFilterInput">
-                &nbsp;&nbsp;
-                Sort on
-								<select id="id1b7"
-									name="customerPSort" class="textInputSmall">
-								<option value="0" selected="selected">Name</option>
-								<option value="1">Code</option>
-								<option value="2">Name</option>
-								</select><br>
-            </div>
+					<div class="leftColumnHeader">
+						<div class="foldIcon">
+	            <a title="rimuovi selezione" href="javascript:;">
+	              <img src="img/delete1_nobg.png" class="deleteIcon"></img>
+	            </a>
+	          </div>
+						<div class="leftColumnTitle">
+		          <b>Filtro cliente</b>
+						</div>
+					</div>
 
           <select multiple="multiple"
 							name="customers"
@@ -77,30 +67,16 @@
 
         <!-- PROJECT SELECTION -->
         <div class="rightColumn">
-            <div class="foldIcon">
-                <a title="Clear selection" href="javascript:;" id="id1bb">
-                    <i class="fa fa-trash-o"></i>
-                </a>
-
-                <a title="Filter options" id="projectFold" onclick="return toggleFilter('#projectFilter')" href="#">
-                    <i class="fa fa-wrench"></i>
-                </a>
-            </div>
-
-            <b>Filtro progetti</b><br>
-
-            <div class="filterContainer hidden" id="projectFilter">
-                <input type="text" placeholder="Filter..." class="textInput searchInput floatLeft" id="projectFilterInput">
-                &nbsp;&nbsp;
-                Sort on
-								<select id="id1ba"
-								name="customort" class="textInputSmall">
-								<option value="0" selected="selected">Name</option>
-								<option value="1">Code</option>
-								<option value="2">Name</option>
-								</select>
-								<br>
-            </div>
+					<div class="rightColumnHeader">
+						<div class="foldIcon">
+							<a title="rimuovi selezione" href="javascript:;">
+								<img src="img/delete1_nobg.png" class="deleteIcon"></img>
+							</a>
+						</div>
+						<div class="rightColumnTitle">
+							<b>Filtro progetti</b>
+						</div>
+					</div>
 
 					<select multiple="multiple"
 							name="projects"
