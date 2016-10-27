@@ -16,7 +16,8 @@ angular
     // set table filter
     var tablefilter = {
       anno: currentYear,
-      mese: currentMonth,
+      meseIn: currentMonth,
+      meseFin: currentMonth,
       codiceProgetto: null
     };
 
@@ -52,6 +53,18 @@ angular
     			});
     		}
     	});
+    ref.monthFilterByInterval = {
+      meseIn: './../../../templates/table/filters/startMonth.html',
+      meseFin: './../../../templates/table/filters/endMonth.html'
+      /*{
+        id: 'number',
+        placeholder: 'Start'
+      },
+      end: {
+        id: 'number',
+        placeholder: 'End'
+      }*/
+    };
 
     $scope.saveAllCSV = function() {
       console.log("saving all csv ...");

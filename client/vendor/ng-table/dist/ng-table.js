@@ -855,7 +855,7 @@ app.factory('NgTableParams', ['$q', '$log', 'ngTableDefaults', 'ngTableGetDataBc
 
         function runInterceptorPipeline(fetchFn){
             var interceptors = settings.interceptors || [];
-            
+
             console.log('interceptors: ' + JSON.stringify(interceptors, null, '\t'));
             return interceptors.reduce(function(result, interceptor){
                 var thenFn = (interceptor.response && interceptor.response.bind(interceptor)) || $q.when;
