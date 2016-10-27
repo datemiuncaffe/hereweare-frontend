@@ -38,10 +38,12 @@ form[name=employeeFilterForm] div.center div.GreyBlueFrame {
   background-color: #7280ca;
   margin-top: 15px;
   margin-bottom: 15px;
+  border-radius: 10px;
 }
 form[name=employeeFilterForm] div.center .leftColumn {
   float: left;
   padding-left: 10px;
+  padding-bottom: 10px;
   width: 48%;
 }
 form[name=employeeFilterForm] div.center .leftColumn b,
@@ -62,6 +64,7 @@ form[name=employeeFilterForm] div.center .leftColumn label {
 form[name=employeeFilterForm] div.center .rightColumn {
   float: right;
   padding-right: 10px;
+  padding-bottom: 10px;
   width: 48%;
 }
 form[name=employeeFilterForm] div.center .rightColumn b,
@@ -82,7 +85,7 @@ form[name=employeeFilterForm] div.center .rightColumn label {
 
 form[name=employeeFilterForm] div.center .leftColumnHeader,
 form[name=employeeFilterForm] div.center .rightColumnHeader {
-  margin-top: 10px;
+  margin-top: 4px;
   margin-right: 18px;
 }
 form[name=employeeFilterForm] div.center .leftColumnTitle,
@@ -91,9 +94,11 @@ form[name=employeeFilterForm] div.center .rightColumnTitle {
 }
 form[name=employeeFilterForm] div.center .foldIcon {
   float: right;
-  padding-right: 5%;
   margin-top: 8px;
   width: 32px;
+}
+form[name=employeeFilterForm] div.center .foldIcon a {
+  cursor: pointer;
 }
 form[name=employeeFilterForm] div.center .foldIcon .deleteIcon {
   width: 22px;

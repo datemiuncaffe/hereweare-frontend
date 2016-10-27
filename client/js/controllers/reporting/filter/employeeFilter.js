@@ -193,6 +193,17 @@ angular
 			$scope.selectedCustomers = selectedCustomers;
 		};
 
+		$scope.clearCustomersSelection = function() {
+			console.log("clear customers selection");
+			$scope.selectedCustomers = [];
+		};
+
+		$scope.clearProjectsSelection = function() {
+			console.log("clear projects selection");
+			$scope.selectedProjects = [];
+			projectCodes = [];
+		};
+
 		$scope.viewReport = function() {
 			console.log('(search) selectedEmployee: ' +
 				JSON.stringify($scope.selectedEmployee, null, '\t'));
