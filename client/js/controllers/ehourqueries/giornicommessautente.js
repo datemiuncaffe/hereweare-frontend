@@ -63,14 +63,28 @@ angular
     ref.monthFilterByInterval = {
       meseIn: './../../../templates/table/filters/startMonth.html',
       meseFin: './../../../templates/table/filters/endMonth.html'
-      /*{
-        id: 'number',
-        placeholder: 'Start'
-      },
-      end: {
-        id: 'number',
-        placeholder: 'End'
-      }*/
+    };
+
+    $scope.isLastPage = function() {
+      return ref.tableParams.page() === totalPages();
+    };
+
+    $scope.totalPages = function(){
+      return Math.ceil(ref.tableParams.total() /
+        ref.tableParams.count());
+    };
+
+    $scope.sumGroupedHours = function(data, field){
+      var sum = 0;
+      data.forEach(function(item){
+        if ("giornateMese" === field &&
+            item[field] != null &&
+            item[field].length > 0) {
+          var dottedValue = item[field].replace(",",".");
+          sum += parseFloat(dottedValue);
+        }
+      });
+      return sum.toFixed(2);
     };
 
     $scope.saveAllCSV = function() {
