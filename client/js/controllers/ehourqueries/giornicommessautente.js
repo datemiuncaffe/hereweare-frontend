@@ -87,24 +87,14 @@ angular
       return sum.toFixed(2);
     };
     $scope.sumTotalHours = function(groups, field) {
-      console.log('groups: ' +
-        JSON.stringify(groups, null, '\t'));
       var data = [];
       groups.forEach(function(group){
-        console.log('group: ' +
-          JSON.stringify(group, null, '\t'));
-        console.log('group data: ' +
-          JSON.stringify(group.data, null, '\t'));
         if (group.data != null &&
             group.data.length > 0) {
           data = data.concat(group.data);
         }
       });
-      console.log('data: ' +
-        JSON.stringify(data, null, '\t'));
       var sum = $scope.sumGroupedHours(data, field);
-      console.log('sum: ' +
-        JSON.stringify(sum, null, '\t'));
       return sum;
     };
 
