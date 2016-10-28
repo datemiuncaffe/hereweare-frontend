@@ -20,7 +20,7 @@
     "bootstrap": "^3.3.6",
     "angular-resource": "^1.5.3",
     "angular-ui-router": "^0.2.18",
-    "ng-table": "^0.8.3",
+    "ng-table": "1.0.0",
     "moment": "^2.13.0",
     "angucomplete-alt": "^2.4.1",
     "d3": "^3.5.17",
@@ -31,6 +31,7 @@
     "chartist": "^0.9.8"
   },
   "resolutions": {
-    "angular": "1.5.7"
+    "angular": "1.5.7",
+    "ng-table": "1.0.0"
   }
 }

@@ -17,9 +17,15 @@ angular
     var tablefilter = {
       anno: currentYear,
       meseIn: currentMonth,
-      meseFin: currentMonth,
-      codiceProgetto: null
+      meseFin: currentMonth
     };
+
+    //var tablegroups = "mese";
+    var groupByMonth = function(item) {
+      return item.mese;
+    };
+    groupByMonth.title = "Mese";
+    groupByMonth.sortDirection = "asc";
 
     if ($stateParams.year != null && $stateParams.year.length > 0) {
 			tablefilter.anno = $stateParams.year;
@@ -35,7 +41,8 @@ angular
     var query = $resource('http://' + resourceBaseUrl + '/query_giorni_lav_commessa_utente_mese');
 
     ref.tableParams = new NgTableParams({
-        filter: tablefilter
+        filter: tablefilter,
+        group: groupByMonth
       },
       {
     		getData : function(params) {
