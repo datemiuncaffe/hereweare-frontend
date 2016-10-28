@@ -66,7 +66,7 @@ angular
     };
 
     $scope.isLastPage = function() {
-      return ref.tableParams.page() === totalPages();
+      return ref.tableParams.page() === $scope.totalPages();
     };
 
     $scope.totalPages = function(){
@@ -74,7 +74,7 @@ angular
         ref.tableParams.count());
     };
 
-    $scope.sumGroupedHours = function(data, field){
+    $scope.sumGroupedHours = function(data, field) {
       var sum = 0;
       data.forEach(function(item){
         if ("giornateMese" === field &&
@@ -85,6 +85,27 @@ angular
         }
       });
       return sum.toFixed(2);
+    };
+    $scope.sumTotalHours = function(groups, field) {
+      console.log('groups: ' +
+        JSON.stringify(groups, null, '\t'));
+      var data = [];
+      groups.forEach(function(group){
+        console.log('group: ' +
+          JSON.stringify(group, null, '\t'));
+        console.log('group data: ' +
+          JSON.stringify(group.data, null, '\t'));
+        if (group.data != null &&
+            group.data.length > 0) {
+          data = data.concat(group.data);
+        }
+      });
+      console.log('data: ' +
+        JSON.stringify(data, null, '\t'));
+      var sum = $scope.sumGroupedHours(data, field);
+      console.log('sum: ' +
+        JSON.stringify(sum, null, '\t'));
+      return sum;
     };
 
     $scope.saveAllCSV = function() {

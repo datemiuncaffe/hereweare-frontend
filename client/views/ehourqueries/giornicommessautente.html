@@ -52,6 +52,23 @@
 						</td>
         	</tr>
 
+					<tfoot ng-if="isLastPage()">
+	          <tr>
+	            <td class="text-success text-right">
+								<strong>Grant Total:</strong>
+							</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+	            <td>
+								<em>{{ sumTotalHours($groups, "giornateMese") }}</em>
+							</td>
+	          </tr>
+	        </tfoot>
+
 			  </table>
 			</div>
 		</div>
