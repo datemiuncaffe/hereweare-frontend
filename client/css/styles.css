@@ -210,17 +210,3 @@ body {
   flex-basis: 100px;
   order: 3;
 }
-
-.csvsaverdiv {
-  margin-bottom: 10px;
-  height: 30px;
-  display: block;
-}
-.csvsaver {
-  float: right;
-}
-
-/* ------------------------------------ */
-table.ehourdata td {
-  font-family: Arial;
-}

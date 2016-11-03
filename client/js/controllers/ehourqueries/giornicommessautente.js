@@ -2,9 +2,9 @@ angular
   .module('ehourqueries')
   .controller('GiorniCommessaUtenteController',
       ['$scope', '$state', 'NgTableParams', '$resource', 'resourceBaseUrl',
-       '$stateParams', 'FileSaver', 'Blob', 'excelgen',
+       '$stateParams', 'FileSaver', 'Blob', 'excelgen', '$rootScope',
       function($scope, $state, NgTableParams, $resource, resourceBaseUrl,
-        $stateParams, FileSaver, Blob, excelgen) {
+        $stateParams, FileSaver, Blob, excelgen, $rootScope) {
 	  var ref = this;
 
     var now = moment();
@@ -21,11 +21,14 @@ angular
     };
 
     //var tablegroups = "mese";
-    var groupByMonth = function(item) {
-      return item.mese;
-    };
-    groupByMonth.title = "Mese";
-    groupByMonth.sortDirection = "asc";
+    // var groupByMonth = function(item) {
+    //   return item.mese;
+    // };
+    // groupByMonth.title = "Mese";
+    // groupByMonth.sortDirection = "asc";
+    // var groupByCognome = function(item) {
+    //   return item.cognomeDipendente;
+    // };
 
     if ($stateParams.year != null && $stateParams.year.length > 0) {
 			tablefilter.anno = $stateParams.year;
@@ -42,12 +45,15 @@ angular
 
     ref.tableParams = new NgTableParams({
         filter: tablefilter,
-        group: groupByMonth
+        group: "cognomeDipendente"
       },
       {
     		getData : function(params) {
     			console.log('params: ' + JSON.stringify(params, null, '\t'));
-    			console.log('params.url(): ' + JSON.stringify(params.url(), null, '\t'));
+    			console.log('params.url(): ' +
+            JSON.stringify(params.url(), null, '\t'));
+          console.log('params.group(): ' +
+            JSON.stringify(params.group(), null, '\t'));
 
     			// ajax request to back end
     			return query.get(params.url()).$promise.then(function(data) {
@@ -77,8 +83,7 @@ angular
     $scope.sumGroupedHours = function(data, field) {
       var sum = 0;
       data.forEach(function(item){
-        if ("giornateMese" === field &&
-            item[field] != null &&
+        if (item[field] != null &&
             item[field].length > 0) {
           var dottedValue = item[field].replace(",",".");
           sum += parseFloat(dottedValue);
@@ -98,134 +103,213 @@ angular
       return sum;
     };
 
-    $scope.saveAllCSV = function() {
-      console.log("saving all csv ...");
+    $scope.saveCSV = function() {
+      console.log("saving csv ...");
       var currentData = ref.tableParams.data;
       console.log("currentData: " + JSON.stringify(currentData, null, 2));
-
-      var dataperemployee = groupDataPerEmployee(currentData);
 
       var zip = new JSZip();
       var zipfolder = zip.folder("orefatturate");
 
-      var employees = Object.keys(dataperemployee).sort();
-      console.log("employees: " + JSON.stringify(employees, null, '\t'));
-      employees.forEach(function(employee){
-        sortByCodiceNomeCliente(dataperemployee[employee]);
-        var currentDataCSV = getCSV(dataperemployee[employee]);
-        console.log("currentDataCSV: " + JSON.stringify(currentDataCSV, null, '\n'));
-        zipfolder.file(employee + ".csv", currentDataCSV);
-        var currentDataXLS = getXLS(dataperemployee[employee]);
-        zipfolder.file(employee + ".xlsx", currentDataXLS);
+      var currentGroup = Object.keys(ref.tableParams.group())[0];
+      console.log("currentGroup: " +
+        JSON.stringify(currentGroup, null, 2));
+      var currentDataCSV = getCSV(currentData, currentGroup);
+      var fileName = "reportBy" + currentGroup;
 
-        // var blob = new Blob([currentDataCSV], {type : 'application/json'});
-        // console.log("blob: " + JSON.stringify(blob, null, '\t'));
-      });
+      zipfolder.file(fileName + ".csv", currentDataCSV);
       zipfolder.generateAsync({type:"blob"})
               .then(function (blob) {
                 FileSaver.saveAs(blob, 'giorniCommessaUtente.zip');
               });
     };
 
-    function groupDataPerEmployee(currentData) {
-      var dataperemployee = {};
-      currentData.forEach(function(currentData){
-        if (dataperemployee.hasOwnProperty(currentData.nomeDipendente)) {
-          console.log("already present");
-          dataperemployee[currentData.nomeDipendente].push(currentData);
-        } else {
-          console.log("add");
-          dataperemployee[currentData.nomeDipendente] = [];
-          dataperemployee[currentData.nomeDipendente].push(currentData);
-        }
-      });
-      console.log("dataperemployee: " + JSON.stringify(dataperemployee, null, '\t'));
-      return dataperemployee;
+    $scope.saveXLS = function() {
+      console.log("saving excel ...");
+      var currentData = ref.tableParams.data;
+      console.log("currentData: " + JSON.stringify(currentData, null, 2));
+
+      var zip = new JSZip();
+      var zipfolder = zip.folder("orefatturate");
+
+      var currentGroup = Object.keys(ref.tableParams.group())[0];
+      var currentDataXLS = getXLS(currentData, currentGroup);
+      var fileName = "reportBy" + currentGroup;
+
+      zipfolder.file(fileName + ".xlsx", currentDataXLS);
+      zipfolder.generateAsync({type:"blob"})
+              .then(function (blob) {
+                FileSaver.saveAs(blob, 'giorniCommessaUtente.zip');
+              });
     };
 
-    function getCSV(data) {
+    function getCSV(groups, groupName) {
       var csv = "";
-      csv += "Rapporto cliente\n";
+      csv += "Ore erogate\n";
+      csv += ",\n";
 
-      var month = data[0].mese;
-      var currentmonth = moment({month:(data[0].mese - 1)});
-      var datestart = currentmonth.date(1).format("D-MMM-YY");
-      var dateend = currentmonth.date(currentmonth.daysInMonth()).format("D-MMM-YY");
-      console.log("datestart: " + datestart + "; dateend: " + dateend);
-      csv += "Data di inizio," + datestart + ",,Data di fine," + dateend + "\n";
-      csv += ",,,,,\n";
+      groups.forEach(function(group) {
+        // header
+        if (groupName === "mese") {
+          var month = group.value;
+          var currentmonth = moment({month:(group.value - 1)});
+          var datestart = currentmonth.date(1).format("D-MMM-YY");
+          var dateend = currentmonth.date(currentmonth.daysInMonth()).format("D-MMM-YY");
+          console.log("datestart: " + datestart + "; dateend: " + dateend);
+          csv += "Data di inizio," + datestart + ",,Data di fine," + dateend + "\n";
+          csv += ",,,,,\n";
+        } else {
+          csv += group.value + ",\n";
+          csv += ",\n";
+        }
 
-      var ret = [];
-      var header = ["Cliente", "Progetto", "Codice progetto", "Dipendente", "Role", "Ore"];
-      ret.push('"' + header.join('","') + '"');
+        // body and sum
+        var ret = [];
+        var header = ["Cliente", "Progetto", "Codice progetto", "Dipendente", "Role", "Ore"];
+        ret.push('"' + header.join('","') + '"');
 
-      for (var i = 0, len = data.length; i < len; i++) {
-          var line = [];
-          if (data[i].hasOwnProperty("codiceNomeCliente")) {
-              line.push('"' + data[i]["codiceNomeCliente"] + '"');
-          }
-          if (data[i].hasOwnProperty("nomeProgetto")) {
-              line.push('"' + data[i]["nomeProgetto"] + '"');
-          }
-          if (data[i].hasOwnProperty("codiceProgetto")) {
-              line.push('"' + data[i]["codiceProgetto"] + '"');
-          }
-          if (data[i].hasOwnProperty("cognomeNomeDipendente")) {
-              line.push('"' + data[i]["cognomeNomeDipendente"] + '"');
-          }
-          line.push('""');
-          if (data[i].hasOwnProperty("oreMese")) {
-              line.push('"' + data[i]["oreMese"] + '"');
-          }
-          ret.push(line.join(','));
-      }
+        var groupdata = group.data;
+        for (var i = 0, len = groupdata.length; i < len; i++) {
+            var line = [];
+            if (groupdata[i].hasOwnProperty("codiceNomeCliente")) {
+              line.push('"' + groupdata[i]["codiceNomeCliente"] + '"');
+            } else {
+              line.push('""');
+            }
+            if (groupdata[i].hasOwnProperty("nomeProgetto")) {
+              line.push('"' + groupdata[i]["nomeProgetto"] + '"');
+            } else {
+              line.push('""');
+            }
+            if (groupdata[i].hasOwnProperty("codiceProgetto")) {
+              line.push('"' + groupdata[i]["codiceProgetto"] + '"');
+            } else {
+              line.push('""');
+            }
+            if (groupdata[i].hasOwnProperty("cognomeNomeDipendente")) {
+              line.push('"' + groupdata[i]["cognomeNomeDipendente"] + '"');
+            } else {
+              line.push('""');
+            }
+            line.push('""');
+            if (groupdata[i].hasOwnProperty("oreMese")) {
+              line.push('"' + groupdata[i]["oreMese"] + '"');
+            } else {
+              line.push('""');
+            }
+            ret.push(line.join(','));
+        }
+        var linesum = ",,,," + "Totale ore," +
+          $scope.sumGroupedHours(groupdata, "oreMese");
+        ret.push(linesum);
+        csv += ret.join('\n');
+        csv += "\n";
+        csv += ",,,,,,\n";
+      });
 
-      csv += ret.join('\n');
+      // total sum
+      var linetotsum = ",,,," + "Totale complessivo ore," +
+        $scope.sumTotalHours(groups, "oreMese") + ",\n";
+      csv += linetotsum;
+
       return csv;
     };
 
-    function getXLS(data) {
-      var year = data[0].anno;
-      var month = data[0].mese - 1;
-      var daysInMonth = new Date(year, month + 1, 0).getDate();
-      console.log("year: " + year + "; month: " + month + "; daysInMonth: " + daysInMonth);
-      var datestart = new Date(Date.UTC(year, month, 1));
-      var dateend = new Date(Date.UTC(year, month, daysInMonth));
-      console.log("datestart: " + datestart + "; dateend: " + dateend);
-
+    function getXLS(groups, groupName) {
       /* Build data for xls in form of array of arrays */
       var XLSdata = [
-        ["Rapporto cliente"],
-        ["Data di inizio", datestart, null, "Data di fine", dateend],
-        [ null, null, null, null, null],
-        ["Cliente", "Progetto", "Codice progetto", "Dipendente", "Role", "Ore"]
+        ["Ore erogate"]
       ];
+      var XLSoptions = [
+        [null]
+      ];
+      XLSdata.push([null]);
+      XLSoptions.push([null]);
 
-      for (var i = 0, len = data.length; i < len; i++) {
-          var line = [];
-          if (data[i].hasOwnProperty("codiceNomeCliente")) {
-              line.push(data[i]["codiceNomeCliente"]);
+      groups.forEach(function(group) {
+        // header
+        if (groupName === "mese") {
+          var year = group.data[0].anno;
+          var month = group.value - 1;
+          var daysInMonth = new Date(year, month + 1, 0).getDate();
+          console.log("year: " + year + "; month: " + month + "; daysInMonth: " + daysInMonth);
+          var datestart = new Date(Date.UTC(year, month, 1));
+          var dateend = new Date(Date.UTC(year, month, daysInMonth));
+          console.log("datestart: " + datestart + "; dateend: " + dateend);
+          XLSdata.push(["Data di inizio", datestart,
+            null, "Data di fine", dateend]);
+          XLSoptions.push([null, null, null, null, null]);
+        } else {
+          XLSdata.push([group.value]);
+          XLSoptions.push([null]);
+        }
+        XLSdata.push([null, null, null, null, null]);
+        XLSoptions.push([null, null, null, null, null]);
+
+        // body and sum
+        XLSdata.push(["Cliente", "Progetto", "Codice progetto",
+          "Dipendente", "Role", "Ore"]);
+        var headeropts = {
+          fill: {
+            patternType: "solid",
+            fgColor: { rgb: "7B68EE" },
+            bgColor: { rgb: "CCFFFF" }
+          },
+          font: {
+            color: { rgb: "FFFFFF" }
           }
-          if (data[i].hasOwnProperty("nomeProgetto")) {
-              line.push(data[i]["nomeProgetto"]);
-          }
-          if (data[i].hasOwnProperty("codiceProgetto")) {
-              line.push(data[i]["codiceProgetto"]);
-          }
-          if (data[i].hasOwnProperty("cognomeNomeDipendente")) {
-              line.push(data[i]["cognomeNomeDipendente"]);
-          }
-          line.push(null);
-          if (data[i].hasOwnProperty("oreMese")) {
-              line.push(data[i]["oreMese"]);
-          }
-          XLSdata.push(line);
-      }
+        };
+        XLSoptions.push([headeropts, headeropts, headeropts,
+          headeropts, headeropts, headeropts]);
+
+        var groupdata = group.data;
+        for (var i = 0, len = groupdata.length; i < len; i++) {
+            var line = [];
+            if (groupdata[i].hasOwnProperty("codiceNomeCliente")) {
+              line.push(groupdata[i]["codiceNomeCliente"]);
+            } else {
+              line.push(null);
+            }
+            if (groupdata[i].hasOwnProperty("nomeProgetto")) {
+              line.push(groupdata[i]["nomeProgetto"]);
+            } else {
+              line.push(null);
+            }
+            if (groupdata[i].hasOwnProperty("codiceProgetto")) {
+              line.push(groupdata[i]["codiceProgetto"]);
+            } else {
+              line.push(null);
+            }
+            if (groupdata[i].hasOwnProperty("cognomeNomeDipendente")) {
+              line.push(groupdata[i]["cognomeNomeDipendente"]);
+            } else {
+              line.push(null);
+            }
+            line.push(null);
+            if (groupdata[i].hasOwnProperty("oreMese")) {
+              line.push(groupdata[i]["oreMese"]);
+            } else {
+              line.push(null);
+            }
+            XLSdata.push(line);
+            XLSoptions.push([null, null, null, null, null, null]);
+        }
+        XLSdata.push([null, null, null, null, "Totale ore",
+          $scope.sumGroupedHours(groupdata, "oreMese")]);
+        XLSoptions.push([null, null, null, null, null, null]);
+        XLSdata.push([null, null, null, null, null, null]);
+        XLSoptions.push([null, null, null, null, null, null]);
+      });
+
+      // total sum
+      XLSdata.push([null, null, null, null, "Totale complessivo ore",
+        $scope.sumTotalHours(groups, "oreMese")]);
+      XLSoptions.push([null, null, null, null, null, null]);
 
       var ws_name = "Rendicontazione ore";
       var wb = new excelgen.Workbook();
       console.log('wb: ' + JSON.stringify(wb, null, '\t'));
-      var ws = excelgen.sheet_from_array_of_arrays(XLSdata);
+      var ws = excelgen.sheet_from_array_of_arrays(XLSdata, XLSoptions);
 
       /* add worksheet to workbook */
       wb.SheetNames.push(ws_name);
@@ -233,33 +317,7 @@ angular
       var wbout = XLSX.write(wb,
         {bookType:'xlsx', bookSST:true, type: 'binary'});
 
-      //var blob = new Blob([s2ab(wbout)],{type:"application/octet-stream"});
-      //return blob;
-
       return excelgen.s2ab(wbout);
-    };
-
-    function sortByCodiceNomeCliente(data){
-      data.sort(function(a, b) {
-        var codiceNomeClienteA = a.codiceNomeCliente.toUpperCase(); // ignore upper and lowercase
-        var codiceNomeClienteB = b.codiceNomeCliente.toUpperCase(); // ignore upper and lowercase
-
-        if (codiceNomeClienteA < codiceNomeClienteB) {
-          return -1;
-        } else if (codiceNomeClienteA > codiceNomeClienteB) {
-          return 1;
-        } else { // equality
-          var nomeProgettoA = a.nomeProgetto.toUpperCase();
-          var nomeProgettoB = b.nomeProgetto.toUpperCase();
-          if (nomeProgettoA < nomeProgettoB) {
-            return -1;
-          } else if (nomeProgettoA > nomeProgettoB) {
-            return 1;
-          }
-          // must be equal
-          return 0;
-        }
-      });
     };
 
     /* ----- reader ------ */

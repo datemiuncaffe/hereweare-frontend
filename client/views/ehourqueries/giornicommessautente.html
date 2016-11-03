@@ -7,9 +7,14 @@
 		<div class="list-group">
 			<div ng-controller="GiorniCommessaUtenteController as ggCommessaUtCtrl">
 				<!-- <div class="csvsaverdiv"> -->
-				<form class="csvsaverdiv">
+				<form class="saverdiv">
 					<!--input id="XLSreader" name="XLSreader" type="file">Carica un excel</input-->
-					<button class="btn btn-default csvsaver" ng-click="saveAllCSV()">Esporta excel</button>
+					<button class="btn btn-default csvsaver" ng-click="saveCSV()">
+						Esporta CSV
+					</button>
+					<button class="btn btn-default xlssaver" ng-click="saveXLS()">
+						Esporta EXCEL
+					</button>
 				</form>
 			  <table ng-table="ggCommessaUtCtrl.tableParams"
 					class="table table-bordered table-striped table-condensed ehourdata"
@@ -28,25 +33,24 @@
 
 					<tr ng-hide="group.$hideRows" ng-repeat="row in group.data">
 					  <td data-title="'ANNO'" filter="{anno: 'text'}" sortable="'anno'">{{row.anno}}</td>
-					  <td data-title="'MESE'" filter="ggCommessaUtCtrl.monthFilterByInterval" sortable="'mese'">{{row.mese}}</td>
+					  <td data-title="'MESE'" filter="ggCommessaUtCtrl.monthFilterByInterval" sortable="'mese'" groupable="'mese'">{{row.mese}}</td>
 					  <td data-title="'CLIENTE'" filter="{nomeCliente: 'text'}" sortable="'nomeCliente'">{{row.nomeCliente}}</td>
 					  <td data-title="'CODICE PROGETTO'" filter="{codiceProgetto: 'text'}" sortable="'codiceProgetto'">{{row.codiceProgetto}}</td>
 					  <td data-title="'PROGETTO'" filter="{nomeProgetto: 'text'}" sortable="'nomeProgetto'">{{row.nomeProgetto}}</td>
 					  <td data-title="'NOME'" filter="{nomeDipendente: 'text'}" sortable="'nomeDipendente'">{{row.nomeDipendente}}</td>
-						<td data-title="'COGNOME'" filter="{cognomeDipendente: 'text'}" sortable="'cognomeDipendente'">{{row.cognomeDipendente}}</td>
+						<td data-title="'COGNOME'" filter="{cognomeDipendente: 'text'}" sortable="'cognomeDipendente'" groupable="'cognomeDipendente'">{{row.cognomeDipendente}}</td>
 						<td data-title="'GIORNATE EROGATE'" sortable="'giornateMese'">{{row.giornateMese}}</td>
 					</tr>
 
 					<tr ng-repeat-end>
-            <td class="text-success text-right">
-							<strong>Summary:</strong>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="text-success text-right">
+							<strong>Totale ore:</strong>
 						</td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
             <td>
 							<em>{{ sumGroupedHours(group.data, "giornateMese") }}</em>
 						</td>
@@ -54,15 +58,14 @@
 
 					<tfoot ng-if="isLastPage()">
 	          <tr>
-	            <td class="text-success text-right">
-								<strong>Grant Total:</strong>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td class="text-success text-right">
+								<strong>Totale ore complessivo:</strong>
 							</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
 	            <td>
 								<em>{{ sumTotalHours($groups, "giornateMese") }}</em>
 							</td>

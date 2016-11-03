@@ -12,3 +12,19 @@ section.ehourtables div.center {
   margin-bottom: 10px;
   border-bottom: 1px solid black;
 }
+
+section.ehourtables div.center .saverdiv {
+  margin-bottom: 10px;
+  height: 30px;
+  display: block;
+}
+section.ehourtables div.center .saverdiv .csvsaver {
+  float: right;
+}
+section.ehourtables div.center .saverdiv .xlssaver {
+  float: right;
+}
+
+table.ehourdata td {
+  font-family: Arial;
+}

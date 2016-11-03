@@ -71,17 +71,15 @@
             // cell style
             cell.s = {font: {bold: true}};
             // header background
-            if (R == 3) {
-              //cell.s.fill = {bgColor: { rgb: "#ADD8E6" }};
-              cell.s.fill = {
-                patternType: "solid",
-                fgColor: { rgb: "7B68EE" },
-                bgColor: { rgb: "CCFFFF" }
-              };
-              cell.s.font = {
-                color: { rgb: "FFFFFF" }
-              };
-            }
+            if (opts[R] != null &&
+                opts[R][C] != null) {
+              if (opts[R][C].fill != null) {
+                cell.s.fill = opts[R][C].fill;
+              }
+              if (opts[R][C].font != null) {
+                cell.s.font = opts[R][C].font;
+              }
+            }            
 
             ws[cell_ref] = cell;
           }
