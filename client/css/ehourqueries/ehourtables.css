@@ -23,6 +23,7 @@ section.ehourtables div.center .saverdiv .csvsaver {
 }
 section.ehourtables div.center .saverdiv .xlssaver {
   float: right;
+  margin-right: 6px;
 }
 
 table.ehourdata td {

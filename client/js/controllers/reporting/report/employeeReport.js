@@ -180,9 +180,30 @@ angular
 			return table;
 		};
 
-		/* ---- export csv/excel ---- */
-		$scope.export = function() {
-      console.log("export csv/excel ...");
+		/* ---- export xls/csv ---- */
+		$scope.exportXLS = function() {
+      console.log("export excel ...");
+      var currentData = datatoexport;
+      console.log("currentData: " +
+				JSON.stringify(currentData, null, 2));
+
+      var zip = new JSZip();
+      var zipfolder = zip.folder("orefatturate");
+			var filename = $scope.selectedEmployee.cognomeDipendente +
+				'-' + $scope.selectedEmployee.nomeDipendente;
+
+      var currentDataXLS = getXLS(currentData);
+    	console.log("currentDataXLS: " +
+				JSON.stringify(currentDataXLS, null, '\n'));
+      zipfolder.file(filename + ".xlsx", currentDataXLS);
+			zipfolder.generateAsync({type:"blob"})
+			    .then(function (blob) {
+			      FileSaver.saveAs(blob, filename + '.zip');
+			    });
+    };
+
+		$scope.exportCSV = function() {
+      console.log("export csv ...");
       var currentData = datatoexport;
       console.log("currentData: " +
 				JSON.stringify(currentData, null, 2));
@@ -196,9 +217,7 @@ angular
     	console.log("currentDataCSV: " +
 				JSON.stringify(currentDataCSV, null, '\n'));
       zipfolder.file(filename + ".csv", currentDataCSV);
-      var currentDataXLS = getXLS(currentData);
-      zipfolder.file(filename + ".xlsx", currentDataXLS);
-			zipfolder.generateAsync({type:"blob"})
+      zipfolder.generateAsync({type:"blob"})
 			    .then(function (blob) {
 			      FileSaver.saveAs(blob, filename + '.zip');
 			    });
@@ -269,6 +288,22 @@ angular
         [ null, null, null, null, null],
         data.header
       ];
+			var headeropts = {
+				fill: {
+					patternType: "solid",
+					fgColor: { rgb: "7B68EE" },
+					bgColor: { rgb: "CCFFFF" }
+				},
+				font: {
+					color: { rgb: "FFFFFF" }
+				}
+			};
+			var XLSoptions = [
+        [null],
+				[ null, null, null, null, null],
+				[ null, null, null, null, null],
+				Array(8).fill(headeropts)
+      ];
 
       for (var i = 0, len = data.rows.length; i < len; i++) {
         var line = [];
@@ -285,6 +320,7 @@ angular
 					}
 				});
         XLSdata.push(line);
+				XLSoptions.push(Array(keys.length).fill(null));
       }
 
 			// ore totali
@@ -292,11 +328,12 @@ angular
 				null, null, null,
 				data.footer[0].cells[0].value,
 				data.footer[0].cells[1].value]);
+			XLSoptions.push(Array(8).fill(null));
 
       var ws_name = "Rendicontazione ore " + data.rows[0].dipendente;
       var wb = new excelgen.Workbook();
       console.log('wb: ' + JSON.stringify(wb, null, '\t'));
-      var ws = excelgen.sheet_from_array_of_arrays(XLSdata);
+      var ws = excelgen.sheet_from_array_of_arrays(XLSdata, XLSoptions);
 
       /* add worksheet to workbook */
       wb.SheetNames.push(ws_name);

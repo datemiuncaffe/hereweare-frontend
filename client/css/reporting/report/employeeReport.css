@@ -29,7 +29,12 @@ form[name=employeeReportForm] div.search_results {
 form[name=employeeReportForm] div.search_results h4 {
   width: 1200px;
 }
-form[name=employeeReportForm] div.search_results h4 .excelExporter {
+form[name=employeeReportForm] div.search_results h4 .XLSExporter {
+  float: right;
+  margin-top: -6px;
+  margin-right: 6px;
+}
+form[name=employeeReportForm] div.search_results h4 .CSVExporter {
   float: right;
   margin-top: -6px;
 }
