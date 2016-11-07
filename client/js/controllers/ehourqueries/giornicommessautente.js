@@ -42,7 +42,7 @@ angular
     console.log('tablefilter = ' + JSON.stringify(tablefilter, null, '\t'));
 
     var query = $resource('http://' + resourceBaseUrl + '/query_giorni_lav_commessa_utente_mese');
-
+    $scope.totalHours = 0;
     ref.tableParams = new NgTableParams({
         filter: tablefilter,
         group: "cognomeDipendente"
@@ -62,6 +62,11 @@ angular
     					console.log('data giorni Commessa Utente: ' + JSON.stringify(data.giorniCommessaUtente, null, '\t'));
     					res = data.giorniCommessaUtente;
     				}
+
+            $scope.totalHours =
+              $scope.sumGroupedHours(res, "giornateMese");
+            console.log('totalHours: ' + $scope.totalHours);
+
     				return res;
     			});
     		}
@@ -91,6 +96,7 @@ angular
       });
       return sum.toFixed(2);
     };
+
     $scope.sumTotalHours = function(groups, field) {
       var data = [];
       groups.forEach(function(group){
