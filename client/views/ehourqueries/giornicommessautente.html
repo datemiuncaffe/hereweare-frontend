@@ -16,9 +16,41 @@
 						Esporta XLS
 					</button>
 				</form>
-			  <table ng-table="ggCommessaUtCtrl.tableParams"
+
+				<form class="groupingCheckboxes">
+					<h4 class="groupingLegend">
+						Raggruppa i dati della tabella scegliendo una o più colonne
+					</h4>
+					<div layout="row" layout-wrap flex>
+						<!--div flex>
+							<md-checkbox aria-label="Seleziona tutte"
+								ng-checked="tableGrouping.isChecked()"
+								md-indeterminate="tableGrouping.isIndeterminate()"
+								ng-click="tableGrouping.toggleAll()">
+								<span ng-if="tableGrouping.isChecked()">
+									De-
+								</span>
+								Seleziona tutte
+							</md-checkbox>
+						</div-->
+						<div class="item-checkbox" flex
+								ng-repeat="item in tableGrouping.items">
+							<md-checkbox
+								ng-checked="tableGrouping.exists(item, tableGrouping.selected)"
+								ng-click="tableGrouping.toggle(item, tableGrouping.selected)">
+								{{ item }}
+							</md-checkbox>
+						</div>
+					</div>
+					<button class="btn btn-default tablegrouper"
+						ng-click="tableGrouping.grouptable()">
+						Raggruppa
+					</button>
+				</form>
+
+				<table ng-table="ggCommessaUtCtrl.tableParams"
 					class="table table-bordered table-striped table-condensed ehourdata"
-					show-filter="true">
+					show-filter="true" show-group="false">
 
 					<tr class="ng-table-group" ng-repeat-start="group in $groups">
 						<td colspan="8">
@@ -33,12 +65,14 @@
 
 					<tr ng-hide="group.$hideRows" ng-repeat="row in group.data">
 					  <td data-title="'ANNO'" filter="{anno: 'text'}" sortable="'anno'">{{row.anno}}</td>
-					  <td data-title="'MESE'" filter="ggCommessaUtCtrl.monthFilterByInterval" sortable="'mese'" groupable="'mese'">{{row.mese}}</td>
+					  <!--td data-title="'MESE'" filter="ggCommessaUtCtrl.monthFilterByInterval" sortable="'mese'" groupable="'mese'" show="true">{{row.mese}}</td-->
+						<td data-title="'MESE'" filter="ggCommessaUtCtrl.monthFilterByInterval" sortable="'mese'">{{row.mese}}</td>
 					  <td data-title="'CLIENTE'" filter="{nomeCliente: 'text'}" sortable="'nomeCliente'">{{row.nomeCliente}}</td>
 					  <td data-title="'CODICE PROGETTO'" filter="{codiceProgetto: 'text'}" sortable="'codiceProgetto'">{{row.codiceProgetto}}</td>
 					  <td data-title="'PROGETTO'" filter="{nomeProgetto: 'text'}" sortable="'nomeProgetto'">{{row.nomeProgetto}}</td>
 					  <td data-title="'NOME'" filter="{nomeDipendente: 'text'}" sortable="'nomeDipendente'">{{row.nomeDipendente}}</td>
-						<td data-title="'COGNOME'" filter="{cognomeDipendente: 'text'}" sortable="'cognomeDipendente'" groupable="'cognomeDipendente'">{{row.cognomeDipendente}}</td>
+						<!--td data-title="'COGNOME'" filter="{cognomeDipendente: 'text'}" sortable="'cognomeDipendente'" groupable="'cognomeDipendente'" show="true">{{row.cognomeDipendente}}</td-->
+						<td data-title="'COGNOME'" filter="{cognomeDipendente: 'text'}" sortable="'cognomeDipendente'">{{row.cognomeDipendente}}</td>
 						<td data-title="'GIORNATE EROGATE'" sortable="'giornateMese'">{{row.giornateMese}}</td>
 					</tr>
 

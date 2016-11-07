@@ -1450,6 +1450,7 @@
             };
 
             function setupFilterRowBindingsToInternalScope(){
+              console.log('filter: ' + $attrs.showFilter);
                 if ($attrs.showFilter) {
                     $scope.$parent.$watch($attrs.showFilter, function(value) {
                         $scope.show_filter = value;
@@ -1468,6 +1469,7 @@
             }
 
             function setupGroupRowBindingsToInternalScope(){
+              console.log('group: ' + $attrs.showGroup);
                 $scope.$groupRow = {};
                 if ($attrs.showGroup) {
                     var showGroupGetter = $parse($attrs.showGroup);
@@ -1956,6 +1958,7 @@
         }
 
         function findGroupColumn(groupKey) {
+          console.log('groupKey: ' + groupKey);
             return $scope.$columns.filter(function ($column) {
                 return $column.groupable($scope) === groupKey;
             })[0];
@@ -1983,8 +1986,10 @@
                 changeSortDirection();
             } else {
                 if (group.groupable){
+                  console.log('groupable');
                     $scope.params.group(group.groupable($scope));
                 } else{
+                  console.log('not groupable');
                     $scope.params.group(group);
                 }
             }
@@ -1999,7 +2004,10 @@
         }
 
         function setGroup(group){
+          console.log('setGroup');
             var existingGroupCol = findGroupColumn($scope.$selGroup);
+            console.log('existingGroupCol: ' +
+              JSON.stringify(existingGroupCol, null, '\t'));
             if (existingGroupCol && existingGroupCol.show.assign){
                 existingGroupCol.show.assign($scope, true);
             }
@@ -2011,6 +2019,8 @@
                 // note: currently only one group is implemented
                 var groupKey = Object.keys(group || {})[0];
                 var groupedColumn = findGroupColumn(groupKey);
+                console.log('groupedColumn: ' +
+                  JSON.stringify(groupedColumn, null, '\t'));
                 if (groupedColumn) {
                     $scope.$selGroupTitle = groupedColumn.title($scope);
                     $scope.$selGroup = groupKey;

@@ -20,15 +20,60 @@ angular
       meseFin: currentMonth
     };
 
-    //var tablegroups = "mese";
-    // var groupByMonth = function(item) {
-    //   return item.mese;
-    // };
-    // groupByMonth.title = "Mese";
-    // groupByMonth.sortDirection = "asc";
-    // var groupByCognome = function(item) {
-    //   return item.cognomeDipendente;
-    // };
+    /* ---------------------------- */
+    /* ---- custom table grouping ---- */
+    /* ---------------------------- */
+
+    var groupByMonth = function(item) {
+      return item.mese;
+    };
+    groupByMonth.title = "Mese";
+    groupByMonth.sortDirection = "asc";
+
+    $scope.tableGrouping = {
+      items: ["mese", "cognomeDipendente"],
+      selected: ["mese"],
+      toggle: function(item, list) {
+        var idx = list.indexOf(item);
+        if (idx > -1) {
+          list.splice(idx, 1);
+        } else {
+          //list = [];
+          list.push(item);
+        }
+      },
+      exists: function(item, list) {
+        return list.indexOf(item) > -1;
+      },
+      isIndeterminate: function() {
+        return ($scope.tableGrouping.selected.length !== 0 &&
+                $scope.tableGrouping.selected.length !==
+                $scope.tableGrouping.items.length);
+      },
+      isChecked: function() {
+        return $scope.tableGrouping.selected.length ===
+               $scope.tableGrouping.items.length;
+      },
+      toggleAll: function() {
+        if ($scope.tableGrouping.selected.length ===
+            $scope.tableGrouping.items.length) {
+          $scope.tableGrouping.selected = [];
+        } else if ($scope.tableGrouping.selected.length === 0 ||
+                   $scope.tableGrouping.selected.length > 0) {
+          $scope.tableGrouping.selected =
+            $scope.tableGrouping.items.slice(0);
+        }
+      },
+      grouptable: function() {
+        console.log('grouping by: ' +
+          JSON.stringify($scope.tableGrouping.selected, null, '\t'));
+        return $scope.tableGrouping.selected[0];
+      }
+    };
+
+    /* ------------------------------- */
+    /* ---- end custom table grouping ---- */
+    /* ------------------------------- */
 
     if ($stateParams.year != null && $stateParams.year.length > 0) {
 			tablefilter.anno = $stateParams.year;
@@ -44,8 +89,8 @@ angular
     var query = $resource('http://' + resourceBaseUrl + '/query_giorni_lav_commessa_utente_mese');
 
     ref.tableParams = new NgTableParams({
-        filter: tablefilter,
-        group: "cognomeDipendente"
+        filter: tablefilter
+        //group: $scope.tableGrouping.grouptable
       },
       {
     		getData : function(params) {
