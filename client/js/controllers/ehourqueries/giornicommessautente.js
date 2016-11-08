@@ -148,6 +148,33 @@ angular
       return sum;
     };
 
+    /* ------ */
+    $scope.getScopes = function() {
+      var res = getScopesFromRoot($rootScope);
+      //console.log('res: ' +
+      //  JSON.stringify(res, null, '\t'));
+      console.log('res: ' + res);
+    };
+
+    function getScopesFromRoot(root) {
+      var scopes = [];
+
+      function visit(scope) {
+          scopes.push(scope);
+      }
+      function traverse(scope) {
+          visit(scope);
+          if (scope.$$nextSibling)
+              traverse(scope.$$nextSibling);
+          if (scope.$$childHead)
+              traverse(scope.$$childHead);
+      }
+
+      traverse(root);
+      return scopes;
+    }
+    /* ------ */
+
     $scope.saveCSV = function() {
       console.log("saving csv ...");
       var currentData = ref.tableParams.data;
