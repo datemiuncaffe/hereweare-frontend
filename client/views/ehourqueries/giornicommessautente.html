@@ -1,4 +1,4 @@
-<h1>Giornate erogate per commessa e per dipendente</h1>
+<h1>Ore e Giornate erogate per commessa e per dipendente</h1>
 <hr>
 <section id="ggcommessautente" class="ehourtables">
 	<div class="top">
@@ -39,20 +39,24 @@
 					  <td data-title="'PROGETTO'" filter="{nomeProgetto: 'text'}" sortable="'nomeProgetto'">{{row.nomeProgetto}}</td>
 					  <td data-title="'NOME'" filter="{nomeDipendente: 'text'}" sortable="'nomeDipendente'">{{row.nomeDipendente}}</td>
 						<td data-title="'COGNOME'" filter="{cognomeDipendente: 'text'}" sortable="'cognomeDipendente'" groupable="'cognomeDipendente'">{{row.cognomeDipendente}}</td>
-						<td data-title="'GIORNATE EROGATE'" sortable="'giornateMese'">{{row.giornateMese}}</td>
+						<td data-title="'ORE'" sortable="'oreMese'">{{row.oreMese}}</td>
+						<td data-title="'GIORNATE'" sortable="'giornateMese'">{{row.giornateMese}}</td>
 					</tr>
 
-					<tr ng-repeat-end>
+					<tr class="ggcommessautenteTableTotals" ng-repeat-end>
 						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
 						<td class="text-success text-right">
-							<strong>Totale ore:</strong>
+							<strong>Totali:</strong>
 						</td>
             <td>
-							<em>{{ sumGroupedHours(group.data, "giornateMese") }}</em>
+							<em>{{ sumGrouped(group.data, "oreMese") }}</em>
+						</td>
+						<td>
+							<em>{{ sumGrouped(group.data, "giornateMese") }}</em>
 						</td>
         	</tr>
 
@@ -64,10 +68,13 @@
 							<td></td>
 							<td></td>
 							<td class="text-success text-right">
-								<strong>Totale ore complessivo:</strong>
+								<strong>Totali complessivi:</strong>
 							</td>
 	            <td>
 								<em>{{ totalHours }}</em>
+							</td>
+							<td>
+								<em>{{ totalDays }}</em>
 							</td>
 	          </tr>
 	        </tfoot>

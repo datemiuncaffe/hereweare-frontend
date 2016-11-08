@@ -29,3 +29,20 @@ section.ehourtables div.center .saverdiv .xlssaver {
 table.ehourdata td {
   font-family: Arial;
 }
+
+/* ------------------------ */
+/* --- specific tables ---- */
+/* ------------------------ */
+section#ggcommessautente table thead
+tr.ng-table-sort-header th:nth-child(1) {
+  width: 80px;
+}
+section#ggcommessautente table thead
+tr.ng-table-sort-header th:nth-child(3),
+section#ggcommessautente table thead
+tr.ng-table-sort-header th:nth-child(4) {
+  width: 170px;
+}
+section#ggcommessautente table tfoot tr td:nth-child(6) {
+  white-space: nowrap;
+}

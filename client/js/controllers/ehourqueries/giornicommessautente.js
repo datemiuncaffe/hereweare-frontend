@@ -20,6 +20,9 @@ angular
       meseFin: currentMonth
     };
 
+    $scope.totalHours = 0;
+    $scope.totalDays = 0;
+
     //var tablegroups = "mese";
     // var groupByMonth = function(item) {
     //   return item.mese;
@@ -42,7 +45,7 @@ angular
     console.log('tablefilter = ' + JSON.stringify(tablefilter, null, '\t'));
 
     var query = $resource('http://' + resourceBaseUrl + '/query_giorni_lav_commessa_utente_mese');
-    $scope.totalHours = 0;
+
     ref.tableParams = new NgTableParams({
         filter: tablefilter,
         group: "cognomeDipendente"
@@ -64,8 +67,11 @@ angular
     				}
 
             $scope.totalHours =
-              $scope.sumGroupedHours(res, "giornateMese");
-            console.log('totalHours: ' + $scope.totalHours);
+              $scope.sumGrouped(res, "oreMese");
+            $scope.totalDays =
+              $scope.sumGrouped(res, "giornateMese");
+            console.log('totalHours: ' + $scope.totalHours +
+                        'totalDays: ' + $scope.totalDays);
 
     				return res;
     			});
@@ -85,7 +91,7 @@ angular
         ref.tableParams.count());
     };
 
-    $scope.sumGroupedHours = function(data, field) {
+    $scope.sumGrouped = function(data, field) {
       var sum = 0;
       data.forEach(function(item){
         if (item[field] != null &&
@@ -105,7 +111,7 @@ angular
           data = data.concat(group.data);
         }
       });
-      var sum = $scope.sumGroupedHours(data, field);
+      var sum = $scope.sumGrouped(data, field);
       return sum;
     };
 
@@ -206,7 +212,7 @@ angular
             ret.push(line.join(','));
         }
         var linesum = ",,,," + "Totale ore," +
-          $scope.sumGroupedHours(groupdata, "oreMese");
+          $scope.sumGrouped(groupdata, "oreMese");
         ret.push(linesum);
         csv += ret.join('\n');
         csv += "\n";
@@ -301,7 +307,7 @@ angular
             XLSoptions.push([null, null, null, null, null, null]);
         }
         XLSdata.push([null, null, null, null, "Totale ore",
-          $scope.sumGroupedHours(groupdata, "oreMese")]);
+          $scope.sumGrouped(groupdata, "oreMese")]);
         XLSoptions.push([null, null, null, null, null, null]);
         XLSdata.push([null, null, null, null, null, null]);
         XLSoptions.push([null, null, null, null, null, null]);
