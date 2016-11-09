@@ -90,6 +90,7 @@ angular
 
     ref.tableParams = new NgTableParams({
         filter: tablefilter
+        //group: "cognomeDipendente"
         //group: $scope.tableGrouping.grouptable
       },
       {
@@ -148,12 +149,66 @@ angular
       return sum;
     };
 
-    /* ------ */
+    /* ------------------- */
+    /* ----- scopes ---------- */
+    /* ---------------------- */
+    $scope.scopeBrowser = {
+      byId: '',
+      selector: ''
+    };
     $scope.getScopes = function() {
       var res = getScopesFromRoot($rootScope);
       //console.log('res: ' +
       //  JSON.stringify(res, null, '\t'));
       console.log('res: ' + res);
+    };
+    $scope.getSingleScope = function() {
+      // var elem = angular.element("section#ggcommessautente");
+      // var scopeelem = elem.scope();
+      // var scopeelemkeys = Object.keys(scopeelem);
+      // console.log('scopeelem keys: ' +
+      //   JSON.stringify(scopeelemkeys, null, '\t'));
+
+      var selector = $scope.scopeBrowser.selector;
+      console.log('selector: ' + selector);
+
+      var table = angular
+        .element(selector);
+      var tableElemScope = table.scope();
+      var tableElemScopeKeys = Object.keys(tableElemScope);
+      console.log('tableElemScopeKeys: ' +
+        JSON.stringify(tableElemScopeKeys, null, '\t'));
+      console.log('id = ' + tableElemScope.$id);
+
+      /* ------------ children -------*/
+      var firstChildren = tableElemScope.$$childHead;
+      console.log('firstChildren: ' + firstChildren);
+
+      var tableChildren = getScopesFromRoot(tableElemScope);
+      console.log('tableChildren: ' + tableChildren);
+      tableChildren.forEach(function(child){
+        console.log('child Keys: ' +
+          JSON.stringify(Object.keys(child), null, '\t') +
+          '; id: ' + child.$id);
+        if (child.groupBy) {
+          console.log('groupBy fn : ' + child.groupBy);
+        }
+      });
+
+      console.log('groupBy ??? : ' + $rootScope.groupBy);
+
+      var groupRow = tableElemScope.$groupRow;
+      var groupRowKeys = Object.keys(groupRow);
+      console.log('groupRowKeys: ' +
+        JSON.stringify(groupRowKeys, null, '\t'));
+
+      var tableElemIsoScope = table.isolateScope();
+      if (tableElemIsoScope !== undefined) {
+        var tableElemIsoScopeKeys = Object.keys(tableElemIsoScope);
+        console.log('tableElemIsoScopeKeys: ' +
+          JSON.stringify(tableElemIsoScopeKeys, null, '\t'));
+      }
+
     };
 
     function getScopesFromRoot(root) {
@@ -172,6 +227,26 @@ angular
 
       traverse(root);
       return scopes;
+    }
+
+    $scope.getSingleScopeById = function() {
+      var id = $scope.scopeBrowser.byId;
+      var el = getScope(id);
+      console.log("el: " + el);
+    };
+    function getScope(id) {
+      console.log("id: " + id);
+      var elem;
+      $('.ng-scope').each(function(){
+        var s = angular.element(this).scope(),
+            sid = s.$id;
+        console.log('sid: ' + sid);
+        if(sid == id) {
+            elem = this;
+            return false; // stop looking at the rest
+        }
+      });
+      return elem;
     }
     /* ------ */
 

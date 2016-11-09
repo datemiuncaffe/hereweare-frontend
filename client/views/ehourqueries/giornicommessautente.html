@@ -18,6 +18,18 @@
 					<button class="btn btn-default scopeexp" ng-click="getScopes()">
 						Get scopes
 					</button>
+					<input class="ng-binding" id="singlescopesel" type="text"
+								ng-model="scopeBrowser.selector" size="15" name="singlescopesel">
+					<button class="btn btn-default scopeexp"
+						ng-click="getSingleScope()">
+						Get single scope
+					</button>
+					<input class="ng-binding" id="singlescopeid" type="text"
+								ng-model="scopeBrowser.byId" size="10" name="singlescopeid">
+					<button class="btn btn-default scopeexp"
+						ng-click="getSingleScopeById()">
+						Get single scope by id
+					</button>
 				</form>
 
 				<form class="groupingCheckboxes">
@@ -53,7 +65,7 @@
 
 				<table ng-table="ggCommessaUtCtrl.tableParams"
 					class="table table-bordered table-striped table-condensed ehourdata"
-					show-filter="true" show-group="false">
+					show-filter="true" show-group="true">
 
 					<tr class="ng-table-group" ng-repeat-start="group in $groups">
 						<td colspan="8">
