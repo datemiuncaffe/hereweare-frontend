@@ -160,7 +160,8 @@ angular
       var res = getScopesFromRoot($rootScope);
       //console.log('res: ' +
       //  JSON.stringify(res, null, '\t'));
-      console.log('res: ' + res);
+      console.log('res: ' +
+        JSON.stringify(res, null, '\t'));
     };
     $scope.getSingleScope = function() {
       // var elem = angular.element("section#ggcommessautente");
@@ -185,47 +186,65 @@ angular
       console.log('firstChildren: ' + firstChildren);
 
       var tableChildren = getScopesFromRoot(tableElemScope);
-      console.log('tableChildren: ' + tableChildren);
-      tableChildren.forEach(function(child){
-        console.log('child Keys: ' +
-          JSON.stringify(Object.keys(child), null, '\t') +
-          '; id: ' + child.$id);
-        if (child.groupBy) {
-          console.log('groupBy fn : ' + child.groupBy);
-        }
-      });
+      console.log('tableChildren: ' +
+        JSON.stringify(tableChildren, null, '\t'));
 
-      console.log('groupBy ??? : ' + $rootScope.groupBy);
-
-      var groupRow = tableElemScope.$groupRow;
-      var groupRowKeys = Object.keys(groupRow);
-      console.log('groupRowKeys: ' +
-        JSON.stringify(groupRowKeys, null, '\t'));
-
-      var tableElemIsoScope = table.isolateScope();
-      if (tableElemIsoScope !== undefined) {
-        var tableElemIsoScopeKeys = Object.keys(tableElemIsoScope);
-        console.log('tableElemIsoScopeKeys: ' +
-          JSON.stringify(tableElemIsoScopeKeys, null, '\t'));
-      }
+      // tableChildren.forEach(function(child){
+      //   console.log('child Keys: ' +
+      //     JSON.stringify(Object.keys(child), null, '\t') +
+      //     '; id: ' + child.$id);
+      //   if (child.groupBy) {
+      //     console.log('groupBy fn : ' + child.groupBy);
+      //   }
+      // });
+      //
+      // console.log('groupBy ??? : ' + $rootScope.groupBy);
+      //
+      // var groupRow = tableElemScope.$groupRow;
+      // var groupRowKeys = Object.keys(groupRow);
+      // console.log('groupRowKeys: ' +
+      //   JSON.stringify(groupRowKeys, null, '\t'));
+      //
+      // var tableElemIsoScope = table.isolateScope();
+      // if (tableElemIsoScope !== undefined) {
+      //   var tableElemIsoScopeKeys = Object.keys(tableElemIsoScope);
+      //   console.log('tableElemIsoScopeKeys: ' +
+      //     JSON.stringify(tableElemIsoScopeKeys, null, '\t'));
+      // }
 
     };
 
     function getScopesFromRoot(root) {
-      var scopes = [];
+      var scopes = {};
 
-      function visit(scope) {
-          scopes.push(scope);
+      if (root != null && root.$id != null) {
+        traverse(root, null);
       }
-      function traverse(scope) {
-          visit(scope);
+
+      function visit(scope, parent) {
+        if (parent == null) {
+          scopes.id = scope.$id;
+          scopes.par = null;
+          scopes.ch = [];
+          return scopes;
+        } else {
+          var child = {
+            id: scope.$id,
+            par: parent.id,
+            ch: []
+          };
+          parent.ch.push(child);
+          return child;
+        }
+      }
+      function traverse(scope, parent) {
+          var child = visit(scope, parent);
           if (scope.$$nextSibling)
-              traverse(scope.$$nextSibling);
+              traverse(scope.$$nextSibling, parent);
           if (scope.$$childHead)
-              traverse(scope.$$childHead);
+              traverse(scope.$$childHead, child);
       }
 
-      traverse(root);
       return scopes;
     }
 
