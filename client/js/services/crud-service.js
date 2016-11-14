@@ -29,7 +29,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         },
         LOCAL: {
           getCustomersAndProjects:	'http://' + resourceBaseUrl + '/api/customers?filter[include][projects]=budgets',
-          getBudgets: 'http://' + resourceBaseUrl + '/api/projects/:id?filter[include]=budgets'                                    //loc
+          getBudgets: 'http://' + resourceBaseUrl + '/api/projects/:id?filter[include]=budgets',
+          fsBrowseDocs: 'http://' + resourceBaseUrl + '/browseDocs'
         },
         EHOUR: {
           getActiveUsers: 'http://' + resourceBaseUrl + '/query_active_users',
@@ -45,7 +46,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         updateBudgets: 'http://' + resourceBaseUrl + '/api/budgets/updateAllByProjectId'
       },
       POST: {
-        createProject: 'http://' + resourceBaseUrl + '/api/projects/createAndIncrementId'
+        createProject: 'http://' + resourceBaseUrl + '/api/projects/createAndIncrementId',
+        fsSave: 'http://' + resourceBaseUrl + '/save'
       }
     };
 
@@ -56,7 +58,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         },
         LOCAL: {
           getCustomersAndProjects:	$resource(queries.GET.LOCAL.getCustomersAndProjects, null, {'query':  {method:'GET', isArray:true}}),
-          getBudgets: $resource(queries.GET.LOCAL.getBudgets, null, {'query':  {method:'GET'}})
+          getBudgets: $resource(queries.GET.LOCAL.getBudgets, null, {'query':  {method:'GET'}}),
+          fsBrowseDocs: $resource(queries.GET.LOCAL.fsBrowseDocs, null, {'query':  {method:'GET'}})
         },
         EHOUR: {
           getActiveUsers: $resource(queries.GET.EHOUR.getActiveUsers, null, {'query':  {method:'GET', isArray:true}}),
@@ -72,7 +75,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         updateBudgets:	$resource(queries.PUT.updateBudgets, null, {'update': {method:'PUT'}})
       },
       POST: {
-        createProject:  $resource(queries.POST.createProject, null, {'save': {method:'POST'}})
+        createProject:  $resource(queries.POST.createProject, null, {'save': {method:'POST'}}),
+        fsSave:  $resource(queries.POST.fsSave, null, {'save': {method:'POST'}})
       }
     };
 
@@ -98,6 +102,9 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
       getBudgets: function(projectId) {
         return resources.GET.LOCAL.getBudgets.query(projectId).$promise;
       },
+      fsBrowseDocs: function() {
+        return resources.GET.LOCAL.fsBrowseDocs.query().$promise;
+      },
       getCosts: function(projectCode) {
         return resources.GET.EHOUR.getCosts.query(projectCode).$promise;
       },
@@ -112,6 +119,9 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 			},
       createProject: function(project){
 				return resources.POST.createProject.save(project).$promise;
+			},
+      fsSave: function(data){
+				return resources.POST.fsSave.save(data).$promise;
 			}
 		};
 

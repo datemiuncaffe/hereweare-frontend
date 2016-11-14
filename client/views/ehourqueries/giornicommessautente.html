@@ -15,14 +15,13 @@
 					<button class="btn btn-default xlssaver" ng-click="saveXLS()">
 						Esporta XLS
 					</button>
-					<button class="btn btn-default scopeexp" ng-click="getScopes()">
-						Get scopes
-					</button>
-					<input class="ng-binding" id="singlescopesel" type="text"
-								ng-model="scopeBrowser.selector" size="15" name="singlescopesel">
+
+					<!-- scopes buttons  -->
+					<input class="ng-binding" id="scopessel" type="text"
+								ng-model="scopeBrowser.selector" size="15" name="scopessel">
 					<button class="btn btn-default scopeexp"
-						ng-click="getSingleScope()">
-						Get single scope
+						ng-click="getScopesBySelector()">
+						Get scopes by selector
 					</button>
 					<input class="ng-binding" id="singlescopeid" type="text"
 								ng-model="scopeBrowser.byId" size="10" name="singlescopeid">

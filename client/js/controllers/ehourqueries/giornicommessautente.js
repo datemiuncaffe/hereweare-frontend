@@ -2,9 +2,10 @@ angular
   .module('ehourqueries')
   .controller('GiorniCommessaUtenteController',
       ['$scope', '$state', 'NgTableParams', '$resource', 'resourceBaseUrl',
-       '$stateParams', 'FileSaver', 'Blob', 'excelgen', '$rootScope',
+       '$stateParams', 'FileSaver', 'Blob', 'excelgen',
+       '$rootScope', 'crud',
       function($scope, $state, NgTableParams, $resource, resourceBaseUrl,
-        $stateParams, FileSaver, Blob, excelgen, $rootScope) {
+        $stateParams, FileSaver, Blob, excelgen, $rootScope, crud) {
 	  var ref = this;
 
     var now = moment();
@@ -156,61 +157,30 @@ angular
       byId: '',
       selector: ''
     };
-    $scope.getScopes = function() {
-      var res = getScopesFromRoot($rootScope);
-      //console.log('res: ' +
-      //  JSON.stringify(res, null, '\t'));
-      console.log('res: ' +
-        JSON.stringify(res, null, '\t'));
-    };
-    $scope.getSingleScope = function() {
-      // var elem = angular.element("section#ggcommessautente");
-      // var scopeelem = elem.scope();
-      // var scopeelemkeys = Object.keys(scopeelem);
-      // console.log('scopeelem keys: ' +
-      //   JSON.stringify(scopeelemkeys, null, '\t'));
 
+    $scope.getScopesBySelector = function() {
       var selector = $scope.scopeBrowser.selector;
       console.log('selector: ' + selector);
 
-      var table = angular
-        .element(selector);
-      var tableElemScope = table.scope();
-      var tableElemScopeKeys = Object.keys(tableElemScope);
-      console.log('tableElemScopeKeys: ' +
-        JSON.stringify(tableElemScopeKeys, null, '\t'));
-      console.log('id = ' + tableElemScope.$id);
+      var elem = angular.element(selector);
+      var elemScope = elem.scope();
+      var elemScopeKeys = Object.keys(elemScope);
+      console.log('elemScopeKeys: ' +
+        JSON.stringify(elemScopeKeys, null, '\t'));
+      console.log('id = ' + elemScope.$id);
 
       /* ------------ children -------*/
-      var firstChildren = tableElemScope.$$childHead;
-      console.log('firstChildren: ' + firstChildren);
+      var elemTree = getScopesFromRoot(elemScope);
+      var elemTreeString = JSON.stringify(elemTree, null, '\t');
+      console.log('elemTree: ' + elemTreeString);
 
-      var tableChildren = getScopesFromRoot(tableElemScope);
-      console.log('tableChildren: ' +
-        JSON.stringify(tableChildren, null, '\t'));
+      saveJSONDoc(elemTreeString);
+      exportJSON(elemTreeString);
 
-      // tableChildren.forEach(function(child){
-      //   console.log('child Keys: ' +
-      //     JSON.stringify(Object.keys(child), null, '\t') +
-      //     '; id: ' + child.$id);
-      //   if (child.groupBy) {
-      //     console.log('groupBy fn : ' + child.groupBy);
-      //   }
-      // });
-      //
-      // console.log('groupBy ??? : ' + $rootScope.groupBy);
-      //
       // var groupRow = tableElemScope.$groupRow;
       // var groupRowKeys = Object.keys(groupRow);
       // console.log('groupRowKeys: ' +
       //   JSON.stringify(groupRowKeys, null, '\t'));
-      //
-      // var tableElemIsoScope = table.isolateScope();
-      // if (tableElemIsoScope !== undefined) {
-      //   var tableElemIsoScopeKeys = Object.keys(tableElemIsoScope);
-      //   console.log('tableElemIsoScopeKeys: ' +
-      //     JSON.stringify(tableElemIsoScopeKeys, null, '\t'));
-      // }
 
     };
 
@@ -267,7 +237,35 @@ angular
       });
       return elem;
     }
-    /* ------ */
+
+    function saveJSONDoc(json) {
+      crud.fsBrowseDocs().then(function(res) {
+        console.log('browse docs: ' +
+          JSON.stringify(res, null, '\t'));
+        crud.fsSave({
+            fileName: 'scopes_' + (res.numOfDocs + 1) + '.json',
+            fileContent: json
+          }).then(function(res) {
+            console.log('saveJSONDoc: ' +
+              JSON.stringify(res, null, '\t'));
+        });
+      });
+    };
+    function exportJSON(json) {
+      console.log("exporting JSON ...");
+
+      var zip = new JSZip();
+      var zipfolder = zip.folder("scopes");
+      var fileName = "scopes.txt";
+
+      zipfolder.file(fileName, json);
+      zipfolder.generateAsync({type:"blob"})
+               .then(function (blob) {
+                 FileSaver.saveAs(blob, 'scopes.zip');
+               });
+    };
+    /* ----- end scopes ---------- */
+    /* ---------------------- */
 
     $scope.saveCSV = function() {
       console.log("saving csv ...");
