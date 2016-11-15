@@ -26,6 +26,19 @@ section.ehourtables div.center .saverdiv .xlssaver {
   margin-right: 6px;
 }
 
+section.ehourtables div.center .grouping {
+  background-color: #90baB5;
+}
+section.ehourtables div.center .grouping .groupingLegend {
+  color: #3F51B5;
+}
+section.ehourtables div.center .grouping .groupingLegend h4 {
+  margin-left: 10px;
+}
+section.ehourtables div.center .grouping .item-checkbox {
+  margin-left: 25px;
+}
+
 table.ehourdata td {
   font-family: Arial;
 }
