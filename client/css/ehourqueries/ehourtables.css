@@ -26,14 +26,17 @@ section.ehourtables div.center .saverdiv .xlssaver {
   margin-right: 6px;
 }
 
-section.ehourtables div.center .groupingCheckboxes h4.groupingLegend {
+section.ehourtables div.center .grouping {
+  background-color: #90baB5;
+}
+section.ehourtables div.center .grouping .groupingLegend {
   color: #3F51B5;
 }
-section.ehourtables div.center .groupingCheckboxes .item-checkbox {
-  padding-left: 30px;
+section.ehourtables div.center .grouping .groupingLegend h4 {
+  margin-left: 10px;
 }
-section.ehourtables div.center .groupingCheckboxes .tablegrouper {
-  float: right;
+section.ehourtables div.center .grouping .item-checkbox {
+  margin-left: 25px;
 }
 
 table.ehourdata td {
