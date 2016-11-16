@@ -23,7 +23,7 @@ angular
 
     $scope.totalHours = 0;
     $scope.totalDays = 0;
-	
+
 	/* ---------------------------- */
     /* ---- custom table grouping ---- */
     /* ---------------------------- */
@@ -35,24 +35,30 @@ angular
     // groupByMonth.sortDirection = "asc";
 
     $scope.tableGrouping = {
-      items: ["mese", "nomeCliente", "codiceProgetto",
-              "nomeProgetto", "nomeDipendente", "cognomeDipendente"],
+      items: [
+        {label: "MESE", group: "mese"},
+        {label: "CLIENTE", group: "nomeCliente"},
+        {label: "CODICE PROGETTO", group: "codiceProgetto"},
+        {label: "PROGETTO", group: "nomeProgetto"},
+        {label: "NOME", group: "nomeDipendente"},
+        {label: "COGNOME", group: "cognomeDipendente"}
+      ],
       selected: ["mese"],
       toggle: function(item, list) {
-        var idx = list.indexOf(item);
+        var idx = list.indexOf(item.group);
         if (idx > -1) {
           list.splice(idx, 1);
         } else {
           list.splice(0);
-          list.push(item);
+          list.push(item.group);
         }
         $scope.tableGrouping.grouptable();
       },
       exists: function(item, list) {
         console.log('exists');
-        console.log('item: ' + item);
+        console.log('item group: ' + item.group);
         console.log('list: ' + JSON.stringify(list, null, '\t'));
-        return list.indexOf(item) > -1;
+        return list.indexOf(item.group) > -1;
       },
       // isIndeterminate: function() {
       //   return ($scope.tableGrouping.selected.length !== 0 &&

@@ -29,7 +29,7 @@
 								ng-repeat="item in tableGrouping.items"
 								ng-checked="tableGrouping.exists(item, tableGrouping.selected)"
 								ng-click="tableGrouping.toggle(item, tableGrouping.selected)">
-								{{ item }}
+								{{ item.label }}
 							</md-checkbox>
 						</div>
 					</div>

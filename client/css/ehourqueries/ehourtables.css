@@ -27,16 +27,25 @@ section.ehourtables div.center .saverdiv .xlssaver {
 }
 
 section.ehourtables div.center .grouping {
-  background-color: #90baB5;
+  background-color: #165697;
 }
 section.ehourtables div.center .grouping .groupingLegend {
-  color: #3F51B5;
+  color: #e3e39d;
 }
 section.ehourtables div.center .grouping .groupingLegend h4 {
   margin-left: 10px;
 }
 section.ehourtables div.center .grouping .item-checkbox {
+  margin-top: 10px;
+  margin-bottom: 10px;
   margin-left: 25px;
+  line-height: normal;
+}
+section.ehourtables div.center .grouping .item-checkbox .md-label span {
+  color: #e3e39d;
+}
+section.ehourtables div.center .grouping .item-checkbox.md-checked .md-icon {
+  background-color: #2088ff;
 }
 
 table.ehourdata td {
