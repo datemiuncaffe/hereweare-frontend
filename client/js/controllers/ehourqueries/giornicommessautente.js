@@ -200,9 +200,7 @@ angular
       var zip = new JSZip();
       var zipfolder = zip.folder("orefatturate");
 
-      var currentGroup = Object.keys(ref.tableParams.group())[0];
-      console.log("currentGroup: " +
-        JSON.stringify(currentGroup, null, 2));
+      var currentGroup = $scope.tableGrouping.selected[0];
       var currentDataCSV = getCSV(currentData, currentGroup);
       var fileName = "reportBy" + currentGroup;
 
@@ -221,7 +219,7 @@ angular
       var zip = new JSZip();
       var zipfolder = zip.folder("orefatturate");
 
-      var currentGroup = Object.keys(ref.tableParams.group())[0];
+      var currentGroup = $scope.tableGrouping.selected[0];
       var currentDataXLS = getXLS(currentData, currentGroup);
       var fileName = "reportBy" + currentGroup;
 
@@ -254,51 +252,86 @@ angular
 
         // body and sum
         var ret = [];
-        var header = ["Cliente", "Progetto", "Codice progetto", "Dipendente", "Role", "Ore"];
+        var header = ["ANNO", "MESE", "CLIENTE", "CODICE PROGETTO",
+          "PROGETTO", "NOME", "COGNOME", "ORE", "GIORNATE"];
         ret.push('"' + header.join('","') + '"');
 
         var groupdata = group.data;
         for (var i = 0, len = groupdata.length; i < len; i++) {
             var line = [];
-            if (groupdata[i].hasOwnProperty("codiceNomeCliente")) {
-              line.push('"' + groupdata[i]["codiceNomeCliente"] + '"');
+            if (groupdata[i].hasOwnProperty("anno")) {
+              line.push('"' + groupdata[i]["anno"] + '"');
             } else {
               line.push('""');
             }
-            if (groupdata[i].hasOwnProperty("nomeProgetto")) {
-              line.push('"' + groupdata[i]["nomeProgetto"] + '"');
+
+            if (groupdata[i].hasOwnProperty("mese")) {
+              line.push('"' + groupdata[i]["mese"] + '"');
             } else {
               line.push('""');
             }
+
+            if (groupdata[i].hasOwnProperty("nomeCliente")) {
+              line.push('"' + groupdata[i]["nomeCliente"] + '"');
+            } else {
+              line.push('""');
+            }
+
             if (groupdata[i].hasOwnProperty("codiceProgetto")) {
               line.push('"' + groupdata[i]["codiceProgetto"] + '"');
             } else {
               line.push('""');
             }
-            if (groupdata[i].hasOwnProperty("cognomeNomeDipendente")) {
-              line.push('"' + groupdata[i]["cognomeNomeDipendente"] + '"');
+
+            if (groupdata[i].hasOwnProperty("nomeProgetto")) {
+              line.push('"' + groupdata[i]["nomeProgetto"] + '"');
             } else {
               line.push('""');
             }
-            line.push('""');
+
+            if (groupdata[i].hasOwnProperty("nomeDipendente")) {
+              line.push('"' + groupdata[i]["nomeDipendente"] + '"');
+            } else {
+              line.push('""');
+            }
+
+            if (groupdata[i].hasOwnProperty("cognomeDipendente")) {
+              line.push('"' + groupdata[i]["cognomeDipendente"] + '"');
+            } else {
+              line.push('""');
+            }
+
             if (groupdata[i].hasOwnProperty("oreMese")) {
-              line.push('"' + groupdata[i]["oreMese"] + '"');
+              line.push('"' +
+                groupdata[i]["oreMese"].replace(",",".") +
+                '"');
             } else {
               line.push('""');
             }
+
+            if (groupdata[i].hasOwnProperty("giornateMese")) {
+              line.push('"' +
+                groupdata[i]["giornateMese"].replace(",",".") +
+                '"');
+            } else {
+              line.push('""');
+            }
+
             ret.push(line.join(','));
         }
-        var linesum = ",,,," + "Totale ore," +
-          $scope.sumGrouped(groupdata, "oreMese");
+        var linesum = ",,,,,," + "Totali:," +
+          $scope.sumGrouped(groupdata, "oreMese") + "," +
+          $scope.sumGrouped(groupdata, "giornateMese");
         ret.push(linesum);
         csv += ret.join('\n');
         csv += "\n";
-        csv += ",,,,,,\n";
+        csv += ",,,,,,,,,\n";
       });
 
       // total sum
-      var linetotsum = ",,,," + "Totale complessivo ore," +
-        $scope.sumTotalHours(groups, "oreMese") + ",\n";
+      var linetotsum = ",,,,,," + "Totali complessivi:," +
+        $scope.totalHours + "," +
+        $scope.totalDays + ",\n";
       csv += linetotsum;
 
       return csv;
@@ -336,8 +369,8 @@ angular
         XLSoptions.push([null, null, null, null, null]);
 
         // body and sum
-        XLSdata.push(["Cliente", "Progetto", "Codice progetto",
-          "Dipendente", "Role", "Ore"]);
+        XLSdata.push(["ANNO", "MESE", "CLIENTE", "CODICE PROGETTO",
+          "PROGETTO", "NOME", "COGNOME", "ORE", "GIORNATE"]);
         var headeropts = {
           fill: {
             patternType: "solid",
@@ -349,51 +382,87 @@ angular
           }
         };
         XLSoptions.push([headeropts, headeropts, headeropts,
+          headeropts, headeropts, headeropts,
           headeropts, headeropts, headeropts]);
 
         var groupdata = group.data;
         for (var i = 0, len = groupdata.length; i < len; i++) {
             var line = [];
-            if (groupdata[i].hasOwnProperty("codiceNomeCliente")) {
-              line.push(groupdata[i]["codiceNomeCliente"]);
+            if (groupdata[i].hasOwnProperty("anno")) {
+              line.push(groupdata[i]["anno"]);
             } else {
               line.push(null);
             }
-            if (groupdata[i].hasOwnProperty("nomeProgetto")) {
-              line.push(groupdata[i]["nomeProgetto"]);
+
+            if (groupdata[i].hasOwnProperty("mese")) {
+              line.push(groupdata[i]["mese"]);
             } else {
               line.push(null);
             }
+
+            if (groupdata[i].hasOwnProperty("nomeCliente")) {
+              line.push(groupdata[i]["nomeCliente"]);
+            } else {
+              line.push(null);
+            }
+
             if (groupdata[i].hasOwnProperty("codiceProgetto")) {
               line.push(groupdata[i]["codiceProgetto"]);
             } else {
               line.push(null);
             }
-            if (groupdata[i].hasOwnProperty("cognomeNomeDipendente")) {
-              line.push(groupdata[i]["cognomeNomeDipendente"]);
+
+            if (groupdata[i].hasOwnProperty("nomeProgetto")) {
+              line.push(groupdata[i]["nomeProgetto"]);
             } else {
               line.push(null);
             }
-            line.push(null);
+
+            if (groupdata[i].hasOwnProperty("nomeDipendente")) {
+              line.push(groupdata[i]["nomeDipendente"]);
+            } else {
+              line.push(null);
+            }
+
+            if (groupdata[i].hasOwnProperty("cognomeDipendente")) {
+              line.push(groupdata[i]["cognomeDipendente"]);
+            } else {
+              line.push(null);
+            }
+
             if (groupdata[i].hasOwnProperty("oreMese")) {
               line.push(groupdata[i]["oreMese"]);
             } else {
               line.push(null);
             }
+
+            if (groupdata[i].hasOwnProperty("giornateMese")) {
+              line.push(groupdata[i]["giornateMese"]);
+            } else {
+              line.push(null);
+            }
             XLSdata.push(line);
-            XLSoptions.push([null, null, null, null, null, null]);
+            XLSoptions.push([null, null, null, null,
+              null, null, null, null, null]);
         }
-        XLSdata.push([null, null, null, null, "Totale ore",
-          $scope.sumGrouped(groupdata, "oreMese")]);
-        XLSoptions.push([null, null, null, null, null, null]);
-        XLSdata.push([null, null, null, null, null, null]);
-        XLSoptions.push([null, null, null, null, null, null]);
+        XLSdata.push([null, null, null, null,
+          null, null, "Totali:",
+          $scope.sumGrouped(groupdata, "oreMese"),
+          $scope.sumGrouped(groupdata, "giornateMese")]);
+        XLSoptions.push([null, null, null, null,
+          null, null, null, null, null]);
+        XLSdata.push([null, null, null, null,
+          null, null, null, null, null]);
+        XLSoptions.push([null, null, null, null,
+          null, null, null, null, null]);
       });
 
       // total sum
-      XLSdata.push([null, null, null, null, "Totale complessivo ore",
-        $scope.sumTotalHours(groups, "oreMese")]);
-      XLSoptions.push([null, null, null, null, null, null]);
+      XLSdata.push([null, null, null, null,
+        null, null, "Totali complessivi:",
+        $scope.totalHours, $scope.totalDays]);
+      XLSoptions.push([null, null, null, null,
+        null, null, null, null, null]);
 
       var ws_name = "Rendicontazione ore";
       var wb = new excelgen.Workbook();

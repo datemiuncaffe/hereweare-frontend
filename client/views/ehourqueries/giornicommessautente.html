@@ -55,7 +55,6 @@
 
 					<tr ng-hide="group.$hideRows" ng-repeat="row in group.data">
 					  <td data-title="'ANNO'" filter="{anno: 'text'}" sortable="'anno'">{{row.anno}}</td>
-					  <!--td data-title="'MESE'" filter="ggCommessaUtCtrl.monthFilterByInterval" sortable="'mese'" groupable="'mese'" show="true">{{row.mese}}</td-->
 						<td data-title="'MESE'" filter="ggCommessaUtCtrl.monthFilterByInterval" sortable="'mese'">{{row.mese}}</td>
 					  <td data-title="'CLIENTE'" filter="{nomeCliente: 'text'}" sortable="'nomeCliente'">{{row.nomeCliente}}</td>
 					  <td data-title="'CODICE PROGETTO'" filter="{codiceProgetto: 'text'}" sortable="'codiceProgetto'">{{row.codiceProgetto}}</td>
