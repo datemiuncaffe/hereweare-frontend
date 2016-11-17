@@ -291,8 +291,8 @@ angular
 			var headeropts = {
 				fill: {
 					patternType: "solid",
-					fgColor: { rgb: "7B68EE" },
-					bgColor: { rgb: "CCFFFF" }
+					fgColor: { rgb: "165697" },
+					bgColor: { rgb: "165697" }
 				},
 				font: {
 					color: { rgb: "FFFFFF" }
