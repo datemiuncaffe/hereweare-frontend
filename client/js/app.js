@@ -22,7 +22,7 @@ angular
         url: '/activeprojects',
         views:{
           'activeprojectsview': {
-              templateUrl: 'views/estimate/projects/activeprojects.html',
+              templateUrl: 'views/projects/activeprojects.html',
               controller: 'ActiveProjectsController'
            }
         }
@@ -31,7 +31,7 @@ angular
         url: '/senseiprojects',
         views:{
           'senseiprojectsview': {
-              templateUrl: 'views/estimate/projects/senseiprojects.html',
+              templateUrl: 'views/projects/senseiprojects.html',
               controller: 'SenseiProjectsController'
            }
         }
@@ -40,7 +40,7 @@ angular
         url: '/newprojects',
         views:{
           'newprojectsview': {
-              templateUrl: 'views/estimate/projects/newprojects.html',
+              templateUrl: 'views/projects/newprojects.html',
               controller: 'NewProjectsController'
            }
         }
