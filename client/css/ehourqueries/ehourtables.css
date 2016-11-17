@@ -44,6 +44,9 @@ section.ehourtables div.center .grouping .item-checkbox {
 section.ehourtables div.center .grouping .item-checkbox .md-label span {
   color: #e3e39d;
 }
+section.ehourtables div.center .grouping .item-checkbox .md-icon {
+  border-color: #e3e39d;
+}
 section.ehourtables div.center .grouping .item-checkbox.md-checked .md-icon {
   background-color: #2088ff;
 }
