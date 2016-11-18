@@ -27,8 +27,10 @@
       function getData(section) {
         if (section.id !== undefined) {
           menu.getProjects(section);
+          //menu.getProjectsMock(section);
         } else { // root
           menu.getCustomers(section);
+          //menu.getCustomersMock(section);
         }
       };
 

@@ -89,6 +89,56 @@
             section.pages.push(projectSection);
           });
         });
+      },
+      getCustomersMock: function(budgets) {
+        var customers = [
+          {id: 1, name: 'Assenze', type: 'tree', pages: []},
+          {id: 2, name: 'Climate', type: 'tree', pages: []},
+          {id: 3, name: 'Continental', type: 'tree', pages: []}
+        ];
+        customers.forEach(function(customer) {
+          var customerSection = {
+            id: customer.id,
+            name: customer.name,
+            type: 'tree',
+            pages: []
+          };
+          budgets.pages.push(customerSection);
+        });
+      },
+      getProjectsMock: function(section) {
+        var projects = null;
+        if (section.id === 1) {
+          projects = [
+            {id: 1, name: 'Donazione sangue', type: 'link', icon: ''},
+            {id: 2, name: 'Esami uni', type: 'link', icon: ''},
+            {id: 3, name: 'Ferie', type: 'link', icon: ''},
+            {id: 4, name: 'Lutto', type: 'link', icon: ''}
+          ];
+        } else if (section.id === 2) {
+          projects = [
+            {id: 1, name: '203 Mail', type: 'link', icon: ''},
+            {id: 2, name: 'CR Varie', type: 'link', icon: ''},
+            {id: 3, name: 'Supporto', type: 'link', icon: ''}
+          ];
+        } else {
+          projects = [
+            {id: 1, name: 'Bus F1', type: 'link', icon: ''},
+            {id: 2, name: 'Catalogo online', type: 'link', icon: ''},
+            {id: 3, name: 'CR Leaseplan', type: 'link', icon: ''}
+          ];
+        }
+        projects.forEach(function(project) {
+          var projectSection = {
+            id: project.id,
+            code: project.code,
+            name: project.name,
+            type: 'link',
+            state: '',
+            icon: ''
+          };
+          section.pages.push(projectSection);
+        });
       }
     };
 

@@ -85,7 +85,7 @@ md-sidenav {
 
 .menu-toggle-list {
   /*background: #fff;*/
-  max-height: 1300px;
+  /*ax-height: 1300px;*/
   overflow: hidden;
   position: relative;
   z-index: 1;
