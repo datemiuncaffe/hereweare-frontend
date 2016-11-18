@@ -26,13 +26,13 @@ md-sidenav {
 
 .side-menu .menu-toggle-list a.md-button {
   display: block;
+  padding: 0 16px 0 36px;
   text-transform: none;
   text-rendering: optimizeLegibility;
   font-weight: 500;
   margin: 0;
 }
-
-.side-menu .menu-toggle-list .md-button {
+.side-menu .menu-toggle-list button.md-button {
   display: block;
   padding: 0 16px 0 16px;
   text-transform: none;
@@ -62,12 +62,8 @@ md-sidenav {
 }
 
 .side-menu .md-button {
-  border-radius: 0;
-  font-size: 20px;
   color: #e3e39d;
   cursor: pointer;
-  font-weight: 400;
-  line-height: 40px;
   margin: 4px 0 6px 0;
   overflow: hidden;
   text-align: left;
@@ -75,6 +71,16 @@ md-sidenav {
   white-space: normal;
   width: 100%;
   text-transform: none;
+}
+.side-menu button.md-button {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 40px;
+}
+.side-menu a.md-button {
+  font-size: 18px;
+  font-weight: 200;
+  line-height: 40px;
 }
 .side-menu .md-button:hover,
 .side-menu .md-button:focus {
