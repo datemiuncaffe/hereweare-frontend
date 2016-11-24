@@ -80,6 +80,15 @@
               state: 'employeefilter',
               icon: ''
             }]
+          }, {
+            name: 'Working',
+            type: 'toggle',
+            pages: [{
+              name: 'Costi interni',
+              type: 'link',
+              state: 'employeecosts',
+              icon: ''
+            }]
           }],
           orizontalSections: [{
             name: 'Overview',

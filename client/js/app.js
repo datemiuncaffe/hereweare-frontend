@@ -161,6 +161,15 @@ angular
               controller: 'EmployeeChartController'
            }
         }
+      })
+      .state('employeecosts', {
+        url: '/working/employee-costs',
+        views:{
+          'employeecostsview': {
+              templateUrl: 'views/working/employeeCosts.html',
+              controller: 'EmployeeCostsController'
+           }
+        }
       });
 
       $urlRouterProvider.otherwise('overview');
