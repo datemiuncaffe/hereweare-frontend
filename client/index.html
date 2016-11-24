@@ -76,6 +76,7 @@
     <script src="js/pikaday.js"></script>
     <script src="js/directives/calendar.js"></script>
     <script src="js/directives/menu.directive.js"></script>
+    <script src="js/directives/tree.directive.js"></script>
 
     <script src="js/controllers/menu.controller.js"></script>
     <script src="js/controllers/projects/activeprojects.js"></script>
@@ -145,8 +146,15 @@
                     id="heading_{{ section.name | nospace }}">
                   {{section}}
                 </h2>
-                <menu-link section="section" ng-if="section.type === 'link'"></menu-link>
-                <menu-toggle section="section" ng-if="section.type === 'toggle'"></menu-toggle>
+                <menu-link section="section"
+                  ng-if="section.type === 'link'">
+                </menu-link>
+                <menu-toggle section="section"
+                  ng-if="section.type === 'toggle'">
+                </menu-toggle>
+                <menu-tree section="section"
+                  ng-if="section.type === 'tree'">
+                </menu-tree>
               </li>
             </ul>
           </md-content>

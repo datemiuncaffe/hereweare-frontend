@@ -101,7 +101,7 @@ gulp.task('modify:test', modifyTestFn);
 var options = {
   init: require('./config/shipit').init,
   run: ['deploy'],
-  targetEnv: 'staging',
+  targetEnv: 'staging'
 }
 
 gulp.task('deploy', function(cb) {
