@@ -5,13 +5,13 @@ angular
 	    function($scope, $stateParams, crud, FileSaver, Blob, excelgen) {
 
 		var datatoexport = {};
-		
+
 		loadEmployeeCosts();
 
 		function loadEmployeeCosts() {
 			// query redis
 			crud.getEmployeeCosts({
-						key: 'ehourUsers',
+						key: 'EHOUR_USERS',
 						datatype: 'zset'
 					}).then(function(data) {
 				console.log('data: ' +
@@ -19,7 +19,7 @@ angular
 
 				var footerdata = ["", "", "", "", "", ""];
 				// render the table
-				tabulate(data.result.ehourUsers,
+				tabulate(data.result.EHOUR_USERS,
 					["userId", "firstName", "lastName",
 					 "userName", "email", "internalCost"]);
 
@@ -41,7 +41,7 @@ angular
 		// append the header row
 		thead.append("tr")
 				.selectAll("th")
-				.data(["USER_ID", "FIRST_NAME", "LAST_NAME",
+				.data(["ID", "NOME", "COGNOME",
 							 "USERNAME", "EMAIL", "COSTO INTERNO"])
 				.enter()
 				.append("th")
