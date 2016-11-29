@@ -1,9 +1,12 @@
 angular
 	.module("app")
 	.controller("EmployeeCostsController",
-			['$scope', '$stateParams', 'crud', 'FileSaver', 'Blob', 'excelgen',
-	    function($scope, $stateParams, crud, FileSaver, Blob, excelgen) {
+			['$scope', '$stateParams', 'crud', '$compile',
+			 'FileSaver', 'Blob', 'excelgen',
+	    function($scope, $stateParams, crud, $compile,
+				FileSaver, Blob, excelgen) {
 
+		$scope.employee_costs = [];
 		var datatoexport = {};
 
 		loadEmployeeCosts();
@@ -14,32 +17,43 @@ angular
 						key: 'EHOUR_USERS',
 						datatype: 'zset'
 					}).then(function(data) {
-				console.log('data: ' +
-					JSON.stringify(data, null, '\t'));
 
-				var footerdata = ["", "", "", "", "", ""];
-				// render the table
-				tabulate(data.result.EHOUR_USERS,
-					["userId", "firstName", "lastName",
-					 "userName", "email", "internalCost"]);
+				$scope.employee_costs = data.result.EHOUR_USERS;
+				console.log('employee_costs: ' +
+					JSON.stringify($scope.employee_costs, null, '\t'));
 
-				datatoexport.header = ["USER_ID", "FIRST_NAME", "LAST_NAME",
-							 "USERNAME", "EMAIL", "COSTO INTERNO"];
-				datatoexport.rows = data.result.ehourUsers;
-				datatoexport.footer = footerdata;
+				if ($scope.employee_costs.length > 0) {
+					// var table = d3.select("form[name=employeeCostsForm] " +
+					// 							"div.employee_costs")
+					// 							.append("table")
+					// 							.attr("style", "table-layout:fixed;"),
+					var table = d3.select("form[name=employeeCostsForm] " +
+												"div.employee_costs table");
+					var	thead = table.append("thead"),
+							tbody = table.append("tbody"),
+							tfoot = table.append("tfoot");
+
+					// prepare header e footer of table
+					preparetable(thead, tfoot);
+					// render the table
+					tabulate($scope.employee_costs,
+						["userId", "firstName", "lastName",
+						 "userName", "email", "internalCost"],
+					 	tbody);
+
+					var footerdata = ["", "", "", "", "", ""];
+					datatoexport.header = ["USER_ID", "FIRST_NAME", "LAST_NAME",
+								 "USERNAME", "EMAIL", "COSTO INTERNO"];
+					datatoexport.rows = data.result.ehourUsers;
+					datatoexport.footer = footerdata;
+				}
+
 			});
 		};
 
-		var table = d3.select("form[name=employeeCostsForm] " +
-									"div.employee_costs")
-									.append("table")
-									.attr("style", "table-layout:fixed;"),
-				thead = table.append("thead"),
-				tbody = table.append("tbody");
-				tfoot = table.append("tfoot");
-
-		// append the header row
-		thead.append("tr")
+		function preparetable(thead, tfoot) {
+			// append the header row
+			thead.append("tr")
 				.selectAll("th")
 				.data(["ID", "NOME", "COGNOME",
 							 "USERNAME", "EMAIL", "COSTO INTERNO"])
@@ -50,8 +64,8 @@ angular
 					return column;
 				});
 
-		// footer
-		tfoot.append("tr")
+			// footer
+			tfoot.append("tr")
 				.selectAll("td")
 				.data(["", "", "", "", "", ""])
 				.enter()
@@ -60,35 +74,66 @@ angular
 				.text(function(d) {
 					return d;
 				});
+		};
 
 		// The table generation function
-		function tabulate(data, columns) {
+		function tabulate(data, columns, tbody) {
 
 			// create a row for each object in the data
 			var rows = tbody.selectAll("tr")
-					.data(data,	function(d) {
-						return d.userId;
-					});
+				.data(data,	function(d) {
+					return d.userId;
+				});
 
 			// create a row for each object in the data
 			var rowsEnter = rows.enter()
 				.insert("tr");
 
 			// create a cell in each row for each column
-			var cells = rowsEnter.selectAll("td")
-			    .data(function(row) {
-			        return columns.map(function(column) {
-			            return {column: column, value: row[column]};
-			        });
-			    })
-			    .enter()
-			    .append("td")
-			    .attr("style", "word-wrap:break-word;") // sets the font style
-				.html(function(d) { return d.value });
+			var cells = rowsEnter
+				.selectAll("td")
+			  .data(function(row) {
+			    return columns.map(function(column) {
+			      return {id: row['userId'],
+							column: column,
+							value: row[column]};
+			    });
+			  })
+			  .enter()
+			  .append("td")
+			  .attr("style", "word-wrap:break-word;") // sets the font style
+				.html(function(d) {
+					return d.value;
+				});
 
 			var rowsExit = rows.exit().remove();
 
-			return table;
+			// add input elements
+			var rowselems = angular.element(document)
+				.find("form[name=employeeCostsForm] " +
+					"div.employee_costs table tbody tr");
+
+			rowselems.each(function(index) {
+				var id = $(this)
+					.find("td:first-child")
+					.text();
+				var html = '<input class="internalCost" ' +
+					'ng-model="employee_costs[' + index +
+					'].internalCost" name="internalCost_' + id + '">';
+				var htmltemplate = angular.element(html);
+				var htmlFn = $compile(htmltemplate);
+				var htmllink = htmlFn($scope);
+				$(this).find("td:last-child")
+					.empty()
+					.append(htmllink);
+			});
+
+
+			//lastColumn.forEach(function(cell){
+			//	console.log("cell: " + cell);
+			//});
+
+			//return table;
 		};
 
 		/* ---- export xls/csv ---- */
