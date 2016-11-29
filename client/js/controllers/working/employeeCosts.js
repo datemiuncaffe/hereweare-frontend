@@ -13,10 +13,10 @@ angular
 
 		function loadEmployeeCosts() {
 			// query redis
-			crud.getEmployeeCosts({
-						key: 'EHOUR_USERS',
-						datatype: 'zset'
-					}).then(function(data) {
+			crud.GET.LOCAL.getEmployeeCosts({
+				key: 'EHOUR_USERS',
+				datatype: 'zset'
+			}).then(function(data) {
 
 				$scope.employee_costs = data.result.EHOUR_USERS;
 				console.log('employee_costs: ' +
@@ -136,6 +136,13 @@ angular
 		$scope.saveCosts = function() {
 			console.log('costs: ' +
 				JSON.stringify($scope.employee_costs, null, '\t'));
+			crud.POST.saveEmployeeCosts({
+				EHOUR_USERS: $scope.employee_costs
+			}).then(function(report) {
+				console.log('report: ' +
+					JSON.stringify(report, null, '\t'));
+
+			});
 		};
 		/* ---- export xls/csv ---- */
 		$scope.exportXLS = function() {

@@ -48,7 +48,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
       },
       POST: {
         createProject: 'http://' + resourceBaseUrl + '/api/projects/createAndIncrementId',
-        fsSave: 'http://' + resourceBaseUrl + '/save'
+        fsSave: 'http://' + resourceBaseUrl + '/save',
+        saveEmployeeCosts: 'http://' + resourceBaseUrl + '/redis-ops/save-users'
       }
     };
 
@@ -78,7 +79,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
       },
       POST: {
         createProject:  $resource(queries.POST.createProject, null, {'save': {method:'POST'}}),
-        fsSave:  $resource(queries.POST.fsSave, null, {'save': {method:'POST'}})
+        fsSave:  $resource(queries.POST.fsSave, null, {'save': {method:'POST'}}),
+        saveEmployeeCosts:  $resource(queries.POST.saveEmployeeCosts, null, {'save': {method:'POST'}})
       }
     };
 
@@ -107,9 +109,6 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
       fsBrowseDocs: function() {
         return resources.GET.LOCAL.fsBrowseDocs.query().$promise;
       },
-      getEmployeeCosts: function(params) {
-        return resources.GET.LOCAL.getEmployeeCosts.query(params).$promise;
-      },
       getCosts: function(projectCode) {
         return resources.GET.EHOUR.getCosts.query(projectCode).$promise;
       },
@@ -127,7 +126,19 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
 			},
       fsSave: function(data){
 				return resources.POST.fsSave.save(data).$promise;
-			}
+			},
+      GET: {
+        LOCAL: {
+          getEmployeeCosts: function(params) {
+            return resources.GET.LOCAL.getEmployeeCosts.query(params).$promise;
+          }
+        }
+      },
+      POST: {
+        saveEmployeeCosts: function(data) {
+          return resources.POST.saveEmployeeCosts.save(data).$promise;
+        }
+      }
 		};
 
 		return crud;
