@@ -25,19 +25,26 @@ form[name=employeeCostsForm] div.center table {
 
 form[name=employeeCostsForm] div.employee_costs {
 	margin-bottom: 8px;
-}
-form[name=employeeCostsForm] div.employee_costs h4 {
   width: 1200px;
 }
-form[name=employeeCostsForm] div.employee_costs h4 .XLSExporter {
+form[name=employeeCostsForm] div.employee_costs .XLSExporter {
   float: right;
-  margin-top: -6px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   margin-right: 6px;
 }
-form[name=employeeCostsForm] div.employee_costs h4 .CSVExporter {
+form[name=employeeCostsForm] div.employee_costs .CSVExporter {
   float: right;
-  margin-top: -6px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
+form[name=employeeCostsForm] div.employee_costs .costsSaver {
+  float: right;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+/* ---- table ----- */
 form[name=employeeCostsForm] div.employee_costs table {
   border-collapse: separate;
   width: 1200px;

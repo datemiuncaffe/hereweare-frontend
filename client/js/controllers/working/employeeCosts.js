@@ -128,14 +128,13 @@ angular
 					.append(htmllink);
 			});
 
-
-			//lastColumn.forEach(function(cell){
-			//	console.log("cell: " + cell);
-			//});
-
-			//return table;
 		};
 
+		/* ---- save button ----- */
+		$scope.saveCosts = function() {
+			console.log('costs: ' +
+				JSON.stringify($scope.employee_costs, null, '\t'));
+		};
 		/* ---- export xls/csv ---- */
 		$scope.exportXLS = function() {
       console.log("export excel ...");
