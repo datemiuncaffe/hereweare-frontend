@@ -119,13 +119,15 @@ angular
 					.text();
 				var html = '<input class="internalCost" ' +
 					'ng-model="employee_costs[' + index +
-					'].internalCost" name="internalCost_' + id + '">';
+					'].internalCost" name="internalCost_' + id +
+					'" size="6">';
 				var htmltemplate = angular.element(html);
 				var htmlFn = $compile(htmltemplate);
 				var htmllink = htmlFn($scope);
 				$(this).find("td:last-child")
 					.empty()
-					.append(htmllink);
+					.append(htmllink)
+					.append('€');
 			});
 
 		};
