@@ -8,7 +8,7 @@ angular
 
 	    $q
 			.all([
-			    crud.getCustomers()
+			    crud.GET.EHOUR.getCustomers()
 			])
 			.then(
 				function(data) {
@@ -271,12 +271,12 @@ angular
 					console.log('updating project: ' + JSON.stringify($scope.project));
 
 					$scope.project.customerId = $scope.selectedCustomer.id;
-					crud.createProject({project:$scope.project}).then(function(res) {
+					crud.POST.createProject({project:$scope.project}).then(function(res) {
 						console.log('createdProject: ' + JSON.stringify(res.createdProject));
 						$scope.project.budgets.forEach(function(budget, i){
 							budget.projectId = res.createdProject.id;
 						});
-						crud.updateBudgets({projectId: res.createdProject.id, budgets: $scope.project.budgets}).then(function(updatedBudgets) {
+						crud.PUT.updateBudgets({projectId: res.createdProject.id, budgets: $scope.project.budgets}).then(function(updatedBudgets) {
 							console.log('updatedBudgets: ' + JSON.stringify(updatedBudgets));
 						});
 					});

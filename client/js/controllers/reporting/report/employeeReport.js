@@ -62,7 +62,7 @@ angular
 										'-' + $scope.selectedEmployee.nomeDipendente);
 
 				// query ehour
-				crud.getReportsByUserNameAndDateIntervalAndProjects({
+				crud.GET.EHOUR.getReportsByUserNameAndDateIntervalAndProjects({
 							firstName: $scope.selectedEmployee.nomeDipendente,
 							lastName: $scope.selectedEmployee.cognomeDipendente,
 							startDate: selectedInterval.start,

@@ -53,7 +53,7 @@ angular
 
 		$q
 		.all([
-				crud.getActiveUsers()
+				crud.GET.EHOUR.getActiveUsers()
 		])
 		.then(
 			function(data) {
@@ -321,7 +321,7 @@ angular
 
 			$q
 			.all([
-					crud.getProjectsAndCustomersByUserNameAndDateInterval(params)
+					crud.GET.EHOUR.getProjectsAndCustomersByUserNameAndDateInterval(params)
 			])
 			.then(
 				function(data) {

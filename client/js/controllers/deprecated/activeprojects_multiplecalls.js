@@ -20,7 +20,7 @@ angular
 		$scope.customers = null;
 
     $q.all([
-		  crud.getCustomers()
+		  crud.GET.EHOUR.getCustomers()
 		])
 		.then(function(data) {
 			var customers = data[0];
@@ -43,11 +43,11 @@ angular
 
 		function getActiveProjectsByCustomerId(id, element, cb) {
 			if (id != null && id > 0) {
-				crud.getProjectsByCustomerId({ customerId: id, onlyActive: 'Y' }).then(function(activeprojects) {
+				crud.GET.EHOUR.getProjectsByCustomerId({ customerId: id, onlyActive: 'Y' }).then(function(activeprojects) {
 					console.log('activeprojects: ' + JSON.stringify(activeprojects));
 					var activeprojectspromises = [];
 					activeprojects.forEach(function(activeproject){
-						activeprojectspromises.push(crud.getBudgets({id:activeproject.id})
+						activeprojectspromises.push(crud.GET.LOCAL.getBudgets({id:activeproject.id})
 								.then(function(res){
 									console.log('success res: ' + JSON.stringify(res, null, '\t'));
 									return res;
@@ -59,7 +59,7 @@ angular
 									console.log('error: ' + JSON.stringify(res, null, '\t'));
 									return res;
 								}));
-						activeprojectspromises.push(crud.getCosts({projectId:activeproject.id})
+						activeprojectspromises.push(crud.GET.EHOUR.getCosts({projectId:activeproject.id})
 								.then(function(res){
 									console.log('success res: ' + JSON.stringify(res, null, '\t'));
 									return res;

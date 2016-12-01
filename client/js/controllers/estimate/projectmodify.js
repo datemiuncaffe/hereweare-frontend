@@ -78,7 +78,7 @@ angular
 	    	var projectId = {id:$scope.project.id};
 	    	// perform queries
 	    	$q.all([
-					crud.getBudgets(projectId)
+					crud.GET.LOCAL.getBudgets(projectId)
 							.then(function(res){
 								console.log('success res: ' + JSON.stringify(res, null, '\t'));
 								return res;
@@ -362,9 +362,9 @@ angular
 					console.log('updating project: ' + JSON.stringify($scope.project));
 
 					$scope.project.customerId = $scope.customer.id;
-					crud.updateProject($scope.project).then(function(updatedProject) {
+					crud.PUT.updateProject($scope.project).then(function(updatedProject) {
 						console.log('updatedProject: ' + JSON.stringify(updatedProject));
-						crud.updateBudgets({projectId: $scope.project.id, budgets: $scope.project.budgets}).then(function(updatedBudgets) {
+						crud.PUT.updateBudgets({projectId: $scope.project.id, budgets: $scope.project.budgets}).then(function(updatedBudgets) {
 							console.log('updatedBudgets: ' + JSON.stringify(updatedBudgets));
 						});
 					});

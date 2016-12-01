@@ -63,7 +63,7 @@
         return self.openedSections.indexOf(section.name) > -1;
       },
       getCustomers: function(budgets) {
-        crud.getCustomers().then(function(customers) {
+        crud.GET.EHOUR.getCustomers().then(function(customers) {
           customers.forEach(function(customer) {
             var customerSection = {
               id: customer.id,
@@ -76,7 +76,7 @@
         });
       },
       getProjects: function(section) {
-        crud.getProjectsByCustomerId({ customerId: section.id })
+        crud.GET.EHOUR.getProjectsByCustomerId({ customerId: section.id })
             .then(function(projects) {
           sortProjectsByName(projects);
           projects.forEach(function(project) {

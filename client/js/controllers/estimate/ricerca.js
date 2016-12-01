@@ -9,7 +9,7 @@ angular
 
 		$q
 		.all([
-				crud.getCustomers()
+				crud.GET.EHOUR.getCustomers()
 		])
 		.then(
 			function(data) {
@@ -34,7 +34,7 @@ angular
 				console.log('searching for selectedCustomer id = ' + selectedCustomer.id);
 
 				// query ehour
-				crud.getProjectsByCustomerId({ customerId: selectedCustomer.id }).then(function(projects) {
+				crud.GET.EHOUR.getProjectsByCustomerId({ customerId: selectedCustomer.id }).then(function(projects) {
 					console.log('projects: ' + JSON.stringify(projects));
 
 					// sorting projects

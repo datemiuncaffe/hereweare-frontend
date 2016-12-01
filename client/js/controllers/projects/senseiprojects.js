@@ -10,7 +10,7 @@ angular
 		hwtables.projectsContainer = $scope.projectsContainer;
 
     $q.all([
-		  crud.getCustomers({customerGroup: 'INT'})
+		  crud.GET.EHOUR.getCustomers({customerGroup: 'INT'})
 		])
 		.then(function(data) {
 			if (data[0].length > 0) {
@@ -74,7 +74,7 @@ angular
 				});
 				console.log('ids: ' + ids);
 
-				crud.getBudgetsCostsByCustomerIds({ customerIds: ids, projectGroup: 'INT' })
+				crud.GET.BOTH.getBudgetsCostsByCustomerIds({ customerIds: ids, projectGroup: 'INT' })
 						.then(function(datatables) {
 					console.log('datatables: ' + JSON.stringify(datatables, null, '\t'));
 					datatables.forEach(function(item) {

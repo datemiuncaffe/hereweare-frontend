@@ -85,56 +85,62 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
     };
 
 		var crud = {
-      getActiveUsers: function(){
-				return resources.GET.EHOUR.getActiveUsers.query().$promise;
-			},
-			getCustomersAndProjects: function(){
-				return resources.GET.LOCAL.getCustomersAndProjects.query().$promise;
-			},
-      getCustomers: function(customerParams){
-				return resources.GET.EHOUR.getCustomers.query(customerParams).$promise;
-			},
-      getProjectsByCustomerId: function(idObj) {
-        return resources.GET.EHOUR.getProjectsByCustomerId.query(idObj).$promise;
-      },
-      getProjectsAndCustomersByUserNameAndDateInterval: function(params) {
-        return resources.GET.EHOUR.getProjectsAndCustomersByUserNameAndDateInterval.query(params).$promise;
-      },
-      getBudgetsCostsByCustomerIds: function(params) {
-        return resources.GET.BOTH.getBudgetsCostsByCustomerIds.query(params).$promise;
-      },
-      getBudgets: function(projectId) {
-        return resources.GET.LOCAL.getBudgets.query(projectId).$promise;
-      },
-      fsBrowseDocs: function() {
-        return resources.GET.LOCAL.fsBrowseDocs.query().$promise;
-      },
-      getCosts: function(projectCode) {
-        return resources.GET.EHOUR.getCosts.query(projectCode).$promise;
-      },
-      getReportsByUserNameAndDateIntervalAndProjects: function(params) {
-        return resources.GET.EHOUR.getReportsByUserNameAndDateIntervalAndProjects.query(params).$promise;
-      },
-			updateProject: function(project){
-				return resources.PUT.updateProject.update(project).$promise;
-			},
-			updateBudgets: function(data){
-				return resources.PUT.updateBudgets.update(data).$promise;
-			},
-      createProject: function(project){
-				return resources.POST.createProject.save(project).$promise;
-			},
-      fsSave: function(data){
-				return resources.POST.fsSave.save(data).$promise;
-			},
-      GET: {
+			GET: {
+        BOTH: {
+          getBudgetsCostsByCustomerIds: function(params) {
+            return resources.GET.BOTH.getBudgetsCostsByCustomerIds.query(params).$promise;
+          }
+        },
         LOCAL: {
+          getCustomersAndProjects: function(){
+    				return resources.GET.LOCAL.getCustomersAndProjects.query().$promise;
+    			},
+          getBudgets: function(projectId) {
+            return resources.GET.LOCAL.getBudgets.query(projectId).$promise;
+          },
+          fsBrowseDocs: function() {
+            return resources.GET.LOCAL.fsBrowseDocs.query().$promise;
+          },
           getEmployeeCosts: function(params) {
             return resources.GET.LOCAL.getEmployeeCosts.query(params).$promise;
           }
+        },
+        EHOUR: {
+          getActiveUsers: function(){
+    				return resources.GET.EHOUR.getActiveUsers.query().$promise;
+    			},
+          getCustomers: function(customerParams){
+    				return resources.GET.EHOUR.getCustomers.query(customerParams).$promise;
+    			},
+          getProjectsByCustomerId: function(idObj) {
+            return resources.GET.EHOUR.getProjectsByCustomerId.query(idObj).$promise;
+          },
+          getCosts: function(projectCode) {
+            return resources.GET.EHOUR.getCosts.query(projectCode).$promise;
+          },
+          getReportsByUserNameAndDateIntervalAndProjects: function(params) {
+            return resources.GET.EHOUR.getReportsByUserNameAndDateIntervalAndProjects.query(params).$promise;
+          },
+          getProjectsAndCustomersByUserNameAndDateInterval: function(params) {
+            return resources.GET.EHOUR.getProjectsAndCustomersByUserNameAndDateInterval.query(params).$promise;
+          }
         }
       },
+      PUT: {
+        updateProject: function(project){
+  				return resources.PUT.updateProject.update(project).$promise;
+  			},
+  			updateBudgets: function(data){
+  				return resources.PUT.updateBudgets.update(data).$promise;
+  			}
+      },
       POST: {
+        createProject: function(project){
+  				return resources.POST.createProject.save(project).$promise;
+  			},
+        fsSave: function(data){
+  				return resources.POST.fsSave.save(data).$promise;
+  			},
         saveEmployeeCosts: function(data) {
           return resources.POST.saveEmployeeCosts.save(data).$promise;
         }

@@ -8,7 +8,7 @@ angular
 
     $q
 		.all([
-		    crud.getCustomers()
+		    crud.GET.EHOUR.getCustomers()
 		])
 		.then(
 			function(data) {
@@ -27,7 +27,7 @@ angular
 
 				// perform queries
 	    	$q.all([
-					crud.getBudgets({id:selectedProject.id})
+					crud.GET.LOCAL.getBudgets({id:selectedProject.id})
 							.then(function(res){
 								console.log('success res: ' + JSON.stringify(res, null, '\t'));
 								return res;
@@ -39,7 +39,7 @@ angular
 								console.log('error: ' + JSON.stringify(res, null, '\t'));
 								return res;
 							}),
-					crud.getCosts({projectId: selectedProject.id})
+					crud.GET.EHOUR.getCosts({projectId: selectedProject.id})
 							.then(function(res){
 								console.log('success res: ' + JSON.stringify(res, null, '\t'));
 								return res;
@@ -298,7 +298,7 @@ angular
 			console.log('selectedCustomer: ' + JSON.stringify(selectedCustomer, null, '\t'));
 			if (selectedCustomer != null && selectedCustomer.id != null && selectedCustomer.id > 0) {
 				console.log('searching for selectedCustomer id = ' + selectedCustomer.id);
-				crud.getProjectsByCustomerId({ customerId: selectedCustomer.id }).then(function(data) {
+				crud.GET.EHOUR.getProjectsByCustomerId({ customerId: selectedCustomer.id }).then(function(data) {
 					console.log('data: ' + JSON.stringify(data));
 					$scope.selectedCustomer.projects = data;
 					$scope.selectedProject = data[0];
