@@ -336,10 +336,13 @@ angular
 
 			console.log('changing state...');
 
-			var url = 'http://' + $window.location.host + '/#/projectmodify' +
-					'?customerId=' + $scope.customer.id + '&customerName=' + $scope.customer.name +
+			var url = 'http://' + $window.location.host +
+					'/#/projectmodify' +
+					'?customerId=' + $scope.customer.id +
+					'&customerName=' + $scope.customer.name +
 					'&projectId=' + $scope.project.id +
-					'&projectCode=' + $scope.project.code + '&projectName=' + $scope.project.name;
+					'&projectCode=' + $scope.project.code +
+					'&projectName=' + $scope.project.name;
 	    $log.log(url);
 	    $window.location.href = url;
 		};
