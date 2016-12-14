@@ -263,7 +263,7 @@ angular
 					});
 				});
 				return daysTot;
-			}
+			};
 
 	    $scope.getBudgets = function(budgettot, selectedfrom, selectedto) {
 	    	if (budgettot == null) {
@@ -284,6 +284,7 @@ angular
 
 	    	if (from.isBefore(to)) {
 	    		$scope.project.budgets = [];
+					$scope.project.sals = [];
 
 					var zero2 = new Padder(2);
 					var bdays = getBusinessDays(from, to);
@@ -322,6 +323,15 @@ angular
 								var days = weeksmap.get(week);
 								monthdays += days.length;
 								days.forEach(function(day){
+									var sal = {
+										date: budgetyear +
+											'-' +
+											datepickerto._o.i18n.months[budgetmonth] +
+											'-' + day,
+										percentage: 0,
+										projectId: $scope.project.id
+									};
+									$scope.project.sals.push(sal);
 									businessdays[businessdaysnum] = day;
 									businessdaysnum++;
 								});
@@ -387,6 +397,6 @@ angular
 					var s = what.toString();
 					return pads.substring(0, pads.length - s.length) + s;
 				};
-			}
+			};
 
 	}]);
