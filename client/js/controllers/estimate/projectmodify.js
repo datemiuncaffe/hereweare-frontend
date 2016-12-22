@@ -372,12 +372,26 @@ angular
 					console.log('updating project: ' + JSON.stringify($scope.project));
 
 					$scope.project.customerId = $scope.customer.id;
-					crud.PUT.updateProject($scope.project).then(function(updatedProject) {
-						console.log('updatedProject: ' + JSON.stringify(updatedProject));
-						crud.PUT.updateBudgets({projectId: $scope.project.id, budgets: $scope.project.budgets}).then(function(updatedBudgets) {
-							console.log('updatedBudgets: ' + JSON.stringify(updatedBudgets));
-						});
+					crud.POST
+							.saveProject({
+								project: $scope.project})
+							.then(function(savedProject) {
+						console.log('savedProject: ' +
+							JSON.stringify(savedProject));
 					});
+
+					// crud.PUT.updateProject($scope.project).then(function(updatedProject) {
+					// 	console.log('updatedProject: ' +
+					// 		JSON.stringify(updatedProject));
+					// 	crud.PUT
+					// 		.updateBudgets({
+					// 			projectId: $scope.project.id,
+					// 			budgets: $scope.project.budgets})
+					// 		.then(function(updatedBudgets) {
+					// 			console.log('updatedBudgets: ' +
+					// 				JSON.stringify(updatedBudgets));
+					// 	});
+					// });
 	      }
 			};
 

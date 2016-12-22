@@ -47,7 +47,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         updateBudgets: 'http://' + resourceBaseUrl + '/api/budgets/updateAllByProjectId'
       },
       POST: {
-        createProject: 'http://' + resourceBaseUrl + '/api/projects/createAndIncrementId',
+        saveProject: 'http://' + resourceBaseUrl + '/projects-ops/save-project',
+        //createProject: 'http://' + resourceBaseUrl + '/api/projects/createAndIncrementId',
         fsSave: 'http://' + resourceBaseUrl + '/save',
         saveEmployeeCosts: 'http://' + resourceBaseUrl + '/redis-ops/save-users'
       }
@@ -78,7 +79,8 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         updateBudgets:	$resource(queries.PUT.updateBudgets, null, {'update': {method:'PUT'}})
       },
       POST: {
-        createProject:  $resource(queries.POST.createProject, null, {'save': {method:'POST'}}),
+        saveProject:  $resource(queries.POST.saveProject, null, {'save': {method:'POST'}}),
+        //createProject:  $resource(queries.POST.createProject, null, {'save': {method:'POST'}}),
         fsSave:  $resource(queries.POST.fsSave, null, {'save': {method:'POST'}}),
         saveEmployeeCosts:  $resource(queries.POST.saveEmployeeCosts, null, {'save': {method:'POST'}})
       }
@@ -135,9 +137,12 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
   			}
       },
       POST: {
-        createProject: function(project){
-  				return resources.POST.createProject.save(project).$promise;
+        saveProject: function(project){
+  				return resources.POST.saveProject.save(project).$promise;
   			},
+        // createProject: function(project){
+  			// 	return resources.POST.createProject.save(project).$promise;
+  			// },
         fsSave: function(data){
   				return resources.POST.fsSave.save(data).$promise;
   			},
