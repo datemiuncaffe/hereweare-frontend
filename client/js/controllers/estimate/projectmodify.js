@@ -17,6 +17,7 @@ angular
 	    	customerId: null,
 	    	budgets: []
 	    };
+			var budgetsStatus = [];
 	    /* end entities */
 
 			/* datepickers */
@@ -119,6 +120,7 @@ angular
 						datepickerto.setDate(moment($scope.project.to, "DD/MM/YYYY").toDate());
 					}
 					if (data[0].budgets != null) {
+						budgetsStatus = data[0].budgets;
 						$scope.project.budgets = data[0].budgets;
 						// set budgets days
 						setBudgetsDays();
@@ -348,8 +350,8 @@ angular
 	    	    		projectId: $scope.project.id
 	    	    	};
 
-							if ($scope.project.budgets[budgetCount]) {
-								var id = $scope.project.budgets[budgetCount].id;
+							if (budgetsStatus[budgetCount]) {
+								var id = budgetsStatus[budgetCount].id;
 								budget.id = id;
 								budget.status = 'update';
 								$scope.project.budgets[budgetCount] = budget;
@@ -358,6 +360,8 @@ angular
 								$scope.project.budgets.push(budget);
 							}
 
+							budgetCount++;
+
 						});
 					});
 
@@ -365,7 +369,9 @@ angular
 					setBudgetsDays();
 
 	    		for (var i in $scope.project.budgets) {
-	    			console.log('budget amount: ' + $scope.project.budgets[i].amount + '; type: ' + typeof $scope.project.budgets[i].amount);
+	    			console.log('budget amount: ' +
+							$scope.project.budgets[i].amount + '; type: ' +
+							typeof $scope.project.budgets[i].amount);
 	    		}
 
 	    	} else {
