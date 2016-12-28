@@ -29,7 +29,7 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         },
         LOCAL: {
           getCustomersAndProjects:	'http://' + resourceBaseUrl + '/api/customers?filter[include][projects]=budgets',
-          getBudgets: 'http://' + resourceBaseUrl + '/api/projects/:id?filter[include]=budgets',
+          getBudgets: 'http://' + resourceBaseUrl + '/budgets-ops/budgets',
           fsBrowseDocs: 'http://' + resourceBaseUrl + '/browseDocs',
           getEmployeeCosts: 'http://' + resourceBaseUrl + '/redis-ops/users'
         },
@@ -43,12 +43,10 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         }
       },
       PUT: {
-        updateProject: 'http://' + resourceBaseUrl + '/api/projects',
-        updateBudgets: 'http://' + resourceBaseUrl + '/api/budgets/updateAllByProjectId'
+        updateBudgets: 'http://' + resourceBaseUrl + '/budgets-ops/update-all-by-project-id'
       },
       POST: {
         saveProject: 'http://' + resourceBaseUrl + '/projects-ops/save-project',
-        //createProject: 'http://' + resourceBaseUrl + '/api/projects/createAndIncrementId',
         fsSave: 'http://' + resourceBaseUrl + '/save',
         saveEmployeeCosts: 'http://' + resourceBaseUrl + '/redis-ops/save-users'
       }
@@ -75,12 +73,10 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         }
       },
       PUT: {
-        updateProject: 	$resource(queries.PUT.updateProject, null, {'update': {method:'PUT'}}),
         updateBudgets:	$resource(queries.PUT.updateBudgets, null, {'update': {method:'PUT'}})
       },
       POST: {
         saveProject:  $resource(queries.POST.saveProject, null, {'save': {method:'POST'}}),
-        //createProject:  $resource(queries.POST.createProject, null, {'save': {method:'POST'}}),
         fsSave:  $resource(queries.POST.fsSave, null, {'save': {method:'POST'}}),
         saveEmployeeCosts:  $resource(queries.POST.saveEmployeeCosts, null, {'save': {method:'POST'}})
       }
@@ -129,9 +125,6 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         }
       },
       PUT: {
-        updateProject: function(project){
-  				return resources.PUT.updateProject.update(project).$promise;
-  			},
   			updateBudgets: function(data){
   				return resources.PUT.updateBudgets.update(data).$promise;
   			}
@@ -140,9 +133,6 @@ if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.ex
         saveProject: function(project){
   				return resources.POST.saveProject.save(project).$promise;
   			},
-        // createProject: function(project){
-  			// 	return resources.POST.createProject.save(project).$promise;
-  			// },
         fsSave: function(data){
   				return resources.POST.fsSave.save(data).$promise;
   			},

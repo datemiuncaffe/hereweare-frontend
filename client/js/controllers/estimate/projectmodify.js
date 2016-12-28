@@ -283,7 +283,6 @@ angular
 	    	console.log('diff in months: ' + to.diff(from, 'months'));
 
 	    	if (from.isBefore(to)) {
-	    		$scope.project.budgets = [];
 					$scope.project.sals = [];
 
 					var zero2 = new Padder(2);
@@ -292,6 +291,7 @@ angular
 					$scope.project.daystot = daystot;
 					console.log('daystot: ' + $scope.project.daystot);
 
+					var budgetCount = 0;
 					var years = Array.from(bdays.keys());
 					years.forEach(function(budgetyear){
 						var monthsmap = bdays.get(budgetyear);
@@ -347,7 +347,17 @@ angular
 								amount: parseFloat((budgettot * (monthdays/daystot)).toFixed(2)),
 	    	    		projectId: $scope.project.id
 	    	    	};
-		    			$scope.project.budgets.push(budget);
+
+							if ($scope.project.budgets[budgetCount]) {
+								var id = $scope.project.budgets[budgetCount].id;
+								budget.id = id;
+								budget.status = 'update';
+								$scope.project.budgets[budgetCount] = budget;
+							} else {
+								budget.status = 'save';
+								$scope.project.budgets.push(budget);
+							}
+
 						});
 					});
 
@@ -372,26 +382,24 @@ angular
 					console.log('updating project: ' + JSON.stringify($scope.project));
 
 					$scope.project.customerId = $scope.customer.id;
-					crud.POST
-							.saveProject({
-								project: $scope.project})
-							.then(function(savedProject) {
-						console.log('savedProject: ' +
-							JSON.stringify(savedProject));
-					});
+					crud.POST.saveProject({project: $scope.project})
+									 .then(function(report) {
+						console.log('save report: ' + JSON.stringify(report));
+						// if (report != null &&
+						// 		report.response != null &&
+						// 		report.error == null) {
+						// 	// da rivedere
+						// }
 
-					// crud.PUT.updateProject($scope.project).then(function(updatedProject) {
-					// 	console.log('updatedProject: ' +
-					// 		JSON.stringify(updatedProject));
-					// 	crud.PUT
-					// 		.updateBudgets({
-					// 			projectId: $scope.project.id,
-					// 			budgets: $scope.project.budgets})
-					// 		.then(function(updatedBudgets) {
-					// 			console.log('updatedBudgets: ' +
-					// 				JSON.stringify(updatedBudgets));
-					// 	});
-					// });
+						crud.PUT.updateBudgets({
+											projectId: $scope.project.id,
+											budgets: $scope.project.budgets})
+										.then(function(updatedBudgets) {
+									console.log('updatedBudgets: ' +
+										JSON.stringify(updatedBudgets));
+						});
+
+					});
 	      }
 			};
 
