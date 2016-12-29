@@ -58,7 +58,7 @@
 				</div>
 
 				<div class="budget_distrib">
-					<div class="budgetvalues" ng-repeat="budget in project.budgets">
+					<div class="budgetvalues" ng-repeat="budget in project.budgets | filter : budgetFilter">
 						<span class="month">
 							<b>{{budget.month}}</b>
 						</span>

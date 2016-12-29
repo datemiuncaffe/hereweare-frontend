@@ -194,7 +194,7 @@ angular
 
       return doc.label || doc.name;
     };
-  })
+  })  
   .directive('onLastRepeat', function() {
 		return function(scope, element, attrs) {
 			if (scope.$last) {

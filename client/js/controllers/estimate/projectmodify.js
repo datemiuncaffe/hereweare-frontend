@@ -285,6 +285,7 @@ angular
 	    	console.log('diff in months: ' + to.diff(from, 'months'));
 
 	    	if (from.isBefore(to)) {
+					$scope.project.budgets = budgetsStatus;
 					$scope.project.sals = [];
 
 					var zero2 = new Padder(2);
@@ -350,8 +351,8 @@ angular
 	    	    		projectId: $scope.project.id
 	    	    	};
 
-							if (budgetsStatus[budgetCount]) {
-								var id = budgetsStatus[budgetCount].id;
+							if ($scope.project.budgets[budgetCount]) {
+								var id = $scope.project.budgets[budgetCount].id;
 								budget.id = id;
 								budget.status = 'update';
 								$scope.project.budgets[budgetCount] = budget;
@@ -364,6 +365,16 @@ angular
 
 						});
 					});
+
+					if (budgetCount < budgetsStatus.length) {
+						$scope.project.budgets.forEach(function(budget){
+							if (!budget.status) {
+								budget.status = 'delete';
+							}
+						});
+					}
+					console.log('new budgets: ' +
+						JSON.stringify($scope.project.budgets, null, '\t'));
 
 					// set budgets days
 					setBudgetsDays();
@@ -407,6 +418,10 @@ angular
 
 					});
 	      }
+			};
+
+			$scope.budgetFilter = function(value, index, array){
+			  return (!value.status || value.status !== 'delete');
 			};
 
 			function Padder(len, pad) {
