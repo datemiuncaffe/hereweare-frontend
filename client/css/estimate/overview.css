@@ -16,6 +16,11 @@ form[name=estimateForm] div.top > div.projects {
   width: 400px;
   margin-right: 20px;
 }
+form[name=estimateForm] div.top > div.projectprops {
+  float: left;
+  width: 400px;
+  margin-right: 20px;
+}
 form[name=estimateForm] div.top > div.budgettot {
   float: left;
   width: 400px;
