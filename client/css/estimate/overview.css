@@ -13,14 +13,23 @@ form[name=estimateForm] div.top > div.customers {
 }
 form[name=estimateForm] div.top > div.projects {
   float: left;
-  width: 400px;
+  width: 500px;
   margin-right: 20px;
 }
-form[name=estimateForm] div.top > div.projectprops {
+form[name=estimateForm] div.top > div.projectcode {
   float: left;
   width: 400px;
   margin-right: 20px;
 }
+form[name=estimateForm] div.top > div.projectmanager {
+  float: left;
+  width: 550px;
+  margin-right: 20px;
+}
+form[name=estimateForm] div.top > div.projectmanager span:nth-of-type(2) {
+  margin-left: 20px;
+}
+
 form[name=estimateForm] div.top > div.budgettot {
   float: left;
   width: 400px;

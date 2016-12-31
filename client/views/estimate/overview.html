@@ -23,15 +23,20 @@
 			</div>
 		</div>
 		<div class="top">
-			<div class="form-group projectprops">
+			<div class="form-group projectcode">
 				<p>Codice progetto:</p>
-				<span>{{selectedProject.code}}</span>
+				<span>
+					<b>{{selectedProject.code}}</b>
+				</span>
 			</div>
-			<div class="form-group projectprops">
+			<div class="form-group projectmanager">
 				<p>Responsabile:</p>
-				<span>{{selectedProject.managerName}}</span>
-				<span>{{selectedProject.managerFirstName}}</span>
-				<span>{{selectedProject.managerEmail}}</span>
+				<span>
+					<b>{{selectedProject.managerName}}-{{selectedProject.managerFirstName}}</b>
+				</span>
+				<span>
+					<b>{{selectedProject.managerEmail}}</b>
+				</span>
 			</div>
 		</div>
 		<div class="top">
