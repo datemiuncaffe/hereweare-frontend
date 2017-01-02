@@ -16,6 +16,15 @@ form[name=estimateForm] div.top > div.projects {
   width: 500px;
   margin-right: 20px;
 }
+form[name=estimateForm] div.top > div.projects select {
+  overflow: hidden;
+  width: 350px;
+}
+form[name=estimateForm] div.top > div.projects select option {
+  overflow: hidden;
+  width: 350px;
+  text-overflow: ellipsis;
+}
 form[name=estimateForm] div.top > div.projectcode {
   float: left;
   width: 400px;
