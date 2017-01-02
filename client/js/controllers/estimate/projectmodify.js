@@ -327,10 +327,11 @@ angular
 								monthdays += days.length;
 								days.forEach(function(day){
 									var sal = {
-										date: budgetyear +
+										customDate: budgetyear +
 											'-' +
 											datepickerto._o.i18n.months[budgetmonth] +
 											'-' + day,
+										isoDate: day + '/' + budgetmonth + '/' + budgetyear,
 										percentage: 0,
 										projectId: $scope.project.id
 									};

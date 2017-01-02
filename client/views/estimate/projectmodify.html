@@ -81,9 +81,9 @@
 				<h4>Percentuale di avanzamento:</h4>
 				<div class="salvalues" ng-repeat="sal in project.sals">
 					<span class="saldate">
-						<b>{{sal.date}}</b>
+						<b>{{sal.isoDate}}</b>
 					</span>
-					<span class="salvalues">
+					<span class="salpercentage">
 						<label for="salpercentage">%:</label>
 						<input class="ng-binding" ng-model="sal.percentage" name="salpercentage" id="salpercentage" type="number"></input>
 					</span>

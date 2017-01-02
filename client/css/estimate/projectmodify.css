@@ -141,6 +141,18 @@ form[name=projectModifyForm] .center .sal {
   float: left;
   width: 1000px;
 }
+form[name=projectModifyForm] .center .sal .salvalues {
+  float: left;
+  width: 100px;
+}
+form[name=projectModifyForm] .center .sal .salpercentage {
+  float: left;
+  width: 100px;
+}
+form[name=projectModifyForm] .center .sal .salpercentage input {
+  width: 100px;
+}
+
 form[name=projectModifyForm] .center .budget_to_sal {
   float: left;
   width: 1000px;
