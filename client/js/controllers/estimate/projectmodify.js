@@ -76,7 +76,14 @@ angular
 
 			/* loading data */
 	    if ($scope.project.id != null && $scope.project.id > 0) {
-	    	var projectId = {id:$scope.project.id};
+				loadData($scope.project.id);
+	    }
+	    /* end loading data */
+
+			function loadData(project_id) {
+				var projectId = {
+					id: project_id
+				};
 	    	// perform queries
 	    	$q.all([
 					crud.GET.LOCAL.getBudgets(projectId)
@@ -98,8 +105,7 @@ angular
 				}, function(error){
 					console.log('error: ' + JSON.stringify(error, null, '\t'));
 				});
-	    }
-	    /* end loading data */
+			};
 
 			function showData(data) {
 				if (data[0] != null) {
@@ -284,8 +290,13 @@ angular
 	    	var to = moment(selectedto, "DD/MM/YYYY");
 	    	console.log('diff in months: ' + to.diff(from, 'months'));
 
+				console.log('budgetsStatus: ' +
+					JSON.stringify(budgetsStatus, null, '\t'));
 	    	if (from.isBefore(to)) {
-					$scope.project.budgets = budgetsStatus;
+					console.log('budgets: ' +
+						JSON.stringify($scope.project.budgets, null, '\t'));
+					$scope.project.budgets =
+						JSON.parse(JSON.stringify(budgetsStatus));
 					$scope.project.sals = [];
 
 					var zero2 = new Padder(2);
@@ -412,9 +423,9 @@ angular
 						crud.PUT.updateBudgets({
 											projectId: $scope.project.id,
 											budgets: $scope.project.budgets})
-										.then(function(updatedBudgets) {
-									console.log('updatedBudgets: ' +
-										JSON.stringify(updatedBudgets));
+										.then(function(report) {
+									console.log('budgets report: ' + JSON.stringify(report));
+									loadData($scope.project.id);
 						});
 
 					});
