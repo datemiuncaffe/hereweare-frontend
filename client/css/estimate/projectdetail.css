@@ -28,6 +28,7 @@ form[name=projectDetailForm] div.top span {
   display: inline-block;
 }
 
+/*------- center -----*/
 form[name=projectDetailForm] div.center {
   font-family: Arial;
   font-size: 14px;

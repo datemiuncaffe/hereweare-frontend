@@ -56,28 +56,41 @@
 							Inserisci la data di fine progetto</p>
 					</div>
 				</div>
-
-				<div class="budget_distrib">
-					<div class="budgetvalues" ng-repeat="budget in project.budgets | filter : budgetFilter">
+			</div>
+			<div class="spacer"></div>
+			<div class="budget_distrib">
+				<div class="budgetvalues" ng-repeat="budget in project.budgets | filter : budgetFilter">
+					<div class="header">
 						<span class="month">
 							<b>{{budget.month}}</b>
 						</span>
-						<span class="dateinterval">
-							<span>Da: <b>{{budget.from}}</b></span>
-							<span>A: <b>{{budget.to}}</b></span>
-						</span>
-						<span class="budgetvalues">
-							<label for="budgetamount">Budget mensile:</label>
-							<input class="ng-binding" ng-model="budget.amount" name="budgetamount" id="budgetamount" type="number"></input>
-						</span>
-						<span class="budgetvalues">
-							<label for="budgetdays">Giornate previste:</label>
-							<input class="ng-binding" ng-model="budget.days" name="budgetdays" id="budgetdays" type="number" min="1" max="100"></input>
-						</span>
+						<div class="dateinterval">
+							<span>&#40; da: <b>{{budget.from}}</b></span>
+							<span>a: <b>{{budget.to}}</b> &#41;</span>
+						</div>
+					</div>
+					<div class="globaldetail">
+						<label for="budgetamount">Budget mensile:</label>
+						<input class="ng-binding" ng-model="budget.amount" name="budgetamount" id="budgetamount" type="number"></input>
+						<label for="budgetdays">Giornate previste:</label>
+						<input class="ng-binding" ng-model="budget.days" name="budgetdays" id="budgetdays" type="number" min="1" max="100"></input>
+					</div>
+					<div class="windowdetail">
+						<table>
+							<thead></thead>
+							<tbody>
+								<tr>
+									<td ng-repeat="window in budget.windows">
+										{{window.day}}
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
-			<div class="sal">
+			<div class="spacer"></div>
+			<!--div class="sal">
 				<h4>Percentuale di avanzamento:</h4>
 				<div class="salvalues" ng-repeat="sal in project.sals">
 					<span class="saldate">
@@ -91,7 +104,7 @@
 			</div>
 			<div class="budget_to_sal">
 				<h4>Confronto:</h4>
-			</div>
+			</div-->
 
 		</div>
 		<div class="bottom">

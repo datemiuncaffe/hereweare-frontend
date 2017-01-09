@@ -98,45 +98,56 @@ form[name=projectModifyForm] .center .budget_def
 	height: 26px;
 }
 
-form[name=projectModifyForm] .center .budget_def
-.budget_distrib {
+form[name=projectModifyForm] .center .budget_distrib {
 	float: left;
-	width: 480px;
-	margin-right: 20px;
+	width: 1000px;
 }
-form[name=projectModifyForm] .center .budget_def
-.budget_distrib div.budgetvalues {
+form[name=projectModifyForm] .center .budget_distrib .budgetvalues {
 	float: left;
-	width: 450px;
-	margin-right: 20px;
+  clear: both;
   margin-bottom: 10px;
   border-bottom: 1px solid black;
 }
-form[name=projectModifyForm] .center .budget_def
-.budget_distrib div.budgetvalues input {
-	width: 100px;
-}
-form[name=projectModifyForm] .center .budget_def
-.budget_distrib span.month {
-	float: left;
-  clear: both;
+form[name=projectModifyForm] .center .budget_distrib .budgetvalues
+.header {
+  float: left;
   font-size: 18px;
-  padding-bottom: 10px;
 }
-form[name=projectModifyForm] .center .budget_def
-.budget_distrib span.dateinterval {
+form[name=projectModifyForm] .center .budget_distrib .budgetvalues
+.header span.month {
+  float: left;
+  font-size: 18px;
+}
+form[name=projectModifyForm] .center .budget_distrib .budgetvalues
+.header .dateinterval {
+	float: left;
+  display: inline;
+  vertical-align: bottom;
+  margin-left: 5px;
+}
+form[name=projectModifyForm] .center .budget_distrib .budgetvalues
+.header .dateinterval span {
+  font-size: 16px;
+}
+form[name=projectModifyForm] .center .budget_distrib .budgetvalues
+.globaldetail {
 	float: left;
   clear: both;
-  font-size: 16px;
-  padding-bottom: 10px;
+  line-height: 40px;
+  margin-bottom: 3px;
 }
-form[name=projectModifyForm] .center .budget_def
-.budget_distrib span.budgetvalues {
-	float: left;
-  font-size: 16px;
-  padding-bottom: 10px;
+form[name=projectModifyForm] .center .budget_distrib .budgetvalues
+.globaldetail label {
+  height: 30px;
+  margin-bottom: 0;
+}
+form[name=projectModifyForm] .center .budget_distrib .budgetvalues
+.globaldetail input {
+	width: 100px;
+  height: 30px;
 }
 
+/*
 form[name=projectModifyForm] .center .sal {
   float: left;
   width: 1000px;
@@ -157,7 +168,9 @@ form[name=projectModifyForm] .center .budget_to_sal {
   float: left;
   width: 1000px;
 }
+*/
 
+/*
 form[name=projectModifyForm] .center p {
   width: 120px;
   display: inline-block;
@@ -176,6 +189,8 @@ form[name=projectModifyForm] .center input {
 form[name=projectModifyForm] .center select {
   display: inline-block;
 }
+*/
+
 form[name=projectModifyForm] .center p.errormessage {
   color: #a94442;
   display: block;
@@ -202,4 +217,19 @@ form[name=projectModifyForm] .bottom p.errormessage {
   margin-top: 5px;
   width: 200px;
   font-size: 20px;
+}
+
+form[name=projectModifyForm] .spacer {
+	float: left;
+	width: 1000px;
+  height: 10px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: black;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: black;
+  background-color: #23e2ea;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }

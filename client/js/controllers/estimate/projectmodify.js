@@ -297,7 +297,6 @@ angular
 						JSON.stringify($scope.project.budgets, null, '\t'));
 					$scope.project.budgets =
 						JSON.parse(JSON.stringify(budgetsStatus));
-					$scope.project.sals = [];
 
 					var zero2 = new Padder(2);
 					var bdays = getBusinessDays(from, to);
@@ -333,20 +332,20 @@ angular
 							var monthdays = 0;
 							var businessdays = [];
 							var businessdaysnum = 0;
+							var windows = [];
 							weeks.forEach(function(week){
 								var days = weeksmap.get(week);
 								monthdays += days.length;
 								days.forEach(function(day){
-									var sal = {
-										customDate: budgetyear +
-											'-' +
-											datepickerto._o.i18n.months[budgetmonth] +
-											'-' + day,
-										isoDate: day + '/' + budgetmonth + '/' + budgetyear,
-										percentage: 0,
-										projectId: $scope.project.id
+									var window = {
+										type: 'day',
+										day: day,
+										estimatedhours: 8,
+										workedhours: 0,
+										sal: 0,
+										isoDate: day + '/' + budgetmonth + '/' + budgetyear
 									};
-									$scope.project.sals.push(sal);
+									windows.push(window);
 									businessdays[businessdaysnum] = day;
 									businessdaysnum++;
 								});
@@ -360,6 +359,7 @@ angular
 								days: monthdays,
 								businessdays: JSON.stringify(businessdays),
 								amount: parseFloat((budgettot * (monthdays/daystot)).toFixed(2)),
+								windows: windows,
 	    	    		projectId: $scope.project.id
 	    	    	};
 
