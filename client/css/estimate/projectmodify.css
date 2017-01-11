@@ -52,52 +52,88 @@ form[name=projectModifyForm] .center {
 form[name=projectModifyForm] .center .budget_def {
   float: left;
   width: 1000px;
+  display:flex;
 }
-form[name=projectModifyForm] .center .budget_def .budgettot {
+form[name=projectModifyForm] .center .budget_def_left {
+  flex-basis: 450px;
+  order: 1;
+  border-right: 3px solid #23e2ea;
+}
+form[name=projectModifyForm] .center .budget_def_left
+.budgettot {
   float: left;
-  width: 350px;
-  margin-right: 20px;
+  width: 200px;
+  margin-right: 10px;
 }
-form[name=projectModifyForm] .center .budget_def .budget_period {
+form[name=projectModifyForm] .center .budget_def_left
+.budgettot p {
+  float: left;
+  width: 95px;
+}
+form[name=projectModifyForm] .center .budget_def_left
+.budgettot input {
+  width: 100px;
+}
+form[name=projectModifyForm] .center .budget_def_left
+.daystot {
+  float: left;
+  width: 200px;
+}
+form[name=projectModifyForm] .center .budget_def_left
+.daystot p {
+  float: left;
+  width: 95px;
+}
+form[name=projectModifyForm] .center .budget_def_left
+.daystot input {
+  width: 100px;
+}
+form[name=projectModifyForm] .center .budget_def_left
+.budget_period {
 	float: left;
 	width: 480px;
 	margin-right: 20px;
   margin-bottom: 10px;
 }
-form[name=projectModifyForm] .center .budget_def
+form[name=projectModifyForm] .center .budget_def_left
 .budget_period .datepickerfrom {
 	float: left;
 	width: 220px;
 	margin-right: 10px;
 }
-form[name=projectModifyForm] .center .budget_def
+form[name=projectModifyForm] .center .budget_def_left
 .budget_period .datepickerfrom label {
   margin-top: 10px;
 }
-form[name=projectModifyForm] .center .budget_def
+form[name=projectModifyForm] .center .budget_def_left
 .budget_period .datepickerfrom img {
   margin-bottom: 3px;
   width: 26px;
 	height: 26px;
 }
-
-form[name=projectModifyForm] .center .budget_def
+form[name=projectModifyForm] .center .budget_def_left
 .budget_period .datepickerto {
 	float: left;
 	width: 220px;
 	margin-right: 10px;
 }
-form[name=projectModifyForm] .center .budget_def
+form[name=projectModifyForm] .center .budget_def_left
 .budget_period .datepickerto label {
   margin-top: 10px;
 }
-form[name=projectModifyForm] .center .budget_def
+form[name=projectModifyForm] .center .budget_def_left
 .budget_period .datepickerto img {
   margin-bottom: 3px;
   width: 26px;
 	height: 26px;
 }
 
+form[name=projectModifyForm] .center .budget_def_right {
+  flex-basis: 450px;
+  order: 2;
+}
+
+/*----- budget distrib -----*/
 form[name=projectModifyForm] .center .budget_distrib {
 	float: left;
 	width: 1000px;

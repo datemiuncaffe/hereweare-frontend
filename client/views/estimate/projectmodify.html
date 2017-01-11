@@ -25,36 +25,40 @@
 		</div>
 		<div class="center">
 			<div class="budget_def">
-				<div class="form-group budgettot" ng-class="{'has-error' : projectModifyForm.projectbudgettot.$invalid && submitted}">
-					<p>Budget totale:</p>
-					<input class="ng-binding" ng-model="project.budgettot" name="projectbudgettot" required></input>
-					<p ng-show="projectModifyForm.projectbudgettot.$invalid && submitted" class="errormessage">
-						Inserisci il budget totale del progetto</p>
-				</div>
-				<div class="form-group budgettot">
-					<p>Giorni totali:</p>
-					<input class="ng-binding" ng-model="project.daystot" name="projectdaystot"></input>
-				</div>
-				<div class="budget_period">
-					<h4>Scegli l'intervallo</h4>
-					<div class="datepickerfrom">
-						<label for="datepickerfrom">Da:</label>
-						<input class="ng-binding" id="datepickerfrom" type="text"
-									ng-model="project.from" size="10" name="datepickerfrom"
-									ng-blur="getBudgets(project.budgettot, project.from, project.to)" required>
-						<img src="./../../img/datepik.gif" ng-click="datepickerfrom.show()"></img>
-						<p ng-show="projectModifyForm.datepickerfrom.$invalid && submitted" class="errormessage">
-							Inserisci la data di inizio progetto</p>
+				<div class="budget_def_left">
+					<div class="form-group budgettot" ng-class="{'has-error' : projectModifyForm.projectbudgettot.$invalid && submitted}">
+						<p>Budget totale:</p>
+						<input class="ng-binding" ng-model="project.budgettot" name="projectbudgettot" required></input>
+						<p ng-show="projectModifyForm.projectbudgettot.$invalid && submitted" class="errormessage">
+							Inserisci il budget totale del progetto</p>
 					</div>
-					<div class="datepickerto">
-						<label for="datepickerto">A:</label>
-						<input class="ng-binding" id="datepickerto" type="text"
-									ng-model="project.to" size="10" name="datepickerto"
-									ng-blur="getBudgets(project.budgettot, project.from, project.to)" required>
-						<img src="./../../img/datepik.gif" ng-click="datepickerto.show()"></img>
-						<p ng-show="projectModifyForm.datepickerto.$invalid && submitted" class="errormessage">
-							Inserisci la data di fine progetto</p>
+					<div class="form-group daystot">
+						<p>Giorni totali:</p>
+						<input class="ng-binding" ng-model="project.daystot" name="projectdaystot"></input>
 					</div>
+					<div class="budget_period">
+						<h4>Scegli l'intervallo</h4>
+						<div class="datepickerfrom">
+							<label for="datepickerfrom">Da:</label>
+							<input class="ng-binding" id="datepickerfrom" type="text"
+										ng-model="project.from" size="10" name="datepickerfrom"
+										ng-blur="getBudgets(project.budgettot, project.from, project.to)" required>
+							<img src="./../../img/datepik.gif" ng-click="datepickerfrom.show()"></img>
+							<p ng-show="projectModifyForm.datepickerfrom.$invalid && submitted" class="errormessage">
+								Inserisci la data di inizio progetto</p>
+						</div>
+						<div class="datepickerto">
+							<label for="datepickerto">A:</label>
+							<input class="ng-binding" id="datepickerto" type="text"
+										ng-model="project.to" size="10" name="datepickerto"
+										ng-blur="getBudgets(project.budgettot, project.from, project.to)" required>
+							<img src="./../../img/datepik.gif" ng-click="datepickerto.show()"></img>
+							<p ng-show="projectModifyForm.datepickerto.$invalid && submitted" class="errormessage">
+								Inserisci la data di fine progetto</p>
+						</div>
+					</div>
+				</div>
+				<div class="budget_def_right">
 				</div>
 			</div>
 			<div class="spacer"></div>
