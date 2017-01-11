@@ -147,49 +147,39 @@ form[name=projectModifyForm] .center .budget_distrib .budgetvalues
   height: 30px;
 }
 
-/*
-form[name=projectModifyForm] .center .sal {
-  float: left;
-  width: 1000px;
+form[name=projectModifyForm] .center .budget_distrib .budgetvalues
+.windowdetail {
+	float: left;
+  clear: both;
+  line-height: 40px;
+  margin-bottom: 3px;
 }
-form[name=projectModifyForm] .center .sal .salvalues {
-  float: left;
-  width: 100px;
+form[name=projectModifyForm] .center .budget_distrib .budgetvalues
+.windowdetail table {
+  border-collapse: separate;
+  border-spacing: 2px;
 }
-form[name=projectModifyForm] .center .sal .salpercentage {
-  float: left;
-  width: 100px;
+form[name=projectModifyForm] .center .budget_distrib .budgetvalues
+.windowdetail table td {
+  line-height: 25px;
+  width: 25px;
+  text-align: center;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  /*float:left;
+  margin-right: 20px;*/
 }
-form[name=projectModifyForm] .center .sal .salpercentage input {
-  width: 100px;
+form[name=projectModifyForm] .center .budget_distrib .budgetvalues
+.windowdetail table td:nth-child(1) {
+  line-height: 25px;
+  width: 65px;
+  text-align: left;
+  border: none;
+  /*float:left;
+  margin-right: 20px;*/
 }
 
-form[name=projectModifyForm] .center .budget_to_sal {
-  float: left;
-  width: 1000px;
-}
-*/
-
-/*
-form[name=projectModifyForm] .center p {
-  width: 120px;
-  display: inline-block;
-}
-form[name=projectModifyForm] .center span {
-  display: inline-block;
-}
-form[name=projectModifyForm] .center input {
-  display: inline-block;
-  font-size: 14px;
-  color: #555;
-  height: 34px;
-  line-height: 1.42857;
-  transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
-}
-form[name=projectModifyForm] .center select {
-  display: inline-block;
-}
-*/
 
 form[name=projectModifyForm] .center p.errormessage {
   color: #a94442;
