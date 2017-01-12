@@ -13,15 +13,15 @@
         }).then(function(data) {
           //console.log('employee_costs: ' +
           //  JSON.stringify(data, null, '\t'));
-          var res = [];
+          var res = {
+            internalCosts: []
+          };
           if (data && data.result &&
               data.result.EHOUR_USERS) {
-            res = data.result.EHOUR_USERS;
-            console.log('employee_costs: ' +
-              JSON.stringify(res, null, '\t'));
+            res.internalCosts = data.result.EHOUR_USERS;
             if (options && options.sorting &&
                 options.sorting == 'LASTNAME_FIRSTNAME') {
-              sortByLastNameFirstName(res);
+              sortByLastNameFirstName(res.internalCosts);
             }
           }
           cb(null, res);

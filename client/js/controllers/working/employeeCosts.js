@@ -17,12 +17,8 @@ angular
 		};
 
 		function showData(err, data) {
-			$scope.employee_costs = data;
-			if ($scope.employee_costs.length > 0) {
-				// var table = d3.select("form[name=employeeCostsForm] " +
-				// 							"div.employee_costs")
-				// 							.append("table")
-				// 							.attr("style", "table-layout:fixed;"),
+			if (data && data.internalCosts && data.internalCosts.length > 0) {
+				$scope.employee_costs = data.internalCosts;
 				var table = d3.select("form[name=employeeCostsForm] " +
 											"div.employee_costs table");
 				var	thead = table.append("thead"),
