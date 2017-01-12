@@ -1,7 +1,9 @@
 angular
 	.module("app")
-	.controller("ProjectModifyController", ['$scope', '$resource', '$q', '$stateParams', 'crud',
-	                                        function($scope, $resource, $q, $stateParams, crud) {
+	.controller("ProjectModifyController",
+				['$scope', '$resource', '$q', '$stateParams', 'crud', 'internalCosts',
+		    function($scope, $resource, $q, $stateParams, crud, internalCosts) {
+
 			/* entities */
 	    $scope.customer = {
 	    	name: null
@@ -80,6 +82,20 @@ angular
 	    }
 	    /* end loading data */
 
+			function getEmployeeCosts() {
+		    var deferred = $q.defer();
+
+				internalCosts.getEmployeeCosts(null, function(err, data) {
+					if (err) {
+						deferred.reject('error: ' + err);
+					} else {
+						deferred.resolve(data);
+					}
+				});
+
+		    return deferred.promise;
+			};
+
 			function loadData(project_id) {
 				var projectId = {
 					id: project_id
@@ -88,12 +104,23 @@ angular
 	    	$q.all([
 					crud.GET.LOCAL.getBudgets(projectId)
 							.then(function(res){
-								console.log('success res: ' + JSON.stringify(res, null, '\t'));
+								//console.log('success res: ' + JSON.stringify(res, null, '\t'));
 								return res;
 							}, function(error){
 								var res = {
 									status: error.status,
 									statusText: error.statusText
+								}
+								console.log('error: ' + JSON.stringify(res, null, '\t'));
+								return res;
+							}),
+					getEmployeeCosts()
+							.then(function(res){
+								//console.log('success res: ' + JSON.stringify(res, null, '\t'));
+								return res;
+							}, function(error){
+								var res = {
+									error: JSON.stringify(error, null, '\t')
 								}
 								console.log('error: ' + JSON.stringify(res, null, '\t'));
 								return res;

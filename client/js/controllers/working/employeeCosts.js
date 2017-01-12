@@ -2,9 +2,9 @@ angular
 	.module("app")
 	.controller("EmployeeCostsController",
 			['$scope', '$stateParams', 'crud', '$compile',
-			 'FileSaver', 'Blob', 'excelgen',
+			 'FileSaver', 'Blob', 'excelgen', 'internalCosts',
 	    function($scope, $stateParams, crud, $compile,
-				FileSaver, Blob, excelgen) {
+				FileSaver, Blob, excelgen, internalCosts) {
 
 		$scope.employee_costs = [];
 		var datatoexport = {};
@@ -13,42 +13,36 @@ angular
 
 		function loadEmployeeCosts() {
 			// query redis
-			crud.GET.LOCAL.getEmployeeCosts({
-				key: 'EHOUR_USERS',
-				datatype: 'zset'
-			}).then(function(data) {
+			internalCosts.getEmployeeCosts(null, showData);
+		};
 
-				$scope.employee_costs = data.result.EHOUR_USERS;
-				console.log('employee_costs: ' +
-					JSON.stringify($scope.employee_costs, null, '\t'));
+		function showData(err, data) {
+			$scope.employee_costs = data;
+			if ($scope.employee_costs.length > 0) {
+				// var table = d3.select("form[name=employeeCostsForm] " +
+				// 							"div.employee_costs")
+				// 							.append("table")
+				// 							.attr("style", "table-layout:fixed;"),
+				var table = d3.select("form[name=employeeCostsForm] " +
+											"div.employee_costs table");
+				var	thead = table.append("thead"),
+						tbody = table.append("tbody"),
+						tfoot = table.append("tfoot");
 
-				if ($scope.employee_costs.length > 0) {
-					// var table = d3.select("form[name=employeeCostsForm] " +
-					// 							"div.employee_costs")
-					// 							.append("table")
-					// 							.attr("style", "table-layout:fixed;"),
-					var table = d3.select("form[name=employeeCostsForm] " +
-												"div.employee_costs table");
-					var	thead = table.append("thead"),
-							tbody = table.append("tbody"),
-							tfoot = table.append("tfoot");
+				// prepare header e footer of table
+				preparetable(thead, tfoot);
+				// render the table
+				tabulate($scope.employee_costs,
+					["userId", "firstName", "lastName",
+					 "userName", "email", "internalCost"],
+					tbody);
 
-					// prepare header e footer of table
-					preparetable(thead, tfoot);
-					// render the table
-					tabulate($scope.employee_costs,
-						["userId", "firstName", "lastName",
-						 "userName", "email", "internalCost"],
-					 	tbody);
-
-					var footerdata = ["", "", "", "", "", ""];
-					datatoexport.header = ["USER_ID", "FIRST_NAME", "LAST_NAME",
-								 "USERNAME", "EMAIL", "COSTO INTERNO"];
-					datatoexport.rows = data.result.ehourUsers;
-					datatoexport.footer = footerdata;
-				}
-
-			});
+				var footerdata = ["", "", "", "", "", ""];
+				datatoexport.header = ["USER_ID", "FIRST_NAME", "LAST_NAME",
+							 "USERNAME", "EMAIL", "COSTO INTERNO"];
+				datatoexport.rows = data;
+				datatoexport.footer = footerdata;
+			}
 		};
 
 		function preparetable(thead, tfoot) {
