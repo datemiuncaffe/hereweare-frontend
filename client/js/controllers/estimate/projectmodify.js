@@ -20,6 +20,13 @@ angular
 	    	budgets: []
 	    };
 			var budgetsStatus = [];
+
+			$scope.employeesWithCosts = {
+				label: "Sensei developers",
+				allowedTypes: ["developer", "projectOwner"],
+				max: 100,
+				items: []
+			};
 	    /* end entities */
 
 			/* datepickers */
@@ -159,6 +166,23 @@ angular
 						setBudgetsDays();
 						console.log('budgets: ' + JSON.stringify($scope.project.budgets, null, '\t'));
 					}
+				}
+				if (data[1] && data[1].internalCosts &&
+						data[1].internalCosts.length > 0) {
+					//$scope.employeesWithCosts.max = data[1].internalCosts.length;
+					$scope.employeesWithCosts.max = 4;
+					data[1].internalCosts.forEach(function(internalCost) {
+						var item = {};
+						if (internalCost.lastName &&
+								internalCost.lastName.length > 0 &&
+								internalCost.firstName &&
+								internalCost.firstName.length > 0) {
+							item.name = internalCost.lastName + '-' +
+													internalCost.firstName;
+						}
+						item.type = "developer";
+						$scope.employeesWithCosts.items.push(item);
+					});
 				}
 			};
 

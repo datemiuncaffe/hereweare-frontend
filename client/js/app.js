@@ -14,7 +14,8 @@ angular
     'table.service',
     'ehourqueries',
     'export-service',
-    'ngStorage'
+    'ngStorage',
+    'dndLists'
   ])
   .config(['$stateProvider', '$urlRouterProvider', '$provide', function($stateProvider, $urlRouterProvider, $provide) {
       $stateProvider
