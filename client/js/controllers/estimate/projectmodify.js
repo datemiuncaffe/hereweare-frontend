@@ -27,6 +27,12 @@ angular
 				max: 100,
 				items: []
 			};
+			$scope.projectTeam = {
+				label: "Project team",
+				allowedTypes: ["developer", "projectOwner"],
+				max: 100,
+				members: []
+			};
 	    /* end entities */
 
 			/* datepickers */
@@ -171,14 +177,18 @@ angular
 						data[1].internalCosts.length > 0) {
 					//$scope.employeesWithCosts.max = data[1].internalCosts.length;
 					$scope.employeesWithCosts.max = 4;
-					data[1].internalCosts.forEach(function(internalCost) {
+					data[1].internalCosts.forEach(function(internalCost, index) {
 						var item = {};
+						item.id = index;
 						if (internalCost.lastName &&
 								internalCost.lastName.length > 0 &&
 								internalCost.firstName &&
 								internalCost.firstName.length > 0) {
 							item.name = internalCost.lastName + '-' +
 													internalCost.firstName;
+						}
+						if (internalCost.internalCost) {
+							item.internalCost = internalCost.internalCost;
 						}
 						item.type = "developer";
 						$scope.employeesWithCosts.items.push(item);

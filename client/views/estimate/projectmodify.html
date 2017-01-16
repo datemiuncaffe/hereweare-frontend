@@ -60,12 +60,35 @@
 				</div>
 				<div class="budget_def_right">
 					<div class="team_choice">
-						<!--h4>Seleziona gli sviluppatori</h4-->
 						<div class="team">
 							<div class="team_header">
 								<h3>Team</h3>
 							</div>
 							<div class="team_body">
+								<ul dnd-list="projectTeam.members"
+								    dnd-allowed-types="projectTeam.allowedTypes">
+								    <li ng-repeat="mem in projectTeam.members"
+								        dnd-draggable="mem"
+								        dnd-type="mem.type"
+								        dnd-disable-if="mem.type == 'unknown'"
+								        dnd-moved="projectTeam.members.splice($index, 1)"
+								        dnd-effect-allowed="move"
+								        class="background-{{mem.type}}">
+												<div dnd-handle class="handle">
+													:::
+												</div>
+												<div class="name">
+													<p>{{mem.id}}</p>
+													<p>{{mem.name}}</p>
+													<p>{{mem.internalCost}}</p>
+												</div>
+								    </li>
+								    <li class="dndPlaceholder">
+								        Drop any
+												<strong>{{projectTeam.allowedTypes.join(' or ')}}</strong>
+												here
+								    </li>
+								</ul>
 							</div>
 						</div>
 						<div class="choice">
@@ -75,10 +98,6 @@
 							<div class="choice_body">
 								<ul dnd-list="employeesWithCosts.items"
 								    dnd-allowed-types="employeesWithCosts.allowedTypes">
-								<!--ul dnd-list="employeesWithCosts.items"
-								    dnd-allowed-types="employeesWithCosts.allowedTypes"
-								    dnd-disable-if="employeesWithCosts.items.length >= employeesWithCosts.max"-->
-
 								    <li ng-repeat="emp in employeesWithCosts.items"
 								        dnd-draggable="emp"
 								        dnd-type="emp.type"
@@ -90,7 +109,9 @@
 													:::
 												</div>
 												<div class="name">
+													<p>{{emp.id}}</p>
 													<p>{{emp.name}}</p>
+													<p>{{emp.internalCost}}</p>
 												</div>
 								    </li>
 								    <li class="dndPlaceholder">
