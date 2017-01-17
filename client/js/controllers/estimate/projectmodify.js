@@ -17,6 +17,12 @@ angular
 	    	budgettot: null,
 	    	daystot: null,
 	    	customerId: null,
+				team: {
+					label: "Project team",
+					allowedTypes: ["developer", "projectOwner"],
+					max: 100,
+					members: []
+				},
 	    	budgets: []
 	    };
 			var budgetsStatus = [];
@@ -26,13 +32,7 @@ angular
 				allowedTypes: ["developer", "projectOwner"],
 				max: 100,
 				items: []
-			};
-			$scope.projectTeam = {
-				label: "Project team",
-				allowedTypes: ["developer", "projectOwner"],
-				max: 100,
-				members: []
-			};
+			};			
 	    /* end entities */
 
 			/* datepickers */

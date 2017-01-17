@@ -65,13 +65,13 @@
 								<h3>Team</h3>
 							</div>
 							<div class="team_body">
-								<ul dnd-list="projectTeam.members"
-								    dnd-allowed-types="projectTeam.allowedTypes">
-								    <li ng-repeat="mem in projectTeam.members"
+								<ul dnd-list="project.team.members"
+								    dnd-allowed-types="project.team.allowedTypes">
+								    <li ng-repeat="mem in project.team.members"
 								        dnd-draggable="mem"
 								        dnd-type="mem.type"
 								        dnd-disable-if="mem.type == 'unknown'"
-								        dnd-moved="projectTeam.members.splice($index, 1)"
+								        dnd-moved="project.team.members.splice($index, 1)"
 								        dnd-effect-allowed="move"
 								        class="background-{{mem.type}}">
 												<div dnd-handle class="handle">
@@ -85,7 +85,9 @@
 								    </li>
 								    <li class="dndPlaceholder">
 								        Drop any
-												<strong>{{projectTeam.allowedTypes.join(' or ')}}</strong>
+												<strong>
+													{{project.team.allowedTypes.join(' or ')}}
+												</strong>
 												here
 								    </li>
 								</ul>
