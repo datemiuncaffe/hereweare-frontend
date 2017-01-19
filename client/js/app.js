@@ -100,6 +100,15 @@ angular
     		  }
     		}
       })
+      .state('giornicommessautentewithcomments', {
+    		url: '/giornicommessautentewithcomments?year&month&projectCode',
+    		views:{
+    		  'giornicommessautentewithcommentsview': {
+    	         templateUrl: 'views/ehourqueries/giornicommessautentewithcomments.html',
+    	         controller: 'giorniCommessaUtenteWithCommentsController'
+    		  }
+    		}
+      })
       .state('giornicommessa', {
     		url: '/giornicommessa',
     		views:{

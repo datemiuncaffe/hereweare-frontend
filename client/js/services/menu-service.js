@@ -11,20 +11,26 @@
         {name: 'Progetti', type: 'toggle', pages: [
           {name: 'Attivi', type: 'link', state: 'activeprojects', icon: ''},
           {name: 'Interni', type: 'link', state: 'senseiprojects', icon: ''},
-          {name: 'Nuovi', type: 'link', state: 'newprojects', icon: ''}]},
+          {name: 'Nuovi', type: 'link', state: 'newprojects', icon: ''}]
+        },
         {name: 'Riepilogo dipendenti', type: 'toggle', pages: [
           {name: 'Ore mese', type: 'link', state: 'oremese', icon: ''},
-          {name: 'GG commessa dip.', type: 'link', state: 'giornicommessautente', icon: ''}]},
+          {name: 'GG commessa dip.', type: 'link', state: 'giornicommessautente', icon: ''},
+          {name: 'GG dip. commentati', type: 'link', state: 'giornicommessautentewithcomments', icon: ''}]
+        },
         {name: 'Riepilogo commesse', type: 'toggle', pages: [
           {name: 'GG commessa', type: 'link', state: 'giornicommessa', icon: ''},
           {name: 'GG erogate', type: 'link', state: 'giorni', icon: ''},
           {name: 'GG cliente', type: 'link', state: 'giornicliente', icon: ''},
-          {name: 'GG cliente progetto', type: 'link', state: 'giorniclienteprogetto', icon: ''}]},
+          {name: 'GG cliente progetto', type: 'link', state: 'giorniclienteprogetto', icon: ''}]
+        },
         {name: 'Reporting', type: 'toggle', pages: [
-          {name: 'Per dipendente', type: 'link', state: 'employeefilter', icon: ''}]},
+          {name: 'Per dipendente', type: 'link', state: 'employeefilter', icon: ''}]
+        },
         {name: 'Budgets', type: 'tree', pages: []},
-		{name: 'Working', type: 'toggle', pages: [
-		  {name: 'Costi interni', type: 'link', state: 'employeecosts', icon: ''}]}
+		    {name: 'Working', type: 'toggle', pages: [
+		      {name: 'Costi interni', type: 'link', state: 'employeecosts', icon: ''}]
+        }
       ],
       orizontalSections: [
         {name: 'Overview', type: 'link', state: 'overview'},
@@ -32,17 +38,22 @@
         {name: 'Progetti', type: 'toggle', width: '400px', pages: [
           {name: 'Attivi', type: 'link', state: 'activeprojects', icon: ''},
           {name: 'Interni', type: 'link', state: 'senseiprojects', icon: ''},
-          {name: 'Nuovi', type: 'link', state: 'newprojects', icon: ''}]},
+          {name: 'Nuovi', type: 'link', state: 'newprojects', icon: ''}]
+        },
         {name: 'Riepilogo dipendenti', type: 'toggle', pages: [
           {name: 'Ore mese', type: 'link', state: 'oremese', icon: ''},
-          {name: 'GG commessa dip.', type: 'link', state: 'giornicommessautente', icon: ''}]},
+          {name: 'GG commessa dip.', type: 'link', state: 'giornicommessautente', icon: ''},
+          {name: 'GG dip. commentati', type: 'link', state: 'giornicommessautentewithcomments', icon: ''}]
+        },
         {name: 'Riepilogo commesse', type: 'toggle', pages: [
           {name: 'GG commessa', type: 'link', state: 'giornicommessa', icon: ''},
           {name: 'GG erogate', type: 'link', state: 'giorni', icon: ''},
           {name: 'GG cliente', type: 'link', state: 'giornicliente', icon: ''},
-          {name: 'GG cliente progetto', type: 'link', state: 'giorniclienteprogetto', icon: ''}]},
+          {name: 'GG cliente progetto', type: 'link', state: 'giorniclienteprogetto', icon: ''}]
+        },
         {name: 'Reporting', type: 'toggle', pages: [
-          {name: 'Per dipendente', type: 'link', state: 'employeefilter', icon: ''}]}
+          {name: 'Per dipendente', type: 'link', state: 'employeefilter', icon: ''}]
+        }
       ]
     };
 

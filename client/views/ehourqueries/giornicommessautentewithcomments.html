@@ -1,11 +1,11 @@
-<h1>Ore e Giornate erogate per commessa e per dipendente</h1>
+<h1>Ore erogate per commessa e per dipendente con commenti giornalieri</h1>
 <hr>
-<section id="ggcommessautente" class="ehourtables">
+<section id="ggcommessautentewithcomments" class="ehourtables">
 	<div class="top">
 	</div>
 	<div class="center">
 		<div class="list-group">
-			<div ng-controller="GiorniCommessaUtenteController as ggCommessaUtCtrl">
+			<div ng-controller="giorniCommessaUtenteWithCommentsController as ggCommessaUtWCommCtrl">
 				<!-- <div class="csvsaverdiv"> -->
 				<form class="saverdiv">
 					<!--input id="XLSreader" name="XLSreader" type="file">Carica un excel</input-->
@@ -35,15 +35,12 @@
 					</div>
 				</form>
 
-				<!-- <table ng-table="ggCommessaUtCtrl.tableParams"
-					class="table table-bordered table-striped table-condensed ehourdata"
-					show-filter="true" show-group="true"> -->
-				<table ng-table="ggCommessaUtCtrl.tableParams"
+				<table ng-table="ggCommessaUtWCommCtrl.tableParams"
 					class="table table-bordered table-striped table-condensed ehourdata"
 					show-filter="true">
 
 					<tr class="ng-table-group" ng-repeat-start="group in $groups">
-						<td colspan="9">
+						<td colspan="10">
 							<a href="" ng-click="group.$hideRows = !group.$hideRows">
 								<span class="glyphicon"
 									ng-class="{ 'glyphicon-chevron-right': group.$hideRows, 'glyphicon-chevron-down': !group.$hideRows }">
@@ -54,18 +51,37 @@
 					</tr>
 
 					<tr ng-hide="group.$hideRows" ng-repeat="row in group.data">
-					  <td data-title="'ANNO'" filter="{anno: 'text'}" sortable="'anno'">{{row.anno}}</td>
-						<td data-title="'MESE'" filter="ggCommessaUtCtrl.monthFilterByInterval" sortable="'mese'">{{row.mese}}</td>
-					  <td data-title="'CLIENTE'" filter="{nomeCliente: 'text'}" sortable="'nomeCliente'">{{row.nomeCliente}}</td>
+					  <td data-title="'ANNO'" filter="{anno: 'text'}" sortable="'anno'">
+							{{row.anno}}
+						</td>
+						<td data-title="'MESE'" filter="ggCommessaUtWCommCtrl.monthFilterByInterval" sortable="'mese'">
+							{{row.mese}}
+						</td>
+						<td data-title="'GIORNO DEL MESE'" filter="{dayOfMonth: 'text'}" sortable="'dayOfMonth'">
+							{{row.dayOfMonth}}
+						</td>
+					  <td data-title="'CLIENTE'" filter="{nomeCliente: 'text'}" sortable="'nomeCliente'">
+							{{row.nomeCliente}}
+						</td>
 					  <td data-title="'CODICE PROGETTO'" filter="{codiceProgetto: 'text'}" sortable="'codiceProgetto'">{{row.codiceProgetto}}</td>
 					  <td data-title="'PROGETTO'" filter="{nomeProgetto: 'text'}" sortable="'nomeProgetto'">{{row.nomeProgetto}}</td>
-					  <td data-title="'NOME'" filter="{nomeDipendente: 'text'}" sortable="'nomeDipendente'">{{row.nomeDipendente}}</td>
-						<td data-title="'COGNOME'" filter="{cognomeDipendente: 'text'}" sortable="'cognomeDipendente'">{{row.cognomeDipendente}}</td>
-						<td data-title="'ORE'" sortable="'oreMese'">{{row.oreMese}}</td>
-						<td data-title="'GIORNATE'" sortable="'giornateMese'">{{row.giornateMese}}</td>
+					  <td data-title="'NOME'" filter="{nomeDipendente: 'text'}" sortable="'nomeDipendente'">
+							{{row.nomeDipendente}}
+						</td>
+						<td data-title="'COGNOME'" filter="{cognomeDipendente: 'text'}" sortable="'cognomeDipendente'">
+							{{row.cognomeDipendente}}
+						</td>
+						<td data-title="'COMMENTO'" sortable="'comment'">
+							{{row.comment}}
+						</td>
+						<td data-title="'ORE'" sortable="'oreMese'">
+							{{row.oreMese}}
+						</td>
 					</tr>
 
 					<tr class="ggcommessautenteTableTotals" ng-repeat-end>
+						<td></td>
+						<td></td>
 						<td></td>
 						<td></td>
 						<td></td>
@@ -78,13 +94,12 @@
             <td>
 							<em>{{ sumGrouped(group.data, "oreMese") }}</em>
 						</td>
-						<td>
-							<em>{{ sumGrouped(group.data, "giornateMese") }}</em>
-						</td>
         	</tr>
 
 					<tfoot ng-if="isLastPage()">
 	          <tr>
+							<td></td>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -96,9 +111,6 @@
 							</td>
 	            <td>
 								<em>{{ totalHours }}</em>
-							</td>
-							<td>
-								<em>{{ totalDays }}</em>
 							</td>
 	          </tr>
 	        </tfoot>

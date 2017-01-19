@@ -1,6 +1,6 @@
 angular
   .module('ehourqueries')
-  .controller('GiorniCommessaUtenteController',
+  .controller('giorniCommessaUtenteWithCommentsController',
       ['$scope', '$state', 'NgTableParams', '$resource', 'resourceBaseUrl',
        '$stateParams', 'FileSaver', 'Blob', 'excelgen',
        '$rootScope', 'crud',
@@ -11,7 +11,7 @@ angular
     var now = moment();
     var currentYear = now.year();
     var currentMonth = now.month() + 1;
-    console.log('inside GiorniCommessaUtenteController: year = ' +
+    console.log('inside giorniCommessaUtenteWithCommentsController: year = ' +
         currentYear + '; month = ' + currentMonth);
 
     // set table filter
@@ -24,19 +24,14 @@ angular
     $scope.totalHours = 0;
     $scope.totalDays = 0;
 
-	/* ---------------------------- */
+	  /* ------------------------------ */
     /* ---- custom table grouping ---- */
-    /* ---------------------------- */
-    //var tablegroups = "mese";
-    // var groupByMonth = function(item) {
-    //   return item.mese;
-    // };
-    // groupByMonth.title = "Mese";
-    // groupByMonth.sortDirection = "asc";
+    /* ------------------------------ */
 
     $scope.tableGrouping = {
       items: [
         {label: "MESE", group: "mese"},
+        {label: "GIORNO DEL MESE", group: "dayOfMonth"},
         {label: "CLIENTE", group: "nomeCliente"},
         {label: "CODICE PROGETTO", group: "codiceProgetto"},
         {label: "PROGETTO", group: "nomeProgetto"},
@@ -60,28 +55,9 @@ angular
         //console.log('list: ' + JSON.stringify(list, null, '\t'));
         return list.indexOf(item.group) > -1;
       },
-      // isIndeterminate: function() {
-      //   return ($scope.tableGrouping.selected.length !== 0 &&
-      //           $scope.tableGrouping.selected.length !==
-      //           $scope.tableGrouping.items.length);
-      // },
-      // isChecked: function() {
-      //   return $scope.tableGrouping.selected.length ===
-      //          $scope.tableGrouping.items.length;
-      // },
-      // toggleAll: function() {
-      //   if ($scope.tableGrouping.selected.length ===
-      //       $scope.tableGrouping.items.length) {
-      //     $scope.tableGrouping.selected = [];
-      //   } else if ($scope.tableGrouping.selected.length === 0 ||
-      //              $scope.tableGrouping.selected.length > 0) {
-      //     $scope.tableGrouping.selected =
-      //       $scope.tableGrouping.items.slice(0);
-      //   }
-      // },
       hideGroupRow: function() {
         //var selector = "section#ggcommessautente table.ehourdata thead";
-        var selector = "section#ggcommessautente table.ehourdata";
+        var selector = "section#ggcommessautentewithcomments table.ehourdata";
         var elem = angular.element(selector);
         var elemScope = elem.scope();
         elemScope.$groupRow.show = false;
@@ -92,7 +68,8 @@ angular
         if (row != null) {
           return row["mese"];
         } else {
-          var selector = "section#ggcommessautente table.ehourdata thead";
+          var selector =
+            "section#ggcommessautentewithcomments table.ehourdata thead";
           var elem = angular.element(selector);
           var elemScope = elem.scope().$$childHead;
           if (angular.isFunction(elemScope.groupBy) &&
@@ -117,13 +94,14 @@ angular
     if ($stateParams.projectCode != null && $stateParams.projectCode.length > 0) {
 			tablefilter.codiceProgetto = $stateParams.projectCode;
 		}
-    console.log('tablefilter = ' + JSON.stringify(tablefilter, null, '\t'));
+    console.log('tablefilter = ' +
+      JSON.stringify(tablefilter, null, '\t'));
 
-    var query = $resource('http://' + resourceBaseUrl + '/query_giorni_lav_commessa_utente_mese');
+    var query = $resource('http://' + resourceBaseUrl +
+      '/query_giorni_lav_commessa_utente_mese_with_comments');
 
     ref.tableParams = new NgTableParams({
         filter: tablefilter,
-        //group: "cognomeDipendente"
         group: $scope.tableGrouping.grouptable
       },
       {
@@ -138,17 +116,17 @@ angular
     			// ajax request to back end
     			return query.get(params.url()).$promise.then(function(data) {
     				var res = [];
-    				if (data != null && data.giorniCommessaUtente != null && data.giorniCommessaUtente.length > 0) {
-    					console.log('data giorni Commessa Utente: ' + JSON.stringify(data.giorniCommessaUtente, null, '\t'));
-    					res = data.giorniCommessaUtente;
+    				if (data != null &&
+                data.giorniCommessaUtenteWithComments != null &&
+                data.giorniCommessaUtenteWithComments.length > 0) {
+    					console.log('data giorni Commessa Utente con commenti: ' +
+                JSON.stringify(data.giorniCommessaUtenteWithComments, null, '\t'));
+    					res = data.giorniCommessaUtenteWithComments;
     				}
 
             $scope.totalHours =
               $scope.sumGrouped(res, "oreMese");
-            $scope.totalDays =
-              $scope.sumGrouped(res, "giornateMese");
-            //console.log('totalHours: ' + $scope.totalHours +
-            //            'totalDays: ' + $scope.totalDays);
+            //console.log('totalHours: ' + $scope.totalHours);
 
     				return res;
     			});
@@ -253,7 +231,7 @@ angular
         // body and sum
         var ret = [];
         var header = ["ANNO", "MESE", "CLIENTE", "CODICE PROGETTO",
-          "PROGETTO", "NOME", "COGNOME", "ORE", "GIORNATE"];
+          "PROGETTO", "NOME", "COGNOME", "ORE", "COMMENTO"];
         ret.push('"' + header.join('","') + '"');
 
         var groupdata = group.data;
@@ -309,10 +287,8 @@ angular
               line.push('""');
             }
 
-            if (groupdata[i].hasOwnProperty("giornateMese")) {
-              line.push('"' +
-                groupdata[i]["giornateMese"].replace(",",".") +
-                '"');
+            if (groupdata[i].hasOwnProperty("comment")) {
+              line.push('"' + groupdata[i]["comment"] + '"');
             } else {
               line.push('""');
             }
@@ -320,8 +296,7 @@ angular
             ret.push(line.join(','));
         }
         var linesum = ",,,,,," + "Totali:," +
-          $scope.sumGrouped(groupdata, "oreMese") + "," +
-          $scope.sumGrouped(groupdata, "giornateMese");
+          $scope.sumGrouped(groupdata, "oreMese") + ",";
         ret.push(linesum);
         csv += ret.join('\n');
         csv += "\n";
@@ -330,8 +305,7 @@ angular
 
       // total sum
       var linetotsum = ",,,,,," + "Totali complessivi:," +
-        $scope.totalHours + "," +
-        $scope.totalDays + ",\n";
+        $scope.totalHours + ",,\n";
       csv += linetotsum;
 
       return csv;
@@ -370,7 +344,7 @@ angular
 
         // body and sum
         XLSdata.push(["ANNO", "MESE", "CLIENTE", "CODICE PROGETTO",
-          "PROGETTO", "NOME", "COGNOME", "ORE", "GIORNATE"]);
+          "PROGETTO", "NOME", "COGNOME", "ORE", "COMMENTO"]);
         var headeropts = {
           fill: {
             patternType: "solid",
@@ -436,8 +410,8 @@ angular
               line.push(null);
             }
 
-            if (groupdata[i].hasOwnProperty("giornateMese")) {
-              line.push(groupdata[i]["giornateMese"]);
+            if (groupdata[i].hasOwnProperty("comment")) {
+              line.push(groupdata[i]["comment"]);
             } else {
               line.push(null);
             }
@@ -447,8 +421,7 @@ angular
         }
         XLSdata.push([null, null, null, null,
           null, null, "Totali:",
-          $scope.sumGrouped(groupdata, "oreMese"),
-          $scope.sumGrouped(groupdata, "giornateMese")]);
+          $scope.sumGrouped(groupdata, "oreMese"), null]);
         XLSoptions.push([null, null, null, null,
           null, null, null, null, null]);
         XLSdata.push([null, null, null, null,
@@ -460,7 +433,7 @@ angular
       // total sum
       XLSdata.push([null, null, null, null,
         null, null, "Totali complessivi:",
-        $scope.totalHours, $scope.totalDays]);
+        $scope.totalHours, null]);
       XLSoptions.push([null, null, null, null,
         null, null, null, null, null]);
 
